@@ -55,25 +55,9 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     home_control();
     load_snow();
 
-}).controller('HomeV2Ctrl', function ($scope, $ionicModal) {
-    $ionicModal.fromTemplateUrl('templates/modal/02_image_me.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.modal_image_me = modal;
-    });
-
-    $scope.showImageMe = function () {
-        $scope.modal_image_me.show();
-    };
-
-    $scope.close_modal = function () {
-        $scope.modal_image_me.hide();
-    };
-    home_bx_load();
-
 }).controller('CVCtrl', function ($scope, NgMap, $ionicModal) {
 
-    send_ingredient($scope , $ionicModal);
+    //send_ingredient($scope , $ionicModal);
     $ionicModal.fromTemplateUrl('templates/modal/03_image_me_cv.html', {
         scope: $scope
     }).then(function (modal) {

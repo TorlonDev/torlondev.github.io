@@ -7,10 +7,6 @@ angular.module('starter.routes', []).config(function ($stateProvider, $urlRouter
         url: "/home",
         templateUrl: "templates/01_home.html",
         controller: 'HomeCtrl'
-    }).state('homev2', {
-        url: "/homev2",
-        templateUrl: "templates/01_home_v2.html",
-        controller: 'HomeV2Ctrl'
     }).state('cv', {
         url: "/cv",
         templateUrl: "templates/02_cv.html",

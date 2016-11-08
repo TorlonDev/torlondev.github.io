@@ -33,101 +33,6 @@ function home_control() {
     setTimeout(recur, 30000); //first_impression
 }
 
-function home_bx_load() {
-
-
-
-    $(document).ready(function () {
-
-        $('.bxslider').bxSlider({
-            pager: false,
-            onSliderLoad: function () {
-                var height_bg_slide = $('.bx-viewport').height();
-                document.getElementById("snowy2").setAttribute("style", "margin-top:" + (height_bg_slide) * (-1) + "px !important; height: " + (height_bg_slide + 10) + "px; position: relative; z-index: 2;");
-                load_snow_by_id("snowy2", height_bg_slide);
-                document.getElementById("logo").setAttribute("style", "margin-top:" + (height_bg_slide) * (-1) + "px !important; height: " + ((height_bg_slide + 10) - 30) + "px; position: relative; z-index: 4;");
-            }
-        });
-
-        $(".bx-prev").click(function () {
-            //alert("left");
-
-        });
-
-        $(".bx-next").click(function () {
-            //alert("right");
-        });
-
-    });
-
-}
-
-function load_snow_by_id(id, h) {
-    var canvas = document.getElementById(id);
-    var ctx = canvas.getContext("2d");
-
-    var W = window.innerWidth;
-    var H = h;
-    canvas.width = W;
-    canvas.height = H;
-
-    var mp = 25; //max particles
-    var particles = [];
-    for (var i = 0; i < mp; i++)
-    {
-        particles.push({
-            x: Math.random() * W, //x-coordinate
-            y: Math.random() * H, //y-coordinate
-            r: Math.random() * 4 + 1, //radius
-            d: Math.random() * mp //density
-        });
-    }
-
-    function draw()
-    {
-        ctx.clearRect(0, 0, W, H);
-
-        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-        ctx.beginPath();
-        for (var i = 0; i < mp; i++)
-        {
-            var p = particles[i];
-            ctx.moveTo(p.x, p.y);
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
-        }
-        ctx.fill();
-        update();
-    }
-    var angle = 0;
-    function update()
-    {
-        angle += 0.01;
-        for (var i = 0; i < mp; i++)
-        {
-            var p = particles[i];
-            p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
-            p.x += Math.sin(angle) * 2;
-            if (p.x > W + 5 || p.x < -5 || p.y > H)
-            {
-                if (i % 3 > 0) //66.67% of the flakes
-                {
-                    particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d};
-                } else
-                {
-                    if (Math.sin(angle) > 0)
-                    {
-                        particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d};
-                    } else
-                    {
-                        particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d};
-                    }
-                }
-            }
-        }
-    }
-    setInterval(draw, 33);
-}
-
 function load_snow() {
     var canvas = document.getElementById("snowy");
     var ctx = canvas.getContext("2d");
@@ -228,34 +133,6 @@ function getAge(fromdate, todate) {
         age.splice(age.length - 1, 0, ' And ');
     return age.join('');
 }
-
-//////////////////////// Modal Declaration ///////////////////////////////////
-var modal_obj = new Object();
-var temp_scope = new Object();
-var temp_ion_modal = new Object();
-
-function send_ingredient(scop, ionic_modal) {
-    temp_scope = scop;
-    temp_ion_modal = ionic_modal;
-}
-function modal_style(modal_title, modal_detail, $scope, $ionicModal) {
-    $scope.modal_title = modal_title;
-    $scope.modal_detail = modal_detail;
-    $ionicModal.fromTemplateUrl('templates/modal/99_modal.html', {
-        scope: $scope
-    }).then(function (modal) {
-        modal_obj = modal;
-        modal_obj.show();
-    });
-}
-function closeModal() {
-    modal_obj.hide();
-    delete(modal_obj);
-}
-function call_modal(title, detail) {
-    modal_style(title, detail, temp_scope, temp_ion_modal);
-}
-///////////////////////////// End Modal Declaration ////////////////////////
 
 function graph_cv_load() {
     $(function () {
