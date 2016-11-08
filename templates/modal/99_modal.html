@@ -1,0 +1,11 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">{{modal_title}}</h1>
+    <div class="buttons">
+      <button class="button button-clear" onclick="closeModal()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content style="padding-top: 5px; text-align: center;">
+      <div ng-bind-html="this.modal_detail"></div>
+  </ion-content>
+</ion-modal-view>

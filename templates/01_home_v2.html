@@ -1,0 +1,245 @@
+
+<style>
+    .bx-wrapper{
+        margin-bottom: 0px; /*remove space page button*/
+        border: 0px !important;
+    }
+    .bx-wrapper img {
+        width: 100%;
+    }
+    .detail_home{
+        background-color: white;
+    }
+    .logo{
+        text-align: center;
+    }
+
+    @media only screen and (min-width: 700px) {
+
+        .ban_horizon_white{
+            height: 250px;
+            width: 100%;
+            background-color: white;
+            padding-top: 20px;
+        }
+        .ban_horizon_gainsboro{
+            height: 250px;
+            width: 100%;
+            background-color: gray;
+            color: white;
+            padding-top: 20px;
+            padding-left: 20px;
+        }
+        .ban_me {
+            width: 100%;
+            background-color: gray;
+            color: white;
+            padding-top: 20px;
+            padding-left: 20px;
+        }
+        .code_img{
+            height: 200px;
+            width: 250px;
+        }
+        .me_img{
+            margin-top: -30px;
+            margin-left: 10px;
+            margin-bottom: -10px;
+            height: 250px;
+            width: 250px;
+        }
+
+    }
+    @media only screen and (max-width: 699px) {
+
+        .code_img{
+            width: 50%;
+            padding-top: 5px;
+        }
+        .me_img{
+            width: 50%;
+            padding-top: 5px;
+        }
+        .ban_horizon_gainsboro {
+            width: 100%;
+            color: white;
+            background-color: gray;
+            padding-top: 5px;
+        }
+        .ban_me {
+            width: 100%;
+            color: white;
+            background-color: gray;
+            padding-top: 5px;
+        }
+    }
+
+</style>
+
+<ion-view class="ground_home" view-title="Home">
+    <ion-content overflow-scroll="true">
+        <ul class="bxslider"> <!-- height along image highest -->
+            <li>
+                <img src="../img/cover_pic_big2.jpg" alt=""/>
+            </li>
+            <li>
+                <img src="../img/cover_pic_big1.jpg" alt=""/>
+            </li>
+            <li>
+                <img src="../img/cover_pic_big3.jpg" alt=""/>
+            </li>
+        </ul>
+        <canvas id="snowy2"></canvas>
+        <div id="logo">
+            <div class="logo_bg"></div>
+            <div class="logo_text">
+                <div class="space_logo now_rap"><b>HELLO WORLD</b></div>
+                <br/>
+
+                <div class="space_logo now_rap"><b>I AM FREELANCE</b></div>
+                <br/>
+
+                <div class="space_logo now_rap"><b>I LIKE <span id='like_txt'>READING</span></b></div>
+                <br/>
+            </div>
+        </div>
+        <div class="detail_home">
+            <div class="rowly ban_horizon_white">
+                <div class="coly-0"></div>
+                <div class="coly-10">
+                    <div class="desktop_right_50">
+                        <h2><b><span class="now_rap">I Am Web Developer</span></b></h2>
+                    </div>
+                    <div class="desktop_left_50 desktop_center mobile_center">
+                        <img class="code_img" src="../img/response.png"/>
+                    </div>
+                    <div class="desktop_right_50">
+                        <div class="story_text">
+                            - รับออกแบบ พัฒนา และแก้ไขเว็บไซต์<br/>
+                            - พัฒนา ให้รองรับหน้าจอหลายๆขนาด<br/>
+                            <b>(หน้าจอ มือถือ / Tablet / คอมพิวเตอร์)</b>
+
+                            <br/><br/>
+                            <b>
+                                <span class="now_rap">HTML /</span>
+                                <span class="now_rap">CSS /</span> 
+                                <span class="now_rap">JS /</span> 
+                                <span class="now_rap">JQuery /</span> 
+                                <span class="now_rap">Angular /</span>
+                                <span class="now_rap">Responsive Web Design</span>
+                            </b>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="coly-1"></div>
+            </div>
+            <div class="rowly ban_horizon_gainsboro">
+                <div class="coly-0"></div>
+                <div class="coly-10">
+                    <div class="desktop_left_50 desktop_left_pad_20" >
+                        <h2 style="color: white;"><b><span class="now_rap">I Am Programmer</span></b></h2>
+                    </div>
+                    <div class="desktop_right_50 desktop_center mobile_center">
+                        <img class="code_img" src="../img/code3.png" alt=""/>
+                    </div>
+                    <div class="desktop_left_50 desktop_left_pad_20">
+                        <div class="story_text">
+                            - รับงานเขียนโปรแกรม<br/>
+                            - รับสอนเขียนโปรแกรมเบื้องต้น 
+                            <br/><br/>
+                            <b>
+                                <span class="now_rap">C# /</span>
+                                <span class="now_rap">Java /</span> 
+                                <span class="now_rap">Functional /</span> 
+                                <span class="now_rap">OOP /</span> 
+                                <span class="now_rap">PHP /</span>
+                                <span class="now_rap">NodeJS /</span>
+                                <span class="now_rap">MySQL /</span>
+                                <span class="now_rap">MongoDB</span>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div class="coly-1"></div>
+            </div>
+            <div class="rowly ban_horizon_white">
+                <div class="coly-0"></div>
+                <div class="coly-10">
+                    <div class="desktop_right_50">
+                        <h2><b><span class="now_rap">I Am IT Man</span></b></h2>
+                    </div>
+                    <div class="desktop_left_50 desktop_center mobile_center">
+                        <img class="code_img" src="../img/01-5122.png"/>
+                    </div>
+                    <div class="desktop_right_50">
+                        <div class="story_text">
+                            <span class="now_rap">- รับปรึกษา แก้ไขปัญหาคอมทำงานช้า คอมติดไวรัส</span><br/>
+                            <span class="now_rap">- สามารถทำให้คอมของท่าน เปิด/ปิดเครื่องเร็วขึ้นได้</span><br/>
+                            <span class="now_rap">- ปัญหาคอมพิวเตอร์ทั่วไป เพิ่มไดร์ฟให้ฮาร์ดดิส</span><br/> 
+                            <span class="now_rap">- กู้ข้อมูลที่ลบไปแล้ว (ลบไปนานอาจกู้ไม่ได้)</span><br/>
+                            <span class="now_rap">- อาการไม่ดีขึ้น ยินดีไม่คิดเงิน</span>
+                            <br/><br/>
+                            <b>
+                                <span class="now_rap">Windows XP /</span>
+                                <span class="now_rap">Vista /</span> 
+                                <span class="now_rap">7 /</span> 
+                                <span class="now_rap">8 /</span> 
+                                <span class="now_rap">8.1 /</span>
+                                <span class="now_rap">10</span>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div class="coly-1"></div>
+            </div>
+            <div class="rowly ban_me">
+                <div class="coly-0"></div>
+                <div class="coly-10">
+                    <div>
+                        <h2 style="color: white;"><b><span class="now_rap">About Me</span></b></h2>
+                    </div>
+                    <div class="desktop_right mobile_center">
+                        <a href=""><img ng-click="showImageMe()" class="me_img" src="../img/tolcom.png" alt=""/></a>
+                    </div>
+                    <div>
+                        <div class="story_text">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hi, everyone. Torn is my name. I am Thai people in Thailand (Not is Taiwan). My hometown is Chanthaburi.
+                            My father go to heaven since I'm 10 years old. I come to Bangkok since 2008 because mother's family live here.
+                            I live with grandmother and grandfather, they are everything for me. <br/><br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I am programmer with not have more experience. I think time is mean than money. (Money is not everything for me)
+                            I am not hurry in work because I thinking for more detail. I believe quality of work is along time for thinking and doing.
+                            I am not lazy man. I can coding 3 days without sleep without coffee and do other thing.
+                            <br/><br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sorry for my bad grammar in English language because I don't have money for English writing course haha.
+                            <br/><br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="coly-1"></div>
+            </div>
+            <div class="rowly">
+                <div class="coly-0"></div>
+                <div class="coly-10">
+                    <div class="desktop_center mobile_center">
+                        <br/><br/>
+                        <div style="color:white;">
+                            <a style="color:white;" target="_blank" href="http://www.github.com/TornMan">
+                                <img height="60px" src="../img/github-icon.svg" alt=""/>
+                            </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a style="color:white;" target="_blank" href="http://www.facebook.com/Tor.NeuTron">
+                                <img height="60px" src="../img/facebook-2048-black.png" alt=""/>
+                            </a>
+                        </div>
+                        <br/>
+                        <b>&copy; 1992-2015 OnlyaLone Co., Ltd</b>
+                        <br/>
+                        <br/>&nbsp;
+                    </div>
+                </div>
+                <div class="coly-1"></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

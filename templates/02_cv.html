@@ -1,0 +1,163 @@
+<style>
+    .ban_skill {
+        background-color: #EDFCFF;
+        padding: 10px;
+    }
+    @media only screen and (min-width: 700px){
+        #map_tol {width: 100%; height: 200px;}
+        #map_tol_2 {width: 100%; height: 200px;}
+        #img_student { width: 200px; }
+        #graph_backend{
+            height: 300px;
+        }
+        #graph_frontend{
+            height: 300px;
+        }
+        #graph_db{
+            height: 300px;
+        }
+        #graph_other_skill{
+            height: 300px;
+        }
+        .story_text {
+            padding-left: 16px;
+        }
+    }
+    @media only screen and (max-width: 699px){
+        #map_tol {width: 100%; height: 140px;}
+        #map_tol_2 {width: 100%; height: 140px;}
+        #img_student {width: 40%; }
+        #graph_backend{
+            height: 250px;
+        }
+        #graph_frontend{
+            height: 250px;
+        }
+        #graph_db{
+            height: 250px;
+        }
+        #graph_other_skill{
+            height: 250px;
+        }
+        .story_text {
+            padding-left: 7px;
+        }
+    }
+</style>
+
+<ion-view view-title="CV">
+    <ion-content overflow-scroll="true">
+        <div class="rowly">
+            <div class="coly-1"></div>
+            <div class="coly-10">
+                <div class="rowly">
+                    <div class="desktop_left_70" >
+                        <h2><b><span class="now_rap">Curriculum Vitae</span></b></h2>
+                    </div>
+                    <div class="desktop_right_30 desktop_center mobile_center" >
+                        <a href=""><img ng-click="showImageMeCV()" id="img_student" src="../img/torn_stu.jpg" alt=""/></a>
+                    </div>
+                    <div class="desktop_left_70" >
+                        <div class="story_text">
+                            <br/>
+                            <span class="now_rap"><b>Name : </b>Mr.Natthakorn&nbsp;&nbsp;</span>
+                            <span class="now_rap"><b>Surname : </b>Nakhaseno&nbsp;&nbsp;</span>
+                            <span class="now_rap"><b>Nickname : </b>Torn&nbsp;&nbsp;</span>
+                            <br/>
+                            <span class="now_rap"><b>Birthday : </b>Nov. 6 1992&nbsp;&nbsp;</span>
+                            <span class="now_rap"><b>Nationality : </b>Thailand <img src="../img/thai flag.jpg" width="16px"/></span>
+                            <br/>
+                            <span class="now_rap"><b>Age : </b>{{tol_age}}&nbsp;&nbsp;</span>
+                            <br/><br/>
+                            <span class="now_rap"><b>Mail : </b>Torn.programmer@gmail.com <img src="../img/gmaw.png" width="16px"/>&nbsp;&nbsp;</span>
+                            <span class="now_rap"><b>Mobile : </b>090-1155607 <img src="../img/ico_mobile.png"/></span>
+                            <br/><br/>
+                            <span class="now_rap"><b>Address : </b>113/4 Polo 6 Wireless Rd.&nbsp;</span>
+                            <span class="now_rap"> Pathumone Bangkok 10330</span>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowly">
+                    <br/>
+                    <div id="map_tol">
+                        <ng-map id="map_tol_2" center="[13.7332699, 100.5499809]" zoom="14">
+                            <marker position ="[13.7332699, 100.5499809]" animation="Animation.BOUNCE" centered="true"></marker>
+                        </ng-map>
+                    </div>
+                    <br/>
+                </div>
+                <div class="rowly">
+                    <div class="desktop_left_50" >
+                        <h3><b><span class="now_rap">Education</span></b></h2>
+                            <div class="story_text">
+                                <span class="now_rap"><b>May 2011 - Apr 2015</b></span><br/>
+                                <b>Degree : </b>Bachelor Degree Of <span class="now_rap">Information Technology</span><br/>
+                                <b>School : </b>Panyapiwat Institute <span class="now_rap">Of Management</span><br/>
+                                <span class="now_rap"><b>GPA : </b>3.67 (First Class Honour)</span><br/>
+                                <span class="now_rap"><b>Duration : </b>4 Years</span><br/>
+                                <br/>
+                                <span class="now_rap"><b>May 2008 - Apr 2011</b></span><br/>
+                                <b>Degree : </b>Senior High School of Art <span class="now_rap">and Math</span><br/>
+                                <b>School : </b><span class="now_rap">Trimit Wittayalai School</span><br/>
+                                <span class="now_rap"><b>Duration : </b>3 Years</span><br/>
+                                <br/>
+                                <span class="now_rap"><b>May 2005 - Apr 2008</b></span><br/>
+                                <b>Degree : </b>Junior High School<br/>
+                                <b>School : </b><span class="now_rap">Benchamarachuthit School</span><br/>
+                                <span class="now_rap"><b>Duration : </b>3 Years</span><br/>
+                                <br/>
+                            </div>
+                    </div>
+                    <div class="desktop_right_50" >
+                        <h3><b><span class="now_rap">History Work</span></b></h2>
+                            <div class="story_text">
+                                <span class="now_rap"><b>Feb 2016 - May 2016</b></span><br/>
+                                <b>Job : </b><span class="now_rap">Developer</span><br/>
+                                <b>Technology : </b><span class="now_rap">Laravel 5.2 + Git</span> + Scrum<br/>
+                                <b>Duration : </b><span class="now_rap">3 Months</span><br/>
+                                <br/>
+                                <span class="now_rap"><b>May 2015 - Oct 2015</b></span><br/>
+                                <b>Job : </b><span class="now_rap">Programmer for teacher.</span><br/>
+                                <b>Place : </b>Panyapiwat Institute <span class="now_rap">Of Management</span><br/>
+                                <b>Technology : </b><span class="now_rap">MEAN Stack</span><br/>
+                                <b>Duration : </b><span class="now_rap">5 Months</span><br/>
+                                <br/>
+                                <span class="now_rap"><b>May 2014 - Feb 2015</b></span><br/>
+                                <b>Job : </b><span class="now_rap">Trainee student programmer</span><br/>
+                                <b>Place : </b><span class="now_rap">True Corporation.</span><br/>
+                                <b>Technology : </b><span class="now_rap">PHP + MySQL + Thai Text Analysis</span><br/>
+                                <b>Duration : </b><span class="now_rap">10 Months</span><br/>
+                                <br/>
+                                <span class="now_rap"><b>Dec 2012 - Mar 2013</b></span><br/>
+                                <b>Job : </b><span class="now_rap">Trainee student programmer</span><br/>
+                                <b>Place : </b><span class="now_rap">Pakgon co., ltd.</span><br/>
+                                <b>Technology : </b><span class="now_rap">CakePHP 2 + MySQL</span><br/>
+                                <b>Duration : </b><span class="now_rap">3 Months</span><br/>
+                                <br/><br/>
+                            </div>
+                    </div>
+                </div>
+                <div class="rowly ban_skill">
+                    <h3><b><span class="now_rap">Programmer Skill</span></b></h2>
+                        <span class="story_text">Self Assessment. Max point is 5.0</span>
+                        <br/><br/>
+                        <div class="desktop_left_50">
+                            <div id="graph_backend"></div>
+                        </div>
+                        <div class="desktop_right_50">
+                            <div id="graph_frontend"></div>
+                        </div>
+                        <div class="desktop_left_50">
+                            <div id="graph_db"></div>
+                        </div>
+                        <div class="desktop_right_50">
+                            <div id="graph_other_skill"></div>
+                        </div>
+                </div>
+            </div>
+            <div class="coly-1"></div>
+        </div>
+    </ion-content>
+</ion-view>
+
