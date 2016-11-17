@@ -1,1 +1,0 @@
-angular.module('starter', ['ionic','ngMap','starter.routes','starter.controllers']);
