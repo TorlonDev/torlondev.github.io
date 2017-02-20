@@ -56,6 +56,14 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     load_snow();
 
 }).controller('CVCtrl', function ($scope, NgMap, $ionicModal) {
+    
+    (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 
     //send_ingredient($scope , $ionicModal);
     $ionicModal.fromTemplateUrl('templates/modal/03_image_me_cv.html', {
