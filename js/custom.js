@@ -136,6 +136,33 @@ function getAge(fromdate, todate) {
 
 function graph_cv_load() {
     $(function () {
+        var backendCategory = [
+            'PHP', 'NodeJS', 'Java', 'JSP', 'C#', 'ASP'
+        ]
+        var backendPoint = [7.5, 6.5, 4.5, 2, 1, 0.5]
+
+        var frontendCategory = [
+            'Javascript', 'JQuery', 'Angular 1', 'React', 'Redux', 'HTML', 'CSS like design', 'Responsive', 'Bootstrap',
+            'React Native', 'Android (Java)', 'iOS (Objective C)'
+        ]
+        var frontendPoint = [7, 8, 0.5, 6, 4.5, 7, 8, 5, 4.5, 7, 3, 0.5]
+
+        var dbCategory = [
+            'Database<br/>Design + ER', 'MySQL',
+            'PostgresSQL', 'MariaDB', 'MongoDB', 'DB Tuning'
+        ]
+        var dbPoint = [7, 7, 2, 3, 2, 4 ]
+
+        var otherCategory = [
+            'Read Document', 'Search Google', 'Ask Stackoverflow', 
+            'AWS', 'OVH', 'Cloudflare', 
+            'Git', 'Unit Test', 'Automate Test',
+            'Laravel', 'NextJS'
+        ]
+        var otherPoint = [5, 9.9, 7, 
+            3, 4, 1.5, 
+            5, 2, 3, 4, 0.5]
+
         $('#graph_backend').highcharts({
             chart: {
                 backgroundColor: '#EDFCFF',
@@ -145,17 +172,7 @@ function graph_cv_load() {
                 text: '<b>Backend & Language Exp.</b>'
             },
             xAxis: {
-                categories: [
-                    'Server<br/>Config',
-                    'OOP',
-                    'C#',
-                    'Java',
-                    'PHP',
-                    'NodeJS',
-                    'ASP',
-                    'JSP' , 
-                    'Golang'
-                ],
+                categories: backendCategory,
                 labels: {
                     rotation: -45
                 },
@@ -164,7 +181,7 @@ function graph_cv_load() {
 
             },
             yAxis: {
-                max: 5,
+                max: 10,
                 label: {
                     enable: false
                 },
@@ -218,7 +235,7 @@ function graph_cv_load() {
             series: [{
                     showInLegend: false,
                     name: " ",
-                    data: [0.5, 1.5, 1.4, 1.8, 2.4, 2.5, 0.2, 0.7 , 0.2],
+                    data: backendPoint,
                     color: 'red'
                 }],
             credits: {
@@ -232,22 +249,10 @@ function graph_cv_load() {
                 type: 'column'
             },
             title: {
-                text: '<b>Frontend Exp.</b>'
+                text: '<b>Frontend & Mobile Exp.</b>'
             },
             xAxis: {
-                categories: [
-                    'JS & ES6',
-                    'JQuery',
-                    'Angular 1',
-                    'Angular 2',
-                    'React & Redux',
-                    'VueJS',
-                    'Webpack',
-                    'HTML',
-                    'CSS like design',
-                    'Responsive',
-                    'Bootstrap'
-                ],
+                categories: frontendCategory,
                 labels: {
                     rotation: -45
                 },
@@ -255,7 +260,7 @@ function graph_cv_load() {
                 lineWidth: 1
             },
             yAxis: {
-                max: 5,
+                max: 10,
                 label: {
                     enable: false
                 },
@@ -280,7 +285,7 @@ function graph_cv_load() {
             },
             series: [{
                     showInLegend: false,
-                    data: [2.5, 2.4, 1.5, 0.1, 2, 0.2, 1.5, 2.2, 2.5, 2, 1.5],
+                    data: frontendPoint,
                     color: 'blue'
                 }],
             credits: {
@@ -297,16 +302,7 @@ function graph_cv_load() {
                 text: '<b>Database Exp.</b>'
             },
             xAxis: {
-                categories: [
-                    'Database<br/>Design + ER',
-                    'Basic SQL',
-                    'Advance SQL',
-                    'MySQL',
-                    'PostgresSQL',
-                    'MariaDB',
-                    'MongoDB',
-                    'Big Data <br/> & Transaction'
-                ],
+                categories: dbCategory,
                 labels: {
                     rotation: -45
                 },
@@ -314,7 +310,7 @@ function graph_cv_load() {
                 lineWidth: 1
             },
             yAxis: {
-                max: 5,
+                max: 10,
                 label: {
                     enable: false
                 },
@@ -339,31 +335,24 @@ function graph_cv_load() {
             },
             series: [{
                     showInLegend: false,
-                    data: [2, 2.4, 1.5, 2.5, 1.8, 1.2, 2 , 0.3],
+                    data: dbPoint,
                     color: 'green'
                 }],
             credits: {
                 enabled: false
             }
         });
+
         $('#graph_other_skill').highcharts({
             chart: {
                 backgroundColor: '#EDFCFF',
                 type: 'bar'
             },
             title: {
-                text: '<b>Other Programming Exp.</b>'
+                text: '<b>Other Exp.</b>'
             },
             xAxis: {
-                categories: [
-                    'Read Book',
-                    'Search Google',
-                    'Ask Stackoverflow',
-                    'Git',
-                    'Unit & Acceptance Test',
-                    'GoogleMap API',
-                    'Twitter API'
-                ],
+                categories: otherCategory,
                 labels: {
                     rotation: 0
                 },
@@ -371,6 +360,7 @@ function graph_cv_load() {
                 lineWidth: 1
             },
             yAxis: {
+                max: 10,
                 label: {
                     enable: false
                 },
@@ -395,7 +385,7 @@ function graph_cv_load() {
             },
             series: [{
                     showInLegend: false,
-                    data: [2, 4, 3.5, 2.4, 2, 1, 0.6],
+                    data: otherPoint,
                     color: 'orange'
                 }],
             credits: {

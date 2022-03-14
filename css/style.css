@@ -78,6 +78,18 @@
     .desktop_padding_border { padding: 5px; }
     .desktop_left_pad_10 { padding-left: 10px }
     .desktop_left_pad_20 { padding-left: 20px }
+    .desktop_left_pad_30 { padding-left: 30px }
+    .desktop_left_pad_40 { padding-left: 40px }
+    .desktop_left_pad_50 { padding-left: 50px }
+    .desktop_left_pad_60 { padding-left: 60px }
+    .desktop_left_pad_70 { padding-left: 70px }
+    .desktop_right_pad_10 { padding-right: 10px }
+    .desktop_right_pad_20 { padding-right: 20px }
+    .desktop_right_pad_30 { padding-right: 30px }
+    .desktop_right_pad_40 { padding-right: 40px }
+    .desktop_right_pad_50 { padding-right: 50px }
+    .desktop_right_pad_60 { padding-right: 60px }
+    .desktop_right_pad_70 { padding-right: 70px }
     .head_text{
         font-size: 24px;
     }
