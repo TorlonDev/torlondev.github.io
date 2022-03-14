@@ -35,7 +35,8 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
         
     };
 
-}).controller('HomeCtrl', function ($scope, $ionicModal) {
+}).controller('HomeCtrl', function ($scope, $ionicSideMenuDelegate, $ionicModal) {
+    $ionicSideMenuDelegate.canDragContent(false);
     $ionicModal.fromTemplateUrl('templates/modal/02_image_me.html', {
         scope: $scope
     }).then(function (modal) {
@@ -55,7 +56,8 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     home_control();
     load_snow();
 
-}).controller('CVCtrl', function ($scope, NgMap, $ionicModal) {
+}).controller('CVCtrl', function ($scope, $ionicSideMenuDelegate, NgMap, $ionicModal) {
+    $ionicSideMenuDelegate.canDragContent(false);
     
     (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
