@@ -4,7 +4,6 @@
 //
 //});
 angular.module('starter.controllers', []).controller('NavCtrl', function ($scope, $ionicSideMenuDelegate, $ionicModal) {
-
     $ionicModal.fromTemplateUrl('templates/modal/01_sample_login.html', {
         scope: $scope
     }).then(function (modal) {
@@ -59,13 +58,13 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
 }).controller('CVCtrl', function ($scope, $ionicSideMenuDelegate, NgMap, $ionicModal) {
     $ionicSideMenuDelegate.canDragContent(false);
     
-    (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.8";
-  fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+//     (function(d, s, id) {
+//   var js, fjs = d.getElementsByTagName(s)[0];
+//   if (d.getElementById(id)) return;
+//   js = d.createElement(s); js.id = id;
+//   js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.8";
+//   fjs.parentNode.insertBefore(js, fjs);
+//    }(document, 'script', 'facebook-jssdk'));
 
     //send_ingredient($scope , $ionicModal);
     $ionicModal.fromTemplateUrl('templates/modal/03_image_me_cv.html', {
@@ -82,10 +81,12 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     };
 
     $scope.tol_age = getAge("11/6/1992");
-    NgMap.getMap().then(function (map) {
-        this.map = map;
-    });
+
     graph_cv_load();
+
+    // NgMap.getMap().then(function (map) {
+    //     this.map = map;
+    // });
 
 }).controller('SettingCtrl', function ($scope, $window) {
 
