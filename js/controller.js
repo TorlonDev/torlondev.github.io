@@ -56,7 +56,6 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     load_snow();
 
 }).controller('CVCtrl', function ($scope, $ionicSideMenuDelegate, NgMap, $ionicModal) {
-    $ionicSideMenuDelegate.canDragContent(false);
     
 //     (function(d, s, id) {
 //   var js, fjs = d.getElementsByTagName(s)[0];
@@ -67,14 +66,14 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
 //    }(document, 'script', 'facebook-jssdk'));
 
     //send_ingredient($scope , $ionicModal);
-    $ionicModal.fromTemplateUrl('templates/modal/03_image_me_cv.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.modal_image_me = modal;
-    });
-    $scope.showImageMeCV = function () {
-        $scope.modal_image_me.show();
-    };
+    // $ionicModal.fromTemplateUrl('templates/modal/03_image_me_cv.html', {
+    //     scope: $scope
+    // }).then(function (modal) {
+    //     $scope.modal_image_me = modal;
+    // });
+    // $scope.showImageMeCV = function () {
+    //     $scope.modal_image_me.show();
+    // };
 
     $scope.close_modal = function () {
         $scope.modal_image_me.hide();
@@ -83,6 +82,7 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     $scope.tol_age = getAge("11/6/1992");
 
     graph_cv_load();
+    $ionicSideMenuDelegate.canDragContent(false);
 
     // NgMap.getMap().then(function (map) {
     //     this.map = map;
