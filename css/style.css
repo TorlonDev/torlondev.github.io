@@ -24,6 +24,21 @@
     height: 43px;
 }
 
+#link_cv_pdf {
+    display: block;
+}
+
+.button_pdf {
+    background-color: #B30B00;
+    border-radius: 10px;
+    color: white;
+}
+
+.button_pdf:hover{
+    background-color: #B30B00;
+    color: white;
+}
+
 
 @media only screen and (min-width: 700px) {
     .coly-0 {width: 7%;}
