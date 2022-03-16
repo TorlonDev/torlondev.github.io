@@ -156,12 +156,12 @@ function graph_cv_load() {
         var otherCategory = [
             'Read Document', 'Search Google', 'Ask Stackoverflow', 
             'AWS', 'OVH', 'Cloudflare', 
-            'Git', 'Unit Test', 'Automate Test',
+            'Git', 'CI / CD', 'Unit / Automate Test',
             'Laravel', 'NextJS'
         ]
         var otherPoint = [5, 9.9, 7, 
             3, 4, 1.5, 
-            5, 2, 3, 4, 0.5]
+            5, 3, 2, 4, 0.5]
 
         $('#graph_backend').highcharts({
             chart: {
