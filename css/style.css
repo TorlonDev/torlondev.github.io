@@ -40,7 +40,7 @@
 }
 
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 750px) {
     .coly-0 {width: 7%;}
     .coly-1 {width: 8.33%;}
     .coly-10_per{width: 10%;}
@@ -112,7 +112,7 @@
         font-size: 16px;
     }
 }
-@media only screen and (max-width: 699px) {
+@media only screen and (max-width: 749px) {
 
     [class*="mobile_left_"] {clear: left; display: inline-block;float: left;}
     .mobile_left_20{width: 20%;}
