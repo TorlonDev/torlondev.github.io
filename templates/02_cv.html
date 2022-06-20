@@ -16,35 +16,7 @@
         padding-bottom: 1px;
     }
 
-    @media only screen and (min-width: 700px) {
-        #map_tol {width: 100%; height: 200px; }
-        #map_tol_2 {width: 100%; height: 200px; padding-right: 15px; padding-bottom: 20px; padding-top: 10px; }
-        #img_student, #img_lum { width: 170px; }
-        #graph_backend{
-            height: 300px;
-        }
-        #graph_frontend{
-            height: 300px;
-        }
-        #graph_db{
-            height: 300px;
-        }
-        #graph_other_skill{
-            height: 300px;
-        }
-        .story_text {
-            padding-right: 16px;
-        }
-
-        #desktop_right_box {
-            padding-left: 8px;
-        }
-        .ionic-slide {
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
-    }
-    @media only screen and (max-width: 699px){
+    @media only screen and (max-width: 749px){
         #map_tol {width: 100%; height: 140px; padding: 3px; }
         #map_tol_2 {width: 100%; height: 140px;}
         #img_student, #img_lum {width: 40%; }
@@ -68,6 +40,45 @@
             padding-right: 20px;
         }
     }
+
+    @media only screen and (min-width: 750px) {
+        #map_tol {width: 100%; height: 200px; }
+        #map_tol_2 {width: 100%; height: 200px; padding-right: 15px; padding-bottom: 20px; padding-top: 10px; }
+        #img_student, #img_lum { width: 170px; }
+        #graph_backend{
+            height: 300px;
+        }
+        #graph_frontend{
+            height: 300px;
+        }
+        #graph_db{
+            height: 300px;
+        }
+        #graph_other_skill{
+            height: 300px;
+        }
+        .story_text {
+            padding-right: 16px;
+        }
+
+        #desktop_right_box {
+            padding-left: 8px;
+            border-top: 3px solid;
+            border-left: 3px solid;
+            padding-top: 12px;
+            padding-left: 20px;
+        }
+
+        #top_wrapper_name_to_address {
+            padding-bottom: 10px;
+        }
+
+        .ionic-slide {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+    }
+
 </style>
 
 <!--
@@ -81,7 +92,7 @@
         <div class="rowly">
             <div class="coly-1"></div>
             <div class="coly-10">
-                <div class="rowly">
+                <div class="rowly" id="top_wrapper_name_to_address">
                     <div class="desktop_left_70" >
                         <h2><b><span class="now_rap">Curriculum Vitae</span></b></h2>
                     </div>
@@ -147,12 +158,12 @@
                                 <hr/><br/>
 
                                 <span class="now_rap"><b>March 2019 - June 2021</b></span>&nbsp;<span class="now_rap">(2 years 4 months)</span><br/>
-                                <b>Roles: </b><span>Fullstack Developer + Android Developer + IT Support.</span><br/>
+                                <b>Roles: </b><span>Full Stack Developer & Android Developer & IT Support.</span><br/>
                                 <b>Company: </b><span class="now_rap">Luma Health Insurance.</span><br/>
                                 <b>Product: </b>
                                     <span><a target="_blank" href="https://lumahealth.com">Lumahealth.com</a> / 
                                     <a target="_blank" href="https://play.google.com/store/apps/details?id=com.lumahealth.luma">Android App</a> / Many Internal Project Across the Ocean (Vietname / Norway etc.)</span><br/>
-                                <b>Work: </b><span>Linux / AWS (EC2) / OVH / Cloudflare / Apache2 / Nginx / Ubuntu / PHP / Laravel / Wordpress / NodeJS / Java / MySQL / G-suite / Admin Portal Office 365 / Support other team about IT. (Printer / Windows etc.)</span><br/>
+                                <b>Work: </b><span>Linux / AWS (EC2) / OVH / Cloudflare / Apache2 / PHP / Laravel / Wordpress / NodeJS / Java / MySQL / G-suite / Admin Portal Office 365 / Support other team about IT. (Printer / Windows etc.)</span><br/>
                                 
                                 <ion-slide-box class="ionic-slide" does-continue="true" auto-play="true" slide-interval="2000" >
                                     <ion-slide>
@@ -174,7 +185,7 @@
                                 <hr/><br/>
 
                                 <span class="now_rap"><b>March 2017 - July 2018</b></span>&nbsp;<span class="now_rap">(1 year 4 months)</span><br/>
-                                <b>Roles: </b><span class="now_rap">Mobile & Front-end Developer.</span><br/>
+                                <b>Roles: </b><span class="now_rap">Mobile & Web Developer.</span><br/>
                                 <b>Company: </b><span class="now_rap">Scale360.</span><br/>
                                 <b>Work: </b><span>React / React Native / Redux</span><br/>
 
@@ -195,7 +206,7 @@
                                 <hr/><br/>
                                 
                                 <span class="now_rap"><b>Feb 2016 - May 2016</b></span>&nbsp;<span class="now_rap">(4 months)</span><br/>
-                                <b>Roles: </b><span class="now_rap">Laravel Developer + Head IT Support.</span><br/>
+                                <b>Roles: </b><span class="now_rap">Laravel Developer & Head IT Support.</span><br/>
                                 <b>Company: </b><span class="now_rap">INFINITI Global Investor.</span><br/>
                                 <b>Work: </b><span class="now_rap">Laravel / Git</span><br/>
 
@@ -209,7 +220,7 @@
                                 <hr/><br/>
                  
                                 <span class="now_rap"><b>May 2014 - Feb 2015</b></span>&nbsp;<span class="now_rap">(9 months)</span><br/>
-                                <b>Roles: </b><span class="now_rap">Trainee programmer.</span><br/>
+                                <b>Roles: </b><span class="now_rap">Trainee Programmer.</span><br/>
                                 <b>Company: </b><span class="now_rap">True Corporation.</span><br/>
                                 <b>Work: </b><span class="now_rap">PHP + MySQL + Thai Text Analysis</span><br/>
                                 <img class="img_past" src="../img/true.jpg" />
