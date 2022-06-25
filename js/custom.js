@@ -139,30 +139,35 @@ function graph_cv_load() {
         var backendCategory = [
             'PHP', 'NodeJS', 'Java', 'JSP', 'C#', 'ASP'
         ]
-        var backendPoint = [7.5, 6.5, 4.5, 2, 1, 0.5]
+        var backendPoint = [7.5, 6.5, 3.5, 1.5, 1, 0.5]
 
         var frontendCategory = [
-            'Javascript', 'JQuery', 'Angular 1', 'React', 'Redux', 'HTML', 'CSS like design', 'Responsive', 'Bootstrap',
+            'Javascript', 'JQuery', 'Angular 1', 
+            'React', 'Redux', 'HTML', 
+            'CSS like design', 'Responsive', 'Bootstrap',
             'React Native', 'Android (Java)', 'iOS (Objective C)'
         ]
-        var frontendPoint = [7, 8, 0.5, 6, 4.5, 7, 8, 5, 4.5, 7, 3, 0.5]
+        var frontendPoint = [7, 8, 0.5, 
+        6.5, 3.5, 7, 
+        8, 5, 4.5, 
+        7, 3, 0.5]
 
         var dbCategory = [
             'Database<br/>Design + ER', 'MySQL',
             'PostgresSQL', 'MariaDB', 'MongoDB', 'DB Tuning'
         ]
-        var dbPoint = [7, 7, 2, 3, 2, 4 ]
+        var dbPoint = [7, 7, 3, 4, 2, 4 ]
 
         var otherCategory = [
             'Read Document', 'Search Google', 'Ask Stackoverflow', 
-            'AWS / OVH', 'Cloudflare', 
-            'Git', 'Docker', 'CI / CD', 'Unit / Automate Test',
+            'Save Server Cost', 'AWS / OVH', 'Cloudflare', 
+            'Docker + Compose', 'CI / CD', 'Unit / Automate Test',
             'Laravel', 'NextJS'
         ]
-        var otherPoint = [5, 9.9, 7, 
-            3, 1.5, 
-            5, 2, 3, 2, 
-            4, 0.5]
+        var otherPoint = [5, 9.9, 9, 
+            4, 3, 1.5, 
+            4, 2, 2, 
+            4, 1]
 
         $('#graph_backend').highcharts({
             chart: {
