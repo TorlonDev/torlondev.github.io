@@ -37,8 +37,8 @@ function load_snow() {
     var canvas = document.getElementById("snowy");
     var ctx = canvas.getContext("2d");
 
-    var W = window.innerWidth;
-    var H = window.innerHeight;
+    var W =  1000; //window.innerWidth;
+    var H = 400; //window.innerHeight;
     canvas.width = W;
     canvas.height = H;
 
@@ -134,55 +134,72 @@ function getAge(fromdate, todate) {
     return age.join('');
 }
 
-function graph_cv_load() {
-    $(function () {
-        var backendCategory = [
-            'PHP', 'NodeJS', 'Java', 'JSP', 'C#', 'ASP'
-        ]
-        var backendPoint = [7.5, 6.5, 3.5, 1.5, 1, 0.5]
+/* Graph Constant */
 
-        var frontendCategory = [
-            'Javascript', 'JQuery', 'Angular 1', 
-            'React', 'Redux', 'HTML', 
-            'CSS like design', 'Responsive', 'Bootstrap',
-            'React Native', 'Android (Java)', 'iOS (Objective C)'
-        ]
-        var frontendPoint = [7, 8, 0.5, 
-        6.5, 3.5, 7, 
-        8, 5, 4.5, 
-        7, 3, 0.5]
+var backendCategory = [
+    'NodeJS', 'PHP', 'Java', 'JSP', 'C#', 'ASP'
+]
+var backendPoint = [6.5, 7.5, 3.5, 1.5, 1, 0.5]
 
-        var dbCategory = [
-            'Database<br/>Design + ER', 'MySQL',
-            'PostgresSQL', 'MariaDB', 'MongoDB', 'DB Tuning'
-        ]
-        var dbPoint = [7, 7, 3, 4, 2, 4 ]
+var frontendCategory = [
+    'Javascript', 'JQuery', 'Angular 1', 
+    'React', 'Redux', 'HTML', 
+    'CSS like design', 'Responsive', 'Bootstrap',
+    'React Native', 'Android (Java)', 'iOS (Objective C)'
+]
+var frontendPoint = [7, 8, 0.5, 
+6.5, 3.5, 7, 
+8, 5, 4.5, 
+7, 3, 0.5]
 
-        var otherCategory = [
-            'Read Document', 'Search Google', 'Ask Stackoverflow', 
-            'Save Server Cost', 'AWS / OVH', 'Cloudflare', 
-            'Docker + Compose', 'CI / CD', 'Unit / Automate Test',
-            'Laravel', 'NextJS'
-        ]
-        var otherPoint = [5, 9.9, 9, 
-            4, 3, 1.5, 
-            4, 2, 2, 
-            4, 1]
+var dbCategory = [
+    'Database<br/>Design + ER', 'MySQL',
+    'Postgres', 'MariaDB', 'MongoDB', 'DB Tuning'
+]
+var dbPoint = [7, 7, 3, 4, 2, 4 ]
 
-        $('#graph_backend').highcharts({
+var otherCategory = [
+    'Read Document', 'Search Google', 'Ask Stackoverflow', 
+    'Save Server Cost', 'AWS / OVH', 'Cloudflare', 
+    'Docker + Compose', 'CI / CD', 'Unit / Automate Test',
+    'Laravel', 'NextJS'
+]
+var otherPoint = [5, 9, 9, 
+    4, 3, 1.5, 
+    4, 2, 2, 
+    4, 1]
+
+
+var settingHighChart = (
+    type_column = 'column', // column, bar
+    rotation = -45, // -45, 0
+    backgroundColor = '#EDFCFF', 
+    titleText = '<b>Backend & Language Exp.</b>',
+    categories = backendCategory,
+    lineColor = 'black',
+    graphColor = 'red',
+    dataPoint = backendPoint
+) => {
+    return {
             chart: {
-                backgroundColor: '#EDFCFF',
-                type: 'column'
+                backgroundColor: backgroundColor,
+                type: type_column,
             },
             title: {
-                text: '<b>Backend & Language Exp.</b>'
+                text: titleText,
+                style: {
+                    color: lineColor
+                }
             },
             xAxis: {
-                categories: backendCategory,
+                categories: categories,
                 labels: {
-                    rotation: -45
+                    rotation: rotation,
+                    style: {
+                        color: lineColor
+                    }
                 },
-                lineColor: 'black',
+                lineColor: lineColor,
                 lineWidth: 1
 
             },
@@ -208,11 +225,22 @@ function graph_cv_load() {
                     pointPadding: 0.2,
                     borderWidth: 0,
                     dataLabels: {
-                        enabled: true
+                        enabled: true,
+                        color: lineColor
                     }
+                },
+                line: {
+                    dataLabels: {
+                        enabled: true,
+                        color: lineColor
+                    },
                 },
                 series: {
                     cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: lineColor
+                    },
                     point: {
                         events: {
                             click: function () {
@@ -241,164 +269,142 @@ function graph_cv_load() {
             series: [{
                     showInLegend: false,
                     name: " ",
-                    data: backendPoint,
-                    color: 'red'
+                    data: dataPoint,
+                    color: graphColor
                 }],
             credits: {
                 enabled: false
             }
-        });
+        }
+}
 
-        $('#graph_frontend').highcharts({
-            chart: {
-                backgroundColor: '#EDFCFF',
-                type: 'column'
-            },
-            title: {
-                text: '<b>Frontend & Mobile Exp.</b>'
-            },
-            xAxis: {
-                categories: frontendCategory,
-                labels: {
-                    rotation: -45
-                },
-                lineColor: 'black',
-                lineWidth: 1
-            },
-            yAxis: {
-                max: 10,
-                label: {
-                    enable: false
-                },
-                title: {
-                    text: ''
-                },
-                gridLineColor: 'grey'
-            },
-            tooltip: {
-                enabled: false,
-                shared: false,
-                useHTML: false
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            series: [{
-                    showInLegend: false,
-                    data: frontendPoint,
-                    color: 'blue'
-                }],
-            credits: {
-                enabled: false
-            }
-        });
+var graph_frontend_light = settingHighChart(
+    'column', -45,
+    '#EDFCFF', 
+    '<b>Frontend & Mobile Exp.</b>',
+    frontendCategory,
+    'black',
+    'blue',
+    frontendPoint
+)
 
-        $('#graph_db').highcharts({
-            chart: {
-                backgroundColor: '#EDFCFF',
-                type: 'column'
-            },
-            title: {
-                text: '<b>Database Exp.</b>'
-            },
-            xAxis: {
-                categories: dbCategory,
-                labels: {
-                    rotation: -45
-                },
-                lineColor: 'black',
-                lineWidth: 1
-            },
-            yAxis: {
-                max: 10,
-                label: {
-                    enable: false
-                },
-                title: {
-                    text: ''
-                },
-                gridLineColor: 'grey'
-            },
-            tooltip: {
-                enabled: false,
-                shared: false,
-                useHTML: false
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            series: [{
-                    showInLegend: false,
-                    data: dbPoint,
-                    color: 'green'
-                }],
-            credits: {
-                enabled: false
-            }
-        });
+var graph_backend_light = settingHighChart(
+    'spline', -45,
+    '#EDFCFF', 
+    '<b>Backend Language Exp.</b>',
+    backendCategory,
+    'black',
+    'red',
+    backendPoint
+)
 
-        $('#graph_other_skill').highcharts({
-            chart: {
-                backgroundColor: '#EDFCFF',
-                type: 'bar'
-            },
-            title: {
-                text: '<b>Other Exp.</b>'
-            },
-            xAxis: {
-                categories: otherCategory,
-                labels: {
-                    rotation: 0
-                },
-                lineColor: 'black',
-                lineWidth: 1
-            },
-            yAxis: {
-                max: 10,
-                label: {
-                    enable: false
-                },
-                title: {
-                    text: ''
-                },
-                gridLineColor: 'grey'
-            },
-            tooltip: {
-                enabled: false,
-                shared: false,
-                useHTML: false
-            },
-            plotOptions: {
-                bar: {
-                    pointPadding: 0.2,
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            series: [{
-                    showInLegend: false,
-                    data: otherPoint,
-                    color: 'orange'
-                }],
-            credits: {
-                enabled: false
-            }
-        });
+var graph_db_light = settingHighChart(
+    'areaspline', 0,
+    '#EDFCFF', 
+    '<b>Database Exp.</b>',
+    dbCategory,
+    'black',
+    'green',
+    dbPoint
+)
 
+var graph_other_skill_light = settingHighChart(
+    'bar', 0,
+    '#EDFCFF', 
+    '<b>Other Exp.</b>',
+    otherCategory,
+    'black',
+    'orange',
+    otherPoint
+)
 
+var graph_frontend_dark = settingHighChart(
+    'column', -45,
+    'black', 
+    '<b>Frontend & Mobile Exp.</b>',
+    frontendCategory,
+    'wheat',
+    'blue',
+    frontendPoint
+)
+
+var graph_backend_dark = settingHighChart(
+    'spline', -45,
+    'black', 
+    '<b>Backend Language Exp.</b>',
+    backendCategory,
+    'wheat',
+    'red',
+    backendPoint
+)
+
+var graph_db_dark = settingHighChart(
+    'areaspline', 0,
+    'black', 
+    '<b>Database Exp.</b>',
+    dbCategory,
+    'wheat',
+    'green',
+    dbPoint
+)
+
+var graph_other_skill_dark = settingHighChart(
+    'bar', 0,
+    'black', 
+    '<b>Other Exp.</b>',
+    otherCategory,
+    'wheat',
+    'orange',
+    otherPoint
+)
+
+function graph_cv_load() {
+    $(function () {
+        $('#graph_backend').highcharts(graph_backend_light);
+        $('#graph_frontend').highcharts(graph_frontend_light);
+        $('#graph_db').highcharts(graph_db_light);
+        $('#graph_other_skill').highcharts(graph_other_skill_light);
+        $(".cv_pane a").css("color", "blue");
     });
+}
+
+var defaultModeTheme = 'light'
+
+// mode - dark / light
+function toggleColorMode(){
+    console.log('toggle Mode')
+
+    if(defaultModeTheme === 'light'){
+        defaultModeTheme = 'dark'
+
+        $(".cv_pane").css("background-color", "black");
+        $(".cv_pane").css("color", "wheat");
+        $(".cv_pane .item").css("background-color", "black");
+        $(".cv_pane a").css("color", "lightgreen");
+        $(".cv_pane h2").css("color", "wheat");
+        $(".cv_pane h3").css("color", "wheat");
+        $(".ban_skill").css("background-color", "black");
+
+        $('#graph_backend').highcharts(graph_backend_dark);
+        $('#graph_frontend').highcharts(graph_frontend_dark);
+        $('#graph_db').highcharts(graph_db_dark);
+        $('#graph_other_skill').highcharts(graph_other_skill_dark);
+
+    } else if (defaultModeTheme === 'dark') {
+        defaultModeTheme = 'light'
+
+        $(".cv_pane").css("background-color", "white");
+        $(".cv_pane").css("color", "black");
+        $(".cv_pane .item").css("background-color", "white");
+        $(".cv_pane a").css("color", "blue");
+        $(".cv_pane h2").css("color", "black");
+        $(".cv_pane h3").css("color", "black");
+        $(".ban_skill").css("background-color", "white");
+
+        $('#graph_backend').highcharts(graph_backend_light);
+        $('#graph_frontend').highcharts(graph_frontend_light);
+        $('#graph_db').highcharts(graph_db_light);
+        $('#graph_other_skill').highcharts(graph_other_skill_light);
+    }
+
 }
