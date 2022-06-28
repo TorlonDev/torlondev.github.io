@@ -79,7 +79,21 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
         $scope.modal_image_me.hide();
     };
 
-    $scope.tol_age = getAge("11/6/1992");
+    let my_y_animate = (((new Date()).getFullYear()) - 1992) - 2
+
+    $('#age_pure').html("0 Year 0 Month And 0 Days")
+
+    for(let i = 1; i <= 2900; i++){
+        setTimeout(function() {
+            if(i < 2890){
+                $('#age_pure').html(`${randomIntFromInterval(1, my_y_animate)} Years ${randomIntFromInterval(1, 12)} Months And ${randomIntFromInterval(1, 28)} Days`)
+            } else {
+                $('#age_pure').html(getAge("11/6/1992"))
+            }
+        }, i)
+    }
+
+    //$scope.tol_age = getAge("11/6/1992");
 
     graph_cv_load();
     $ionicSideMenuDelegate.canDragContent(false);

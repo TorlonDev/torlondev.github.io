@@ -99,6 +99,10 @@ function load_snow() {
     setInterval(draw, 33);
 }
 
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 function getAge(fromdate, todate) {
     if (todate) {
         todate = new Date(todate);
