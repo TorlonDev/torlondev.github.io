@@ -157,10 +157,10 @@ var frontendPoint = [7, 8, 0.5,
 7, 3, 0.5]
 
 var dbCategory = [
-    'Database<br/>Design + ER', 'MySQL',
+    'DB Design<br/>& ER', 'MySQL',
     'Postgres', 'MariaDB', 'MongoDB', 'DB Tuning'
 ]
-var dbPoint = [7, 7, 3, 4, 2, 4 ]
+var dbPoint = [7, 7, 4, 3, 2.5, 4 ]
 
 var otherCategory = [
     'Read Document', 'Search Google', 'Ask Stackoverflow', 
