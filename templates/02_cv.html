@@ -35,6 +35,10 @@
         padding-bottom: 1px;
     }
 
+    .story_text_detail {
+        padding-left: 16px; padding-top: 6px;
+    }
+
     @media only screen and (max-width: 749px){
         #map_tol {width: 100%; height: 140px; padding: 3px; }
         #map_tol_2 {width: 100%; height: 140px;}
@@ -113,7 +117,7 @@
     <ion-content overflow-scroll="true">
         <div class="rowly" id="header_setting" style="display: flex; flex-direction: row; justify-content: flex-end; align-items: center; padding-right: 10px; padding-top: 10px;">
             <!-- <img src="../img/sun200.png" width="33px" height="33px" style="margin-left: -30px !important; margin-top: 3px;" /> -->
-            <ion-toggle ng-checked="true" id="toggleMode" onChange="toggleColorMode()"  style="height: 45px; width: 10px;" color="primary"></ion-toggle>
+            <ion-toggle id="toggleMode" ng-checked={{isToggle}} onChange="toggleColorMode()"  style="height: 45px; width: 10px;" color="primary"></ion-toggle> <!-- ng-checked="true" -->
             <img src="../img/moon200.png" width="40px" height="38px" style="padding-left:2px; padding-right: 5px; color: yellow;" />
         </div>
         <div class="rowly" id="cv_wrapper">
@@ -125,7 +129,7 @@
                     </div>
                     <div class="desktop_right_30 desktop_center mobile_center" >
                         <!-- <a href=""><img ng-click="showImageMeCV()" id="img_student" src="../img/torn_stu.jpg" alt=""/></a> -->
-                        <ion-slide-box does-continue="false" auto-play="true" slide-interval="1000" >
+                        <ion-slide-box id="pic_me_slide" does-continue="false" auto-play="true" slide-interval="1100" >
                             <ion-slide>
                                 <a href=""><img id="img_student" src="../img/torn_stu.jpg" alt=""/></a>
                             </ion-slide>
@@ -171,19 +175,23 @@
                             <div class="story_text">
 
                                 <span class="now_rap"><b>July 2021 - Present</b></span><br/>
-                                <span>Renovate home. / Stay with family. / Read book. (Docker / React / Etc.) / Support last company if they contact me for help. <b>(No one contact me about work since December 2021.)</b></span>
-                                <br/><br/>
+                                <div class="story_text_detail">
+                                   <span>Renovate home. / Read book. (Docker / React / Etc.) / Support last company if they contact me for help. <b>(No one contact me about work since December 2021.)</b></span>
+                                </div>
+                                <br/>
                                 <hr/><br/>
 
                                 <span class="now_rap"><b>March 2019 - June 2021</b></span>&nbsp;<span class="now_rap">(2 years 4 months)</span><br/>
-                                <b>Roles: </b><span>Full Stack Developer & Android Developer & IT Support.</span><br/>
-                                <b>Company: </b><span class="now_rap">Luma Health Insurance.</span><br/>
-                                <b>Product: </b>
-                                    <span><a target="_blank" href="https://lumahealth.com">Lumahealth.com</a> / 
-                                    <a target="_blank" href="https://play.google.com/store/apps/details?id=com.lumahealth.luma">Android App</a> / Many Internal Project Across the Ocean (Vietname / Norway etc.)</span><br/>
-                                <b>Works: </b><span>Linux / Shell (Automation Cronjob) / AWS (EC2) / OVH / Cloudflare / Docker / Apache2 / PHP / Laravel / Wordpress / NodeJS / Java (JSP + Android) / MySQL / MongoDB / G-Suite / Admin Portal Office 365 / Support other team about IT and little Infra. (Printer / Windows / VPN / Firewall / ESXi etc.)</span><br/>
-                                
-                                <ion-slide-box class="ionic-slide" does-continue="true" auto-play="true" slide-interval="2000" >
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span>Full Stack Developer & Android Developer & IT Support.</span><br/>
+                                    <b>Company: </b><span class="now_rap">Luma Health Insurance.</span><br/>
+                                    <b>Product: </b>
+                                        <span><a target="_blank" href="https://lumahealth.com">Lumahealth.com</a> / 
+                                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.lumahealth.luma">Android App</a> / Many Internal Project Across the Ocean (Vietname / Norway etc.)</span><br/>
+                                    <b>Works: </b><span>Linux / Shell (Automation Cronjob) / AWS (EC2) / OVH / Cloudflare / Docker / Apache2 / PHP / Laravel / Wordpress / NodeJS / Java (JSP + Android) / MySQL / MongoDB / G-Suite / Admin Portal Office 365 / Support other team about IT and little Infra. (Printer / Windows / VPN / Firewall / ESXi etc.)</span>
+                                </div>
+
+                                <ion-slide-box class="ionic-slide" does-continue="true" auto-play="true" slide-interval="1400" >
                                     <ion-slide>
                                         <img class="img_past" src="../img/luma1.jpg" />
                                     </ion-slide>
@@ -203,11 +211,15 @@
                                 <hr/><br/>
 
                                 <span class="now_rap"><b>March 2017 - July 2018</b></span>&nbsp;<span class="now_rap">(1 year 4 months)</span><br/>
-                                <b>Roles: </b><span class="now_rap">Mobile & Web Developer.</span><br/>
-                                <b>Company: </b><span class="now_rap">Scale360.</span><br/>
-                                <b>Works: </b><span>React / React-Native / Redux / Unit & Automation Test & Report (Jest / Mocha / Detox / Cucumber) / JQuery</span><br/>
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span class="now_rap">Mobile & Web Developer.</span><br/>
+                                    <b>Company: </b><span class="now_rap">Scale360.</span><br/>
+                                    <b>Product: </b>
+                                    <a target="_blank" href="https://play.google.com/store/apps/details?id=com.scale360.lqid.chat">LQID / ShopBank / App</a> / Internal Project and app.<br/>
+                                    <b>Works: </b><span>React / React-Native / Redux / Unit & Automation Test & Report (Jest / Mocha / Detox / Cucumber) / JQuery</span>
+                                </div>
 
-                                <ion-slide-box class="ionic-slide" does-continue="true" auto-play="true" slide-interval="2000" >
+                                <ion-slide-box class="ionic-slide" does-continue="true" auto-play="true" slide-interval="1800" >
                                     <ion-slide>
                                         <img class="img_past" src="../img/scale1.jpg" />
                                     </ion-slide>
@@ -224,9 +236,11 @@
                                 <hr/><br/>
                                 
                                 <span class="now_rap"><b>Feb 2016 - May 2016</b></span>&nbsp;<span class="now_rap">(4 months)</span><br/>
-                                <b>Roles: </b><span class="now_rap">Laravel Developer & Head IT Support.</span><br/>
-                                <b>Company: </b><span class="now_rap">INFINITI Global Investor.</span><br/>
-                                <b>Works: </b><span class="now_rap">Laravel / Git</span><br/>
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span class="now_rap">Laravel Developer & Head IT Support.</span><br/>
+                                    <b>Company: </b><span class="now_rap">INFINITI Global Investor.</span><br/>
+                                    <b>Works: </b><span class="now_rap">Laravel / Git</span>
+                                </div>
 
                                 <img class="img_past" src="../img/infiniti.jpg" />
 
@@ -238,9 +252,11 @@
                                 <hr/><br/>
                  
                                 <span class="now_rap"><b>May 2014 - Feb 2015</b></span>&nbsp;<span class="now_rap">(9 months)</span><br/>
-                                <b>Roles: </b><span class="now_rap">Trainee Programmer.</span><br/>
-                                <b>Company: </b><span class="now_rap">True Corporation.</span><br/>
-                                <b>Works: </b><span class="now_rap">PHP & MySQL & Thai Word Sentiment</span><br/>
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span class="now_rap">Trainee Programmer.</span><br/>
+                                    <b>Company: </b><span class="now_rap">True Corporation.</span><br/>
+                                    <b>Works: </b><span class="now_rap">PHP & MySQL & Thai Word Sentiment</span><br/>
+                                </div>
                                 <img class="img_past" src="../img/true.jpg" />
                                 <b>Reason for leaving: </b>
                                 <span >
@@ -250,9 +266,11 @@
                                 <hr/><br/>
                                 <!--
                                 <span class="now_rap"><b>Dec 2012 - Mar 2013</b></span>&nbsp;<span class="now_rap">(3 months)</span><br/>
-                                <b>Roles: </b><span class="now_rap">Trainee programmer.</span><br/>
-                                <b>Company: </b><span class="now_rap">Pakgon co., ltd.</span><br/>
-                                <b>Works: </b><span class="now_rap">CakePHP 2 + MySQL</span><br/>
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span class="now_rap">Trainee programmer.</span><br/>
+                                    <b>Company: </b><span class="now_rap">Pakgon co., ltd.</span><br/>
+                                    <b>Works: </b><span class="now_rap">CakePHP 2 + MySQL</span>
+                                </div>
                                 <b>Reason for leaving: </b>
                                 <span >
                                     Out of contract.
@@ -264,86 +282,98 @@
                     </div>
                     
                     <div class="desktop_right_50" id="desktop_right_box" >
-                        <h3><b><span class="now_rap">Dream Work</span></b></h3>
+                        <h3><b><span class="now_rap">Education</span></b></h3>
                             <div class="story_text">
-                                - Work with understanding together for at least 3-5 years++ and more like be family.<br/>
-                                - <b>Prefer for permanent agreement.</b> (A short-term contract is possible but not preferable.)<br/>
-                            </div>                        
-                        <h3><b><span class="now_rap">Advantage</span></b></h3>
-                            <div class="story_text">
-                                - Usually, I can code non-stop for 10 hours. <br/>
-                                - God mode, I can code non-stop for 5 days with an urgent task. <br/>
-                                - Do not be serious about working overtime or on weekends. <br/>
-                                - Never play social media or games during work time.<br/>
-                                - Never leave incomplete work and retire. <br/>
-                                - From my experience never had a bug that I could not solve. <br/>
-                                - Never say I cannot do it in my work life. <br/>
-                                - Never mind working from the office or home.<br/>
-                                - Never request an increased salary. <br/>
-                                - Like to learn new technology of programming. <br/>
-                                - I do not know everything, but I believe I can learn and do. <br/>
-                            </div>
-                        <h3><b><span class="now_rap">Disadvantage</span></b></h3>
-                            <div class="story_text">
-                                - Probably late 1 day per week. (Solve by sleep at company.) <br/>
-                                - I am not a talkative person. <br/>
-                                - I do not prefer unit test, but I can do it. (More code, more test. Change code, change test.) <br/>
-                                <b>- A little bit listen and speak English. (Attempting to improve)</b> <br/>
-                                <b>- I am not good at grammar in English. (Attempting to improve)</b> <br/>
-                            </div>
-                        
-                        <h3><b><span class="now_rap">Quote From Experience</span></b></h3>
-                            <div class="story_text">
-                                Runaway from a problem is not good because sometimes you think it is the proper way to solve it, but it is not a good way for yourself.
+                                <div class="story_text_detail" style="padding-right: 30px;">
+                                    <span class="now_rap"><b>May 2011 - Apr 2015</b></span>&nbsp;(4 Years)<br/>
+                                    <b>Degree: </b>Bachelor Degree Of <span class="now_rap">Information Technology (IT)</span><br/>
+                                    <b>School: </b>Panyapiwat Institute <span class="now_rap">Of Management</span><br/>
+                                    <span class="now_rap"><b>GPA : </b>3.67</span>
+                                    <hr/>
+                                </div>
+                                
+                                <div class="story_text_detail" style="padding-right: 30px;">
+                                    <span class="now_rap"><b>May 2008 - Apr 2011</b></span>&nbsp;(3 Years)<br/>
+                                    <b>Degree: </b>Senior High School of Art <span class="now_rap">and Math</span><br/>
+                                    <b>School: </b><span class="now_rap">Trimit Wittayalai School</span>
+                                    <hr/>
+                                </div>
+                                
+                                <div class="story_text_detail">
+                                    <span class="now_rap"><b>May 2005 - Apr 2008</b></span>&nbsp;(3 Years)<br/>
+                                    <b>Degree: </b>Junior High School<br/>
+                                    <b>School: </b><span class="now_rap">Benchamarachuthit Chanthaburi  School</span>
+                                </div>
                             </div>
                         <h3><b><span class="now_rap">Certificate</span></b></h3>
                             <div class="story_text">
-                                <b>Hour of code</b><br/>
-                                <img class="img_past" src="../img/hourcode.jpg" />
-                                <b>ITPE</b> <br/>
-                                <img class="img_past" src="../img/itpe.jpg" /><br/>
+                                <div class="story_text_detail">
+                                    <b>Hour of code</b><br/>
+                                    <img class="img_past" src="../img/hourcode.jpg" />
+                                </div>
+                                <div class="story_text_detail">
+                                    <b>ITPE</b> <br/>
+                                    <img class="img_past" src="../img/itpe.jpg" /><br/>
+                                </div>
                             </div>
-                        <h3><b><span class="now_rap">Education</span></b></h3>
+                        <h3><b><span class="now_rap">Advantage</span></b></h3>
                             <div class="story_text">
-                                <span class="now_rap"><b>May 2011 - Apr 2015</b></span>&nbsp;(4 Years)<br/>
-                                <b>Degree: </b>Bachelor Degree Of <span class="now_rap">Information Technology (IT)</span><br/>
-                                <b>School: </b>Panyapiwat Institute <span class="now_rap">Of Management</span><br/>
-                                <span class="now_rap"><b>GPA : </b>3.67</span><br/>
-                                <br/>
-                                <span class="now_rap"><b>May 2008 - Apr 2011</b></span>&nbsp;(3 Years)<br/>
-                                <b>Degree: </b>Senior High School of Art <span class="now_rap">and Math</span><br/>
-                                <b>School: </b><span class="now_rap">Trimit Wittayalai School</span><br/>
-                                <br/>
-                                <span class="now_rap"><b>May 2005 - Apr 2008</b></span>&nbsp;(3 Years)<br/>
-                                <b>Degree: </b>Junior High School<br/>
-                                <b>School: </b><span class="now_rap">Benchamarachuthit Chanthaburi  School</span><br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Usually, I can code non-stop for 10 hours. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- God mode, I can code non-stop for 5 days with an urgent task. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Do not be serious about working overtime or on weekends. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never play social media or games during work time.<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never leave incomplete work and retire. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- From my experience never had a bug that I could not solve. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never say I cannot do it in my work life. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never mind working from the office or home.<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never request an increased salary. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Like to learn new technology of programming. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- I do not know everything, but I believe I can learn and do. <br/>
                             </div>
-                        <h3><b><span class="now_rap">Hobby</span></b></h3>
+                        <h3><b><span class="now_rap">Disadvantage</span></b></h3>
                             <div class="story_text">
-                                Play with dog. / Make merit. <br/>
-                                <ion-slide-box class="ionic-slide" does-continue="true" auto-play="true" slide-interval="1500" >
-                                    <ion-slide>
-                                        <img class="img_past" src="../img/hobby_dog1.jpg" />
-                                    </ion-slide>
-                                    <ion-slide>
-                                        <img class="img_past" src="../img/hobby_merit1.jpg" />
-                                    </ion-slide>
-                                 </ion-slide-box>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Probably late 1 day per week. (Solve by sleep at company.) <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- I am not a talkative person. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- I do not prefer unit test, but I can do it. (More code, more test. Change code, change test.) <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<b>- A little bit listen and speak English. (Attempting to improve)</b> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<b>- I am not good at grammar in English. (Attempting to improve)</b> <br/>
+                            </div>
+                        <h3><b><span class="now_rap">Dream Work</span></b></h3>
+                            <div class="story_text">
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Work with understanding together for at least 3-5 years++ and more like be family.<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- <b>Prefer for permanent agreement.</b> (A short-term contract is possible but not preferable.)<br/>
+                            </div>                        
+                        
+                        <h3><b><span class="now_rap">Quote From Experience</span></b></h3>
+                            <div class="story_text">
+                                &nbsp;&nbsp;&nbsp;&nbsp;Runaway from a problem is not good because sometimes you think it is the proper way to solve it, but it is not a good way for yourself.
                             </div>
                         <h3><b><span class="now_rap">Salary</span></b></h3>
                             <div class="story_text">
-                                <span class="now_rap"><b>Expected:</b> Up to company. &nbsp;</span>
-                                <span class="now_rap"><b>Latest:</b> More than 30K THB. <br/></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="now_rap"><b>Expected:</b> Up to company.</span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="now_rap"><b>Latest:</b> More than 30K THB. <br/></span>
                             </div>
                          <h3><b><span class="now_rap">Others</span></b></h3>
                             <div class="story_text">
-                                - Owner of <a href="https://www.npmjs.com/package/react-native-wheel-pick" target="_blank">react-native-wheel-pick</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Owner of <a href="https://www.npmjs.com/package/react-native-wheel-pick" target="_blank">React-Native-Wheel-Pick</a>
                                 <br/>
-                                - Write a blog on medium.com if interested in the new thing.
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Write a blog on medium.com if interested in the new thing.
                                 <br/>
-                                - <a href="https://tron-natthakorn.medium.com/เพิ่มความปลอดภัยของ-ssh-root-account-บน-linux-ด้วย-google-authenticator-2fa-67bf3ddfe82" target="_blank">เพิ่มความปลอดภัยของ ssh root บน Linux ด้วย MFA Google Authenticator</a>
-                                <br/>
-                                - <a href="https://tron-natthakorn.medium.com/%E0%B8%AA%E0%B8%A3%E0%B8%B8%E0%B8%9B-%E0%B8%AA%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%87%E0%B8%B2%E0%B8%99-frontend-re-united-bangkok-2018-part-1-969e69a61d57" target="_blank">สิ่งที่ได้จากงาน FRONTEND RE-UNITED Bangkok 2018</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- <a href="https://tron-natthakorn.medium.com/เพิ่มความปลอดภัยของ-ssh-root-account-บน-linux-ด้วย-google-authenticator-2fa-67bf3ddfe82" target="_blank">เพิ่มความปลอดภัยของ ssh root บน Linux ด้วย MFA Google Authenticator</a>
+                            </div>
+                        <h3><b><span class="now_rap">Hobby</span></b></h3>
+                            <div class="story_text">
+                                <div class="story_text_detail">
+                                    Play with dog. / Make merit. <br/>
+                                    <ion-slide-box class="ionic-slide" does-continue="true" auto-play="true" slide-interval="2200" >
+                                        <ion-slide>
+                                            <img class="img_past" src="../img/hobby_dog1.jpg" />
+                                        </ion-slide>
+                                        <ion-slide>
+                                            <img class="img_past" src="../img/hobby_merit1.jpg" />
+                                        </ion-slide>
+                                     </ion-slide-box>
+                                </div>
                             </div>
                         <br/>
                     </div>

@@ -362,54 +362,88 @@ var graph_other_skill_dark = settingHighChart(
     otherPoint
 )
 
-var defaultModeTheme = 'light'
+function CVWhiteMode(){
+    $(".cv_pane").css("background-color", "white");
+    $(".cv_pane").css("color", "black");
+    $(".cv_pane .item").css("background-color", "white");
+    $(".cv_pane a").css("color", "blue");
+    $(".cv_pane h2").css("color", "black");
+    $(".cv_pane h3").css("color", "black");
+    $(".ban_skill").css("background-color", "white");
+
+    $("#map_tol").css("opacity", "1");
+    $("img").css("opacity", "1");
+    $(".slider").css("opacity", "1");
+    $("#pic_me_slide").css("opacity", "1");
+
+    $('#graph_backend').highcharts(graph_backend_light);
+    $('#graph_frontend').highcharts(graph_frontend_light);
+    $('#graph_db').highcharts(graph_db_light);
+    $('#graph_other_skill').highcharts(graph_other_skill_light);
+}
+
+function CVDarkMode(){
+    $(".cv_pane").css("background-color", "black");
+    $(".cv_pane").css("color", "wheat");
+    $(".cv_pane .item").css("background-color", "black");
+    $(".cv_pane a").css("color", "lightgreen");
+    $(".cv_pane h2").css("color", "wheat");
+    $(".cv_pane h3").css("color", "wheat");
+    $(".ban_skill").css("background-color", "black");
+
+    $("#map_tol").css("opacity", "0.84");
+    $("img").css("opacity", "0.71");
+    $(".slider").css("opacity", "0.82");
+    $("#pic_me_slide").css("opacity", "0.97");
+
+    $('#graph_backend').highcharts(graph_backend_dark);
+    $('#graph_frontend').highcharts(graph_frontend_dark);
+    $('#graph_db').highcharts(graph_db_dark);
+    $('#graph_other_skill').highcharts(graph_other_skill_dark);
+}
 
 // mode - dark / light
+function decisionToggleMode(){
+    if (typeof(Storage) !== "undefined") {
+        if(localStorage.getItem("defaultModeTheme")){
+            let checkDefaultModeTheme = localStorage.getItem("defaultModeTheme")
+            if(checkDefaultModeTheme === 'dark'){
+                return true
+            } else {
+                localStorage.setItem("defaultModeTheme", "light");
+                return false
+            }
+        }
+        localStorage.setItem("defaultModeTheme", "light");
+        return false
+    }
+    return false
+}
+
 function toggleColorMode(){
-    console.log('toggle Mode')
+    let isDark = decisionToggleMode()
+    let isSupportLocalStorage = (typeof(Storage) !== "undefined")
 
-    if(defaultModeTheme === 'light'){
-        defaultModeTheme = 'dark'
-
-        $(".cv_pane").css("background-color", "black");
-        $(".cv_pane").css("color", "wheat");
-        $(".cv_pane .item").css("background-color", "black");
-        $(".cv_pane a").css("color", "lightgreen");
-        $(".cv_pane h2").css("color", "wheat");
-        $(".cv_pane h3").css("color", "wheat");
-        $(".ban_skill").css("background-color", "black");
-
-        $('#graph_backend').highcharts(graph_backend_dark);
-        $('#graph_frontend').highcharts(graph_frontend_dark);
-        $('#graph_db').highcharts(graph_db_dark);
-        $('#graph_other_skill').highcharts(graph_other_skill_dark);
-
-    } else if (defaultModeTheme === 'dark') {
-        defaultModeTheme = 'light'
-
-        $(".cv_pane").css("background-color", "white");
-        $(".cv_pane").css("color", "black");
-        $(".cv_pane .item").css("background-color", "white");
-        $(".cv_pane a").css("color", "blue");
-        $(".cv_pane h2").css("color", "black");
-        $(".cv_pane h3").css("color", "black");
-        $(".ban_skill").css("background-color", "white");
-
-        $('#graph_backend').highcharts(graph_backend_light);
-        $('#graph_frontend').highcharts(graph_frontend_light);
-        $('#graph_db').highcharts(graph_db_light);
-        $('#graph_other_skill').highcharts(graph_other_skill_light);
+    if(isDark){
+        CVWhiteMode()
+    } else {
+        CVDarkMode()
     }
 
+    if(isSupportLocalStorage){
+        localStorage.setItem("defaultModeTheme", isDark ? 'light': 'dark')
+    }
 }
 
 function graph_cv_load() {
     $(function () {
-        // $('#graph_backend').highcharts(graph_backend_light);
-        // $('#graph_frontend').highcharts(graph_frontend_light);
-        // $('#graph_db').highcharts(graph_db_light);
-        // $('#graph_other_skill').highcharts(graph_other_skill_light);
-        // $(".cv_pane a").css("color", "blue");
-        toggleColorMode()
+
+        let isDark = decisionToggleMode()
+
+        if(isDark){
+            CVDarkMode()
+        } else {
+            CVWhiteMode()
+        }
     });
 }
