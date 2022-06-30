@@ -362,16 +362,6 @@ var graph_other_skill_dark = settingHighChart(
     otherPoint
 )
 
-function graph_cv_load() {
-    $(function () {
-        $('#graph_backend').highcharts(graph_backend_light);
-        $('#graph_frontend').highcharts(graph_frontend_light);
-        $('#graph_db').highcharts(graph_db_light);
-        $('#graph_other_skill').highcharts(graph_other_skill_light);
-        $(".cv_pane a").css("color", "blue");
-    });
-}
-
 var defaultModeTheme = 'light'
 
 // mode - dark / light
@@ -411,4 +401,15 @@ function toggleColorMode(){
         $('#graph_other_skill').highcharts(graph_other_skill_light);
     }
 
+}
+
+function graph_cv_load() {
+    $(function () {
+        // $('#graph_backend').highcharts(graph_backend_light);
+        // $('#graph_frontend').highcharts(graph_frontend_light);
+        // $('#graph_db').highcharts(graph_db_light);
+        // $('#graph_other_skill').highcharts(graph_other_skill_light);
+        // $(".cv_pane a").css("color", "blue");
+        toggleColorMode()
+    });
 }
