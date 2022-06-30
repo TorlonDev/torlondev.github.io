@@ -83,9 +83,9 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
 
     $('#age_pure').html("0 Year 0 Month And 0 Days")
 
-    for(let i = 1; i <= 4900; i++){
+    for(let i = 1; i <= 7900; i++){
         setTimeout(function() {
-            if(i < 4890){
+            if(i < 7890){
                 $('#age_pure').html(`${randomIntFromInterval(10, my_y_animate)} Years ${randomIntFromInterval(1, 9)} Months And ${randomIntFromInterval(10, 28)} Days`)
             } else {
                 $('#age_pure').html(getAge("11/6/1992"))
