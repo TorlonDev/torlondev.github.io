@@ -79,14 +79,17 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
         $scope.modal_image_me.hide();
     };
 
-    let my_y_animate = (((new Date()).getFullYear()) - 1992) - 2
+    let my_y_animate = (((new Date()).getFullYear()) - 1992) - 1
 
     $('#age_pure').html("0 Year 0 Month And 0 Days")
 
-    for(let i = 1; i <= 7900; i++){
+    let maxTimeanimate = 7900
+    let goodDevide = maxTimeanimate / my_y_animate
+
+    for(let i = 1; i <= maxTimeanimate; i++){
         setTimeout(function() {
-            if(i < 7890){
-                $('#age_pure').html(`${randomIntFromInterval(10, my_y_animate)} Years ${randomIntFromInterval(1, 9)} Months And ${randomIntFromInterval(10, 28)} Days`)
+            if(i < maxTimeanimate - 10){
+                $('#age_pure').html(`${Math.floor(i / goodDevide)} Years ${randomIntFromInterval(1, 9)} Months And ${randomIntFromInterval(10, 28)} Days`)
             } else {
                 $('#age_pure').html(getAge("11/6/1992"))
             }
