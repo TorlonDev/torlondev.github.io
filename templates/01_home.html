@@ -51,7 +51,9 @@
         background-color: gray;
         padding-top: 5px;
     }
-    
+    #div_img_about_me {
+        padding-bottom: 10px;
+    }
 
     @media only screen and (min-width: 750px) {
         .ground_home {
@@ -89,18 +91,18 @@
             text-shadow : -1px 0 orange, 0 1px orange , 1px 0 orange, 0 -1px orange;
         }
         .ban_horizon_white{
-            height: 250px;
+            height: 260px;
             width: 100%;
             background-color: white;
             padding-top: 20px;
         }
         .ban_horizon_gainsboro{
-            height: 250px;
+            height: 260px;
             width: 100%;
             background-color: gray;
             color: white;
             padding-top: 20px;
-            padding-left: 20px;
+            /* padding-left: 20px; */
         }
         .ban_me {
             width: 100%;
@@ -121,6 +123,9 @@
             height: 230px;
             width: 230px;
         }
+        #div_img_about_me {
+            padding-bottom: 10px;
+        }
     }
 
     @media only screen and (min-width: 1430px) {
@@ -128,6 +133,9 @@
             background: center;
             background-image: url('../img/cover_pic_big2.jpg');
             background-repeat: repeat;
+        }
+        #div_img_about_me {
+            padding-bottom: 30px;
         }
     }
 
@@ -157,7 +165,7 @@
             <div class="rowly ban_horizon_white">
                 <div class="coly-0"></div>
                 <div class="coly-10">
-                    <div class="desktop_right_50">
+                    <div class="desktop_right_50" style="margin-top: 5px;">
                         <h3><b><span>I Am Frontend & Mobile Dev.</span></b></h3>
                     </div>
                     <div class="desktop_left_50 desktop_center mobile_center">
@@ -165,21 +173,22 @@
                     </div>
                     <div class="desktop_right_50">
                         <div class="story_text">
-                            - รับพัฒนา และแก้ไขเว็บไซต์ แอพลิเคชันมือถือ<br/>
+                            - รับพัฒนา/แก้ไข เว็บไซต์ แอพลิเคชันมือถือ<br/>
                             - พัฒนา ให้รองรับหน้าจอหลายๆขนาด<br/>
                             <b>(หน้าจอ มือถือ / Tablet / คอมพิวเตอร์)</b>
                             <br/><br/>
                                 <b>
                                     <span class="now_rap">HTML /</span>
                                     <span class="now_rap">CSS /</span> 
-                                    <span class="now_rap">Javascript /</span> 
+                                    <span class="now_rap">JS /</span> 
                                     <span class="now_rap">JQuery /</span>
                                     <span class="now_rap">React /</span>
                                     <span class="now_rap">React Native /</span>
-                                    <span class="now_rap">Responsive Web Design /</span>
+                                    <span class="now_rap">Responsive Design /</span>
                                     <span class="now_rap">Android /</span>
                                     <span class="now_rap">iOS</span>
                                 </b>
+                            <br/><br/>
                         </div>
                     </div>
 
@@ -189,13 +198,14 @@
             <div class="rowly ban_horizon_gainsboro">
                 <div class="coly-0"></div>
                 <div class="coly-10">
-                    <div class="desktop_left_50 desktop_left_pad_70" >
+
+                    <div class="desktop_right_50" style="margin-top: 5px;">
                         <h3 style="color: white;"><b><span class="now_rap">I Am Backend Dev.</span></b></h3>
                     </div>
-                    <div class="desktop_right_50 desktop_center mobile_center desktop_right_pad_70">
+                    <div class="desktop_left_50 desktop_center mobile_center">
                         <img class="code_img" src="../img/code3.png" alt=""/>
                     </div>
-                    <div class="desktop_left_50 desktop_left_pad_70">
+                    <div class="desktop_right_50">
                         <div class="story_text">
                             - รับงานเขียนโปรแกรม<br/>
                             - รับพัฒนางานแบบทีมด้วย Git / Docker<br/>
@@ -219,7 +229,7 @@
             <div class="rowly ban_horizon_white">
                 <div class="coly-0"></div>
                 <div class="coly-10">
-                    <div class="desktop_right_50">
+                    <div class="desktop_right_50" style="margin-top: 5px;">
                         <h3><b><span class="now_rap">I Am IT Man</span></b></h3>
                     </div>
                     <div class="desktop_left_50 desktop_center mobile_center">
@@ -249,7 +259,7 @@
                     <div>
                         <h3 style="color: white;"><b><span class="now_rap">About Me</span></b></h3>
                     </div>
-                    <div class="desktop_right mobile_center">
+                    <div class="desktop_right mobile_center" id="div_img_about_me">
                         <a href=""><img ng-click="showImageMe()" class="me_img" src="../img/tolcom2.png" alt=""/></a>
                     </div>
                     <div>
@@ -283,8 +293,8 @@
                             </a>
                         </div>
                         <br/>
-                        <b>Copyright © 1992-{{this_year}} torlondev.js.org</b><br/>
-                        <b>All rights reserved.</b>
+                        <b>1992-{{this_year}} torlondev.js.org</b><br/>
+                        <b></b>
                         <br/>
                         <br/>&nbsp;
                     </div>

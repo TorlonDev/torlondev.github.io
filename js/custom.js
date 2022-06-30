@@ -38,7 +38,7 @@ function load_snow() {
     var ctx = canvas.getContext("2d");
 
     var W =  1000; //window.innerWidth;
-    var H = 400; //window.innerHeight;
+    var H = 370; //window.innerHeight;
     canvas.width = W;
     canvas.height = H;
 
