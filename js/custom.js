@@ -391,10 +391,10 @@ function CVDarkMode(){
     $(".cv_pane h3").css("color", "wheat");
     $(".ban_skill").css("background-color", "black");
 
-    $("#map_tol").css("opacity", "0.84");
-    $("img").css("opacity", "0.71");
-    $(".slider").css("opacity", "0.82");
-    $("#pic_me_slide").css("opacity", "0.97");
+    $("#map_tol").css("opacity", "0.94");
+    $("img").css("opacity", "0.94");
+    $(".slider").css("opacity", "0.94");
+    $("#pic_me_slide").css("opacity", "0.98");
 
     $('#graph_backend').highcharts(graph_backend_dark);
     $('#graph_frontend').highcharts(graph_frontend_dark);
