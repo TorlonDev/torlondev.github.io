@@ -21,16 +21,30 @@ function home_control() {
             $(".ground_home").css("background-image", "url('" + arr_pic_small[i] + "')");
         }
         $(".space_logo").css("text-shadow", "-1px 0 " + color_shadow[i] + ", 0 1px " + color_shadow[i] + ", 1px 0 " + color_shadow[i] + ", 0 -1px " + color_shadow[i]);
+        
         document.getElementById('like_txt').innerHTML = like_txt[i];
+
+        // let like_text_str = like_txt[i];
+        // let concat_str = ''
+
+        // for(let i = 0; i < (like_text_str.length); i++){
+        //     concat_str += like_text_str[i]
+
+        //     setTimeout(() => {
+        //         document.getElementById('like_txt').innerHTML = concat_str
+        //     }, (i + 1) * 100 )
+        // }
+
+
         if (i === pic_count - 1) {
             i = 0;
         } else {
             ++i;
         }
         //$(".ground_home").css('display', 'block');
-        setTimeout(recur, 25000);
+        setTimeout(recur, 7000);
     }
-    setTimeout(recur, 30000); //first_impression
+    setTimeout(recur, 2000); //first_impression
 }
 
 function load_snow() {

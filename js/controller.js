@@ -52,8 +52,10 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
 
     $scope.this_year = (new Date()).getFullYear();
 
-    home_control();
     load_snow();
+    setTimeout(() => {
+        home_control();
+    },2000)
 
 }).controller('CVCtrl', function ($scope, $ionicSideMenuDelegate, NgMap, $ionicModal) {
     
