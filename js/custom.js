@@ -16,9 +16,9 @@ function home_control() {
 
     function recur() {
         if (window.screen.availWidth >= 700) {
-            $(".ground_home").css("background-image", "url('" + arr_pic_big[i] + "')");
+            $(".ground_home").css('transition', 'background-image 4s').css("background-image", "url('" + arr_pic_big[i] + "')");
         } else {
-            $(".ground_home").css("background-image", "url('" + arr_pic_small[i] + "')");
+            $(".ground_home").css('transition', 'background-image 4s').css("background-image", "url('" + arr_pic_small[i] + "')");
         }
         $(".space_logo").css("text-shadow", "-1px 0 " + color_shadow[i] + ", 0 1px " + color_shadow[i] + ", 1px 0 " + color_shadow[i] + ", 0 -1px " + color_shadow[i]);
         
@@ -35,14 +35,13 @@ function home_control() {
         //     }, (i + 1) * 100 )
         // }
 
-
         if (i === pic_count - 1) {
             i = 0;
         } else {
             ++i;
         }
         //$(".ground_home").css('display', 'block');
-        setTimeout(recur, 7000);
+        setTimeout(recur, 8000);
     }
     setTimeout(recur, 2000); //first_impression
 }

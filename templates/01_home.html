@@ -11,10 +11,11 @@
 
     .ground_home {
         background-image: url('../img/cover_pic_small2.jpg');
+        transition: background-image 4s;
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100% 315px;
-        transition: background-image 3s;
+        background-color: white;
     }
     #snowy {
         display: block;
@@ -146,7 +147,7 @@
 </style>
 
 
-<ion-view class="ground_home" view-title="Home" style="background-color: black;">
+<ion-view class="ground_home" view-title="Home">
     <ion-content overflow-scroll="true">
         <canvas id="snowy"></canvas>
         <div class="logo">
