@@ -402,6 +402,10 @@ function CVWhiteMode(){
     $('#graph_frontend').highcharts(graph_frontend_light);
     $('#graph_db').highcharts(graph_db_light);
     $('#graph_other_skill').highcharts(graph_other_skill_light);
+
+    // HARD CODE for !IMPORTANT move toggle
+    $('.handle').attr('style', 'transform: translate3d(0px,0,0) !important')
+    $('.track').attr('style', 'background-color: white !important')
 }
 
 function CVDarkMode(){
@@ -422,6 +426,10 @@ function CVDarkMode(){
     $('#graph_frontend').highcharts(graph_frontend_dark);
     $('#graph_db').highcharts(graph_db_dark);
     $('#graph_other_skill').highcharts(graph_other_skill_dark);
+
+    // HARD CODE for !IMPORTANT move toggle
+    $('.handle').attr('style', 'transform: translate3d(20px,0,0) !important')
+    $('.track').attr('style', 'background-color: black !important')
 }
 
 // mode - dark / light
@@ -454,6 +462,16 @@ function toggleColorMode(){
 
     if(isSupportLocalStorage){
         localStorage.setItem("defaultModeTheme", isDark ? 'light': 'dark')
+    }
+}
+
+function onMoonClick() {
+    let isSupportLocalStorage = (typeof(Storage) !== "undefined")
+
+    CVDarkMode()
+
+    if(isSupportLocalStorage){
+        localStorage.setItem("defaultModeTheme", 'dark')
     }
 }
 

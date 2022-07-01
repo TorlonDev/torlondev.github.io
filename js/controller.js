@@ -106,6 +106,12 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     graph_cv_load();
     $ionicSideMenuDelegate.canDragContent(false);
 
+    $scope.scopeOnMoonClick = function () {
+        $scope.isToggle = true;
+
+        onMoonClick()
+    }
+
     // NgMap.getMap().then(function (map) {
     //     this.map = map;
     // });
