@@ -7,6 +7,10 @@ div .scroll {
     -webkit-user-select: text !important; 
 }
 
+.hidden_cache {
+    width: 700px; height: 500px; display: none;
+}
+
 .border-none{
     border: none;
 }
