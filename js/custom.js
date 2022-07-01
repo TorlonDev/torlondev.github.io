@@ -14,6 +14,15 @@ function home_control() {
     var pic_count = arr_pic_big.length;
     var i = 0;
 
+    // Hidden cache
+    for(let x = 0; x < arr_pic_big.length; x++){
+        if (window.screen.availWidth >= 700) {
+            $(`#hidden_cache_${x + 1}`).css("background-image", "url('" + arr_pic_big[x] + "')");
+        } else {
+            $(`#hidden_cache_${x + 1}`).css("background-image", "url('" + arr_pic_small[x] + "')");
+        }
+    }
+
     function recur() {
         if (window.screen.availWidth >= 700) {
             $(".ground_home").css('transition', 'background-image 4s').css("background-image", "url('" + arr_pic_big[i] + "')");
