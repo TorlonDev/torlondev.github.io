@@ -404,8 +404,8 @@ function CVWhiteMode(){
     $('#graph_other_skill').highcharts(graph_other_skill_light);
 
     // HARD CODE for !IMPORTANT move toggle
-    $('.handle').attr('style', 'transform: translate3d(0px,0,0) !important')
-    $('.track').attr('style', 'background-color: white !important')
+    $('.handle').attr('style', 'transform: translate3d(0px,0,0) !important; background-color: white !important;')
+    $('.track').attr('style', 'background-color: white !important; border-color: black !important;')
 }
 
 function CVDarkMode(){
@@ -428,8 +428,8 @@ function CVDarkMode(){
     $('#graph_other_skill').highcharts(graph_other_skill_dark);
 
     // HARD CODE for !IMPORTANT move toggle
-    $('.handle').attr('style', 'transform: translate3d(20px,0,0) !important')
-    $('.track').attr('style', 'background-color: black !important')
+    $('.handle').attr('style', 'transform: translate3d(20px,0,0) !important; background-color: white !important;')
+    $('.track').attr('style', 'background-color: black !important; border-color: white !important;')
 }
 
 // mode - dark / light
