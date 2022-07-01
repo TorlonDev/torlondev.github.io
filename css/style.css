@@ -7,9 +7,13 @@ div .scroll {
     -webkit-user-select: text !important; 
 }
 
-.hidden_cache {
-    width: 700px; height: 500px; display: none;
-}
+.hidden_cache { opacity: 0.1; }
+
+#hidden_cache_1 { background-image: url('../img/cover_pic_small1.jpg'); }
+#hidden_cache_2 { background-image: url('../img/cover_pic_small2.jpg'); }
+#hidden_cache_3 { background-image: url('../img/cover_pic_small3.jpg'); }
+#hidden_cache_4 { background-image: url('../img/cover_pic_small4.jpg'); }
+#hidden_cache_5 { background-image: url('../img/cover_pic_small5.jpg'); }
 
 .border-none{
     border: none;
@@ -48,6 +52,13 @@ div .scroll {
     color: white;
 }
 
+@media only screen and (min-width: 700px) {
+    #hidden_cache_1x { background-image: url('../img/cover_pic_big1.jpg'); }
+    #hidden_cache_2x { background-image: url('../img/cover_pic_big2.jpg'); }
+    #hidden_cache_3x { background-image: url('../img/cover_pic_big3.jpg'); }
+    #hidden_cache_4x { background-image: url('../img/cover_pic_big4.jpg'); }
+    #hidden_cache_5x { background-image: url('../img/cover_pic_big5.jpg'); }
+}
 
 @media only screen and (min-width: 750px) {
     .coly-0 {width: 7%;}
