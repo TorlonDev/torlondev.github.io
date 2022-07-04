@@ -55,7 +55,7 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     load_snow();
     setTimeout(() => {
         home_control();
-    },4000)
+    },3000)
 
 }).controller('CVCtrl', function ($scope, $ionicSideMenuDelegate, NgMap, $ionicModal) {
     

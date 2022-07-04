@@ -52,7 +52,7 @@ function home_control() {
         //$(".ground_home").css('display', 'block');
         setTimeout(recur, 8000);
     }
-    setTimeout(recur, 4000); //first_impression
+    setTimeout(recur, 3000); //first_impression
 }
 
 function load_snow() {
