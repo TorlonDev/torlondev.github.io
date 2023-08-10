@@ -1,0 +1,564 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Future Calculator</title>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+	<style>
+		body {
+			background-color: black;
+			color: wheat;
+		}
+
+		#clock {
+			font-size: 80px;
+			width: 100%;
+			text-align: center;
+			border: 2px solid black;
+			border-radius: 5px;
+		}
+
+		a {
+			color: lime;
+		}
+
+		td {
+			border: 1px solid;
+			color: wheat;
+			text-align: center;
+			padding: 5px;
+		}
+
+		[id*="max_side_price"] { color: lime; }
+		[id*="min_side_price"] { color: lime; }
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+	<!--   
+		const fn = () => { $('[data-column-type="change_percent"]').click().click(); }
+  		setInterval(() => {  fn() }, 30000)
+	-->
+</head>
+
+<body>
+	<center>
+		<div id="clock">0:00:00</div>
+		<script type="text/javascript">
+			setInterval(showTime, 1000);
+			function showTime() {
+				let time = new Date();
+				let hour = time.getHours();
+				let min = time.getMinutes();
+				let sec = time.getSeconds();
+				am_pm = "AM";
+				/*if (hour > 12) { hour -= 12; am_pm = "PM"; }
+				if (hour == 0) { hr = 12; am_pm = "AM"; }*/
+				hour = hour < 10 ? "0" + hour : hour;
+				min = min < 10 ? "0" + min : min;
+				sec = sec < 10 ? "0" + sec : sec;
+
+				let currentTime = hour + ":" + min + ":" + sec;  //+ am_pm;
+				let currentDate = (`${new Date()}`).split((new Date()).getFullYear())[0] + new Date().getFullYear();
+
+				document.getElementById("clock").innerHTML = currentDate + "<br/>" + currentTime;
+			}
+			showTime();
+		</script>
+		<h1>Funding Countdown (UTC+7) 07am / 03pm / 11pm</h1>
+		<hr />
+		<h1>Leverage - Entry - Liquidation ... Engulfing Wave</h1>
+		<h1>Maintenance Margin Base on 2 % (First Range)</h1>
+		<a href="https://www.binance.com/en/futures/trading-rules/perpetual/leverage-margin" target="_blank">Recheck :
+			https://www.binance.com/en/futures/trading-rules/perpetual/leverage-margin</a><br />
+		<a href="https://dappgrid.com/binance-futures-calculator/" target="_blank">Calculator Helper :
+			https://dappgrid.com/binance-futures-calculator/</a><br /><br />
+		<table id="table_leverage" style="width: 50%;">
+			<thead>
+				<tr>
+					<td>Leverage</td>
+					<td>Liq Wave (Maintain 2%)</td>
+					<td>Liq Wave (Maintain 1%)</td>
+				</tr>
+			</thead>
+			<tbody id="tbody_leverage"></tbody>
+		</table>
+		<script type="text/javascript">
+			let arr_liq_wave = [
+				{ m_2: 0, m_1: 0 }, //1x
+				{ m_2: 48.98, m_1: 49.50 }, //2x
+				{ m_2: 31.98, m_1: 32.66 },
+				{ m_2: 23.47, m_1: 24.25 },
+				{ m_2: 18.37, m_1: 19.2 },
+				{ m_2: 14.97, m_1: 15.83 },
+				{ m_2: 12.54, m_1: 13.42 },
+				{ m_2: 10.72, m_1: 11.62 },
+				{ m_2: 9.3, m_1: 10.22 },
+				{ m_2: 8.17, m_1: 9.1 },
+
+				{ m_2: 7.24, m_1: 8.18 },
+				{ m_2: 6.47, m_1: 7.41 },
+				{ m_2: 5.81, m_1: 6.76 },
+				{ m_2: 5.25, m_1: 6.21 },
+				{ m_2: 4.77, m_1: 5.73 },
+				{ m_2: 4.34, m_1: 5.31 },
+				{ m_2: 3.97, m_1: 4.94 },
+				{ m_2: 3.63, m_1: 4.61 },
+				{ m_2: 3.33, m_1: 4.31 },
+				{ m_2: 3.07, m_1: 4.04 },
+
+				{ m_2: 2.82, m_1: 3.8 },
+				{ m_2: 2.6, m_1: 3.59 },
+				{ m_2: 2.4, m_1: 3.39 },
+				{ m_2: 2.21, m_1: 3.2 },
+				{ m_2: 2.05, m_1: 3.04 },
+				{ m_2: 1.89, m_1: 2.88 },
+				{ m_2: 1.74, m_1: 2.73 },
+				{ m_2: 1.61, m_1: 2.6 },
+				{ m_2: 1.48, m_1: 2.48 },
+				{ m_2: 1.37, m_1: 2.36 },
+
+				{ m_2: 1.25, m_1: 2.25 },
+				{ m_2: 1.14, m_1: 2.15 },
+				{ m_2: 1.05, m_1: 2.05 },
+				{ m_2: 0.97, m_1: 1.97 },
+				{ m_2: 0.87, m_1: 1.88 },
+				{ m_2: 0.8, m_1: 1.8 },
+				{ m_2: 0.72, m_1: 1.72 },
+				{ m_2: 0.65, m_1: 1.65 },
+				{ m_2: 0.58, m_1: 1.58 },
+				{ m_2: 0.52, m_1: 1.52 },
+
+				{ m_2: 0.45, m_1: 1.46 },
+				{ m_2: 0.39, m_1: 1.39 },
+				{ m_2: 0.34, m_1: 1.34 },
+				{ m_2: 0.28, m_1: 1.29 },
+				{ m_2: 0.23, m_1: 1.24 },
+				{ m_2: 0.18, m_1: 1.19 },
+				{ m_2: 0.14, m_1: 1.14 },
+				{ m_2: 0.09, m_1: 1.10 },
+				{ m_2: 0.05, m_1: 1.05 },
+				{ m_2: 0, m_1: 1.01 },
+
+				{ m_2: NaN, m_1: 0.97 },
+				{ m_2: NaN, m_1: 0.93 },
+				{ m_2: NaN, m_1: 0.89 },
+				{ m_2: NaN, m_1: 0.86 },
+				{ m_2: NaN, m_1: 0.82 },
+				{ m_2: NaN, m_1: 0.79 },
+				{ m_2: NaN, m_1: 0.76 },
+				{ m_2: NaN, m_1: 0.73 },
+				{ m_2: NaN, m_1: 0.70 },
+				{ m_2: NaN, m_1: 0.67 },
+
+				{ m_2: NaN, m_1: 0.65 },
+				{ m_2: NaN, m_1: 0.62 },
+				{ m_2: NaN, m_1: 0.60 },
+				{ m_2: NaN, m_1: 0.57 },
+				{ m_2: NaN, m_1: 0.55 },
+				{ m_2: NaN, m_1: 0.53 },
+				{ m_2: NaN, m_1: 0.5 },
+				{ m_2: NaN, m_1: 0.48 },
+				{ m_2: NaN, m_1: 0.46 },
+				{ m_2: NaN, m_1: 0.44 },
+
+				{ m_2: NaN, m_1: 0.41 },
+				{ m_2: NaN, m_1: 0.39 },
+				{ m_2: NaN, m_1: 0.37 },
+				{ m_2: NaN, m_1: 0.36 },
+				{ m_2: NaN, m_1: 0.34 },
+				{ m_2: NaN, m_1: 0.32 },
+				{ m_2: NaN, m_1: 0.30 },
+				{ m_2: NaN, m_1: 0.28 },
+				{ m_2: NaN, m_1: 0.27 },
+				{ m_2: NaN, m_1: 0.26 },
+
+				{ m_2: NaN, m_1: 0.24 },
+				{ m_2: NaN, m_1: 0.22 },
+				{ m_2: NaN, m_1: 0.21 },
+				{ m_2: NaN, m_1: 0.2 },
+				{ m_2: NaN, m_1: 0.17 },
+				{ m_2: NaN, m_1: 0.16 },
+				{ m_2: NaN, m_1: 0.15 },
+				{ m_2: NaN, m_1: 0.13 },
+				{ m_2: NaN, m_1: 0.12 },
+				{ m_2: NaN, m_1: 0.11 },
+
+				{ m_2: NaN, m_1: 0.10 },
+				{ m_2: NaN, m_1: 0.08 },
+				{ m_2: NaN, m_1: 0.07 },
+				{ m_2: NaN, m_1: 0.06 },
+				{ m_2: NaN, m_1: 0.05 },
+				{ m_2: NaN, m_1: 0.04 },
+				{ m_2: NaN, m_1: 0.03 },
+				{ m_2: NaN, m_1: 0.02 },
+				{ m_2: NaN, m_1: 0.01 },
+				{ m_2: NaN, m_1: 0 },
+
+				// { m_2: 1, m_1: 0 }, // 101x
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 },
+
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 },
+
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 }, 
+				// { m_2: 1, m_1: 0 },
+			]
+
+			$('#tbody_leverage').html('')
+
+			let leverage_index = 1
+
+			arr_liq_wave.forEach(({ m_2, m_1 }) => {
+				$('#tbody_leverage').append(`
+				<tr>
+					<td>${leverage_index}x</td>
+					<td>${m_2}</td>
+					<td>${m_1}</td>
+				</tr>
+			`)
+				++leverage_index
+			})
+
+			$('#table_leverage').dataTable({ "ordering": false })
+
+		</script>
+
+		<h3>Simple Concept : ...Liquidation Wave... always big(engulfing) than biggest wave. (Determine biggest like
+			FIBO retracement.)</h3>
+		<h2>For Prevent Sideway Zigzag</h2>
+		<h2>Example : 2.1 % can use 24x for (Maintain) 2% and 32x for (Maintain) 1%</h2>
+		<hr />
+
+		<!-- ////////////////////////////// -->
+
+		<h1>Find LeverageX - Wave % Find (From 2 Points)</h1>
+		<h2>Delta Trick - 0.1-0.2 / 5 / .... (HigherLow 1) / .... (HigherLow 2)</h2>
+
+		1. Max : <input type="number" id="max_1_percent2points" /> Min : <input type="number"
+			id="min_1_percent2points" /> <button onclick="calPercentFrom2Points(1)">Cal</button> : <span
+			id="percent2points_1"></span> % <br />
+		2. Max : <input type="number" id="max_2_percent2points" /> Min : <input type="number"
+			id="min_2_percent2points" /> <button onclick="calPercentFrom2Points(2)">Cal</button> : <span
+			id="percent2points_2"></span> % <br />
+		3. Max : <input type="number" id="max_3_percent2points" /> Min : <input type="number"
+			id="min_3_percent2points" /> <button onclick="calPercentFrom2Points(3)">Cal</button> : <span
+			id="percent2points_3"></span> % <br />
+		4. Max : <input type="number" id="max_4_percent2points" /> Min : <input type="number"
+			id="min_4_percent2points" /> <button onclick="calPercentFrom2Points(4)">Cal</button> : <span
+			id="percent2points_4"></span> % <br />
+		5. Max : <input type="number" id="max_5_percent2points" /> Min : <input type="number"
+			id="min_5_percent2points" /> <button onclick="calPercentFrom2Points(5)">Cal</button> : <span
+			id="percent2points_5"></span> % <br />
+		6. Max : <input type="number" id="max_6_percent2points" /> Min : <input type="number"
+			id="min_6_percent2points" /> <button onclick="calPercentFrom2Points(6)">Cal</button> : <span
+			id="percent2points_6"></span> % <br />
+		7. Max : <input type="number" id="max_7_percent2points" /> Min : <input type="number"
+			id="min_7_percent2points" /> <button onclick="calPercentFrom2Points(7)">Cal</button> : <span
+			id="percent2points_7"></span> % <br />
+		8. Max : <input type="number" id="max_8_percent2points" /> Min : <input type="number"
+			id="min_8_percent2points" /> <button onclick="calPercentFrom2Points(8)">Cal</button> : <span
+			id="percent2points_8"></span> % <br />
+		9. Max : <input type="number" id="max_9_percent2points" /> Min : <input type="number"
+			id="min_9_percent2points" /> <button onclick="calPercentFrom2Points(9)">Cal</button> : <span
+			id="percent2points_9"></span> % <br /><br />
+		10. Max : <input type="number" id="max_10_percent2points" /> Min : <input type="number"
+			id="min_10_percent2points" /> <button onclick="calPercentFrom2Points(10)">Cal</button> : <span
+			id="percent2points_10"></span> % <br />
+		11. Max : <input type="number" id="max_11_percent2points" /> Min : <input type="number"
+			id="min_11_percent2points" /> <button onclick="calPercentFrom2Points(11)">Cal</button> : <span
+			id="percent2points_11"></span> % <br />
+		12. Max : <input type="number" id="max_12_percent2points" /> Min : <input type="number"
+			id="min_12_percent2points" /> <button onclick="calPercentFrom2Points(12)">Cal</button> : <span
+			id="percent2points_12"></span> % <br />
+		13. Max : <input type="number" id="max_13_percent2points" /> Min : <input type="number"
+			id="min_13_percent2points" /> <button onclick="calPercentFrom2Points(13)">Cal</button> : <span
+			id="percent2points_13"></span> % <br />
+		14. Max : <input type="number" id="max_14_percent2points" /> Min : <input type="number"
+			id="min_14_percent2points" /> <button onclick="calPercentFrom2Points(14)">Cal</button> : <span
+			id="percent2points_14"></span> % <br />
+		15. Max : <input type="number" id="max_15_percent2points" /> Min : <input type="number"
+			id="min_15_percent2points" /> <button onclick="calPercentFrom2Points(15)">Cal</button> : <span
+			id="percent2points_15"></span> % <br />
+		16. Max : <input type="number" id="max_16_percent2points" /> Min : <input type="number"
+			id="min_16_percent2points" /> <button onclick="calPercentFrom2Points(16)">Cal</button> : <span
+			id="percent2points_16"></span> % <br />
+		17. Max : <input type="number" id="max_17_percent2points" /> Min : <input type="number"
+			id="min_17_percent2points" /> <button onclick="calPercentFrom2Points(17)">Cal</button> : <span
+			id="percent2points_17"></span> % <br />
+		18. Max : <input type="number" id="max_18_percent2points" /> Min : <input type="number"
+			id="min_18_percent2points" /> <button onclick="calPercentFrom2Points(18)">Cal</button> : <span
+			id="percent2points_18"></span> % <br />
+		19. Max : <input type="number" id="max_19_percent2points" /> Min : <input type="number"
+			id="min_19_percent2points" /> <button onclick="calPercentFrom2Points(19)">Cal</button> : <span
+			id="percent2points_19"></span> % <br />
+		20. Max : <input type="number" id="max_20_percent2points" /> Min : <input type="number"
+			id="min_20_percent2points" /> <button onclick="calPercentFrom2Points(20)">Cal</button> : <span
+			id="percent2points_20"></span> % <br />
+
+		<br /><button onclick="clearAllPercent2Points()">Clear</button><br />
+
+		<h2>Wave Divide for increase leverage. ( /2 /1.618 / 1.3 )</h2>
+		<span id="wave_divide_full"></span> %<br /><br />
+
+		% / 6 : <span id="wave_divide_6"></span><br /><br />
+
+		% / 2 : <span id="wave_divide_2"></span><br />
+		% / 1.618 : <span id="wave_divide_1_618"></span><br />
+		% / 1.3 : <span id="wave_divide_1_3"></span><br /><br />
+		<hr />
+
+		<script type="text/javascript">
+			function findPercent2Points(max_price, min_price) {
+				const max = parseFloat(max_price)
+				const min = parseFloat(min_price)
+
+				const percent = (max - min) * (100 / max)
+				// Alternative
+				// const percent = 100 - ((min / max) * 100) // easy for solve max price from min
+				return percent
+			}
+
+			function clearAllPercent2Points() {
+				for (let i = 1; i <= 20; i++) {
+					$(`#max_${i}_percent2points`).val(null)
+					$(`#min_${i}_percent2points`).val(null)
+					$(`#percent2points_${i}`).text(null)
+				}
+
+				$(`#wave_divide_full`).text(null)
+				$(`#wave_divide_2`).text(null)
+				$(`#wave_divide_1_618`).text(null)
+				$(`#wave_divide_1_3`).text(null)
+			}
+
+			function calPercentFrom2Points(id_index) {
+				$(`#percent2points_${id_index}`).text(null)
+
+				const percent2Points = findPercent2Points($(`#max_${id_index}_percent2points`).val(), $(`#min_${id_index}_percent2points`).val())
+
+				$(`#percent2points_${id_index}`).text(percent2Points)
+
+				$(`#wave_divide_full`).text(percent2Points)
+
+				$(`#wave_divide_6`).text(percent2Points / 6)
+
+				$(`#wave_divide_2`).text(percent2Points / 2)
+				$(`#wave_divide_1_618`).text(percent2Points / 1.618)
+				$(`#wave_divide_1_3`).text(percent2Points / 1.3)
+			}
+		</script>
+
+		<!-- ////////////////////////////// -->
+
+		<h1>Find Delta - % Decision (From Long/Short Point)</h1>
+		<h3>Use for Multi-Margin Trailing Data / CallBack Rate (1-5% etc...)</h3>
+		<a href="https://www.investopedia.com/articles/trading/08/trailing-stop-loss.asp" target="_blank">Knowledge:
+			https://www.investopedia.com/articles/trading/08/trailing-stop-loss.asp</a>
+		<br /><br />
+
+		1. Trailing Long Activation Price : <input type="number" id="trailing_long_price" />
+		<!-- <button onclick="calDeltaPrice('long')">Calc</button> --> <br />
+		2. Trailing Short Activation Price : <input type="number" id="trailing_short_price" />
+		<!-- <button onclick="calDeltaPrice('short')">Calc</button> --> <br />
+		<br />
+		<button onclick="calDeltaPrice('long_and_short')">Calc</button> &nbsp;&nbsp;&nbsp; 
+		<button onclick="clearAllFindDelta()">Clear</button><br /><br />
+
+		<table id="table_find_delta">
+			<thead>
+				<tr>
+					<td></td>
+					<td>Percent</td>
+					<td>Long Delta</td>
+					<td>Short Delta</td>
+				</tr>
+			</thead>
+			<tbody id="tbody_find_delta">
+			</tbody>
+		</table>
+
+	<!-- Trailing Long Delta Price<br/>
+		1% : <span id="trailing_long_1"></span><br/>
+		2% : <span id="trailing_long_2"></span><br/>
+		3% : <span id="trailing_long_3"></span><br/>
+		4% : <span id="trailing_long_4"></span><br/>
+		5% : <span id="trailing_long_5"></span><br/>
+		<br/>
+		Trailing Short Delta Price<br/>
+		1% : <span id="trailing_short_1"></span><br/>
+		2% : <span id="trailing_short_2"></span><br/>
+		3% : <span id="trailing_short_3"></span><br/>
+		4% : <span id="trailing_short_4"></span><br/>
+		5% : <span id="trailing_short_5"></span><br/>
+	<br/> -->
+		<script type="text/javascript">
+
+			function findMaxFromPercent(min_price, percent) {
+				const min = parseFloat(min_price)
+				let p = parseFloat(percent)
+
+				if(p == 100){ p = 99.9999 }
+
+				return parseFloat((100 * min) / (100 - p))
+			}
+
+			function findMinFromPercent(max_price, percent) {
+				const max = parseFloat(max_price)
+				const p = parseFloat(percent)
+
+				return parseFloat((max * (100 - p)) / 100)
+			}
+
+			function clearAllFindDelta() {
+				$(`#trailing_long_price`).val(null)
+				$(`#trailing_short_price`).val(null)
+
+				// for(let i = 1; i <= 5; i++){
+				// 	$(`#trailing_long_${i}`).text('')
+				// 	$(`#trailing_short_${i}`).text('')
+				// }
+
+				$('#table_find_delta').dataTable().fnDestroy();
+				$('#tbody_find_delta').html('')
+				$('#table_find_delta').dataTable({ "ordering": false })
+
+			}
+
+			function calDeltaPrice(type) {
+
+				// $.ajax({
+				// 	url: "https://tollytrade.000webhostapp.com/tolly.php",
+				// 	success: function (result) {
+				// 		console.log("--- result ---")
+				// 		console.log(result)
+				// 	}
+				// });
+
+				// for(let i = 1; i <= 5; i++){
+				// 	if(type === 'long'){
+				// 		$(`#trailing_long_${i}`).text(
+				// 			findMinFromPercent($(`#trailing_long_price`).val(),i)
+				// 		)
+				// 	}
+
+				// 	if(type === 'short'){
+				// 		$(`#trailing_short_${i}`).text(
+				// 			findMaxFromPercent($(`#trailing_short_price`).val(),i)
+				// 		)
+				// 	}
+				// }
+				$('#table_find_delta').dataTable().fnDestroy();
+
+				$('#tbody_find_delta').html('')
+
+				for(let i = 1; i <= 15; i++){
+					$('#tbody_find_delta').append(`
+						<tr>
+							<td></td>
+							<td>${i}%</td>
+							<td>${findMinFromPercent($(`#trailing_long_price`).val(),i)}</td>
+							<td>${findMaxFromPercent($(`#trailing_short_price`).val(),i)}</td>
+						</tr>
+					`)
+				}
+
+				for(let i = 0.1; i <= 15; i+= 0.1){
+					$('#tbody_find_delta').append(`
+						<tr>
+							<td></td>
+							<td>${parseFloat(i).toFixed(1)}%</td>
+							<td>${parseFloat(findMinFromPercent($(`#trailing_long_price`).val(),i)).toFixed(10)}</td>
+							<td>${parseFloat(findMaxFromPercent($(`#trailing_short_price`).val(),i)).toFixed(10)}</td>
+						</tr>
+					`)
+				}
+
+				$('#table_find_delta').dataTable({ "ordering": false })
+			}
+
+			$('#table_find_delta').dataTable({ "ordering": false })
+		</script>
+		<hr />
+		<!-- ////////////////////////////// -->
+
+		<h1>Two Side Calculator</h1>
+		<h3>Use for multi-purpose. (Example : BTC Sideway Check, etc...)</h3>
+
+		1. Interest Price : <input type="number" id="two_side_interest_price_1" /> Percent : <input type="number" id="two_side_percent_1" />% 
+		   <button onclick="calTwoSidePercentFromInterest(1)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_1"></span> / Min Side : <span id="min_side_price_1"></span><br/><br/>
+		
+		2. Interest Price : <input type="number" id="two_side_interest_price_2" /> Percent : <input type="number" id="two_side_percent_2" />% 
+		   <button onclick="calTwoSidePercentFromInterest(2)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_2"></span> / Min Side : <span id="min_side_price_2"></span><br/><br/>
+		
+		3. Interest Price : <input type="number" id="two_side_interest_price_3" /> Percent : <input type="number" id="two_side_percent_3" />% 
+		   <button onclick="calTwoSidePercentFromInterest(3)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_3"></span> / Min Side : <span id="min_side_price_3"></span><br/><br/>
+
+		4. Interest Price : <input type="number" id="two_side_interest_price_4" /> Percent : <input type="number" id="two_side_percent_4" />% 
+		   <button onclick="calTwoSidePercentFromInterest(4)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_4"></span> / Min Side : <span id="min_side_price_4"></span><br/><br/>
+
+		5. Interest Price : <input type="number" id="two_side_interest_price_5" /> Percent : <input type="number" id="two_side_percent_5" />% 
+		   <button onclick="calTwoSidePercentFromInterest(5)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_5"></span> / Min Side : <span id="min_side_price_5"></span><br/><br/>
+
+		6. Interest Price : <input type="number" id="two_side_interest_price_6" /> Percent : <input type="number" id="two_side_percent_6" />% 
+		   <button onclick="calTwoSidePercentFromInterest(6)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_6"></span> / Min Side : <span id="min_side_price_6"></span><br/><br/>
+		
+		7. Interest Price : <input type="number" id="two_side_interest_price_7" /> Percent : <input type="number" id="two_side_percent_7" />% 
+		   <button onclick="calTwoSidePercentFromInterest(7)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_7"></span> / Min Side : <span id="min_side_price_7"></span><br/><br/>
+
+		8. Interest Price : <input type="number" id="two_side_interest_price_8" /> Percent : <input type="number" id="two_side_percent_8" />% 
+		   <button onclick="calTwoSidePercentFromInterest(8)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_8"></span> / Min Side : <span id="min_side_price_8"></span><br/><br/>
+
+		9. Interest Price : <input type="number" id="two_side_interest_price_9" /> Percent : <input type="number" id="two_side_percent_9" />% 
+		   <button onclick="calTwoSidePercentFromInterest(9)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_9"></span> / Min Side : <span id="min_side_price_9"></span><br/><br/>
+		
+		10. Interest Price : <input type="number" id="two_side_interest_price_10" /> Percent : <input type="number" id="two_side_percent_10" />% 
+		   <button onclick="calTwoSidePercentFromInterest(10)">Cal</button><br /><br />
+		   Max Side : <span id="max_side_price_10"></span> / Min Side : <span id="min_side_price_10"></span><br/><br/>
+
+		<hr />
+
+		<script type="text/javascript">
+			function calTwoSidePercentFromInterest(indexI){
+				$(`#max_side_price_${indexI}`).html('')
+				$(`#min_side_price_${indexI}`).html('')
+
+				$(`#max_side_price_${indexI}`).html(findMaxFromPercent($(`#two_side_interest_price_${indexI}`).val(),($(`#two_side_percent_${indexI}`).val())))
+				$(`#min_side_price_${indexI}`).html(findMinFromPercent($(`#two_side_interest_price_${indexI}`).val(),($(`#two_side_percent_${indexI}`).val())))
+			}
+		</script>
+		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</html>
