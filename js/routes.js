@@ -29,6 +29,10 @@ angular.module('starter.routes', []).config(function ($stateProvider, $urlRouter
     }).state('c_sharp_project', {
         url: "/c_sharp_project",
         templateUrl: "templates/09_c_sharp_project.html"
-    });
+    }).state('tolly_trade', {
+        url: "/tolly_trade",
+        templateUrl: "templates/10_tolly_trade.html",
+        controller: 'TollyTradeCtrl'
+    })
     $urlRouterProvider.otherwise('/home');
 });
