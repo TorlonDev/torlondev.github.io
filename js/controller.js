@@ -120,4 +120,15 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
 
 }).controller('ContactCtrl', function ($scope, $window) {
 
+}).controller('TollyTradeCtrl', function ($scope, $ionicSideMenuDelegate) {
+
+    // Hide menu
+    $('.buttons-left').hide()
+    $('.buttons-right').hide()
+    $ionicSideMenuDelegate.canDragContent(false);
+    // checkAvailableBalance(setMarginType) This line make api hard call 
+
+    checkExchangeInfoAndPercentMarket()
+
+    $scope.cab = checkAvailableBalance
 });
