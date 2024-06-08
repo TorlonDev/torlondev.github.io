@@ -897,7 +897,7 @@ function trade(symbol, lastPrice) {
 
         const endpoint3 = `/${endPointCall}/v1/batchOrders?`
         const ts3 = Date.now()
-        const qs3 = `batchOrders=${encodeOpenOrder}&recvWindow=10000&timestamp=${ts3}`
+        const qs3 = `batchOrders=${encodeOpenOrder}&recvWindow=50000&timestamp=${ts3}`
 
         $.ajax({
             type: 'POST',
@@ -982,7 +982,7 @@ function trade(symbol, lastPrice) {
                         const encodeCloseOrder = encodeURIComponent(JSON.stringify(batchCloseOrderCutOneWay))
 
                         const ts4 = Date.now()
-                        const qs4 = `batchOrders=${encodeCloseOrder}&recvWindow=10000&timestamp=${ts4}`
+                        const qs4 = `batchOrders=${encodeCloseOrder}&recvWindow=50000&timestamp=${ts4}`
 
                         $.ajax({
                             type: 'POST',
