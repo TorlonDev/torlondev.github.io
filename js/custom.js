@@ -698,7 +698,7 @@ function checkExchangeInfoAndPercentMarket() {
 function checkAvailableBalance(cb = () => { }) {
     const endPoint = `/${endPointCall}/v2/account?`
     const ts = Date.now()
-    const qs = `recvWindow=10000&timestamp=${ts}`
+    const qs = `recvWindow=50000&timestamp=${ts}`
 
     $('#table_percent_change_1D').dataTable().fnDestroy()
 
