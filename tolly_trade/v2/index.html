@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tolly Auto Trade V2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <style>
+        body,
+        select {
+            font-size: 15px;
+            background-color: black !important;
+            color: wheat !important;
+        }
+
+        th,
+        td {
+            border: 1px solid;
+            color: wheat;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            color: black;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+        }
+
+        [class='paginate_button current'] {
+            background-color: gray !important;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+        integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <center>
+        <h2>Tolly Binance Future Auto Trade V1</h2>
+        Binance API Key : <input id="binance_api_key" type="text" style="width: 40%;"
+            value="" /><br /><br />
+        Binance Secret Key : <input id="binance_api_secret_key" type="password" style="width: 40%;"
+            value="" /><br /><br />
+        Available Balance: <span id="available_balance">-</span>&nbsp;USDT&nbsp;<button
+            onclick="checkAvailableBalance()">Check Balance</button><br /><br />
+        Auto Leverage : <input id="auto_leverage" type="number" style="width: 30px;" value="16" />&nbsp;x&nbsp;
+        <!-- <button>Change Default Every Coin</button>-->
+        | Cut Percent : <input id="cut_percent" type="number" style="width: 40px;" value="3.7" />%
+        <br /><br />
+        <hr /><br />
+
+        Order Status : <select id="select_order_status" onchange="onChangeSelectOrderStatus()">
+            <option value="">All</option>
+            <option value="ing.">- Longing & Shorting</option>
+            <option value="Hedging">- Hedging</option>
+            <option value="Longing">- Longing</option>
+            <option value="Shorting">- Shorting</option>
+        </select><br /><br />
+
+        <table id="table_percent_change_1D" style="font-size: 14px; width: 90%;" class="table">
+            <thead>
+                <tr>
+                    <th style="width: 50px !important;">Coin</th>
+                    <!-- <th>Last Price</th> -->
+                    <th style="width: 28px !important;">1Day %</th>
+                    <th>Action & Status & PNL</th>
+                </tr>
+            </thead>
+            <tbody id="tbody_percent_change_24h">
+            </tbody>
+        </table>
+    </center>
+
+    <div id="modal" class="modal">
+        <div id="modalContent" class="modal-content"></div>
+    </div>
+
+    <script id="util_calculate" type="text/javascript">
+
+        function findPercent2Points(max_price, min_price) {
+            const max = parseFloat(max_price)
+            const min = parseFloat(min_price)
+
+            const percent = 100 - ((min / max) * 100)
+            // Alternative
+            // const percent = 100 - ((min / max) * 100) // easy for solve max price from min
+
+            // Or
+            // const percent = (max - min) * (100 / max)
+
+            // Or
+            // const percent = ((max - min) / max) * 100
+            return percent
+        }
+
+        function findMaxFromPercent(min_price, percent) {
+            const min = parseFloat(min_price)
+            let p = parseFloat(percent)
+
+            if (p == 100) { p = 99.9999 }
+
+            return parseFloat((100 * min) / (100 - p))
+
+            // alternative for big data ... (min / (1 - (p / 100))) * 100
+        }
+
+        function findMinFromPercent(max_price, percent) {
+            const max = parseFloat(max_price)
+            const p = parseFloat(percent)
+
+            return parseFloat((max * (100 - p)) / 100)
+
+            // alternative for big data ... (100 - p) / (100 / max)
+        }
+    </script>
+
+    <script type="text/javascript">
+        const binance_api_url = "https://fapi.binance.com"
+
+        const arr_delist_or_no_trade = [
+            // "ANTUSDT",
+            // "AUDIOUSDT",
+            // "BLUEBIRDUSDT",
+            "BTCDOMUSDT",
+            "BTCUSDT",
+            "BTCUSDT_240628",
+            "BTCUSDT_240927",
+            // "COCOSUSDT",
+            // "CTKUSDT",
+            // "CVXUSDT",
+            // "DGBUSDT", ???
+            "ETHUSDT",
+            "ETHUSDT_240628",
+            "ETHUSDT_240927",
+            // "FOOTBALLUSDT",
+            // "GLMRUSDT",
+            // "IDEXUSDT", ???
+            // "MBLUSDT",
+            // "MDTUSDT",
+            // "RADUSDT",
+            // "SLPUSDT",
+            // "SNTUSDT",
+            // "SOLUSDT",
+            // "STPTUSDT",
+            // "STRAXUSDT",
+            // "TOMOUSDT",
+            "USDCUSDT",
+        ]
+
+        let positionListSymbolKey = {}
+        //let dataTableTrade = ''
+
+        function openModal(txt = 'Loading...') {
+            $("#modalContent").html(`<h2>${txt}</h2>`)
+            $("#modal").show()
+        }
+
+        function closeModal() {
+            $("#modal").hide()
+        }
+
+        function onChangeSelectOrderStatus() {
+            $('#table_percent_change_1D').dataTable().fnFilter($('#select_order_status').val())
+        }
+
+        function binanceSignatureSign(qs) {
+            $.ajaxSetup({
+                headers: { "X-MBX-APIKEY": $('#binance_api_key').val(), },
+                contentType: "application/json; charset=utf-8",
+            })
+
+            // CryptoJS.createHmac('sha256', apiSecret).update(qs).digest('hex');
+            const signature = CryptoJS.HmacSHA256(qs, $('#binance_api_secret_key').val())//.digest('hex')
+
+            return signature
+        }
+
+        function checkExchangeInfoAndPercentMarket() {
+            openModal('Get Exchange Info')
+            $.ajax({
+                type: 'GET',
+                url: `${binance_api_url}/fapi/v1/exchangeInfo`,
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    const { symbols = [] } = result
+
+                    symbols.forEach(({ symbol, quantityPrecision = 0, pricePrecision = 1, status = "SETTLING", filters }) => {
+                        if (status === "TRADING") {
+                            if (!(symbol in positionListSymbolKey)) {
+                                positionListSymbolKey[symbol] = {
+                                    existLong: false,
+                                    existShort: false,
+                                }
+                            }
+
+                            // No more use pricePrecision it is strange
+                            // it is maximum decimal can send via API but it is not good for server tick
+                            // And not follow decimal in UI
+                            // But still get this in case can not find tickSize
+
+                            // tickSize is proper than pricePrecision
+                            // "1", "0.1" , "0.001", "0.0010" (buggy api)
+                            // -> 0, 1 , 3, 3
+
+                            let { tickSize = undefined } = filters[0]
+
+                            if (!tickSize) {
+                                alert("Cannot find tickSize of " + sym)
+                                return;
+                            }
+
+                            // Override pricePrecision with tickSize
+                            pricePrecision = 1
+
+                            if (tickSize === "1" || !tickSize.includes('.')) {
+                                pricePrecision = 0 // !!!
+                            } else {
+                                const strAfterPoint = tickSize.split('.')[1]
+
+                                for (let i = 0; i < strAfterPoint.length; i++) {
+                                    if (strAfterPoint[i] !== '0') {
+                                        break
+                                    }
+                                    pricePrecision += 1
+                                }
+                            }
+
+                            positionListSymbolKey[symbol] = {
+                                ...positionListSymbolKey[symbol],
+                                quantityPrecision,
+                                tickSize,
+
+                                // Normally Every Price Always Precision except 'YFI'
+                                // YFI API Allow Precision = 1 but will send 0 instead (follow tickSize)
+                                pricePrecision,
+
+                            }
+                        }
+                    })
+
+                    // console.log('positionListSymbolKey 1')
+                    // console.log(positionListSymbolKey)
+
+                    openModal('Loading Percent Change')
+                    $.ajax({
+                        type: 'GET',
+                        url: `${binance_api_url}/fapi/v1/ticker/24hr`, // Not Validate Delist
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            if (Array.isArray(result)) {
+                                result.forEach(({ symbol, priceChangePercent, lastPrice }) => {
+                                    if (symbol in positionListSymbolKey) {
+                                        const defaultMargin = 5.1
+
+                                        if (symbol.includes('USDT') && arr_delist_or_no_trade.indexOf(symbol) === -1) {
+                                            $('#tbody_percent_change_24h').append(`
+                                            <tr>
+                                                <td style="width: 50px !important;">${symbol}</td><!--<td>${lastPrice}</td>--><td style="width: 28px !important;">${parseFloat(priceChangePercent).toFixed(1)} %</td>
+                                                <td>Size: <input id="size_usdt_${symbol}" style="width: 32px;" type="number" value="${defaultMargin}"/> $
+                                                <button disabled id="btn_trade_${symbol}" onclick="trade('${symbol}', '${lastPrice}')">Trade</button>
+                                                <button id="close_order_${symbol}" onclick="closeOrder('${symbol}')" style="display: none;">Close</button>
+                                                <span id="unrealizedProfit_${symbol}"></span>
+                                                </td>
+                                            </tr>
+                                        `)
+                                        }
+                                    }
+                                })
+
+                                $('#table_percent_change_1D').dataTable({
+                                    "pageLength": 20, order: [[1, 'desc']],
+                                })
+                                closeModal()
+
+                                // checkAvailableBalance()
+                            }
+                        },
+                        error: function (err) {
+                            alert("error - cannot connect binance api - ticker 24hr")
+                            console.log("error - cannot connect binance api - ticker 24hr")
+                            console.log(err)
+                        }
+                    });
+
+                },
+                error: function (err) {
+                    alert("error - cannot connect binance api - exchangeInfo")
+                    console.log("error - cannot connect binance api - exchangeInfo")
+                    console.log(err)
+                }
+            });
+        }
+
+        function checkAvailableBalance(cb = () => { }) {
+            const endPoint = `/fapi/v2/account?`
+            const ts = Date.now()
+            const qs = `recvWindow=10000&timestamp=${ts}`
+
+            $('#table_percent_change_1D').dataTable().fnDestroy()
+
+            openModal('Checking Balance...')
+            $.ajax({
+                type: 'GET',
+                url: `${binance_api_url}${endPoint}${qs}&signature=${binanceSignatureSign(qs)}`,
+                success: function (result) {
+                    // if ('availableBalance' in result){
+                    const { availableBalance = undefined, positions = [], } = result
+
+                    if (availableBalance === undefined) {
+                        alert("Fail to get Available Balance")
+                        $('#available_balance').html('-')
+                        return;
+                    }
+
+                    $('#available_balance').html(`<span style="color:${availableBalance > 0 ? 'lime' : 'red'};">${availableBalance}</span>`)
+
+                    for (let i = 0; i < positions.length; i++) {
+                        const {
+                            symbol = "USDT", isolated = false, leverage = "20",
+                            maxNotional = "0", entryPrice = "0.0",
+                            positionSide = "LONG", unrealizedProfit = "0.00000000",
+                            positionAmt = "0.0",
+                        } = positions[i]
+
+                        // console.log(positions[i])
+
+                        // if(!symbol.includes("USDT")){continue; }
+
+                        if (!(symbol in positionListSymbolKey)) {
+                            // This can prevent delist or coin cannot trade or settling coin
+                            continue;
+                        }
+
+                        positionListSymbolKey[symbol] = {
+                            ...positionListSymbolKey[symbol],
+                            isolated, leverage, // positionAmt
+                        }
+
+                        if (positionSide === "LONG") {
+                            positionListSymbolKey[symbol].positionAmtLong = positionAmt
+                        }
+
+                        if (positionSide === "SHORT") {
+                            positionListSymbolKey[symbol].positionAmtShort = positionAmt
+                        }
+
+                        // const entryPriceFloat = parseFloat(entryPrice)
+
+                        if (positionSide === "LONG" && entryPrice == 0) {
+                            positionListSymbolKey[symbol].existLong = false
+                        }
+
+                        if (positionSide === "LONG" && entryPrice != 0) {
+                            positionListSymbolKey[symbol].existLong = true
+                        }
+
+                        if (positionSide === "SHORT" && entryPrice == 0) {
+                            positionListSymbolKey[symbol].existShort = false
+                        }
+
+                        if (positionSide === "SHORT" && entryPrice != 0) {
+                            positionListSymbolKey[symbol].existShort = true
+                        }
+
+                        const existLong = positionListSymbolKey[symbol].existLong
+                        const existShort = positionListSymbolKey[symbol].existShort
+
+                        if ((existLong && !existShort) && positionSide === "LONG") {
+                            $(`#btn_trade_${symbol}`).html("Longing.")
+                                .css({ 'background-color': 'lime', 'color': 'black' })
+
+                            $(`#close_order_${symbol}`).css('display', 'inline')
+
+                            $(`#unrealizedProfit_${symbol}`).html(parseFloat(unrealizedProfit).toFixed(2))
+
+                            continue
+                        }
+
+                        if ((!existLong && existShort) && positionSide === "SHORT") {
+                            $(`#btn_trade_${symbol}`).html("Shorting.")
+                                .css({ 'background-color': 'red', 'color': 'black' })
+
+                            $(`#close_order_${symbol}`).css('display', 'inline')
+
+                            $(`#unrealizedProfit_${symbol}`).html(parseFloat(unrealizedProfit).toFixed(2))
+
+                            continue
+                        }
+
+                        if (existLong && existShort) {
+                            $(`#btn_trade_${symbol}`).html("Hedging")
+                                .css({ 'background-color': 'yellow', 'color': 'black' })
+
+                            $(`#close_order_${symbol}`).css('display', 'inline')
+
+                            $(`#unrealizedProfit_${symbol}`).html('')
+                            continue
+                        }
+
+                        if (!existLong && !existShort) {
+                            $(`#btn_trade_${symbol}`).html("Trade")
+                                .prop("disabled", false)
+                                .css({ 'background-color': 'lightgray', 'cursor': 'pointer' })
+
+                            $(`#close_order_${symbol}`).css('display', 'none')
+
+                            $(`#unrealizedProfit_${symbol}`).html('')
+                            continue
+                        }
+                    }
+
+                    // console.log('positionListSymbolKey 2')
+                    // console.log(positionListSymbolKey)
+
+                    $('#table_percent_change_1D').dataTable({ "pageLength": 20, order: [[1, 'desc']] })
+                    closeModal()
+                    $('#select_order_status').val('')
+                    cb()
+                },
+                error: function (err) {
+                    console.log("Error get Available Balance")
+                    console.log(err)
+
+                    if ('msg' in err.responseJSON) {
+                        alert(err.responseJSON.msg)
+                    } else {
+                        alert("Error get Available Balance")
+                    }
+
+                    closeModal()
+                }
+            });
+        }
+
+        function closeOrder(symbol) {
+            console.log('close order')
+            console.log(symbol)
+
+            openModal(symbol + ": Closing Order")
+
+            const endpoint = "/fapi/v1/allOpenOrders?" //type Delete
+            const ts = Date.now()
+            const qs = `symbol=${symbol}&recvWindow=10000&timestamp=${ts}`
+
+            $.ajax({
+                type: 'DELETE',
+                url: `${binance_api_url}${endpoint}${qs}&signature=${binanceSignatureSign(qs)}`,
+                success: function (result) {
+
+                    openModal(symbol + ": Closed All Order Success")
+
+                    openModal(symbol + ": Closing Position")
+
+                    const { positionAmtLong, positionAmtShort } = positionListSymbolKey[symbol]
+
+                    const batchClosePosition = [
+                        {
+                            "symbol": symbol,
+                            "side": "SELL",
+                            "positionSide": "LONG",
+                            "type": "MARKET",
+                            "quantity": `${positionAmtLong}`.replaceAll('-', ''),
+                        },
+                        {
+                            "symbol": symbol,
+                            "side": "BUY",
+                            "positionSide": "SHORT",
+                            "type": "MARKET",
+                            "quantity": `${positionAmtShort}`.replaceAll('-', ''),
+                        }
+                    ]
+
+                    const encodeClosePosition = encodeURIComponent(JSON.stringify(batchClosePosition))
+
+                    const endpoint2 = "/fapi/v1/batchOrders?"
+                    const ts6 = Date.now()
+                    const qs6 = `batchOrders=${encodeClosePosition}&recvWindow=10000&timestamp=${ts6}`
+
+                    $.ajax({
+                        type: 'POST',
+                        url: `${binance_api_url}${endpoint2}${qs6}&signature=${binanceSignatureSign(qs6)}`,
+                        success: function (result) {
+
+                            openModal(symbol + ": Closed Position Success")
+
+                            positionListSymbolKey[symbol].positionAmtLong = "0.0"
+                            positionListSymbolKey[symbol].positionAmtShort = "0.0"
+
+                            $(`#btn_trade_${symbol}`).html("Trade")
+                                .prop("disabled", false)
+                                .css({ 'background-color': 'lightgray', 'cursor': 'pointer' })
+
+                            $(`#close_order_${symbol}`).css('display', 'none')
+
+                            $(`#unrealizedProfit_${symbol}`).html('')
+
+                            setTimeout(closeModal, 1000)
+                        },
+                        error: function (err) {
+                            console.log(err)
+
+                            if ('msg' in err.responseJSON) {
+                                alert(symbol + ": " + err.responseJSON.msg)
+                            } else {
+                                alert("Error Close Position " + symbol)
+                            }
+                        }
+                    });
+                },
+                error: function (err) {
+                    console.log(err)
+
+                    if ('msg' in err.responseJSON) {
+                        alert(symbol + ": " + err.responseJSON.msg)
+                    } else {
+                        alert("Error Close All Order " + symbol)
+                    }
+                }
+            });
+
+
+
+        }
+
+        function trade(symbol, lastPrice) {
+            const {
+                isolated, leverage: currentLeverage,
+                existLong, existShort,
+            } = positionListSymbolKey[symbol]
+
+
+            if (!`${$(`#btn_trade_${symbol}`).html()}`.includes('Trade')) {
+                alert('Cannot Start Trade')
+                return
+            }
+
+            const autoLeverage = $('#auto_leverage').val()
+            const sizeUsdt = $(`#size_usdt_${symbol}`).val()
+
+            // console.log(symbol)
+            // console.log(lastPrice) // need step check // 23.5 , 0.0058
+            // console.log('autoLeverage', autoLeverage)
+            // console.log('currentLeverage', currentLeverage)
+            // console.log('size', sizeUsdt)
+
+            // Open Long & Short
+            // {{url}}/fapi/v1/order?symbol=1000PEPEUSDT&side=BUY&positionSide=LONG&type=MARKET&quantity=350&timestamp={{timestamp}}&signature={{signature}}
+            // {{url}}/fapi/v1/order?symbol=1000PEPEUSDT&side=SELL&positionSide=SHORT&type=MARKET&quantity=350&timestamp={{timestamp}}&signature={{signature}}
+
+            // Fail Quantity
+            //{
+            //  "code": -4164,
+            //  "msg": "Order's notional must be no smaller than 5 (unless you choose reduce only)."
+            // }
+
+            // Close Long & Short
+            //{{url}}/fapi/v1/order?symbol=1000PEPEUSDT&side=SELL&positionSide=LONG&type=STOP_MARKET&quantity=350&stopPrice=0.0155559&workingType=MARK_PRICE&priceProtect=true&timestamp={{timestamp}}&signature={{signature}}
+            //{{url}}/fapi/v1/order?symbol=1000PEPEUSDT&side=BUY&positionSide=SHORT&type=STOP_MARKET&quantity=350&stopPrice=0.017&workingType=MARK_PRICE&priceProtect=true&timestamp={{timestamp}}&signature={{signature}}
+
+            // Fail Price (No Fail Quantity)
+            // {
+            //     "code": -2021,
+            //     "msg": "Order would immediately trigger."
+            // }
+
+            // Go to Batch Way {{url}}/fapi/v1/batchOrders?
+
+            const startTrade = () => {
+                openModal(symbol + ": Trading Start")
+
+                const { quantityPrecision, pricePrecision } = positionListSymbolKey[symbol]
+                // quantity = marginUSDT / lastPrice
+                let quantity = sizeUsdt / lastPrice
+
+                if (quantityPrecision > 0) {
+                    quantity = parseFloat(quantity).toFixed(quantityPrecision)
+                } else if (quantityPrecision == 0) {
+                    quantity = parseInt(quantity)
+                }
+
+                console.log('quantity is ', `${quantity}`)
+
+                positionListSymbolKey[symbol].positionAmtLong = quantity
+                positionListSymbolKey[symbol].positionAmtShort = quantity
+
+                const batchOrderOpenHedgePosition = [
+                    {
+                        "symbol": symbol,
+                        "side": "BUY",
+                        "positionSide": "LONG",
+                        "type": "MARKET",
+                        "quantity": `${quantity}`
+                    },
+                    {
+                        "symbol": symbol,
+                        "side": "SELL",
+                        "positionSide": "SHORT",
+                        "type": "MARKET",
+                        "quantity": `${quantity}`
+                    }
+                ]
+
+                const encodeOpenOrder = encodeURIComponent(JSON.stringify(batchOrderOpenHedgePosition))
+
+                const endpoint3 = "/fapi/v1/batchOrders?"
+                const ts3 = Date.now()
+                const qs3 = `batchOrders=${encodeOpenOrder}&recvWindow=10000&timestamp=${ts3}`
+
+                $.ajax({
+                    type: 'POST',
+                    url: `${binance_api_url}${endpoint3}${qs3}&signature=${binanceSignatureSign(qs3)}`,
+                    success: function (result) {
+
+                        /** 
+                         * Batch failure case still success with array result like
+                         * 
+                         * [
+                         *   { code: -4164, msg: "Order's notional must be no smaller than 5 (unless you choose reduce only)." },
+                         *   { code: -4164, msg: "Order's notional must be no smaller than 5 (unless you choose reduce only)." }
+                         * ]
+                         * 
+                         * Batch Success Case 
+                         * [{ orderId, clientOrderId, updateTime, ... },{ orderId, clientOrderId, updateTime, ... }]
+                        */
+
+                        let isSuccessOpenHedge = true
+
+                        if (Array.isArray(result)) {
+                            for (let i = 0; i < result.length; i++) {
+                                const { msg = undefined, code = undefined, updateTime = undefined } = result[i]
+
+                                if (msg) {
+                                    isSuccessOpenHedge = false
+                                    alert(symbol + " fail open order: " + msg)
+                                    break
+                                }
+
+                                if (code && isSuccessOpenHedge) {
+                                    isSuccessOpenHedge = false
+                                    alert(symbol + " fail open order: " + code)
+                                    break
+                                }
+
+                                if (!updateTime) {
+                                    isSuccessOpenHedge = false
+                                    alert(symbol + " fail open order no updateTime Response")
+                                }
+                            }
+
+                            closeModal()
+
+                            if (isSuccessOpenHedge) {
+
+                                positionListSymbolKey[symbol].existLong = true
+                                positionListSymbolKey[symbol].existShort = true
+
+                                const cutPercent = $('#cut_percent').val()
+
+                                const priceForCloseShortTakeLong = findMaxFromPercent(lastPrice, cutPercent).toFixed(pricePrecision)
+                                const priceForCloseLongTakeShort = findMinFromPercent(lastPrice, cutPercent).toFixed(pricePrecision)
+
+                                console.log('priceForCloseShortTakeLong', priceForCloseShortTakeLong)
+                                console.log('priceForCloseLongTakeShort', priceForCloseLongTakeShort)
+
+                                //{{url}}/fapi/v1/order?symbol=1000PEPEUSDT&side=SELL&positionSide=LONG&type=STOP_MARKET&quantity=350&stopPrice=0.0155559&workingType=MARK_PRICE&priceProtect=true&timestamp={{timestamp}}&signature={{signature}}
+                                //{{url}}/fapi/v1/order?symbol=1000PEPEUSDT&side=BUY&positionSide=SHORT&type=STOP_MARKET&quantity=350&stopPrice=0.017&workingType=MARK_PRICE&priceProtect=true&timestamp={{timestamp}}&signature={{signature}}
+
+                                const batchCloseOrderCutOneWay = [
+                                    {
+                                        "symbol": symbol,
+                                        "side": "SELL",
+                                        "positionSide": "LONG",
+                                        "type": "STOP_MARKET",
+                                        "quantity": `${quantity}`,
+                                        "stopPrice": `${priceForCloseLongTakeShort}`,
+                                        "workingType": "MARK_PRICE"
+                                    },
+                                    {
+                                        "symbol": symbol,
+                                        "side": "BUY",
+                                        "positionSide": "SHORT",
+                                        "type": "STOP_MARKET",
+                                        "quantity": `${quantity}`,
+                                        "stopPrice": `${priceForCloseShortTakeLong}`,
+                                        "workingType": "MARK_PRICE"
+                                    }
+                                ]
+
+                                const encodeCloseOrder = encodeURIComponent(JSON.stringify(batchCloseOrderCutOneWay))
+
+                                const ts4 = Date.now()
+                                const qs4 = `batchOrders=${encodeCloseOrder}&recvWindow=10000&timestamp=${ts4}`
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: `${binance_api_url}${endpoint3}${qs4}&signature=${binanceSignatureSign(qs4)}`,
+                                    success: function (result) {
+
+                                        openModal(symbol + ": Open Hedging Success")
+                                        // $('#table_percent_change_1D').dataTable().fnDestroy()
+                                        // Lost pagination + Lost sorting by change percent
+
+                                        $(`#btn_trade_${symbol}`).html("Hedging")
+                                            .css({ 'background-color': 'yellow', 'color': 'black' })
+                                        $(`#btn_trade_${symbol}`).prop("disabled", true);
+
+                                        $(`#close_order_${symbol}`).css('display', 'inline')
+
+                                        // $('#table_percent_change_1D').dataTable().fnFilter($('#select_order_status').val())
+
+                                        setTimeout(closeModal, 1000)
+
+                                        //checkAvailableBalance()
+                                    },
+                                    error: function (err) {
+                                        console.log(err)
+
+                                        if ('msg' in err.responseJSON) {
+                                            alert(symbol + ": " + err.responseJSON.msg)
+                                        } else {
+                                            alert("Error Trading Close Order " + symbol)
+                                        }
+                                    }
+                                });
+                            }
+
+                        } else {
+                            alert(symbol + ": Result is not Array")
+                            console.log(result)
+                        }
+
+                    },
+                    error: function (err) {
+                        console.log(err)
+
+                        if ('msg' in err.responseJSON) {
+                            alert(symbol + ": " + err.responseJSON.msg)
+                        } else {
+                            alert("Error Trading Open Order " + symbol)
+                        }
+                    }
+                });
+            }
+
+            const setLeverage = () => {
+                if (currentLeverage != autoLeverage) {
+                    openModal(symbol + ": " + 'Adjust Leverage ... ' + autoLeverage + 'x')
+
+                    const endPoint2 = '/fapi/v1/leverage?'
+                    const ts2 = Date.now()
+                    const qs2 = `symbol=${symbol}&leverage=${autoLeverage}&timestamp=${ts2}`
+
+                    $.ajax({
+                        type: 'POST',
+                        url: `${binance_api_url}${endPoint2}${qs2}&signature=${binanceSignatureSign(qs2)}`,
+                        success: function (result) {
+                            startTrade()
+                        },
+                        error: function (err) {
+                            if ('msg' in err.responseJSON) {
+                                alert(symbol + ": " + err.responseJSON.msg)
+                            } else {
+                                alert("Error Adjust Leverage for " + symbol)
+                            }
+                        }
+                    });
+                } else {
+                    startTrade()
+                }
+            }
+
+            const setMarginType = () => {
+                if (!isolated) {
+                    openModal(symbol + ": " + 'Changing CROSS to ISOLATE')
+
+                    const endPoint1 = '/fapi/v1/marginType?'
+                    const ts1 = Date.now()
+                    const qs1 = `symbol=${symbol}&marginType=ISOLATED&timestamp=${ts1}`
+
+                    $.ajax({
+                        type: 'POST',
+                        url: `${binance_api_url}${endPoint1}${qs1}&signature=${binanceSignatureSign(qs1)}`,
+                        success: function (result) {
+                            setLeverage()
+                        },
+                        error: function (err) {
+                            if ('msg' in err.responseJSON) {
+                                alert(symbol + ": " + err.responseJSON.msg)
+                            } else {
+                                alert("Error Changing CROSS to ISOLATE for " + symbol)
+                            }
+                            setLeverage()
+                        }
+                    });
+                } else {
+                    setLeverage()
+                }
+            }
+
+            // checkAvailableBalance(setMarginType) This line make api hard call 
+            setMarginType()
+        }
+
+        checkExchangeInfoAndPercentMarket()
+
+    </script>
+</body>
+
+</html>
