@@ -50,7 +50,8 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
         $scope.modal_image_me.hide();
     };
 
-    $scope.this_year = (new Date()).getFullYear();
+    //$scope.this_year = (new Date()).getFullYear();
+    $scope.this_year = 2023
 
     load_snow();
     setTimeout(() => {

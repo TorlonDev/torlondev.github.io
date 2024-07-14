@@ -19,5 +19,5 @@ app.use(express.static(path.resolve()))
 // });
 
 app.listen('8000', () => {
-  console.log(`Server is running at https://localhost:8000`)
+  console.log(`Server is running at http://localhost:8000`)
 });
