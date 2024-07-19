@@ -1,0 +1,1 @@
+const NotFound = () => <h2>Path not found</h2>;

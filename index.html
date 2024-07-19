@@ -1,11 +1,101 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Coming Soon</title>
-    </head>
-    <body>
-        <h1>New version is developing.</h1>
-        <a href="./old">Go to Old version.</a><br/>
-        <a href="./old#/cv">Go to CV</a>
-    </body>
+
+<head>
+  <title>Torlon Dev V2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.3.4/react-router-dom.js"></script>
+  <script src="v2/js/tailwindcss-3.4.5.js"></script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: darkgrey;
+    }
+
+    :root {
+      --navBarHeight: 60px;
+      --navBarElementMaxWidth: 1000px;
+      --navBarBGColor: wheat;
+      --navBarColor: black;
+    }
+  </style>
+
+  <script>
+    const css_root = document.querySelector(':root')
+    const css_root_white = getComputedStyle(css_root).getPropertyValue('--white')
+
+    console.log('css_root_white', css_root_white)
+
+    css_root.style.setProperty('--white', 'black')
+
+    const css_root_white_rerender = getComputedStyle(css_root).getPropertyValue('--white')
+
+    console.log('css_root_white_rerender', css_root_white_rerender)
+    console.log('--------------')
+
+    // 1. check local storage first
+    // 2. check color scheme
+    // window.matchMedia('(prefers-color-scheme: dark)').matches === true
+
+    function setTheme(theme = 'light') {
+      localStorage.setItem('torlondev_theme', theme)
+
+      // Need rerender UI Logic here or use state of react instead
+    }
+
+    function getTheme() {
+      //Theme -> dark, light (return )
+      //localStorage Key -> torlondev_theme
+
+      if (!localStorage.getItem('torlondev_theme')) {
+        if (!window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          localStorage.setItem('torlondev_theme', 'light')
+          return 'light'
+        } else {
+          localStorage.setItem('torlondev_theme', 'dark')
+          return 'dark'
+        }
+      }
+
+      // Support TailwindCSS
+      // case - dark : document.documentElement.classList.add('dark')
+      // case - light : document.documentElement.classList.remove('dark')
+
+      return localStorage.getItem('torlondev_theme')
+    }
+  </script>
+
+  <script>
+    const { useState } = React
+    const { render } = ReactDOM
+    const { HashRouter, NavLink, Route, Switch: Routes, useLocation } = ReactRouterDOM;
+  </script>
+
+  <script type="text/babel" src="./v2/components/00_NotFound.js"></script>
+  <script type="text/babel" src="./v2/components/00_NavBar.js"></script>
+  <script type="text/babel" src="./v2/components/01_Home.js"></script>
+  <script type="text/babel" src="./v2/components/02_CV.js"></script>
+  <script type="text/babel" src="./v2/components/03_Blogs.js"></script>
+  <script type="text/babel" src="./v2/components/04_Projects.js"></script>
+
+  <script type="text/babel">
+    render(
+      <HashRouter>
+        <Navbar />
+      </HashRouter>,
+      document.getElementById("root")
+    );
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
 </html>
