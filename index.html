@@ -6,96 +6,153 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.3.4/react-router-dom.js"></script>
-  <script src="v2/js/tailwindcss-3.4.5.js"></script>
-
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+    :root {
+      /* constant variable */
+      --navBarHeight: 60px;
+      --navBarElementMaxWidth: 1100px;
+      --desktopMinWidth: 650px;
+      --mobileMaxWidth: calc(var(--desktopMinWidth) - 1px);
+
+      /* theme variable */
+      --navBarBGColor: wheat;
+      --navBarColor: black;
+      --BGColor: white;
+      --color: black;
+      --linkColor: blue;
+    }
+
+    .a_link {
+      color: var(--linkColor) !important;
+    }
 
     body {
       font-family: "Poppins", sans-serif;
       background-color: darkgrey;
+      background-image: url('./v2/img/codingblack.gif');
     }
 
-    :root {
-      --navBarHeight: 60px;
-      --navBarElementMaxWidth: 1000px;
-      --navBarBGColor: wheat;
-      --navBarColor: black;
+    .wrapper_content {
+      padding-top: var(--navBarHeight);
+      margin: auto;
+      max-width: var(--navBarElementMaxWidth);
+      min-height: 100vh;
+
+      background-color: var(--BGColor);
+      color: var(--color);
+    }
+
+    /* Mobile First */
+    @media only screen and (max-width: 649px) {
+      body {
+        background-repeat: repeat;
+        background-size: cover;
+      }
+    }
+
+    /* Desktop Later */
+    @media only screen and (min-width: 650px) {
+      body {
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+      }
     }
   </style>
 
+  <script src="v2/js/tailwindcss-3.4.5.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" type="text/javascript"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.3.4/react-router-dom.js"></script>
+
   <script>
-    const css_root = document.querySelector(':root')
-    const css_root_white = getComputedStyle(css_root).getPropertyValue('--white')
+    const mobileCSS = (styles = '') => `
+      @media only screen and (max-width: 649px) {${styles}}
+    `
 
-    console.log('css_root_white', css_root_white)
+    const desktopCSS = (styles = '') => `
+      @media only screen and (min-width: 650px) {${styles}}
+    `
 
-    css_root.style.setProperty('--white', 'black')
+    // var theme = localStorage.getItem('THEME')
+    // var language = localStorage.getItem('LANGUAGE')
 
-    const css_root_white_rerender = getComputedStyle(css_root).getPropertyValue('--white')
+    // if(!theme) { 
+    //   localStorage.setItem('THEME', 'LIGHT')
+    //   theme = 'LIGHT' 
+    // }
+    // if(!language) { 
+    //   localStorage.setItem('LANGUAGE', 'EN')
+    //   language = 'EN' 
+    // }
 
-    console.log('css_root_white_rerender', css_root_white_rerender)
-    console.log('--------------')
+    // $(':root').css('--navBarElementMaxWidth', '1100px')
+    // $(':root').css('--navBarElementMaxWidth')
 
-    // 1. check local storage first
-    // 2. check color scheme
-    // window.matchMedia('(prefers-color-scheme: dark)').matches === true
+    // const css_root_white_rerender = getComputedStyle(css_root).getPropertyValue('--white')
 
-    function setTheme(theme = 'light') {
-      localStorage.setItem('torlondev_theme', theme)
-
-      // Need rerender UI Logic here or use state of react instead
+    var objLanguage = {
+      t_hello_world: { en: 'Hello World.', th: 'สวัสดีชาวโลก' },
+      t_i_am_developer: { en: 'I am developer.', th: 'ผมคือนักพัฒนา' },
+      t_cv: { en: 'CV', th: 'ซีวี' },
+      t_blogs: { en: 'Blogs', th: 'บล็อก' },
+      t_projects: { en: 'Projects', th: 'โปรเจค' },
     }
 
-    function getTheme() {
-      //Theme -> dark, light (return )
-      //localStorage Key -> torlondev_theme
+    // if(theme.toUpperCase().trim() === 'DARK'){
+    //   $(':root').css('--navBarBGColor', 'black')
+    //   $(':root').css('--navBarColor', 'wheat')
+    // }
 
-      if (!localStorage.getItem('torlondev_theme')) {
-        if (!window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          localStorage.setItem('torlondev_theme', 'light')
-          return 'light'
-        } else {
-          localStorage.setItem('torlondev_theme', 'dark')
-          return 'dark'
-        }
-      }
-
-      // Support TailwindCSS
-      // case - dark : document.documentElement.classList.add('dark')
-      // case - light : document.documentElement.classList.remove('dark')
-
-      return localStorage.getItem('torlondev_theme')
-    }
   </script>
 
   <script>
-    const { useState } = React
+    const { useState, useContext } = React
+    const Context = React.createContext({}) //leave empty do not pass anything
+    const { Provider } = Context
     const { render } = ReactDOM
     const { HashRouter, NavLink, Route, Switch: Routes, useLocation } = ReactRouterDOM;
   </script>
 
   <script type="text/babel" src="./v2/components/00_NotFound.js"></script>
-  <script type="text/babel" src="./v2/components/00_NavBar.js"></script>
+  <script type="text/babel" src="./v2/components/00_NavBar.jsx"></script>
   <script type="text/babel" src="./v2/components/01_Home.js"></script>
   <script type="text/babel" src="./v2/components/02_CV.js"></script>
   <script type="text/babel" src="./v2/components/03_Blogs.js"></script>
   <script type="text/babel" src="./v2/components/04_Projects.js"></script>
 
   <script type="text/babel">
+    const App = ({ children }) => {
+      const [currentLanguage, setCurrentLanguage] = useState('EN')
+      const [currentTheme, setCurrentTheme] = useState('LIGHT')
+
+      return <Provider
+        value={{
+          objLanguage, currentLanguage, setCurrentLanguage, 
+          currentTheme, setCurrentTheme
+        }}>
+        {children}
+      </Provider>
+    }
+
     render(
-      <HashRouter>
-        <Navbar />
-      </HashRouter>,
+      <App>
+        <HashRouter>
+          <Navbar />
+        </HashRouter>
+      </App>,
       document.getElementById("root")
     );
   </script>
 </head>
+
 <body>
   <div id="root"></div>
 </body>
+
 </html>
