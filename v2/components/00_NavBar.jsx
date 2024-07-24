@@ -72,7 +72,7 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
 }
 
 const Logo = (props) => {
-  const [imgLogo, setImgLogo] = useState("./v2/img/logo.svg")
+  const [imgLogo, setImgLogo] = useState("./v2/img/logo_small.svg")
 
   const imgStyles = {
     height: 'calc(var(--navBarHeight) - 20px)',
