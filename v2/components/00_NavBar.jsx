@@ -255,7 +255,8 @@ const stylesNavBar = `
    color: var(--navBarColor);
    position: fixed;
    top: 0;
-   width: 100%
+   width: 100%;
+   max-width: 100vw;
  }
 
  .navbar_container {
