@@ -13,7 +13,7 @@
       /* constant variable */
       --navBarHeight: 60px;
       --navBarElementMaxWidth: 1100px;
-      --sideBarWidth: 225px;
+      --sideBarWidth: 210px;
       --mobileMaxWidth: 649px;
       --desktopMinWidth: calc(var(--mobileMaxWidth) + 1px);
       --contentMinWidth: 360px; /*Samsung Galaxy S8+*/
@@ -31,6 +31,8 @@
     }
 
     body {
+      width: 100vw;
+      overflow-x: hidden; /* Chrome in android not hidden by default*/
       font-family: "Poppins", sans-serif;
       background-color: darkgrey;
       background-image: url('./v2/img/codingblack.gif');
@@ -39,6 +41,7 @@
     .wrapper_content {
       padding-top: var(--navBarHeight);
       margin: auto;
+      min-width: var(--contentMinWidth);
       max-width: var(--navBarElementMaxWidth);
       min-height: 100vh;
 

@@ -66,7 +66,7 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
       <NavLink className="navlink text-l" to="/blogs" onClick={hideSideBar}>Blogs</NavLink>
       <NavLink className="navlink text-l" to="/projects" onClick={hideSideBar}>Projects</NavLink>
       <NavLink className="navlink text-l" to="/cv" onClick={hideSideBar}>CV</NavLink>
-      <NavLink className="navlink text-l hide_on_desktop" to="/old" target="_blank">Torlon Dev V1</NavLink>
+      <NavLink className="navlink text-l hide_on_desktop" to="/old" target="_blank">Old Web</NavLink>
     </div>
   </>
 }
