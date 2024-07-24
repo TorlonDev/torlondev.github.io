@@ -72,6 +72,8 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
 }
 
 const Logo = (props) => {
+  const [imgLogo, setImgLogo] = useState("./v2/img/logo.svg")
+
   const imgStyles = {
     height: 'calc(var(--navBarHeight) - 20px)',
     width: '28px'
@@ -83,13 +85,14 @@ const Logo = (props) => {
     }
   `)
 
+  setTimeout(()=> { setImgLogo("./v2/img/logo.png") }, 1000)
+
   return (
     <>
       <style>{styles}</style>
       <div className="logo">
         <NavLink to="/" {...props}>
-          <img src="./v2/img/logo.png"
-            style={{ ...imgStyles }} />
+          <img src={imgLogo} style={{ ...imgStyles }} />
         </NavLink>
       </div>
     </>
