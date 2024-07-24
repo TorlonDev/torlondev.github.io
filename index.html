@@ -59,6 +59,10 @@
         background-size: 100% 100%;
         background-attachment: fixed;
       }
+
+      .hide_on_desktop {
+        display: none;
+      }
     }
   </style>
 
@@ -133,7 +137,7 @@
 
       return <Provider
         value={{
-          objLanguage, currentLanguage, setCurrentLanguage, 
+          objLanguage, currentLanguage, setCurrentLanguage,
           currentTheme, setCurrentTheme
         }}>
         {children}
