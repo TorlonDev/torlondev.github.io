@@ -26,15 +26,19 @@
       --linkColor: blue;
     }
 
-    .a_link {
-      color: var(--linkColor) !important;
+    html, body {
+      background-image: url('./v2/img/codingblack.gif');
+      background-color: darkgrey;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     body {
-      max-width: 100%; overflow-x: hidden;
       font-family: "Poppins", sans-serif;
-      background-color: darkgrey;
-      background-image: url('./v2/img/codingblack.gif');
+    }
+
+    .a_link {
+      color: var(--linkColor) !important;
     }
 
     .wrapper_content {
@@ -50,7 +54,7 @@
 
     /* Mobile First */
     @media only screen and (max-width: 649px) {
-      body {
+      html, body {
         background-repeat: repeat;
         background-size: cover;
       }
@@ -58,7 +62,7 @@
 
     /* Desktop Later */
     @media only screen and (min-width: 650px) {
-      body {
+      html, body {
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-attachment: fixed;
