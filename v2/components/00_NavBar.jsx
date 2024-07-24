@@ -37,14 +37,13 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
       opacity: 0.98;
       width: 0px;
       height: calc(100vh - var(--navBarHeight));
-      transition: all 0.1s ease-in;
       overflow: hidden;
       border: unset;
 
       margin-left: 0px;
     }
     .sidebar-wrapper.active {
-      width: 225px;
+      width: var(--sideBarWidth);
       border: 2px solid white;
     }
     .sidebar-wrapper .navlink {
@@ -215,12 +214,21 @@ const Navbar = () => {
   const toggleSideBar = () => setIsShowSideBar(!isShowSideBar);
   const hideSideBar = () => setIsShowSideBar(false)
 
-  const ContentWrapperWithOutStyle = () => {
-    return <div
-      className={`m-auto ${isShowSideBar ? " content-move" : ''}`}
-      onClick={hideSideBar}>
-      <Routing />
-    </div>
+  const ContentWrapper = () => {
+    const stylesContentWrapper = mobileCSS(`
+      .content_move {
+        margin-left: var(--sideBarWidth);
+      }
+    `)
+
+    return <>
+      <style>{stylesContentWrapper}</style>
+      <div
+        className={`m-auto ${isShowSideBar ? "content_move" : ''}`}
+        onClick={hideSideBar}>
+        <Routing />
+      </div>
+    </>
   }
 
   return (
@@ -235,7 +243,7 @@ const Navbar = () => {
           <MenuTopRight />
         </div>
       </nav>
-      <ContentWrapperWithOutStyle />
+      <ContentWrapper />
     </>
   )
 };
