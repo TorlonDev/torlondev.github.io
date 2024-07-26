@@ -200,7 +200,7 @@ const TitleMobile = () => {
   return <>
     <style>{styles}</style>
 
-    <div className="title_mobile text-l font-semibold">
+    <div className="title_mobile text-2xl font-semibold">
       <span>{changePathToTitle(useLocation().pathname)}</span>
     </div>
   </>
