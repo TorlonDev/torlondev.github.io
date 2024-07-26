@@ -211,6 +211,7 @@ const MenuTopRight = () => {
     .top_right {
       margin-left: auto;
       margin-top: 0;
+      margin-right: 10px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -239,13 +240,13 @@ const MenuTopRight = () => {
       setTheme(theme)
     }
 
-    const darkModeStyles = { 'height': '32px', 'width': '32px', 'filter': `invert(${invertColor})` }
+    const iconDarkModeStyles = { 'height': '32px', 'width': '32px', 'filter': `invert(${invertColor})` }
 
     return <div onClick={toggleTheme}>
-      {isFastDarkModeSVG ? <FastDarkModeSVG style={darkModeStyles} /> : <></>}
+      {isFastDarkModeSVG ? <FastDarkModeSVG style={iconDarkModeStyles} /> : <></>}
       <img src="./v2/img/darkmode.png"
         style={
-          isFastDarkModeSVG ? { display: 'none' } : darkModeStyles
+          isFastDarkModeSVG ? { display: 'none' } : iconDarkModeStyles
         }
         onLoad={hideFastDarkModeSVG}
       />
@@ -255,10 +256,10 @@ const MenuTopRight = () => {
   return <>
     <style>{wrapperStyles}</style>
     <div className="top_right">
-      <div className="language-change">
+      <div className="language_change" style={{ marginLeft: '-10px' }}>
         <span>EN</span>
         <div
-          className="language-choose"
+          className="language_choose"
           style={{
             "display": "none",
             "position": 'absolute', top: '50px', 'marginLeft': '-40px', backgroundColor: 'green',
