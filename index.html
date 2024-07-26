@@ -6,8 +6,10 @@
   <meta charset="UTF-8">
   <meta name="viewport"
     content="initial-scale=1,minimum-scale=1.0, maximum-scale=1.0,user-scalable=yes,width=device-width">
-  <script src="v2/js/babel-7.24.10.js"></script>
-  <script src="v2/js/tailwindcss-3.4.5.js"></script>
+  <script src='https://torlondev.github.io/cdn/js/tailwindcss-3.4.5.min.js'></script>
+  <script src="https://torlondev.github.io/cdn/js/react-18.2.0.min.js"></script>
+  <script src="https://torlondev.github.io/cdn/js/react-dom-18.2.0.min.js"></script>
+  <script src="https://torlondev.github.io/cdn/js/react-router-dom-5.3.4.min.js"></script>
 
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
@@ -81,11 +83,6 @@
     }
   </style>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.3.4/react-router-dom.js"></script>
-
   <script>
     const mobileCSS = (styles = '') => `
       @media only screen and (max-width: 649px) {${styles}}
@@ -132,7 +129,7 @@
 
     var language = localStorage.getItem('LANGUAGE')
 
-    if(!language) {
+    if (!language) {
       localStorage.setItem('LANGUAGE', 'EN')
       language = 'EN'
     }
