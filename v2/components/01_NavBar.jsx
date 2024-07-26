@@ -1,35 +1,37 @@
-const preProcessComponent = (JSX) => {
-  clearInterval()
-  return JSX;
-}
-
 //The exact param disables the partial matching for a route 
 //and makes sure that it only returns the route if the path is an EXACT match to the current url.
 const Routing = () => (
   <Routes>
-    <Route exact path="/" component={Home} />
+    <Route exact path="/" component={() => {
+      window.location.href = window.location.origin + "/#/home"
+      return <></>
+    }} />
+    <Route exact path="/home" component={DefaultWrapper(<Home />)}/>
     <Route exact path="/cv" component={CV} />
-    <Route exact path="/blogs" component={Blogs} />
-    <Route exact path="/projects" component={Projects} />
+    <Route exact path="/blogs" component={DefaultWrapper(<Blogs/>)} />
+    <Route exact path="/life" component={DefaultWrapper(<Life/>)} />
+    <Route exact path="/projects" component={DefaultWrapper(<Projects/>)} />
     <Route exact path="/time_machine" component={() => {
       const [counter, setCounter] = useState(10)
 
       let xr = setInterval(() => {
         setCounter(counter - 1)
-        if(counter === 2) {
+        if (counter === 2) {
           clearInterval(xr)
-          if(window.location.hash === '#/time_machine'){
+          if (window.location.hash === '#/time_machine') {
             window.location.href = window.location.origin + "/old"
           }
         }
       }, 1000)
 
-      return <div style={{ paddingTop: 'var(--navBarHeight)' }} className="text-xl text-center bg-white">
-        <br/>
-        <h1>Time Machine is Starting...</h1><br/>
-        <h1>Are you ready?</h1><br/>
-        <h1>Let's go to old version of this website...</h1><br/>
-        <h1>Going back to 2015-2023 in <br/><br/><span className="text-3xl" id="time_machine_counter">{counter}</span></h1><br/>
+      return <div style={{ 
+          minHeight: 'unset' 
+        }} className="wrapper_content text-xl text-center">
+        <br />
+        <h1>Time Machine is Starting...</h1><br />
+        <h1>Are you ready?</h1><br />
+        <h1>Let's go to old version of this website...</h1><br />
+        <h1>Going back to 2015-2023 in <br /><br /><span className="text-3xl" id="time_machine_counter">{counter}</span></h1><br />
       </div>;
     }} />
     <Route component={NotFound} />
@@ -42,13 +44,18 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
       display: flex;
       justify-content: flex-start; /*space-between;*/
       list-style-type: none;
-      background-color: wheat;
+      background-color: var(--navBarBGColor);
+    }
+    .sidebar-wrapper a {
+      opacity: 0.6;
+      font-weight: 600;
     }
     .sidebar-wrapper a.active {
       text-decoration: underline;
       text-underline-offset: 7px;
       text-decoration-thickness: 3px;
-      font-weight: 600;
+      opacity: 1;
+      font-weight: 500;
       position: relative;
     }` + mobileCSS(`
     .sidebar-wrapper {
@@ -79,15 +86,22 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
     }
     .sidebar-wrapper a {
       padding: 10px;
-    }`)
+    }
+    .sidebar-wrapper .navlink {
+      margin-right: 6px;
+    }
+   `)
 
   return <>
     <style>{styles}</style>
     <div className={`sidebar-wrapper ${isShowSideBar ? "active" : ""}`}>
       { /*<NavLink to="/home">Home</NavLink>*/}
-      {/* <NavLink className="navlink text-l" to="/blogs" onClick={hideSideBar}>Blogs</NavLink>
+      {/* 
       <NavLink className="navlink text-l" to="/projects" onClick={hideSideBar}>Projects</NavLink> */}
+      <NavLink className="navlink text-l" to="/home" onClick={hideSideBar}>Home</NavLink>
       <NavLink className="navlink text-l" to="/cv" onClick={hideSideBar}>CV</NavLink>
+      <NavLink className="navlink text-l" to="/blogs" onClick={hideSideBar}>Blogs</NavLink>
+      <NavLink className="navlink text-l" to="/life" onClick={hideSideBar}>Life</NavLink>
       <NavLink className="navlink text-l" to="/time_machine" onClick={hideSideBar}>Time Machine</NavLink>
     </div>
   </>
@@ -102,7 +116,7 @@ const Logo = (props) => {
       height: calc(var(--navBarHeight) - 20px);
       width: 28px;
     }
-  `+desktopCSS(`
+  `+ desktopCSS(`
     .logo_wrapper {
       margin-left: 20px;
     }
@@ -112,7 +126,7 @@ const Logo = (props) => {
     <>
       <style>{styles}</style>
       <div className="logo_wrapper">
-        <NavLink to="/" {...props}>
+        <NavLink to="/home" {...props}>
           {isFastLogoSVG ? <FastLogoSVG className="img_logo" /> : <></>}
           <img style={isFastLogoSVG ? { display: 'none' } : {}} className="img_logo" src="./v2/img/logo.png" onLoad={hideFastLogoSVG} />
         </NavLink>
@@ -136,6 +150,7 @@ const Hamburger = (props) => {
       display: block;
       cursor: pointer;
       margin-left: 15px;
+      margin-top: 3px;
       border: 2px solid white;
     }
   `) + desktopCSS(`
@@ -162,9 +177,9 @@ const TitleMobile = () => {
     path = path.replaceAll('-', ' ')
       .replaceAll('_', ' ')
 
-    if (path === '/' /*|| path === '/home'*/) {
-      //return 'TORLON DEV V2'
-      return 'COMING SOON'
+    if (path === '/' || path === '/home') {
+      // return 'WELCOME'
+      return 'HOME'
     }
 
     return path.split('/')[1].toUpperCase()
@@ -209,9 +224,31 @@ const MenuTopRight = () => {
   `)
 
   const DarkMode = () => {
-    return <div onClick={() => { }}>
+    const [isFastDarkModeSVG, setFastDarkModeSVG] = useState(true)
+    const hideFastDarkModeSVG = () => setFastDarkModeSVG(false)
+    const [invertColor, setInvertColor] = useState(theme === 'DARK' ? 1 : 0)
+
+    const toggleTheme = () => {
+      if (theme === 'LIGHT') {
+        theme = 'DARK'
+        setInvertColor(1)
+      } else {
+        theme = 'LIGHT'
+        setInvertColor(0)
+      }
+      setTheme(theme)
+    }
+
+    const darkModeStyles = { 'height': '32px', 'width': '32px', 'filter': `invert(${invertColor})` }
+
+    return <div onClick={toggleTheme}>
+      {isFastDarkModeSVG ? <FastDarkModeSVG style={darkModeStyles} /> : <></>}
       <img src="./v2/img/darkmode.png"
-        style={{ 'height': '32px', 'width': '32px' }} />
+        style={
+          isFastDarkModeSVG ? { display: 'none' } : darkModeStyles
+        }
+        onLoad={hideFastDarkModeSVG}
+      />
     </div>
   }
 
@@ -240,7 +277,7 @@ const MenuTopRight = () => {
 const Navbar = () => {
   const [isShowSideBar, setIsShowSideBar] = useState(false)
 
-  const hideSideBar = () => { 
+  const hideSideBar = () => {
     setIsShowSideBar(false)
   }
   const toggleSideBar = () => setIsShowSideBar(!isShowSideBar);
@@ -289,7 +326,6 @@ const stylesNavBar = `
    width: 100%;
    max-width: 100vw;
  }
-
  .navbar_container {
    display: flex;
    justify-content: flex-start; /*center;space-between;*/

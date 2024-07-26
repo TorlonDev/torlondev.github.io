@@ -4,7 +4,9 @@
 <head>
   <title>Torlon Dev V2</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="initial-scale=1,minimum-scale=1.0, maximum-scale=1.0,user-scalable=yes,width=device-width">
+  <meta name="viewport"
+    content="initial-scale=1,minimum-scale=1.0, maximum-scale=1.0,user-scalable=yes,width=device-width">
+  <script src="v2/js/babel-7.24.10.js"></script>
   <script src="v2/js/tailwindcss-3.4.5.js"></script>
 
   <style>
@@ -17,7 +19,8 @@
       --sideBarWidth: 200px;
       --mobileMaxWidth: 649px;
       --desktopMinWidth: calc(var(--mobileMaxWidth) + 1px);
-      --contentMinWidth: 360px; /*Samsung Galaxy S8+*/
+      /*Samsung Galaxy S8+*/
+      --contentMinWidth: 360px;
 
       /* theme variable */
       --navBarBGColor: wheat;
@@ -27,7 +30,8 @@
       --linkColor: blue;
     }
 
-    html, body {
+    html,
+    body {
       background-image: url('./v2/img/codingblack.gif');
       background-color: darkgrey;
       max-width: 100%;
@@ -55,7 +59,8 @@
 
     /* Mobile First */
     @media only screen and (max-width: 649px) {
-      html, body {
+      html,
+      body {
         background-repeat: repeat;
         background-size: cover;
       }
@@ -63,7 +68,8 @@
 
     /* Desktop Later */
     @media only screen and (min-width: 650px) {
-      html, body {
+      html,
+      body {
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-attachment: fixed;
@@ -76,7 +82,6 @@
   </style>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" type="text/javascript"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.3.4/react-router-dom.js"></script>
@@ -85,28 +90,38 @@
     const mobileCSS = (styles = '') => `
       @media only screen and (max-width: 649px) {${styles}}
     `
-
     const desktopCSS = (styles = '') => `
       @media only screen and (min-width: 650px) {${styles}}
     `
+    const setTheme = (themeSet = 'LIGHT') => {
+      localStorage.setItem('THEME', (themeSet || 'LIGHT'))
 
-    // var theme = localStorage.getItem('THEME')
-    // var language = localStorage.getItem('LANGUAGE')
+      themeSet = themeSet.toLowerCase()
+      /* Old Web */
+      localStorage.setItem("defaultModeTheme", themeSet);
 
-    // if(!theme) { 
-    //   localStorage.setItem('THEME', 'LIGHT')
-    //   theme = 'LIGHT' 
-    // }
-    // if(!language) { 
-    //   localStorage.setItem('LANGUAGE', 'EN')
-    //   language = 'EN' 
-    // }
+      ([
+        { var: 'navBarBGColor', light: 'wheat', dark: 'darkslategrey' },
+        { var: 'navBarColor', light: 'black', dark: 'white' },
+        { var: 'BGColor', light: 'white', dark: 'black' },
+        { var: 'color', light: 'black', dark: 'wheat' },
+        { var: 'linkColor', light: 'blue', dark: 'green' },
+      ]).forEach(el => {
+        $(':root').css(`--${el.var}`, el[themeSet] || el.light)
+      });
+    }
 
-    // $(':root').css('--navBarElementMaxWidth', '1100px')
-    // $(':root').css('--navBarElementMaxWidth')
+    var theme = localStorage.getItem('THEME')
 
-    // const css_root_white_rerender = getComputedStyle(css_root).getPropertyValue('--white')
+    if (!theme || !['LIGHT', 'DARK'].find(el => theme === el)) {
+      theme = 'LIGHT'
+      setTheme(theme)
+    } else {
+      setTheme(theme)
+    }
+  </script>
 
+  <script>
     var objLanguage = {
       t_hello_world: { en: 'Hello World.', th: 'สวัสดีชาวโลก' },
       t_i_am_developer: { en: 'I am developer.', th: 'ผมคือนักพัฒนา' },
@@ -115,11 +130,12 @@
       t_projects: { en: 'Projects', th: 'โปรเจค' },
     }
 
-    // if(theme.toUpperCase().trim() === 'DARK'){
-    //   $(':root').css('--navBarBGColor', 'black')
-    //   $(':root').css('--navBarColor', 'wheat')
-    // }
+    var language = localStorage.getItem('LANGUAGE')
 
+    if(!language) {
+      localStorage.setItem('LANGUAGE', 'EN')
+      language = 'EN'
+    }
   </script>
 
   <script>
@@ -135,6 +151,7 @@
   <script type="text/babel" src="./v2/components/02_Home.jsx"></script>
   <script type="text/babel" src="./v2/components/03_CV.jsx"></script>
   <script type="text/babel" src="./v2/components/04_Blogs.jsx"></script>
+  <script type="text/babel" src="./v2/components/05_Life.jsx"></script>
   <script type="text/babel" src="./v2/components/05_Projects.jsx"></script>
 
   <script type="text/babel">

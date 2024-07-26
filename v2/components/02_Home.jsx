@@ -1,8 +1,6 @@
 class Home extends React.PureComponent {
   render() {
-    return <div className="wrapper_content text-xl">
-      <span>New version is developing.</span><br/><br/>
-    </div>;
+    return  <span>New version is developing.</span>
   }
 }
 

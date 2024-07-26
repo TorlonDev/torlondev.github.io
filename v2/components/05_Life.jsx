@@ -1,0 +1,1 @@
+const Life = () => <h2>Coming Soon</h2>;
