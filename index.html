@@ -16,12 +16,9 @@
   </script>
   <script src="cdn/js/tailwindcss-3.4.5.min.js" del="del"></script>
   <script src="cdn/js/jquery-3.7.1.min.js" del="del"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"
-    onerror="srcOffline('cdn/js/react.production.min.js')" del="del"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"
-    onerror="srcOffline('cdn/js/react-dom.production.min.js')" del="del"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.3.4/react-router-dom.min.js"
-    onerror="srcOffline('cdn/js/react-router-dom.min.js')" del="del"></script>
+  <script src="cdn/js/react.production.min.js" del="del"></script>
+  <script src="cdn/js/react-dom.production.min.js" del="del"></script>
+  <script src="cdn/js/react-router-dom.min.js" del="del"></script>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
@@ -95,7 +92,11 @@
       }
     }
   </style>
+</head>
 
+<body>
+  <div id="root"></div>
+  
   <script type="text/babel" del="del">
     isBabelTransform = true;
 
@@ -198,11 +199,6 @@
       e.parentElement.removeChild(e);
     });
   </script>
-
-</head>
-
-<body>
-  <div id="root"></div>
   <script del="del">
     document.addEventListener("readystatechange", (event) => {
       if (event.target.readyState === "complete") {
