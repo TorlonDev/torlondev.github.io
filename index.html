@@ -14,16 +14,15 @@
     }
     isBabelTransform = false;
   </script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.5/tailwindcss.min.js'
-    onerror="srcOffline('cdn/js/tailwindcss.min.js')"></script>
+  <script src="cdn/js/tailwindcss-3.4.5.min.js" del="del"></script>
+  <script src="cdn/js/jquery-3.7.1.min.js" del="del"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"
-    onerror="srcOffline('cdn/js/react.production.min.js')"></script>
+    onerror="srcOffline('cdn/js/react.production.min.js')" del="del"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"
-    onerror="srcOffline('cdn/js/react-dom.production.min.js')"></script>
+    onerror="srcOffline('cdn/js/react-dom.production.min.js')" del="del"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.3.4/react-router-dom.min.js"
-    onerror="srcOffline('cdn/js/react-router-dom.min.js')"></script>
-
-  <style class="global_style">
+    onerror="srcOffline('cdn/js/react-router-dom.min.js')" del="del"></script>
+  <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
     :root {
@@ -136,7 +135,7 @@
     const theme = localStorage.getItem('THEME')
 
     if (!theme || !['LIGHT', 'DARK'].find(el => theme === el)) {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches){
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         theme = 'DARK'
       } else {
         theme = 'THEME'
