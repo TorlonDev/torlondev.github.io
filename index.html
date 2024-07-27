@@ -2,12 +2,12 @@
 <html>
 
 <head>
-  <title>Torlon Dev V2</title>
+  <title>Torlon Dev</title>
   <meta charset="UTF-8">
   <meta name="viewport"
     content="initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,width=device-width">
-  <script type="text/ecmascript">
-    srcAlter = path => {
+  <script type="text/ecmascript" del="del">
+    srcOffline = path => {
       script = document.createElement('script')
       script.src = path
       document.head.append(script)
@@ -15,15 +15,15 @@
     isBabelTransform = false;
   </script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.5/tailwindcss.min.js'
-    onerror="srcAlter('cdn/js/tailwindcss-3.4.5.min.js')"></script>
+    onerror="srcOffline('cdn/js/tailwindcss.min.js')"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"
-    onerror="srcAlter('cdn/js/react-18.2.0.min.js')"></script>
+    onerror="srcOffline('cdn/js/react.production.min.js')"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"
-    onerror="srcAlter('cdn/js/react-dom-18.2.0.min.js')"></script>
+    onerror="srcOffline('cdn/js/react-dom.production.min.js')"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.3.4/react-router-dom.min.js"
-    onerror="srcAlter('cdn/js/react-router-dom-5.3.4.min.js')"></script>
+    onerror="srcOffline('cdn/js/react-router-dom.min.js')"></script>
 
-  <style>
+  <style class="global_style">
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
     :root {
@@ -97,17 +97,24 @@
     }
   </style>
 
-  <script type="text/babel">
+  <script type="text/babel" del="del">
     isBabelTransform = true;
-  </script>
 
-  <script type="text/babel">
+    const { useState, useContext } = React
+    const Context = React.createContext({}) //leave empty do not pass anything
+    const { Provider } = Context
+    const { render } = ReactDOM
+    const { HashRouter, NavLink, Route, Switch: Routes, useLocation } = ReactRouterDOM;
+
     const mobileCSS = (styles = '') => `
     @media only screen and (max-width: 649px) {${styles}}
   `
     const desktopCSS = (styles = '') => `
     @media only screen and (min-width: 650px) {${styles}}
   `
+  </script>
+
+  <script type="text/babel" del="del">
     const setTheme = (themeSet = 'LIGHT') => {
       localStorage.setItem('THEME', (themeSet || 'LIGHT'))
 
@@ -126,17 +133,21 @@
       });
     }
 
-    var theme = localStorage.getItem('THEME')
+    const theme = localStorage.getItem('THEME')
 
     if (!theme || !['LIGHT', 'DARK'].find(el => theme === el)) {
-      theme = 'LIGHT'
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches){
+        theme = 'DARK'
+      } else {
+        theme = 'THEME'
+      }
       setTheme(theme)
     } else {
       setTheme(theme)
     }
   </script>
 
-  <script type="text/babel">
+  <script type="text/babel" del="del">
     var objLanguage = {
       t_hello_world: { en: 'Hello World.', th: 'สวัสดีชาวโลก' },
       t_i_am_developer: { en: 'I am developer.', th: 'ผมคือนักพัฒนา' },
@@ -153,23 +164,15 @@
     }
   </script>
 
-  <script type="text/babel">
-    const { useState, useContext } = React
-    const Context = React.createContext({}) //leave empty do not pass anything
-    const { Provider } = Context
-    const { render } = ReactDOM
-    const { HashRouter, NavLink, Route, Switch: Routes, useLocation } = ReactRouterDOM;
-  </script>
+  <script type="text/babel" src="./v2/components/00_Util.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/01_NavBar.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/02_Home.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/03_CV.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/04_Blogs.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/05_Life.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/05_Projects.jsx" del="del"></script>
 
-  <script type="text/babel" src="./v2/components/00_Util.jsx"></script>
-  <script type="text/babel" src="./v2/components/01_NavBar.jsx"></script>
-  <script type="text/babel" src="./v2/components/02_Home.jsx"></script>
-  <script type="text/babel" src="./v2/components/03_CV.jsx"></script>
-  <script type="text/babel" src="./v2/components/04_Blogs.jsx"></script>
-  <script type="text/babel" src="./v2/components/05_Life.jsx"></script>
-  <script type="text/babel" src="./v2/components/05_Projects.jsx"></script>
-
-  <script type="text/babel">
+  <script type="text/babel" del="del">
     const App = ({ children }) => {
       const [currentLanguage, setCurrentLanguage] = useState('EN')
       const [currentTheme, setCurrentTheme] = useState('LIGHT')
@@ -191,13 +194,17 @@
       </App>,
       document.getElementById("root")
     );
+
+    document.querySelectorAll("script[del='del']").forEach(function (e) {
+      e.parentElement.removeChild(e);
+    });
   </script>
 
 </head>
 
 <body>
   <div id="root"></div>
-  <script>
+  <script del="del">
     document.addEventListener("readystatechange", (event) => {
       if (event.target.readyState === "complete") {
         if (!isBabelTransform) { Babel.transformScriptTags(); }
