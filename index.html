@@ -28,6 +28,20 @@
     onerror="srcOffline('cdn/js/react-router-dom-5.3.4.min.js')" del="del"></script>
 
   <style>
+    /*
+    @font-face {
+      font-family: 'THSarabunNew';
+      src: url('https://tronnatthakorn.github.io/cdn/font/THSarabunNew.ttf'),
+        ('font/THSarabunNew.ttf');
+    }
+
+    @font-face {
+      font-family: 'Poppins';
+      src: url('https://tronnatthakorn.github.io/cdn/font/Poppins.ttf'),
+        ('font/Poppins.ttf');
+    }
+    */
+
     :root {
       /* constant variable */
       --navBarHeight: 60px;
@@ -37,10 +51,12 @@
       --desktopMinWidth: calc(var(--mobileMaxWidth) + 1px);
       /*Samsung Galaxy S8+*/
       --contentMinWidth: 360px;
+      /*--fontFamily: 'Poppins';*/
 
       /* theme variable */
       --navBarBGColor: wheat;
       --navBarColor: black;
+      --subNavBarColor: lightgreen;
       --BGColor: white;
       --color: black;
       --linkColor: blue;
@@ -113,9 +129,9 @@
     const desktopCSS = (styles = '') => `
     @media only screen and (min-width: 650px) {${styles}}
   `
-  </script>
+    const themeList = ['LIGHT', 'DARK']
+    const languageList = ['EN', 'TH']
 
-  <script type="text/babel" del="del">
     const setTheme = (themeSet = 'LIGHT') => {
       localStorage.setItem('THEME', (themeSet || 'LIGHT'))
 
@@ -126,6 +142,7 @@
       ([
         { var: 'navBarBGColor', light: 'wheat', dark: 'darkslategrey' },
         { var: 'navBarColor', light: 'black', dark: 'white' },
+        { var: 'subNavBarColor', light: 'lightgreen', dark: 'seagreen' },
         { var: 'BGColor', light: 'white', dark: 'black' },
         { var: 'color', light: 'black', dark: 'wheat' },
         { var: 'linkColor', light: 'blue', dark: 'green' },
@@ -136,32 +153,45 @@
 
     let theme = localStorage.getItem('THEME')
 
-    if (!theme || !['LIGHT', 'DARK'].find(el => theme === el)) {
+    if (!theme || !(themeList.find(el => theme === el))) {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         theme = 'DARK'
       } else {
-        theme = 'THEME'
+        theme = 'LIGHT'
       }
       setTheme(theme)
     } else {
       setTheme(theme)
     }
-  </script>
 
-  <script type="text/babel" del="del">
-    var objLanguage = {
-      t_hello_world: { en: 'Hello World.', th: 'สวัสดีชาวโลก' },
-      t_i_am_developer: { en: 'I am developer.', th: 'ผมคือนักพัฒนา' },
-      t_cv: { en: 'CV', th: 'ซีวี' },
-      t_blogs: { en: 'Blogs', th: 'บล็อก' },
-      t_projects: { en: 'Projects', th: 'โปรเจค' },
-    }
-
-    var language = localStorage.getItem('LANGUAGE')
+    let language = localStorage.getItem('LANGUAGE')
 
     if (!language) {
-      localStorage.setItem('LANGUAGE', 'EN')
-      language = 'EN'
+      if (typeof navigator !== undefined) {
+        const userLanguage =
+          (`${navigator.language || navigator.userLanguage || 'en'}`).toUpperCase()
+
+        language = languageList.find(el => userLanguage === el) || 'EN'
+      } else {
+        language = 'EN'
+      }
+    } else {
+      language = languageList.find(el => language === el) || 'EN'
+    }
+
+    localStorage.setItem('LANGUAGE', language)
+
+    const lang = {
+      'undefined': { EN: 'Not Found', TH: 'ไม่พบ' },
+      coming_soon: { EN: 'Coming Soon.', TH: 'พบกันเร็วๆนี้' },
+      hello_world: { EN: 'Hello World.', TH: 'สวัสดีชาวโลก' },
+      i_am_developer: { EN: 'I am developer.', TH: 'ผมคือนักพัฒนา' },
+      home: { EN: 'Home', TH: 'หน้าแรก' },
+      cv: { EN: 'CV', TH: 'ซีวี' },
+      blogs: { EN: 'Blogs', TH: 'บล็อก' },
+      life: { EN: 'Life', TH: 'ชีวิต' },
+      time_machine: { EN: 'Time Machine', TH: 'ไทม์ แมชชีน' },
+      projects: { EN: 'Projects', TH: 'โปรเจค' },
     }
   </script>
 
@@ -175,13 +205,16 @@
 
   <script type="text/babel" del="del">
     const App = ({ children }) => {
-      const [currentLanguage, setCurrentLanguage] = useState('EN')
-      const [currentTheme, setCurrentTheme] = useState('LIGHT')
+      const [isShowLangChoose, setIsShowLangChoose] = useState(false)
+      const [currentLanguage, setCurrentLanguage] = useState(language || 'EN')
 
       return <Provider
         value={{
-          objLanguage, currentLanguage, setCurrentLanguage,
-          currentTheme, setCurrentTheme
+          lang,
+          currentLanguage,
+          setCurrentLanguage,
+          isShowLangChoose,
+          setIsShowLangChoose,
         }}>
         {children}
       </Provider>

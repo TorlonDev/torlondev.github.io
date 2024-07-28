@@ -6,14 +6,34 @@ const Routing = () => (
       window.location.href = window.location.origin + "/#/home"
       return <></>
     }} />
-    <Route exact path="/home" component={DefaultWrapper(<Home />)}/>
+    <Route exact path="/home" component={DefaultWrapper(<Home />)} />
     <Route exact path="/cv" component={CV} />
-    <Route exact path="/blogs" component={DefaultWrapper(<Blogs/>)} />
-    <Route exact path="/life" component={DefaultWrapper(<Life/>)} />
-    <Route exact path="/projects" component={DefaultWrapper(<Projects/>)} />
+    <Route exact path="/blogs" component={DefaultWrapper(<Blogs />)} />
+    <Route exact path="/life" component={DefaultWrapper(<Life />)} />
+    <Route exact path="/projects" component={DefaultWrapper(<Projects />)} />
     <Route exact path="/time_machine" component={() => {
-      const [counter, setCounter] = useState(10)
 
+      const langTime = {
+        phase1: {
+          EN: 'Time Machine is Starting...',
+          TH: 'เครื่องย้อนเวลากำลังทำงาน'
+        },
+        phase2: {
+          EN: 'Are you ready?',
+          TH: 'คุณพร้อมหรือยัง'
+        },
+        phase3: {
+          EN: "Let's go to old version of torlondev website.",
+          TH: 'ผมจะพาคุณไปสู่เว็บไซต์ torlondev เวอร์ชันเก่า'
+        },
+        phase4: {
+          EN: 'Going back to 2015-2023 in...',
+          TH: 'เตรียมตัวย้อนเวลาสู่ อดีต ปี 2015-2023 ใน...'
+        },
+      }
+
+      const [counter, setCounter] = useState(10)
+      const { currentLanguage: l } = useContext(Context)
       let xr = setInterval(() => {
         setCounter(counter - 1)
         if (counter === 2) {
@@ -22,19 +42,19 @@ const Routing = () => (
             window.location.href = window.location.origin + "/old"
           }
         }
-      }, 1000)
+      }, 1100)
 
-      return <div style={{ 
-          minHeight: 'unset' 
-        }} className="wrapper_content text-xl text-center">
+      return <div style={{
+        minHeight: 'unset'
+      }} className="wrapper_content text-xl text-center">
         <br />
-        <h1>Time Machine is Starting...</h1><br />
-        <h1>Are you ready?</h1><br />
-        <h1>Let's go to old version of this website...</h1><br />
-        <h1>Going back to 2015-2023 in <br /><br /><span className="text-3xl" id="time_machine_counter">{counter}</span></h1><br />
+        <h1>{langTime.phase1[l]}</h1><br />
+        <h1>{langTime.phase2[l]}</h1><br />
+        <h1>{langTime.phase3[l]}</h1><br />
+        <h1>{langTime.phase4[l]} <br /><br /><span className="text-3xl" id="time_machine_counter">{counter}</span></h1><br />
       </div>;
     }} />
-    <Route component={NotFound} />
+    <Route component={DefaultWrapper(<NotFound />)} />
   </Routes>
 )
 
@@ -92,17 +112,16 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
     }
    `)
 
+   const {lang, currentLanguage: l} = useContext(Context)
+
   return <>
     <style>{styles}</style>
     <div className={`sidebar-wrapper ${isShowSideBar ? "active" : ""}`}>
-      { /*<NavLink to="/home">Home</NavLink>*/}
-      {/* 
-      <NavLink className="navlink text-l" to="/projects" onClick={hideSideBar}>Projects</NavLink> */}
-      <NavLink className="navlink text-l" to="/home" onClick={hideSideBar}>Home</NavLink>
-      <NavLink className="navlink text-l" to="/cv" onClick={hideSideBar}>CV</NavLink>
-      <NavLink className="navlink text-l" to="/blogs" onClick={hideSideBar}>Blogs</NavLink>
-      <NavLink className="navlink text-l" to="/life" onClick={hideSideBar}>Life</NavLink>
-      <NavLink className="navlink text-l" to="/time_machine" onClick={hideSideBar}>Time Machine</NavLink>
+      <NavLink className="navlink text-l" to="/home" onClick={hideSideBar}>{lang.home[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/cv" onClick={hideSideBar}>{lang.cv[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/blogs" onClick={hideSideBar}>{lang.blogs[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/life" onClick={hideSideBar}>{lang.life[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/time_machine" onClick={hideSideBar}>{lang.time_machine[l]}</NavLink>
     </div>
   </>
 }
@@ -171,18 +190,19 @@ const Hamburger = (props) => {
 }
 
 const TitleMobile = () => {
+
+  const {lang, currentLanguage: l} = useContext(Context)
+
   /** Why not hook useEffect */
   const changePathToTitle = (path = '/') => {
-
-    path = path.replaceAll('-', ' ')
-      .replaceAll('_', ' ')
-
     if (path === '/' || path === '/home') {
-      // return 'WELCOME'
-      return 'HOME'
+      return lang.home[l]
     }
 
-    return path.split('/')[1].toUpperCase()
+    const firstPathWithoutSub = path.split('/')[1]
+    console.log(firstPathWithoutSub)
+
+    return (lang[firstPathWithoutSub] || {})[l] || (l == 'EN'? 'Not Found': 'ไม่พบ')
   }
 
   const styles = mobileCSS(`
@@ -201,7 +221,7 @@ const TitleMobile = () => {
     <style>{styles}</style>
 
     <div className="title_mobile text-2xl font-semibold">
-      <span>{changePathToTitle(useLocation().pathname)}</span>
+      <span>{`${changePathToTitle(useLocation().pathname)}`.toUpperCase()}</span>
     </div>
   </>
 }
@@ -242,7 +262,7 @@ const MenuTopRight = () => {
 
     const iconDarkModeStyles = { 'height': '32px', 'width': '32px', 'filter': `invert(${invertColor})` }
 
-    return <div onClick={toggleTheme}>
+    return <div style={{ cursor: 'pointer' }} onClick={toggleTheme}>
       {isFastDarkModeSVG ? <FastDarkModeSVG style={iconDarkModeStyles} /> : <></>}
       <img src="./v2/img/darkmode.png"
         style={
@@ -253,23 +273,51 @@ const MenuTopRight = () => {
     </div>
   }
 
+  const LanguageChange = () => {
+    const {
+      currentLanguage, setCurrentLanguage,
+      isShowLangChoose, setIsShowLangChoose
+    } = useContext(Context)
+    const toggleLangChoose = () => setIsShowLangChoose(!isShowLangChoose)
+
+    const changeLanguageTo = (language = 'EN') => {
+      setCurrentLanguage(language)
+      localStorage.setItem('LANGUAGE', language)
+      setIsShowLangChoose(false)
+    }
+
+    const isEN = currentLanguage === 'EN'
+    const underLineStyle = "underline underline-offset-4"
+
+    return (
+      <div className="language_change"
+        style={{ marginLeft: '-10px', cursor: 'pointer' }}
+        onClick={toggleLangChoose}>
+        <span>{currentLanguage}</span>
+        <div className="language_choose"
+          style={{
+            "display": isShowLangChoose ? 'block' : 'none',
+            "position": 'absolute',
+            top: '50px',
+            'marginLeft': '-40px',
+            backgroundColor: 'var(--subNavBarColor)',
+            "width": '100px',
+            'textAlign': 'center',
+            padding: '12px',
+            borderRadius: '7%'
+          }}
+        >
+          <div className={`p-1 ${isEN ? underLineStyle: ''}`} style={isEN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('EN')}>English</div>
+          <div className={`p-1 ${!isEN ? underLineStyle: ''}`} style={!isEN ? { fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('TH')}>ไทย</div>
+        </div>
+      </div>
+    )
+  }
+
   return <>
     <style>{wrapperStyles}</style>
     <div className="top_right">
-      <div className="language_change" style={{ marginLeft: '-10px' }}>
-        <span>EN</span>
-        <div
-          className="language_choose"
-          style={{
-            "display": "none",
-            "position": 'absolute', top: '50px', 'marginLeft': '-40px', backgroundColor: 'green',
-            "width": '100px', 'textAlign': 'center'
-          }}
-        >
-          <span>EN</span><br />
-          <span>TH</span>
-        </div>
-      </div>
+      <LanguageChange />
       <DarkMode />
     </div>
   </>
@@ -277,11 +325,16 @@ const MenuTopRight = () => {
 
 const Navbar = () => {
   const [isShowSideBar, setIsShowSideBar] = useState(false)
+  const { setIsShowLangChoose } = useContext(Context)
 
   const hideSideBar = () => {
     setIsShowSideBar(false)
+    setIsShowLangChoose(false)
   }
-  const toggleSideBar = () => setIsShowSideBar(!isShowSideBar);
+  const toggleSideBar = () => { 
+    setIsShowSideBar(!isShowSideBar);
+    setIsShowLangChoose(false) 
+  }
 
   const ContentWrapper = () => {
     const stylesContentWrapper = mobileCSS(`
