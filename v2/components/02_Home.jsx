@@ -1,6 +1,8 @@
 class Home extends React.PureComponent {
   render() {
-    return  <span>New version is developing.</span>
+    return  <span>New version is developing. <br />
+    (เวอร์ชันใหม่ กำลังพัฒนา)
+    </span>
   }
 }
 
