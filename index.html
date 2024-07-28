@@ -140,7 +140,7 @@
       });
     }
 
-    const theme = localStorage.getItem('THEME')
+    let theme = localStorage.getItem('THEME')
 
     if (!theme || !['LIGHT', 'DARK'].find(el => theme === el)) {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
