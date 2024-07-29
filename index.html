@@ -72,17 +72,21 @@
 
     .a_link {
       color: var(--linkColor) !important;
+      text-underline-offset: 6px !important;
     }
 
     .wrapper_content {
-      padding-top: var(--navBarHeight);
       margin: auto;
+      margin-top: var(--navBarHeight);
       min-width: var(--contentMinWidth);
       max-width: var(--navBarElementMaxWidth);
       min-height: 100vh;
 
       background-color: var(--BGColor);
       color: var(--color);
+
+      font-weight: 700;
+      text-shadow: var(--BGColor) -2px 0px, var(--BGColor) 0px 2px, var(--BGColor) 2px 0px, var(--BGColor) 0px -2px;
     }
 
     /* Mobile First */
@@ -143,7 +147,7 @@
         { var: 'navBarColor', light: 'black', dark: 'white' },
         { var: 'subNavBarColor', light: 'lightgreen', dark: 'seagreen' },
         { var: 'BGColor', light: 'white', dark: 'black' },
-        { var: 'color', light: 'black', dark: 'wheat' },
+        { var: 'color', light: 'black', dark: 'white' },
         { var: 'linkColor', light: 'blue', dark: 'green' },
       ]).forEach(el => {
         $(':root').css(`--${el.var}`, el[themeSet] || el.light)
@@ -189,7 +193,7 @@
       coming_soon: { EN: 'Coming Soon.', TH: 'พบกันเร็วๆนี้', CN: '即将推出' },
       hello_world: { EN: 'Hello World.', TH: 'สวัสดีชาวโลก', CN: '你好世界' },
       i_am_developer: { EN: 'I am developer.', TH: 'ผมคือนักพัฒนา', CN: '我是开发人员' },
-      new_ver_developing: { EN: 'New Version is Developing', TH: 'เว็บไซต์เวอร์ชันใหม่อยู่ระหว่างการพัฒนา', CN: '新版本正在开发中' },
+      new_ver_developing: { EN: 'New Version is Developing.', TH: 'เว็บไซต์เวอร์ชันใหม่อยู่ระหว่างการพัฒนา', CN: '新版本正在开发中' },
       home: { EN: 'Home', TH: 'หน้าแรก', CN: '主页' },
       cv: { EN: 'CV', TH: 'ซีวี', CN: '简历' },
       blogs: { EN: 'Blogs', TH: 'บล็อก', CN: '博客' },

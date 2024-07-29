@@ -26,7 +26,7 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
     }
     .sidebar-wrapper a {
       opacity: 0.6;
-      font-weight: 600;
+      font-weight: 500;
     }
     .sidebar-wrapper a.active {
       text-decoration: underline;
@@ -177,7 +177,7 @@ const TitleMobile = () => {
   return <>
     <style>{styles}</style>
 
-    <div className="title_mobile text-2xl font-semibold">
+    <div className="title_mobile text-2xl font-medium">
       <span>{`${changePathToTitle(useLocation().pathname) || ''}`.toUpperCase()}</span>
     </div>
   </>

@@ -12,7 +12,7 @@ const langCV = {
 const CV = () => {
   const { currentLanguage: l } = useContext(Context)
     return <div className="wrapper_content text-xl">
-        <span>{langCV.cv_developing[l]}</span><br /><br />
+        <span>{langCV.cv_developing[l]}</span><br />
         <a className="underline a_link" target="_blank" href="./old/#/cv">
         {langCV.go_old_cv[l]}</a>
     </div>

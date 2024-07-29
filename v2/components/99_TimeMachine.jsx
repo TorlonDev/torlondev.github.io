@@ -36,13 +36,16 @@ const TimeMachine = () => {
   }, 1000)
 
   return <div style={{
-    minHeight: 'unset'
+    minHeight: 'unset',
+    backgroundImage: 'url(v2/img/timemachine.jpg)',
+    backgroundPosition: 'center',
   }} className="wrapper_content text-xl text-center">
-    <br />
-    <h1>{langTimeMachine.time_machine_starting?.[l]}</h1><br />
-    <h1>{langTimeMachine.are_you_ready?.[l]}</h1><br />
-    <h1>{langTimeMachine.go_to_old_version?.[l]}</h1><br />
-    <h1>{langTimeMachine.go_back_2015?.[l]} <br /><br />
-      <span className="text-3xl" id="time_machine_counter">{counter}</span></h1><br />
+      <br/>
+      <h1>{langTimeMachine.time_machine_starting?.[l]}</h1><br />
+      <h1>{langTimeMachine.are_you_ready?.[l]}</h1><br />
+      <h1>{langTimeMachine.go_to_old_version?.[l]}</h1><br />
+      <h1>{langTimeMachine.go_back_2015?.[l]} <br /><br />
+        <span className="text-3xl" id="time_machine_counter">{counter}</span></h1><br />
+
   </div>;
 }
