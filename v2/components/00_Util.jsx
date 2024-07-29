@@ -1,6 +1,6 @@
 const NotFound = () => {
-  const { currentLanguage: l } = useContext(Context)
-  return <span>{l === 'EN' ? 'Page Not Found': 'ไม่พบหน้าที่คุณเรียก'}</span>
+  const { lang, currentLanguage: l } = useContext(Context)
+  return <span>{lang.not_found[l]}</span>
 }
 const DefaultWrapper = (content) => {
   return () => <div className="wrapper_content text-xl">{content}</div>

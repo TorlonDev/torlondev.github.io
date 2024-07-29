@@ -11,49 +11,7 @@ const Routing = () => (
     <Route exact path="/blogs" component={DefaultWrapper(<Blogs />)} />
     <Route exact path="/life" component={DefaultWrapper(<Life />)} />
     <Route exact path="/projects" component={DefaultWrapper(<Projects />)} />
-    <Route exact path="/time_machine" component={() => {
-
-      const langTime = {
-        phase1: {
-          EN: 'Time Machine is Starting...',
-          TH: 'เครื่องย้อนเวลากำลังทำงาน'
-        },
-        phase2: {
-          EN: 'Are you ready?',
-          TH: 'คุณพร้อมหรือยัง'
-        },
-        phase3: {
-          EN: "Let's go to old version of torlondev website.",
-          TH: 'ผมจะพาคุณไปสู่เว็บไซต์ torlondev เวอร์ชันเก่า'
-        },
-        phase4: {
-          EN: 'Going back to 2015-2023 in...',
-          TH: 'เตรียมตัวย้อนเวลาสู่ อดีต ปี 2015-2023 ใน...'
-        },
-      }
-
-      const [counter, setCounter] = useState(10)
-      const { currentLanguage: l } = useContext(Context)
-      let xr = setInterval(() => {
-        setCounter(counter - 1)
-        if (counter === 2) {
-          clearInterval(xr)
-          if (window.location.hash === '#/time_machine') {
-            window.location.href = window.location.origin + "/old"
-          }
-        }
-      }, 1100)
-
-      return <div style={{
-        minHeight: 'unset'
-      }} className="wrapper_content text-xl text-center">
-        <br />
-        <h1>{langTime.phase1[l]}</h1><br />
-        <h1>{langTime.phase2[l]}</h1><br />
-        <h1>{langTime.phase3[l]}</h1><br />
-        <h1>{langTime.phase4[l]} <br /><br /><span className="text-3xl" id="time_machine_counter">{counter}</span></h1><br />
-      </div>;
-    }} />
+    <Route exact path="/time_machine" component={TimeMachine} />
     <Route component={DefaultWrapper(<NotFound />)} />
   </Routes>
 )
@@ -117,11 +75,11 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
   return <>
     <style>{styles}</style>
     <div className={`sidebar-wrapper ${isShowSideBar ? "active" : ""}`}>
-      <NavLink className="navlink text-l" to="/home" onClick={hideSideBar}>{lang.home[l]}</NavLink>
-      <NavLink className="navlink text-l" to="/cv" onClick={hideSideBar}>{lang.cv[l]}</NavLink>
-      <NavLink className="navlink text-l" to="/blogs" onClick={hideSideBar}>{lang.blogs[l]}</NavLink>
-      <NavLink className="navlink text-l" to="/life" onClick={hideSideBar}>{lang.life[l]}</NavLink>
-      <NavLink className="navlink text-l" to="/time_machine" onClick={hideSideBar}>{lang.time_machine[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/home" onClick={hideSideBar}>{lang.home?.[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/cv" onClick={hideSideBar}>{lang.cv?.[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/blogs" onClick={hideSideBar}>{lang.blogs?.[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/life" onClick={hideSideBar}>{lang.life?.[l]}</NavLink>
+      <NavLink className="navlink text-l" to="/time_machine" onClick={hideSideBar}>{lang.time_machine?.[l]}</NavLink>
     </div>
   </>
 }
@@ -200,9 +158,8 @@ const TitleMobile = () => {
     }
 
     const firstPathWithoutSub = path.split('/')[1]
-    console.log(firstPathWithoutSub)
 
-    return (lang[firstPathWithoutSub] || {})[l] || (l == 'EN'? 'Not Found': 'ไม่พบ')
+    return (lang[firstPathWithoutSub] || {})[l]
   }
 
   const styles = mobileCSS(`
@@ -221,7 +178,7 @@ const TitleMobile = () => {
     <style>{styles}</style>
 
     <div className="title_mobile text-2xl font-semibold">
-      <span>{`${changePathToTitle(useLocation().pathname)}`.toUpperCase()}</span>
+      <span>{`${changePathToTitle(useLocation().pathname) || ''}`.toUpperCase()}</span>
     </div>
   </>
 }
@@ -276,17 +233,16 @@ const MenuTopRight = () => {
   const LanguageChange = () => {
     const {
       currentLanguage, setCurrentLanguage,
-      isShowLangChoose, setIsShowLangChoose
+      isShowLangChoose, setIsShowLangChoose,
+      isEN, isTH, isCN
     } = useContext(Context)
     const toggleLangChoose = () => setIsShowLangChoose(!isShowLangChoose)
 
     const changeLanguageTo = (language = 'EN') => {
       setCurrentLanguage(language)
-      localStorage.setItem('LANGUAGE', language)
       setIsShowLangChoose(false)
     }
 
-    const isEN = currentLanguage === 'EN'
     const underLineStyle = "underline underline-offset-4"
 
     return (
@@ -308,7 +264,8 @@ const MenuTopRight = () => {
           }}
         >
           <div className={`p-1 ${isEN ? underLineStyle: ''}`} style={isEN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('EN')}>English</div>
-          <div className={`p-1 ${!isEN ? underLineStyle: ''}`} style={!isEN ? { fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('TH')}>ไทย</div>
+          <div className={`p-1 ${isTH ? underLineStyle: ''}`} style={isTH ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('TH')}>ไทย</div>
+          <div className={`p-1 ${isCN ? underLineStyle: ''}`} style={isCN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('CN')}>中文</div>
         </div>
       </div>
     )
@@ -368,7 +325,7 @@ const Navbar = () => {
       <ContentWrapper />
     </>
   )
-};
+}
 
 const stylesNavBar = `
 .navbar {

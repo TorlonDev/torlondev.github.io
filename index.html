@@ -130,7 +130,6 @@
     @media only screen and (min-width: 650px) {${styles}}
   `
     const themeList = ['LIGHT', 'DARK']
-    const languageList = ['EN', 'TH']
 
     const setTheme = (themeSet = 'LIGHT') => {
       localStorage.setItem('THEME', (themeSet || 'LIGHT'))
@@ -163,7 +162,10 @@
     } else {
       setTheme(theme)
     }
+  </script>
 
+  <script type="text/babel" del="del">
+    const languageList = ['EN', 'TH', 'CN']
     let language = localStorage.getItem('LANGUAGE')
 
     if (!language) {
@@ -182,16 +184,18 @@
     localStorage.setItem('LANGUAGE', language)
 
     const lang = {
-      'undefined': { EN: 'Not Found', TH: 'ไม่พบ' },
-      coming_soon: { EN: 'Coming Soon.', TH: 'พบกันเร็วๆนี้' },
-      hello_world: { EN: 'Hello World.', TH: 'สวัสดีชาวโลก' },
-      i_am_developer: { EN: 'I am developer.', TH: 'ผมคือนักพัฒนา' },
-      home: { EN: 'Home', TH: 'หน้าแรก' },
-      cv: { EN: 'CV', TH: 'ซีวี' },
-      blogs: { EN: 'Blogs', TH: 'บล็อก' },
-      life: { EN: 'Life', TH: 'ชีวิต' },
-      time_machine: { EN: 'Time Machine', TH: 'ไทม์ แมชชีน' },
-      projects: { EN: 'Projects', TH: 'โปรเจค' },
+      'undefined': { EN: 'Not Found', TH: 'ไม่พบ', CN: '未找到' },
+      not_found: { EN: 'Not Found', TH: 'ไม่พบ', CN: '未找到' },
+      coming_soon: { EN: 'Coming Soon.', TH: 'พบกันเร็วๆนี้', CN: '即将推出' },
+      hello_world: { EN: 'Hello World.', TH: 'สวัสดีชาวโลก', CN: '你好世界' },
+      i_am_developer: { EN: 'I am developer.', TH: 'ผมคือนักพัฒนา', CN: '我是开发人员' },
+      new_ver_developing: { EN: 'New Version is Developing', TH: 'เว็บไซต์เวอร์ชันใหม่อยู่ระหว่างการพัฒนา', CN: '新版本正在开发中' },
+      home: { EN: 'Home', TH: 'หน้าแรก', CN: '主页' },
+      cv: { EN: 'CV', TH: 'ซีวี', CN: '简历' },
+      blogs: { EN: 'Blogs', TH: 'บล็อก', CN: '博客' },
+      life: { EN: 'Life', TH: 'ชีวิต', CN: '生活' },
+      time_machine: { EN: 'Time Machine', TH: 'ไทม์ แมชชีน', CN: '时光机器' },
+      projects: { EN: 'Projects', TH: 'โปรเจค', CN: '项目' },
     }
   </script>
 
@@ -202,17 +206,43 @@
   <script type="text/babel" src="./v2/components/04_Blogs.jsx" del="del"></script>
   <script type="text/babel" src="./v2/components/05_Life.jsx" del="del"></script>
   <script type="text/babel" src="./v2/components/05_Projects.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/99_TimeMachine.jsx" del="del"></script>
 
   <script type="text/babel" del="del">
     const App = ({ children }) => {
       const [isShowLangChoose, setIsShowLangChoose] = useState(false)
-      const [currentLanguage, setCurrentLanguage] = useState(language || 'EN')
+      const [currentLanguage, setCurrentLanguageContext] = useState(language || 'EN')
+
+      const [isEN, setIsEN] = useState(language === 'EN')
+      const [isTH, setIsTH] = useState(language === 'TH')
+      const [isCN, setIsCN] = useState(language === 'CN')
+
+      const clearCacheBooleanLang = () => {
+        setIsEN(false); setIsTH(false); setIsCN(false);
+      }
+
+      const setCurrentLanguage = (lang = 'EN') => {
+        setCurrentLanguageContext(lang)
+        localStorage.setItem('LANGUAGE', lang)
+        clearCacheBooleanLang()
+        switch (lang) {
+          case 'EN':
+            return setIsEN(true)
+          case 'TH':
+            return setIsTH(true)
+          case 'CN':
+            return setIsCN(true)
+          default:
+            break
+        }
+      }
 
       return <Provider
         value={{
           lang,
           currentLanguage,
           setCurrentLanguage,
+          isEN, isTH, isCN,
           isShowLangChoose,
           setIsShowLangChoose,
         }}>
