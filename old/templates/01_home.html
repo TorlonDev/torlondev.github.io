@@ -1,307 +1,336 @@
 <style>
-    .detail_home{
-        background-color: grey;
-        opacity: 0.99;
-    }
-    .logo{
-        text-align: center;
-    }
+  .detail_home {
+    background-color: grey;
+    opacity: 0.99;
+  }
 
-    /* CSS Concept always use mobile-first (first no-media) because css no lift up rule. */
+  .logo {
+    text-align: center;
+  }
 
+  /* CSS Concept always use mobile-first (first no-media) because css no lift up rule. */
+
+  .ground_home {
+    background-image: url('../old/img/cover_pic_small2.jpg');
+    transition: background-image 4s;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 315px;
+    background-color: white;
+  }
+
+  #snowy {
+    display: block;
+    width: 100%;
+    height: 271px;
+  }
+
+  .logo {
+    margin-top: -271px;
+    height: 271px;
+    /*(315-44 = 271)*/
+    width: 100%;
+    font-size: 30px;
+  }
+
+  .space_logo {
+    padding: 25px;
+    color: white;
+    text-shadow: -1px 0 orange, 0 1px orange, 1px 0 orange, 0 -1px orange;
+  }
+
+  .code_img {
+    width: 50%;
+    padding-top: 5px;
+  }
+
+  .me_img {
+    width: 45%;
+    padding-top: 5px;
+  }
+
+  .ban_horizon_white {
+    background-color: #DCDCDC;
+  }
+
+  .ban_horizon_gainsboro {
+    width: 100%;
+    color: white;
+    background-color: gray;
+    padding-top: 5px;
+  }
+
+  .ban_me {
+    width: 100%;
+    color: white;
+    background-color: gray;
+    padding-top: 5px;
+  }
+
+  #div_img_about_me {
+    padding-bottom: 10px;
+  }
+
+  @media only screen and (min-width: 750px) {
     .ground_home {
-        background-image: url('../old/img/cover_pic_small2.jpg');
-        transition: background-image 4s;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: 100% 315px;
-        background-color: white;
+      background-image: url('../old/img/cover_pic_big2.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 650px;
     }
+
     #snowy {
-        display: block;
-        width: 100%;
-        height: 271px;
+      display: block;
+      width: 100%;
+      height: 606px;
     }
+
     .logo {
-        margin-top: -271px;
-        height: 271px; /*(315-44 = 271)*/
-        width: 100%;
-        font-size: 30px;
+      margin-top: -606px;
+      height: 556px;
+      /*(650-44 = 606 - 50 = 556)*/
+      width: 100%;
+      font-size: 70px;
     }
-    .space_logo{
-        padding: 25px;
-        color: white;
-        text-shadow : -1px 0 orange, 0 1px orange , 1px 0 orange, 0 -1px orange;
+
+    .logo_bg {
+      margin-top: 50px;
+      margin-left: 20px;
+      margin-right: 20px;
+      height: 506px;
+      /*(44+50+height+50 = 650)*/
+      background-color: rgba(0, 0, 0, 0.1);
+      /*opacity:0.1;*/
+
     }
-    .code_img{
-        width: 50%;
-        padding-top: 5px;
+
+    .logo_text {
+      margin-top: -486px;
     }
-    .me_img{
-        width: 45%;
-        padding-top: 5px;
+
+    .space_logo {
+      padding: 55px;
+      color: white;
+      text-shadow: -1px 0 orange, 0 1px orange, 1px 0 orange, 0 -1px orange;
     }
-    .ban_horizon_white{
-        background-color: #DCDCDC;
+
+    .ban_horizon_white {
+      height: 260px;
+      width: 100%;
+      background-color: #DCDCDC;
+      padding-top: 20px;
     }
+
     .ban_horizon_gainsboro {
-        width: 100%;
-        color: white;
-        background-color: gray;
-        padding-top: 5px;
+      height: 260px;
+      width: 100%;
+      background-color: gray;
+      color: white;
+      padding-top: 20px;
+      /* padding-left: 20px; */
     }
+
     .ban_me {
-        width: 100%;
-        color: white;
-        background-color: gray;
-        padding-top: 5px;
+      width: 100%;
+      background-color: gray;
+      color: white;
+      padding-top: 20px;
+      padding-left: 20px;
+      padding-bottom: 20px;
     }
+
+    .code_img {
+      height: 200px;
+      width: 250px;
+    }
+
+    .me_img {
+      margin-top: -30px;
+      margin-left: 10px;
+      margin-bottom: -10px;
+      height: 230px;
+      width: 230px;
+    }
+
     #div_img_about_me {
-        padding-bottom: 10px;
+      padding-bottom: 10px;
+    }
+  }
+
+  @media only screen and (min-width: 1430px) {
+    .ground_home {
+      background: center;
+      background-image: url('../old/img/cover_pic_big2.jpg');
+      background-repeat: repeat;
     }
 
-    @media only screen and (min-width: 750px) {
-        .ground_home {
-            background-image: url('../old/img/cover_pic_big2.jpg');
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: 100% 650px;
-        }
-        #snowy {
-            display: block;
-            width: 100%;
-            height: 606px;
-        }
-        .logo {
-            margin-top: -606px;
-            height: 556px; /*(650-44 = 606 - 50 = 556)*/
-            width: 100%;
-            font-size: 70px;
-        }
-        .logo_bg{
-            margin-top: 50px;
-            margin-left: 20px;
-            margin-right: 20px;
-            height: 506px; /*(44+50+height+50 = 650)*/
-            background-color: rgba(0,0,0,0.1);
-            /*opacity:0.1;*/
-
-        }
-        .logo_text {
-            margin-top: -486px;
-        }
-        .space_logo{
-            padding: 55px;
-            color: white;
-            text-shadow : -1px 0 orange, 0 1px orange , 1px 0 orange, 0 -1px orange;
-        }
-        .ban_horizon_white{
-            height: 260px;
-            width: 100%;
-            background-color: #DCDCDC;
-            padding-top: 20px;
-        }
-        .ban_horizon_gainsboro{
-            height: 260px;
-            width: 100%;
-            background-color: gray;
-            color: white;
-            padding-top: 20px;
-            /* padding-left: 20px; */
-        }
-        .ban_me {
-            width: 100%;
-            background-color: gray;
-            color: white;
-            padding-top: 20px;
-            padding-left: 20px;
-            padding-bottom: 20px;
-        }
-        .code_img{
-            height: 200px;
-            width: 250px;
-        }
-        .me_img{
-            margin-top: -30px;
-            margin-left: 10px;
-            margin-bottom: -10px;
-            height: 230px;
-            width: 230px;
-        }
-        #div_img_about_me {
-            padding-bottom: 10px;
-        }
+    #div_img_about_me {
+      padding-bottom: 30px;
     }
-
-    @media only screen and (min-width: 1430px) {
-        .ground_home {
-            background: center;
-            background-image: url('../old/img/cover_pic_big2.jpg');
-            background-repeat: repeat;
-        }
-        #div_img_about_me {
-            padding-bottom: 30px;
-        }
-    }
-
+  }
 </style>
 
-
 <ion-view class="ground_home" view-title="Home">
-    <ion-content overflow-scroll="true">
-        <canvas id="snowy"></canvas>
-        <div class="logo">
-            <div class="logo_bg">
+  <ion-content overflow-scroll="true">
+    <canvas id="snowy"></canvas>
+    <div class="logo">
+      <div class="logo_bg">
 
+      </div>
+      <div class="logo_text">
+        <div class="space_logo now_rap"><b>HELLO WORLD</b></div>
+        <br />
+
+        <div class="space_logo now_rap"><b>I AM DEVELOPER</b></div>
+        <br />
+
+        <div class="space_logo now_rap"><b>I LIKE <span id='like_txt'>READING</span></b></div>
+        <br />
+      </div>
+    </div>
+
+    <div class="detail_home">
+      <div class="rowly ban_horizon_white">
+        <div class="coly-0"></div>
+        <div class="coly-10">
+          <div class="desktop_right_50" style="margin-top: 5px;">
+            <h3><b><span>I Am Frontend & Mobile Dev.</span></b></h3>
+          </div>
+          <div class="desktop_left_50 desktop_center mobile_center">
+            <img class="code_img" src="../old/img/response.png" />
+          </div>
+          <div class="desktop_right_50">
+            <div class="story_text">
+              - รับพัฒนา/แก้ไข เว็บไซต์ แอพลิเคชันมือถือ<br />
+              - พัฒนา ให้รองรับหน้าจอหลายๆขนาด<br />
+              <b>(หน้าจอ มือถือ / Tablet / คอมพิวเตอร์)</b>
+              <br /><br />
+              <b>
+                <span class="now_rap">HTML /</span>
+                <span class="now_rap">CSS /</span>
+                <span class="now_rap">JS /</span>
+                <span class="now_rap">JQuery /</span>
+                <span class="now_rap">React /</span>
+                <span class="now_rap">React Native /</span>
+                <span class="now_rap">Responsive Design /</span>
+                <span class="now_rap">Android /</span>
+                <span class="now_rap">iOS</span>
+              </b>
+              <br /><br />
             </div>
-            <div class="logo_text">
-                <div class="space_logo now_rap"><b>HELLO WORLD</b></div>
-                <br/>
+          </div>
 
-                <div class="space_logo now_rap"><b>I AM DEVELOPER</b></div>
-                <br/>
-
-                <div class="space_logo now_rap"><b>I LIKE <span id='like_txt'>READING</span></b></div>
-                <br/>
-            </div>
         </div>
+        <div class="coly-1"></div>
+      </div>
+      <div class="rowly ban_horizon_gainsboro">
+        <div class="coly-0"></div>
+        <div class="coly-10">
 
-        <div class="detail_home">
-            <div class="rowly ban_horizon_white">
-                <div class="coly-0"></div>
-                <div class="coly-10">
-                    <div class="desktop_right_50" style="margin-top: 5px;">
-                        <h3><b><span>I Am Frontend & Mobile Dev.</span></b></h3>
-                    </div>
-                    <div class="desktop_left_50 desktop_center mobile_center">
-                        <img class="code_img" src="../old/img/response.png"/>
-                    </div>
-                    <div class="desktop_right_50">
-                        <div class="story_text">
-                            - รับพัฒนา/แก้ไข เว็บไซต์ แอพลิเคชันมือถือ<br/>
-                            - พัฒนา ให้รองรับหน้าจอหลายๆขนาด<br/>
-                            <b>(หน้าจอ มือถือ / Tablet / คอมพิวเตอร์)</b>
-                            <br/><br/>
-                                <b>
-                                    <span class="now_rap">HTML /</span>
-                                    <span class="now_rap">CSS /</span> 
-                                    <span class="now_rap">JS /</span> 
-                                    <span class="now_rap">JQuery /</span>
-                                    <span class="now_rap">React /</span>
-                                    <span class="now_rap">React Native /</span>
-                                    <span class="now_rap">Responsive Design /</span>
-                                    <span class="now_rap">Android /</span>
-                                    <span class="now_rap">iOS</span>
-                                </b>
-                            <br/><br/>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="coly-1"></div>
+          <div class="desktop_right_50" style="margin-top: 5px;">
+            <h3 style="color: white;"><b><span class="now_rap">I Am Backend Dev.</span></b></h3>
+          </div>
+          <div class="desktop_left_50 desktop_center mobile_center">
+            <img class="code_img" src="../old/img/code3.png" alt="" />
+          </div>
+          <div class="desktop_right_50">
+            <div class="story_text">
+              - รับงานเขียนโปรแกรม<br />
+              - รับพัฒนางานแบบทีมด้วย Git / Docker<br />
+              - รับสอนเขียนโปรแกรมเบื้องต้น
+              <br /><br />
+              <b>
+                <span class="now_rap">PHP /</span>
+                <span class="now_rap">NodeJS /</span>
+                <span class="now_rap">Laravel /</span>
+                <span class="now_rap">Java /</span>
+                <span class="now_rap">Restful API /</span>
+                <span class="now_rap">MySQL /</span>
+                <span class="now_rap">Git /</span>
+                <span class="now_rap">Docker</span>
+              </b>
             </div>
-            <div class="rowly ban_horizon_gainsboro">
-                <div class="coly-0"></div>
-                <div class="coly-10">
-
-                    <div class="desktop_right_50" style="margin-top: 5px;">
-                        <h3 style="color: white;"><b><span class="now_rap">I Am Backend Dev.</span></b></h3>
-                    </div>
-                    <div class="desktop_left_50 desktop_center mobile_center">
-                        <img class="code_img" src="../old/img/code3.png" alt=""/>
-                    </div>
-                    <div class="desktop_right_50">
-                        <div class="story_text">
-                            - รับงานเขียนโปรแกรม<br/>
-                            - รับพัฒนางานแบบทีมด้วย Git / Docker<br/>
-                            - รับสอนเขียนโปรแกรมเบื้องต้น
-                            <br/><br/>
-                                <b>
-                                    <span class="now_rap">PHP /</span>
-                                    <span class="now_rap">NodeJS /</span>
-                                    <span class="now_rap">Laravel /</span>
-                                    <span class="now_rap">Java /</span>
-                                    <span class="now_rap">Restful API /</span>
-                                    <span class="now_rap">MySQL /</span>
-                                    <span class="now_rap">Git /</span>
-                                    <span class="now_rap">Docker</span>
-                                </b>
-                        </div>
-                    </div>
-                </div>
-                <div class="coly-1"></div>
-            </div>
-            <div class="rowly ban_horizon_white">
-                <div class="coly-0"></div>
-                <div class="coly-10">
-                    <div class="desktop_right_50" style="margin-top: 5px;">
-                        <h3><b><span class="now_rap">I Am IT Man</span></b></h3>
-                    </div>
-                    <div class="desktop_left_50 desktop_center mobile_center">
-                        <img class="code_img" src="../old/img/01-5122.png"/>
-                    </div>
-                    <div class="desktop_right_50">
-                        <div class="story_text">
-                            <span class="now_rap">- รับปรึกษา แก้ไขปัญหาคอมทำงานช้า คอมติดไวรัส</span><br/>
-                            <span class="now_rap">- สามารถทำให้คอมของท่าน เปิด/ปิดเครื่องเร็วขึ้นได้</span><br/>
-                            <span class="now_rap">- ปัญหาคอมพิวเตอร์ทั่วไป เพิ่มไดร์ฟให้ฮาร์ดดิส</span><br/> 
-                            <span class="now_rap">- กู้ข้อมูลที่ลบไปแล้ว (ลบไปนานอาจกู้ไม่ได้)</span><br/>
-                            <span class="now_rap">- อาการไม่ดีขึ้น ยินดีไม่คิดเงิน</span>
-                            <br/><br/>
-                            <b>
-                                <span class="now_rap">Windows /</span>
-                                <span class="now_rap">IT Problem /</span>
-                                <span class="now_rap">IT Solution</span>
-                            </b>
-                        </div>
-                    </div>
-                </div>
-                <div class="coly-1"></div>
-            </div>
-            <div class="rowly ban_me">
-                <div class="coly-0"></div>
-                <div class="coly-10">
-                    <div>
-                        <h3 style="color: white;"><b><span class="now_rap">About Me</span></b></h3>
-                    </div>
-                    <div class="desktop_right mobile_center" id="div_img_about_me">
-                        <a href=""><img ng-click="showImageMe()" class="me_img" src="../old/img/tolcom2.png" alt=""/></a>
-                    </div>
-                    <div>
-                        <div class="story_text">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hi, everyone. Tron is my nickname. I am a Thai person. My hometown is Chanthaburi.
-                            My father went to heaven when I was 10 years old. I have lived in Bangkok since 2008 because my mother's family lives here.
-                            I live with my grandmother and grandfather; they are everything to me. <br/><br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I am a programmer that has no more experience. I think time is more meaningful than money. (Money is not everything to me)
-                            I am not hurried for work because I think for more detail. I believe the quality of work is a long time for thinking and doing.
-                            I am not a lazy man. I can code for three days without sleep and do other things.
-                            <br/><br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sorry for my bad grammar in English.
-                            <br/><br/><br/>
-                        </div>
-                    </div>
-                </div>
-                <div class="coly-1"></div>
-            </div>
-            <div class="rowly ban_horizon_white" style="height: 290px;">
-                <div class="coly-0"></div>
-                <div class="coly-10">
-                    <div class="desktop_center mobile_center">
-                        <br/><br/>
-                        <div style="color:white; padding-top: 25px;">
-                            <a style="color:white;" target="_blank" href="https://github.com/TronNatthakorn"><img height="60px" src="../old/img/github-icon.svg" alt=""/></a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a style="color:white;" target="_blank" href="http://www.facebook.com/tron.natthakorn"><img height="60px" src="../old/img/facebook-2048-black.png" alt=""/></a>
-                        </div>
-                        <br/>
-                        <b>Copyright © 1992-{{this_year}} torlondev.js.org</b><br/>
-                        <b>All right reserved</b>
-                        <br/>
-                        <br/>&nbsp;
-                    </div>
-                </div>
-                <div class="coly-1"></div>
-            </div>
+          </div>
         </div>
-    </ion-content>
+        <div class="coly-1"></div>
+      </div>
+      <div class="rowly ban_horizon_white">
+        <div class="coly-0"></div>
+        <div class="coly-10">
+          <div class="desktop_right_50" style="margin-top: 5px;">
+            <h3><b><span class="now_rap">I Am IT Man</span></b></h3>
+          </div>
+          <div class="desktop_left_50 desktop_center mobile_center">
+            <img class="code_img" src="../old/img/01-5122.png" />
+          </div>
+          <div class="desktop_right_50">
+            <div class="story_text">
+              <span class="now_rap">- รับปรึกษา แก้ไขปัญหาคอมทำงานช้า คอมติดไวรัส</span><br />
+              <span class="now_rap">- สามารถทำให้คอมของท่าน เปิด/ปิดเครื่องเร็วขึ้นได้</span><br />
+              <span class="now_rap">- ปัญหาคอมพิวเตอร์ทั่วไป เพิ่มไดร์ฟให้ฮาร์ดดิส</span><br />
+              <span class="now_rap">- กู้ข้อมูลที่ลบไปแล้ว (ลบไปนานอาจกู้ไม่ได้)</span><br />
+              <span class="now_rap">- อาการไม่ดีขึ้น ยินดีไม่คิดเงิน</span>
+              <br /><br />
+              <b>
+                <span class="now_rap">Windows /</span>
+                <span class="now_rap">IT Problem /</span>
+                <span class="now_rap">IT Solution</span>
+              </b>
+            </div>
+          </div>
+        </div>
+        <div class="coly-1"></div>
+      </div>
+      <div class="rowly ban_me">
+        <div class="coly-0"></div>
+        <div class="coly-10">
+          <div>
+            <h3 style="color: white;"><b><span class="now_rap">About Me</span></b></h3>
+          </div>
+          <div class="desktop_right mobile_center" id="div_img_about_me">
+            <a href=""><img ng-click="showImageMe()" class="me_img" src="../old/img/tolcom2.png" alt="" /></a>
+          </div>
+          <div>
+            <div class="story_text">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hi, everyone. Tron is my nickname. I am a Thai person. My hometown is
+              Chanthaburi.
+              My father went to heaven when I was 10 years old. I have lived in Bangkok since 2008 because my mother's
+              family lives here.
+              I live with my grandmother and grandfather; they are everything to me. <br /><br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I am a programmer that has no more experience. I think time is more
+              meaningful than money. (Money is not everything to me)
+              I am not hurried for work because I think for more detail. I believe the quality of work is a long time
+              for thinking and doing.
+              I am not a lazy man. I can code for three days without sleep and do other things.
+              <br /><br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sorry for my bad grammar in English.
+              <br /><br /><br />
+            </div>
+          </div>
+        </div>
+        <div class="coly-1"></div>
+      </div>
+      <div class="rowly ban_horizon_white" style="height: 290px;">
+        <div class="coly-0"></div>
+        <div class="coly-10">
+          <div class="desktop_center mobile_center">
+            <br /><br />
+            <div style="color:white; padding-top: 25px;">
+              <a style="color:white;" target="_blank" href="https://github.com/TronNatthakorn"><img height="60px"
+                  src="../old/img/github-icon.svg" alt="" /></a>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a style="color:white;" target="_blank" href="http://www.facebook.com/tron.natthakorn"><img height="60px"
+                  src="../old/img/facebook-2048-black.png" alt="" /></a>
+            </div>
+            <br />
+            <b>Copyright © 2015-{{this_year}} torlondev.js.org</b><br />
+            <b>All right reserved</b>
+            <br />
+            <br />&nbsp;
+          </div>
+        </div>
+        <div class="coly-1"></div>
+      </div>
+    </div>
+  </ion-content>
 </ion-view>
