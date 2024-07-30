@@ -236,6 +236,7 @@ const MenuTopRight = () => {
       isShowLangChoose, setIsShowLangChoose,
       isEN, isTH, isCN
     } = useContext(Context)
+    
     const toggleLangChoose = () => setIsShowLangChoose(!isShowLangChoose)
 
     const changeLanguageTo = (language = 'EN') => {
@@ -333,6 +334,7 @@ const stylesNavBar = `
    background-color: var(--navBarBGColor);
    color: var(--navBarColor);
    position: fixed;
+   z-index: 999;
    top: 0;
    width: 100%;
    max-width: 100vw;

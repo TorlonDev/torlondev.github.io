@@ -3,7 +3,7 @@ const NotFound = () => {
   return <span>{lang.not_found[l]}</span>
 }
 const DefaultWrapper = (content) => {
-  return () => <div className="wrapper_content text-xl">{content}</div>
+  return () => <div className="wrapper_content">{content}</div>
 }
 
 // SVG Cast https://convertio.co/
