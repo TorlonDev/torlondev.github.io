@@ -154,7 +154,7 @@ const TitleMobile = () => {
   /** Why not hook useEffect */
   const changePathToTitle = (path = '/') => {
     if (path === '/' || path === '/home') {
-      return lang.home[l]
+      return ''
     }
 
     const firstPathWithoutSub = path.split('/')[1]

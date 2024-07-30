@@ -6,6 +6,13 @@ const DefaultWrapper = (content) => {
   return () => <div className="wrapper_content">{content}</div>
 }
 
+const isFBApp = (() => {
+  const ua = navigator.userAgent || window.opera;
+  return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
+})()
+
+if(isFBApp){ alert("Hello") }
+
 // SVG Cast https://convertio.co/
 
 const FastLogoSVG = (props) => (
