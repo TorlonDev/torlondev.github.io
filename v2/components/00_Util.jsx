@@ -11,7 +11,6 @@ const isFBApp = (() => {
   return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
 })()
 
-if(isFBApp){ alert("Hello") }
 
 // SVG Cast https://convertio.co/
 
