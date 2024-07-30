@@ -1,5 +1,5 @@
 const Home = () => {
-  const { lang, currentLanguage: l } = useContext(Context)
+  const { lang, currentLanguage: l, isShowSideBar } = useContext(Context)
 
   return <>
     <style>
@@ -9,7 +9,7 @@ const Home = () => {
           }
         ` + mobileCSS(`
           .text_banner {
-            font-size: clamp(24px, 4vw, 36px);
+            font-size: clamp(16px, ${isShowSideBar ? '3vw': '5vw'}, 28px);
           }
         `) + desktopCSS(`
           .text_banner {
@@ -25,7 +25,7 @@ const Home = () => {
     }}>
       <img src="v2/img/cover1.jpg"
         style={{ width: '100%', height: '100%' }}
-        loading="lazy"
+        loading="eager"
       />
       <div className="text_banner flex flex-col justify-center items-center"
         style={{
@@ -33,8 +33,8 @@ const Home = () => {
           width: '100%', height: '100%',
           backgroundColor: 'rgba(0,0,0,0.3)'
         }}>
-        <div>{lang.hello_world[l].toUpperCase()}</div><br />
-        <div>{lang.i_am_developer[l].toUpperCase()}</div><br />
+        <div>{lang.hello_world[l].toUpperCase()}</div><br/>
+        <div>{lang.i_am_developer[l].toUpperCase()}</div><br/>
         <div>{lang.new_ver_developing[l].toUpperCase()}</div>
       </div>
     </div>

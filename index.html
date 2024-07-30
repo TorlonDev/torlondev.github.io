@@ -200,6 +200,7 @@
   <script type="text/babel" del="del">
     const App = ({ children }) => {
       const [isShowLangChoose, setIsShowLangChoose] = useState(false)
+      const [isShowSideBar, setIsShowSideBar] = useState(false)
       const [currentLanguage, setCurrentLanguageContext] = useState(language || 'EN')
 
       const [isEN, setIsEN] = useState(language === 'EN')
@@ -234,6 +235,8 @@
           isEN, isTH, isCN,
           isShowLangChoose,
           setIsShowLangChoose,
+          isShowSideBar,
+          setIsShowSideBar,
         }}>
         {children}
       </Provider>

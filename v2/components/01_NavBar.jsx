@@ -191,9 +191,9 @@ const MenuTopRight = () => {
       margin-right: 10px;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
-      width: 65px;
+      width: 120px;
     }
   ` + desktopCSS(`
     .top_right {
@@ -219,7 +219,7 @@ const MenuTopRight = () => {
 
     const iconDarkModeStyles = { 'height': '32px', 'width': '32px', 'filter': `invert(${invertColor})` }
 
-    return <div style={{ cursor: 'pointer' }} onClick={toggleTheme}>
+    return <div style={{ cursor: 'pointer', marginRight: '10px' }} onClick={toggleTheme}>
       {isFastDarkModeSVG ? <FastDarkModeSVG style={iconDarkModeStyles} /> : <></>}
       <img src="./v2/img/darkmode.png"
         style={
@@ -248,7 +248,7 @@ const MenuTopRight = () => {
 
     return (
       <div className="language_change"
-        style={{ marginLeft: '-10px', cursor: 'pointer' }}
+        style={{ marginRight: '25px', cursor: 'pointer' }}
         onClick={toggleLangChoose}>
         <span>{currentLanguage}</span>
         <div className="language_choose"
@@ -282,8 +282,7 @@ const MenuTopRight = () => {
 }
 
 const Navbar = () => {
-  const [isShowSideBar, setIsShowSideBar] = useState(false)
-  const { setIsShowLangChoose } = useContext(Context)
+  const { setIsShowLangChoose, isShowSideBar, setIsShowSideBar } = useContext(Context)
 
   const hideSideBar = () => {
     setIsShowSideBar(false)
