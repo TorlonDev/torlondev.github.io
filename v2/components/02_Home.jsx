@@ -16,7 +16,7 @@ const Home = () => {
           }
         `) + desktopCSS(`
           .cover_home {
-            font-size: clamp(36px, 6vw, 60px);
+            font-size: clamp(36px, ${isFBApp? '5vw': '6vw'}, 60px);
             border: 10px solid var(--color);
           }
         `)
