@@ -9,7 +9,7 @@ const Home = () => {
           }
         ` + mobileCSS(`
           .cover_home {
-            font-size: clamp(20px, ${isShowSideBar ? '4vw': isFBApp ? '5vw': '6vw'}, 38px);
+            font-size: clamp(20px, ${isShowSideBar ? (isFBApp ? '3vw' :'4vw'): isFBApp ? '4vw': '6vw'}, 36px);
             border: 5px solid var(--color);
           }
         `) + desktopCSS(`
