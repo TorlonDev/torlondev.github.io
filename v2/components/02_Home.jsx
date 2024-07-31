@@ -2,7 +2,7 @@ const Home = () => {
   const { lang, currentLanguage: l, isShowSideBar } = useContext(Context)
 
   const styleTextMobile =  `clamp(20px, ${isShowSideBar ? '4vw': '6vw'}, 36px)`
-  const styleTextMobileFB =  `clamp(16px, ${isShowSideBar ? '1vw': '6vw'}, 36px)`
+  const styleTextMobileFB =  `clamp(16px, ${isShowSideBar ? '1vw': '5vw'}, 42px)`
   return <>
     <style>
       {
