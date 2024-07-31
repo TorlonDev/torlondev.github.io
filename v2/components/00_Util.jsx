@@ -11,6 +11,23 @@ const isFBApp = (() => {
   return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
 })()
 
+function raining() {
+  const numberOfRaindrops = 100; // Number of raindrops to create
+
+  for (let i = 0; i < numberOfRaindrops; i++) {
+    const raindrop = document.createElement('div');
+    raindrop.className = 'raindrop';
+
+    // Randomize position and animation duration
+    const leftPosition = i; // percentage (0% - 100%)
+    const animationDuration = Math.random() * 2 + 1; // Random duration between 1s and 3s
+
+    raindrop.style.left = `${leftPosition}%`;
+    raindrop.style.animationDuration = `${animationDuration}s`;
+
+    document.getElementById('animation_falling').appendChild(raindrop);
+  }
+}
 
 // SVG Cast https://convertio.co/
 

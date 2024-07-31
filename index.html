@@ -49,7 +49,7 @@
 
     @media only screen and (min-width: 650px) {
       :root {
-      --navBarHeight: 65px;
+        --navBarHeight: 65px;
       }
     }
 
@@ -86,7 +86,7 @@
   <script type="text/babel" del="del">
     isBabelTransform = true;
 
-    const { useState, useContext } = React
+    const { useState, useContext, useEffect } = React
     const Context = React.createContext({}) //leave empty do not pass anything
     const { Provider } = Context
     const { render } = ReactDOM
