@@ -4,30 +4,33 @@ const Home = () => {
   return <>
     <style>
       {
-        ` .text_banner {
+        ` .cover_home {
             white-space: nowrap;
           }
         ` + mobileCSS(`
-          .text_banner {
-            font-size: clamp(16px, ${isShowSideBar ? '3vw': isFBApp ? '4vw': '5vw'}, 28px);
+          .cover_home {
+            font-size: clamp(20px, ${isShowSideBar ? '4vw': isFBApp ? '5vw': '6vw'}, 38px);
+            border: 5px solid var(--color);
           }
         `) + desktopCSS(`
-          .text_banner {
-            font-size: clamp(36px, 5vw, 50px);
+          .cover_home {
+            font-size: clamp(36px, 6vw, 60px);
+            border: 10px solid var(--color);
           }
         `)
       }
     </style>
-    <div style={{
-      aspectRatio: '1100 / 550',
+    <div className="cover_home" style={{
+      aspectRatio: '1100 / 600',
       position: 'relative',
-      textAlign: 'center'
+      textAlign: 'center',
+      textShadow: 'var(--BGColor) -3px 0px, var(--BGColor) 0px 3px, var(--BGColor) 3px 0px, var(--BGColor) 0px -3px',
     }}>
       <img src="v2/img/cover1.jpg"
         style={{ width: '100%', height: '100%' }}
         loading="eager"
       />
-      <div className="text_banner flex flex-col justify-center items-center"
+      <div className="flex flex-col justify-center items-center"
         style={{
           position: 'absolute', top: 0,
           width: '100%', height: '100%',
@@ -35,7 +38,7 @@ const Home = () => {
         }}>
         <div>{lang.hello_world[l].toUpperCase()}</div><br/>
         <div>{lang.i_am_developer[l].toUpperCase()}</div><br/>
-        <div>{lang.new_ver_developing[l].toUpperCase()}</div>
+        <div>{lang.i_like_coding[l].toUpperCase()}</div>
       </div>
     </div>
   </>
