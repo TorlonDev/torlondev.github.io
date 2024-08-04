@@ -285,6 +285,7 @@
           $('#install_app').show();
           deferredPrompt = e;
           try {
+            alert('in try')
             deferredPrompt.prompt()
           } catch (err) {
             alert(`${err}`)
