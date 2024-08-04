@@ -290,8 +290,30 @@ const MenuTopRight = () => {
 const BackToTop = () => {
   const iconStyles = { 'height': '25px', 'width': '50px', 'filter': `invert(${theme === 'DARK' ? 1 : 0})` }
 
+
+  // componentDidMount
+  useEffect(() => {
+    
+    const installApp = document.getElementById('install_app');
+
+    installApp.addEventListener('click', async () => {
+
+      console.log(deferredPrompt)
+
+      if (deferredPrompt !== null) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          deferredPrompt = null;
+        }
+      } else {
+        alert('Already installed.')
+      }
+    });
+  }, []);
+
   return <div class="install-app-btn" id="install_app" style={{
-    cursor: 'pointer', 
+    cursor: 'pointer',
     // display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' 
   }}
     onClick={() => {
