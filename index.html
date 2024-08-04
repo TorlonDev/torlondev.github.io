@@ -278,12 +278,18 @@
     document.addEventListener("readystatechange", (event) => {
       if (event.target.readyState === "complete") {
         if (!isBabelTransform) { Babel.transformScriptTags(); }
-        
+
         $('#install_app').hide();
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault()
+          alert('Hi')
           $('#install_app').show();
-          deferredPrompt = e;
+          try {
+            deferredPrompt = e;
+          } catch (err) {
+            alert(`${err}`)
+          }
+          alert('Hello')
           try {
             alert('in try')
             deferredPrompt.prompt()
