@@ -210,7 +210,32 @@
   <script type="text/babel" src="./v2/components/05_Life.jsx" del="del"></script>
   <script type="text/babel" src="./v2/components/05_Projects.jsx" del="del"></script>
   <script type="text/babel" src="./v2/components/99_TimeMachine.jsx" del="del"></script>
+  <script del="del">
+    document.addEventListener("readystatechange", (event) => {
+      if (event.target.readyState === "complete") {
+        if (!isBabelTransform) { Babel.transformScriptTags(); }
+      }
+    })
 
+    window.addEventListener('beforeinstallprompt', (e) => {
+      alert('Hi 1')
+      e.preventDefault()
+      alert('Hi 2')
+      $('#install_app').show();
+      try {
+        deferredPrompt = e;
+      } catch (err) {
+        alert(`${err}`)
+      }
+      alert('Hello')
+      try {
+        alert('in try')
+        deferredPrompt.prompt()
+      } catch (err) {
+        alert(`${err}`)
+      }
+    });
+  </script>
   <script type="text/babel" del="del">
     const App = ({ children }) => {
       // const [isShowLangChoose, setIsShowLangChoose] = useState(false)
@@ -274,33 +299,7 @@
       e.parentElement.removeChild(e);
     });
   </script>
-  <script del="del">
-    document.addEventListener("readystatechange", (event) => {
-      if (event.target.readyState === "complete") {
-        if (!isBabelTransform) { Babel.transformScriptTags(); }
 
-        $('#install_app').hide();
-        window.addEventListener('beforeinstallprompt', (e) => {
-          alert('Hi 1')
-          e.preventDefault()
-          alert('Hi 2')
-          $('#install_app').show();
-          try {
-            deferredPrompt = e;
-          } catch (err) {
-            alert(`${err}`)
-          }
-          alert('Hello')
-          try {
-            alert('in try')
-            deferredPrompt.prompt()
-          } catch (err) {
-            alert(`${err}`)
-          }
-        });
-      }
-    })
-  </script>
 </body>
 
 </html>
