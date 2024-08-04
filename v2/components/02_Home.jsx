@@ -55,8 +55,9 @@ const Home = () => {
         style={{ width: '100%', height: '100%' }}
         loading="eager"
       />
-      <div className="flex flex-col justify-center items-center"
+      <div className="flex flex-col items-center"
         style={{
+          justifyContent: 'space-around',
           position: 'absolute', top: 0,
           width: '100%', height: '100%',
           backgroundColor: 'rgba(0,0,0,0.3)'
