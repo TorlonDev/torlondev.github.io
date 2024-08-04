@@ -294,7 +294,14 @@ const BackToTop = () => {
     onClick={async () => {
       // window.scrollTo({ top: 0, behavior: 'smooth' }); 
         alert('install 1')
-        deferredPrompt.prompt();
+
+        try {
+          deferredPrompt.prompt();
+        } catch (err){
+          alert(`${err}`)
+        }
+
+
         alert('install 2')
         const { outcome } = await deferredPrompt.userChoice;
         if (outcome === 'accepted') {
