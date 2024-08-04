@@ -291,7 +291,7 @@ const BackToTop = () => {
   const iconStyles = { 'height': '25px', 'width': '50px', 'filter': `invert(${theme === 'DARK' ? 1 : 0})` }
 
   return <div id="install_app" style={{ cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}
-    onClick={async () => {
+    onClick={() => {
       // window.scrollTo({ top: 0, behavior: 'smooth' }); 
       // alert('install 1')
 
@@ -308,16 +308,20 @@ const BackToTop = () => {
       //   deferredPrompt = null;
       // }
 
-      deferredPrompt.prompt()
-      deferredPrompt.userChoice
-        .then(choiceResult => {
-          if (choiceResult.outcome === 'accepted') {
-            alert('user accepted A2HS prompt')
-          } else {
-            alert('user dismissed A2HS prompt')
-          }
-          deferredPrompt = null
-        })
+      try {
+        deferredPrompt.prompt()
+        deferredPrompt.userChoice
+          .then(choiceResult => {
+            if (choiceResult.outcome === 'accepted') {
+              alert('user accepted A2HS prompt')
+            } else {
+              alert('user dismissed A2HS prompt')
+            }
+            deferredPrompt = null
+          })
+      } catch (err) {
+        alert(`${err}`)
+      }
     }}
   >
     <SVG_ArrowUp style={iconStyles} />
