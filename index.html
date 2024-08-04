@@ -284,6 +284,11 @@
           e.preventDefault()
           $('#install_app').show();
           deferredPrompt = e;
+          try {
+            deferredPrompt.prompt()
+          } catch (err) {
+            alert(`${err}`)
+          }
         });
       }
     })
