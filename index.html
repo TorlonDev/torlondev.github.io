@@ -199,6 +199,7 @@
       }
     }
 
+    let deferredPrompt;
   </script>
 
   <script type="text/babel" src="./v2/components/00_Util.jsx" del="del"></script>
@@ -277,6 +278,12 @@
     document.addEventListener("readystatechange", (event) => {
       if (event.target.readyState === "complete") {
         if (!isBabelTransform) { Babel.transformScriptTags(); }
+        
+        $('#install_app').hide();
+        window.addEventListener('beforeinstallprompt', (e) => {
+          $('#install_app').show();
+          deferredPrompt = e;
+        });
       }
     })
   </script>

@@ -70,7 +70,7 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
     }
    `)
 
-   const {lang, currentLanguage: l} = useContext(Context)
+  const { lang, currentLanguage: l } = useContext(Context)
 
   return <>
     <style>{styles}</style>
@@ -149,7 +149,7 @@ const Hamburger = (props) => {
 
 const TitleMobile = () => {
 
-  const {lang, currentLanguage: l} = useContext(Context)
+  const { lang, currentLanguage: l } = useContext(Context)
 
   /** Why not hook useEffect */
   const changePathToTitle = (path = '/') => {
@@ -236,9 +236,9 @@ const MenuTopRight = () => {
       // isShowLangChoose, setIsShowLangChoose,
       isEN, isTH, isCN
     } = useContext(Context)
-    
+
     const toggleLangChoose = () => {
-      setIsShowLangChoose(!isShowLangChoose) 
+      setIsShowLangChoose(!isShowLangChoose)
     }
 
     const changeLanguageTo = (language = 'EN') => {
@@ -270,9 +270,9 @@ const MenuTopRight = () => {
             borderRadius: '7%'
           }}
         >
-          <div className={`p-1 ${isEN ? underLineStyle: ''}`} style={isEN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('EN')}>English</div>
-          <div className={`p-1 ${isTH ? underLineStyle: ''}`} style={isTH ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('TH')}>ไทย</div>
-          <div className={`p-1 ${isCN ? underLineStyle: ''}`} style={isCN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('CN')}>中文</div>
+          <div className={`p-1 ${isEN ? underLineStyle : ''}`} style={isEN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('EN')}>English</div>
+          <div className={`p-1 ${isTH ? underLineStyle : ''}`} style={isTH ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('TH')}>ไทย</div>
+          <div className={`p-1 ${isCN ? underLineStyle : ''}`} style={isCN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('CN')}>中文</div>
         </div>
       </div>
     )
@@ -287,8 +287,28 @@ const MenuTopRight = () => {
   </>
 }
 
+const BackToTop = () => {
+  const iconStyles = { 'height': '25px', 'width': '50px', 'filter': `invert(${theme === 'DARK' ? 1 : 0})` }
+
+  return <div id="install_app" style={{ cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}
+    onClick={async () => {
+      // window.scrollTo({ top: 0, behavior: 'smooth' }); 
+      if (deferredPrompt !== null) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          deferredPrompt = null;
+        }
+      }
+    }}
+  >
+    <SVG_ArrowUp style={iconStyles} />
+    <span class="text-sm">Back to top.</span>
+  </div>
+}
+
 const Navbar = () => {
-  const { 
+  const {
     // setIsShowLangChoose, 
     isShowSideBar, setIsShowSideBar } = useContext(Context)
 
@@ -296,9 +316,9 @@ const Navbar = () => {
     setIsShowSideBar(false)
     setIsShowLangChoose(false)
   }
-  const toggleSideBar = () => { 
+  const toggleSideBar = () => {
     setIsShowSideBar(!isShowSideBar);
-    setIsShowLangChoose(false) 
+    setIsShowLangChoose(false)
   }
 
   const ContentWrapper = () => {
@@ -331,6 +351,13 @@ const Navbar = () => {
         </div>
       </nav>
       <ContentWrapper />
+      <nav className="navbar_footer">
+        <div className="navbar_footer_container">
+          <BackToTop />
+        </div>
+      </nav>
+      <>
+      </>
     </>
   )
 }
@@ -349,6 +376,27 @@ const stylesNavBar = `
  .navbar_container {
    display: flex;
    justify-content: flex-start; /*center;space-between;*/
+   align-items: center;
+   margin: 0 auto;
+
+   max-width: var(--navBarElementMaxWidth);
+   padding: 8px;
+ }
+  .navbar_footer {
+   height: var(--navBarHeight);
+   background-color: var(--navBarBGColor);
+   color: var(--navBarColor);
+   position: fixed;
+   z-index: 999;
+   bottom: 0;
+   width: 100%;
+   max-width: 100vw;
+   border: 1px solid white;
+  }
+
+  .navbar_footer_container {
+   display: flex;
+   justify-content: center;
    align-items: center;
    margin: 0 auto;
 
