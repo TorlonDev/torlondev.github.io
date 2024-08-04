@@ -293,13 +293,14 @@ const BackToTop = () => {
   return <div id="install_app" style={{ cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}
     onClick={async () => {
       // window.scrollTo({ top: 0, behavior: 'smooth' }); 
-      if (deferredPrompt !== null) {
+        alert('install 1')
         deferredPrompt.prompt();
+        alert('install 2')
         const { outcome } = await deferredPrompt.userChoice;
         if (outcome === 'accepted') {
           deferredPrompt = null;
         }
-      }
+      
     }}
   >
     <SVG_ArrowUp style={iconStyles} />
