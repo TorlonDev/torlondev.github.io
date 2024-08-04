@@ -281,9 +281,10 @@
 
         $('#install_app').hide();
         window.addEventListener('beforeinstallprompt', (e) => {
+          alert('Hi 1')
           e.preventDefault()
-          alert('Hi')
-          $('#install_app').show();
+          alert('Hi 2')
+          //$('#install_app').show();
           try {
             deferredPrompt = e;
           } catch (err) {
