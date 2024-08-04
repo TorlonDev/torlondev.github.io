@@ -15,5 +15,5 @@
     ],
     "id": "/#/home",
     "start_url": "/#/home",
-    "display": "standalone",
+    "display": "standalone"
   }
