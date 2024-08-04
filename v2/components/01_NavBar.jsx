@@ -233,15 +233,20 @@ const MenuTopRight = () => {
   const LanguageChange = () => {
     const {
       currentLanguage, setCurrentLanguage,
-      isShowLangChoose, setIsShowLangChoose,
+      // isShowLangChoose, setIsShowLangChoose,
       isEN, isTH, isCN
     } = useContext(Context)
     
-    const toggleLangChoose = () => setIsShowLangChoose(!isShowLangChoose)
+    const toggleLangChoose = () => {
+      setIsShowLangChoose(!isShowLangChoose) 
+    }
 
     const changeLanguageTo = (language = 'EN') => {
-      setCurrentLanguage(language)
-      setIsShowLangChoose(false)
+      return (e) => {
+        e.stopPropagation() // Stop Bubble Parent Onclick (toggleLangChoose)
+        setCurrentLanguage(language)
+        setIsShowLangChoose(false)
+      }
     }
 
     const underLineStyle = "underline underline-offset-4"
@@ -251,9 +256,10 @@ const MenuTopRight = () => {
         style={{ marginRight: '25px', cursor: 'pointer' }}
         onClick={toggleLangChoose}>
         <span>{currentLanguage}</span>
-        <div className="language_choose"
+        <div className="language_choose" id="language_choose_wrapper"
           style={{
-            "display": isShowLangChoose ? 'block' : 'none',
+            display: "none",
+            // "display": isShowLangChoose ? 'block' : 'none',
             "position": 'absolute',
             top: '50px',
             'marginLeft': '-40px',
@@ -264,9 +270,9 @@ const MenuTopRight = () => {
             borderRadius: '7%'
           }}
         >
-          <div className={`p-1 ${isEN ? underLineStyle: ''}`} style={isEN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('EN')}>English</div>
-          <div className={`p-1 ${isTH ? underLineStyle: ''}`} style={isTH ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('TH')}>ไทย</div>
-          <div className={`p-1 ${isCN ? underLineStyle: ''}`} style={isCN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={() => changeLanguageTo('CN')}>中文</div>
+          <div className={`p-1 ${isEN ? underLineStyle: ''}`} style={isEN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('EN')}>English</div>
+          <div className={`p-1 ${isTH ? underLineStyle: ''}`} style={isTH ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('TH')}>ไทย</div>
+          <div className={`p-1 ${isCN ? underLineStyle: ''}`} style={isCN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('CN')}>中文</div>
         </div>
       </div>
     )
@@ -282,7 +288,9 @@ const MenuTopRight = () => {
 }
 
 const Navbar = () => {
-  const { setIsShowLangChoose, isShowSideBar, setIsShowSideBar } = useContext(Context)
+  const { 
+    // setIsShowLangChoose, 
+    isShowSideBar, setIsShowSideBar } = useContext(Context)
 
   const hideSideBar = () => {
     setIsShowSideBar(false)

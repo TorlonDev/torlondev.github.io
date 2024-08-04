@@ -41,7 +41,7 @@
       /* theme variable */
       --navBarBGColor: wheat;
       --navBarColor: black;
-      --subNavBarColor: lightgreen;
+      --subNavBarColor: coral;
       --BGColor: white;
       --color: black;
       --linkColor: blue;
@@ -86,7 +86,13 @@
   <script type="text/babel" del="del">
     isBabelTransform = true;
 
-    const { useState, useContext, useEffect } = React
+    () => {
+      if (typeof React === undefined) {
+        return false
+      }
+    }
+
+    const { useState, useContext, useEffect, useCallback } = React
     const Context = React.createContext({}) //leave empty do not pass anything
     const { Provider } = Context
     const { render } = ReactDOM
@@ -110,7 +116,7 @@
       ([
         { var: 'navBarBGColor', light: 'wheat', dark: 'darkslategrey' },
         { var: 'navBarColor', light: 'black', dark: 'white' },
-        { var: 'subNavBarColor', light: 'lightgreen', dark: 'seagreen' },
+        { var: 'subNavBarColor', light: 'coral', dark: 'seagreen' },
         { var: 'BGColor', light: 'white', dark: 'black' },
         { var: 'color', light: 'black', dark: 'white' },
         { var: 'linkColor', light: 'blue', dark: 'green' },
@@ -131,9 +137,7 @@
     } else {
       setTheme(theme)
     }
-  </script>
 
-  <script type="text/babel" del="del">
     const languageList = ['EN', 'TH', 'CN']
     let language = localStorage.getItem('LANGUAGE')
 
@@ -167,6 +171,34 @@
       time_machine: { EN: 'Time Machine', TH: 'ไทม์ แมชชีน', CN: '时光机器' },
       projects: { EN: 'Projects', TH: 'โปรเจค', CN: '项目' },
     }
+
+    // Stateless Language Choose Wrapper 
+    // (No React State just JS Global Scope Variable)
+    // Learning Purpose - Test jQuery with React
+    let isShowLangChoose = false
+    const setIsShowLangChoose = (isShow = false) => {
+      isShowLangChoose = isShow
+
+      if (isShow) {
+        $('#language_choose_wrapper').show()
+      } else {
+
+        // $('#language_choose_wrapper').hide() //Not work if react state change
+
+        // JQuery (& Vanilla JS) + React Knowledge
+        // jquery code .hide() not work with ReactDom when react change state of language
+        // (Hackway is use setTimeout)
+
+        setTimeout(() => $('#language_choose_wrapper').hide(), 1)
+
+        // Alternation if do not want to use setTimeout (Normal Practise)
+        // and prefer react toggle UI but still react stateless
+        // In ReactDOM of Element use
+        // "display": isShowLangChoose ? 'block' : 'none', 
+        // 'isShowLangChoose' is still be JS Global Scope Variable not React State
+      }
+    }
+
   </script>
 
   <script type="text/babel" src="./v2/components/00_Util.jsx" del="del"></script>
@@ -180,7 +212,7 @@
 
   <script type="text/babel" del="del">
     const App = ({ children }) => {
-      const [isShowLangChoose, setIsShowLangChoose] = useState(false)
+      // const [isShowLangChoose, setIsShowLangChoose] = useState(false)
       const [isShowSideBar, setIsShowSideBar] = useState(false)
       const [currentLanguage, setCurrentLanguageContext] = useState(language || 'EN')
 
@@ -208,14 +240,19 @@
         }
       }
 
+      // componentDidMount
+      useEffect(() => {
+        setIsShowLangChoose(false)
+      }, []);
+
       return <Provider
         value={{
           lang,
           currentLanguage,
           setCurrentLanguage,
           isEN, isTH, isCN,
-          isShowLangChoose,
-          setIsShowLangChoose,
+          // isShowLangChoose,
+          // setIsShowLangChoose,
           isShowSideBar,
           setIsShowSideBar,
         }}>
