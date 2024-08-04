@@ -290,7 +290,11 @@ const MenuTopRight = () => {
 const BackToTop = () => {
   const iconStyles = { 'height': '25px', 'width': '50px', 'filter': `invert(${theme === 'DARK' ? 1 : 0})` }
 
-  return <div id="install_app" style={{ display: 'none' ,cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}
+  return <div id="install_app" style={{
+    display: 'none', 
+    cursor: 'pointer', 
+    // display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' 
+  }}
     onClick={() => {
       // window.scrollTo({ top: 0, behavior: 'smooth' }); 
       alert('install 111')
