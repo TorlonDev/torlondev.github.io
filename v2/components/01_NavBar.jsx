@@ -290,20 +290,19 @@ const MenuTopRight = () => {
 const BackToTop = () => {
   const iconStyles = { 'height': '25px', 'width': '50px', 'filter': `invert(${theme === 'DARK' ? 1 : 0})` }
 
-  return <div id="install_app" style={{
-    display: 'none', 
+  return <div class="install-app-btn" id="install_app" style={{
     cursor: 'pointer', 
     // display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' 
   }}
     onClick={() => {
       // window.scrollTo({ top: 0, behavior: 'smooth' }); 
-      alert('install 111')
+      // alert('install 111')
 
-      try {
-        deferredPrompt.prompt();
-      } catch (err){
-        alert(`${err}`)
-      }
+      // try {
+      //   deferredPrompt.prompt();
+      // } catch (err){
+      //   alert(`${err}`)
+      // }
 
 
       // alert('install 2')

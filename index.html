@@ -198,8 +198,6 @@
         // 'isShowLangChoose' is still be JS Global Scope Variable not React State
       }
     }
-
-    let deferredPrompt;
   </script>
 
   <script type="text/babel" src="./v2/components/00_Util.jsx" del="del"></script>
@@ -210,16 +208,12 @@
   <script type="text/babel" src="./v2/components/05_Life.jsx" del="del"></script>
   <script type="text/babel" src="./v2/components/05_Projects.jsx" del="del"></script>
   <script type="text/babel" src="./v2/components/99_TimeMachine.jsx" del="del"></script>
-  <script del="del">
-    document.addEventListener("readystatechange", (event) => {
-      if (event.target.readyState === "complete") {
-        if (!isBabelTransform) { Babel.transformScriptTags(); }
-      }
-    })
+  <script>
+    let deferredPrompt;
 
     window.addEventListener('beforeinstallprompt', (e) => {
       alert('Hi 1')
-      e.preventDefault()
+      // e.preventDefault()
       alert('Hi 2')
       $('#install_app').show();
       try {
@@ -235,6 +229,33 @@
         alert(`${err}`)
       }
     });
+
+    document.addEventListener("readystatechange", (event) => {
+      if (event.target.readyState === "complete") {
+        if (!isBabelTransform) { Babel.transformScriptTags(); }
+
+        const installApp = document.getElementById('install_app');
+
+        installApp.addEventListener('click', async () => {
+
+          console.log(deferredPrompt)
+
+          if (deferredPrompt !== null) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+              deferredPrompt = null;
+            }
+          } else {
+            alert('Already installed.')
+          }
+        });
+      }
+    })
+
+
+
+
   </script>
   <script type="text/babel" del="del">
     const App = ({ children }) => {
