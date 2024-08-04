@@ -293,13 +293,13 @@ const BackToTop = () => {
   return <div id="install_app" style={{ display: 'none' ,cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}
     onClick={() => {
       // window.scrollTo({ top: 0, behavior: 'smooth' }); 
-      // alert('install 1')
+      alert('install 111')
 
-      // try {
-      //   deferredPrompt.prompt();
-      // } catch (err){
-      //   alert(`${err}`)
-      // }
+      try {
+        deferredPrompt.prompt();
+      } catch (err){
+        alert(`${err}`)
+      }
 
 
       // alert('install 2')
