@@ -294,8 +294,9 @@ const AddToHomeScreen = () => {
 
   return <div id="install-app-btn" class="install-app-btn" style={{
     cursor: 'pointer',
-    display: 'flex', justifyContent: 'center', alignItems: 'center',
-    flexDirection: 'column'
+    display: 'none', justifyContent: 'center', alignItems: 'center',
+    flexDirection: 'column',
+    marginRight: '50px'
   }}>
     <SVG_MobileApp style={iconStyles} />
     <span style={{ color: 'var(--color)' }} class="text-sm">{lang.add_to_home?.[l]}</span>
@@ -311,7 +312,6 @@ const BackToTop = () => {
     cursor: 'pointer',
     display: 'flex', justifyContent: 'center', alignItems: 'center',
     flexDirection: 'column',
-    marginLeft: '50px'
   }}
     onClick={() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
