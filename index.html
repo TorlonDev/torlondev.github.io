@@ -114,7 +114,11 @@
           if (localStorage.getItem('deferredPrompt') === 'deferredPrompt') {
             return alert('App already installed.')
           }
-          else { alert('Your device or browser is not support this function. Please try Google Chrome.') }
+          else { alert(`
+            Your browser is not support this function for security reason.\r\n
+            For Android & Windows - Please try Google Chrome instead.\r\n
+            For iOS & Apple - Please try Safari instead.
+          `) }
         }
       });
     }
