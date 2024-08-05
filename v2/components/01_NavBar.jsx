@@ -287,18 +287,34 @@ const MenuTopRight = () => {
   </>
 }
 
+const AddToHomeScreen = () => {
+  const { lang, currentLanguage: l } = useContext(Context)
+
+  const iconStyles = { 'height': '28px', 'width': '60px', color: 'var(--color)' }
+
+  return <div id="install-app-btn" class="install-app-btn" style={{
+    cursor: 'pointer',
+    display: 'flex', justifyContent: 'center', alignItems: 'center',
+    flexDirection: 'column'
+  }}>
+    <SVG_MobileApp style={iconStyles} />
+    <span style={{ color: 'var(--color)' }} class="text-sm">{lang.add_to_home?.[l]}</span>
+  </div>
+}
+
 const BackToTop = () => {
   const { lang, currentLanguage: l } = useContext(Context)
 
-  const iconStyles = { 'height': '25px', 'width': '50px', color: 'var(--color)' }
+  const iconStyles = { 'height': '28px', 'width': '50px', color: 'var(--color)' }
 
-  return <div class="install-app-btn" id="install_app" style={{
+  return <div style={{
     cursor: 'pointer',
     display: 'flex', justifyContent: 'center', alignItems: 'center',
-    flexDirection: 'column' 
+    flexDirection: 'column',
+    marginLeft: '50px'
   }}
     onClick={() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' }); 
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }}
   >
     <SVG_ArrowUp style={iconStyles} />
@@ -352,6 +368,7 @@ const Navbar = () => {
       <ContentWrapper />
       <nav className="navbar_footer">
         <div className="navbar_footer_container">
+          <AddToHomeScreen />
           <BackToTop />
         </div>
       </nav>
