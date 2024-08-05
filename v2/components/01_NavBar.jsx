@@ -288,7 +288,9 @@ const MenuTopRight = () => {
 }
 
 const BackToTop = () => {
-  const iconStyles = { 'height': '25px', 'width': '50px', 'filter': `invert(${theme === 'DARK' ? 1 : 0})` }
+  const { lang, currentLanguage: l } = useContext(Context)
+
+  const iconStyles = { 'height': '25px', 'width': '50px', color: 'var(--color)' }
 
   return <div class="install-app-btn" id="install_app" style={{
     cursor: 'pointer',
@@ -300,7 +302,7 @@ const BackToTop = () => {
     }}
   >
     <SVG_ArrowUp style={iconStyles} />
-    <span style={{ color: 'var(--color)' }} class="text-sm">Back to top.</span>
+    <span style={{ color: 'var(--color)' }} class="text-sm">{lang.back_to_top?.[l]}</span>
   </div>
 }
 
