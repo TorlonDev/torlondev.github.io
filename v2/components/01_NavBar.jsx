@@ -290,67 +290,17 @@ const MenuTopRight = () => {
 const BackToTop = () => {
   const iconStyles = { 'height': '25px', 'width': '50px', 'filter': `invert(${theme === 'DARK' ? 1 : 0})` }
 
-
-  // componentDidMount
-  useEffect(() => {
-    
-    const installApp = document.getElementById('install_app');
-
-    installApp.addEventListener('click', async () => {
-
-      console.log(deferredPrompt)
-
-      if (deferredPrompt !== null) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          deferredPrompt = null;
-        }
-      } else {
-        alert('Already installed.')
-      }
-    });
-  }, []);
-
   return <div class="install-app-btn" id="install_app" style={{
     cursor: 'pointer',
-    // display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' 
+    display: 'flex', justifyContent: 'center', alignItems: 'center',
+    flexDirection: 'column' 
   }}
     onClick={() => {
-      // window.scrollTo({ top: 0, behavior: 'smooth' }); 
-      // alert('install 111')
-
-      // try {
-      //   deferredPrompt.prompt();
-      // } catch (err){
-      //   alert(`${err}`)
-      // }
-
-
-      // alert('install 2')
-      // const { outcome } = await deferredPrompt.userChoice;
-      // if (outcome === 'accepted') {
-      //   deferredPrompt = null;
-      // }
-
-      // try {
-      //   deferredPrompt.prompt()
-      //   deferredPrompt.userChoice
-      //     .then(choiceResult => {
-      //       if (choiceResult.outcome === 'accepted') {
-      //         alert('user accepted A2HS prompt')
-      //       } else {
-      //         alert('user dismissed A2HS prompt')
-      //       }
-      //       deferredPrompt = null
-      //     })
-      // } catch (err) {
-      //   alert(`${err}`)
-      // }
+      window.scrollTo({ top: 0, behavior: 'smooth' }); 
     }}
   >
     <SVG_ArrowUp style={iconStyles} />
-    <span class="text-sm">Back to top.</span>
+    <span style={{ color: 'var(--color)' }} class="text-sm">Back to top.</span>
   </div>
 }
 

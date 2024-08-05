@@ -199,36 +199,6 @@
       }
     }
   </script>
-
-<script>
-  let deferredPrompt;
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    alert('Hi 1')
-    // e.preventDefault()
-    alert('Hi 2')
-    $('#install_app').show();
-    try {
-      deferredPrompt = e;
-    } catch (err) {
-      alert(`${err}`)
-    }
-    alert('Hello')
-    try {
-      alert('in try')
-      deferredPrompt.prompt()
-    } catch (err) {
-      alert(`${err}`)
-    }
-  });
-
-  document.addEventListener("readystatechange", (event) => {
-    if (event.target.readyState === "complete") {
-      if (!isBabelTransform) { Babel.transformScriptTags(); }
-    }
-  })
-</script>
-
   <script type="text/babel" src="./v2/components/00_Util.jsx" del="del"></script>
   <script type="text/babel" src="./v2/components/01_NavBar.jsx" del="del"></script>
   <script type="text/babel" src="./v2/components/02_Home.jsx" del="del"></script>
@@ -302,6 +272,26 @@
     });
   </script>
 
+  <script del="del">
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      deferredPrompt = e;
+
+      // e.userChoice.then(function (choiceResult) {
+      //   if (choiceResult.outcome === 'accepted') {
+      //     deferredPrompt = null;
+      //   }
+
+      // });
+    });
+
+    document.addEventListener("readystatechange", (event) => {
+      if (event.target.readyState === "complete") {
+        if (!isBabelTransform) { Babel.transformScriptTags(); }
+      }
+    })
+  </script>
 </body>
 
 </html>
