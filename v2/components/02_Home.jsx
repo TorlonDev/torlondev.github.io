@@ -3,12 +3,12 @@ const Home = () => {
 
   const styleTextMobile = `clamp(20px, ${isShowSideBar ? '4vw' : '6vw'}, 36px)`
   const styleTextMobileFB = `clamp(16px, ${isShowSideBar ? '1vw' : '5vw'}, 42px)`
-  
+
   // componentDidMount
   useEffect(() => {
     raining()
   }, []);
-  
+
   return <>
     <style>
       {
@@ -46,40 +46,62 @@ const Home = () => {
       }
     </style>
     <div className="cover_home" style={{
-      aspectRatio: '1100 / 600',
+      aspectRatio: '1000 / 550',
       position: 'relative',
-      textAlign: 'center',
       textShadow: 'var(--BGColor) -3px 0px, var(--BGColor) 0px 3px, var(--BGColor) 3px 0px, var(--BGColor) 0px -3px',
     }}>
-      <img src="v2/img/cover1.jpg"
-        style={{ width: '100%', height: '100%' }}
-        loading="eager"
-      />
-      <div className="flex flex-col items-center"
-        style={{
-          justifyContent: 'space-around',
-          position: 'absolute', top: 0,
+      <div style={{ width: '100%', height: '100%', whiteSpace: 'nowrap', overflow: 'scroll', overflowX: 'scroll', overflowY: 'hidden' }}>
+        {/* <img src="v2/img/cover1.jpg"
+          style={{ aspectRatio: '1000 / 550', }}
+          loading="eager"
+        >
+        </img>
+        <img src="v2/img/cover1.jpg"
+          style={{ aspectRatio: '1000 / 550', }}
+          loading="eager"
+        /> */}
+
+        <div style={{
+          backgroundImage: 'url(v2/img/cover1.jpg)',
+          display: 'inline-block',
           width: '100%', height: '100%',
-          backgroundColor: 'rgba(0,0,0,0.3)'
+          backgroundSize: '100% 100%',
         }}>
-        <div>{lang.hello_world[l].toUpperCase()}</div><br />
-        <div>{lang.i_am_developer[l].toUpperCase()}</div><br />
-        <div>{lang.i_like_coding[l].toUpperCase()}</div>
-      </div>
-      <div id="animation_falling" className="animationFalling"
-        style={{
-          position: 'absolute', top: 0,
+          <div className="flex flex-col items-center"
+            style={{
+              justifyContent: 'space-around',
+              position: 'absolute', top: 0,
+              width: '100%', height: '90%',
+              backgroundColor: 'rgba(0,0,0,0.2)'
+            }}>
+            <div>{lang.hello_world[l].toUpperCase()}</div><br />
+            <div>{lang.i_am_developer[l].toUpperCase()}</div><br />
+            <div>{lang.i_like_coding[l].toUpperCase()}</div>
+          </div>
+          <div id="animation_falling" className="animationFalling"
+            style={{
+              position: 'absolute', top: 0,
+              width: '100%', height: '90%',
+              backgroundColor: 'transparent'
+            }}
+          >
+          </div>
+        </div>
+        <div style={{
+          backgroundImage: 'url(v2/img/cover2.jpg)',
+          display: 'inline-block',
           width: '100%', height: '100%',
-          backgroundColor: 'transparent'
-        }}
-      >
+          backgroundSize: '100% 100%',
+        }}>
+          
+        </div>
       </div>
     </div>
     <div style={{
-      position: 'relative', 
-      width: '100%', 
+      position: 'relative',
+      width: '100%',
       height: '100vh',
-      backgroundColor: 'var(--BGColor)' 
+      backgroundColor: 'var(--BGColor)'
     }}>
     </div>
   </>
