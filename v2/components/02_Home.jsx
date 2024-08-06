@@ -12,8 +12,17 @@ const Home = () => {
   return <>
     <style>
       {
-        ` .cover_home {
+        ` 
+          /*.cover_home {
             white-space: nowrap;
+            -ms-overflow-style: none; 
+            scrollbar-width: none;
+          }
+          .cover_home::-webkit-scrollbar {
+            display: none;
+          }*/
+          .cover_home {
+            text-shadow: var(--BGColor) -3px 0px, var(--BGColor) 0px 3px, var(--BGColor) 3px 0px, var(--BGColor) 0px -3px;
           }
           .raindrop {
               position: absolute;
@@ -48,54 +57,80 @@ const Home = () => {
     <div className="cover_home" style={{
       aspectRatio: '1000 / 550',
       position: 'relative',
-      textShadow: 'var(--BGColor) -3px 0px, var(--BGColor) 0px 3px, var(--BGColor) 3px 0px, var(--BGColor) 0px -3px',
+      overflow: 'hidden', overflowX: 'scroll',
+      whiteSpace: 'nowrap'
     }}>
-      <div style={{ width: '100%', height: '100%', whiteSpace: 'nowrap', overflow: 'scroll', overflowX: 'scroll', overflowY: 'hidden' }}>
-        {/* <img src="v2/img/cover1.jpg"
-          style={{ aspectRatio: '1000 / 550', }}
+      <div id="rain_falling" style={{
+        backgroundImage: 'url(v2/img/cover1.jpg)',
+        display: 'inline-block',
+        width: '100%', height: '100%',
+        backgroundSize: '100% 100%',
+      }}
+      ><div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center' }}>
+          <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
+          <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
+          <span>{lang.i_like_coding[l].toUpperCase()}</span>
+        </div>
+      </div>
+      <div style={{
+        backgroundImage: 'url(v2/img/cover2.jpg)',
+        display: 'inline-block',
+        width: '100%', height: '100%',
+        backgroundSize: '100% 100%',
+        textAlign: 'center',
+      }}>
+      </div>
+
+
+      {/* <div style={{ width: '100%', height: '100%', 
+        whiteSpace: 'nowrap', overflow: 'hidden', 
+        overflowX: 'hidden', overflowY: 'hidden' }}> */}
+      {/* <img src="v2/img/cover1.jpg"
+          style={{ display: 'inline', width: '100%', height: '100%' }}
           loading="eager"
-        >
-        </img>
-        <img src="v2/img/cover1.jpg"
-          style={{ aspectRatio: '1000 / 550', }}
+        />
+        <img src="v2/img/cover2.jpg"
+          style={{ display: 'inline', width: '100%', height: '100%' }}
           loading="eager"
         /> */}
 
-        <div style={{
+      {/* <div style={{
           backgroundImage: 'url(v2/img/cover1.jpg)',
           display: 'inline-block',
+          aspectRatio: '1000 / 550',
           width: '100%', height: '100%',
           backgroundSize: '100% 100%',
-        }}>
-          <div className="flex flex-col items-center"
+          textAlign: 'center', 
+        }}> */}
+      {/* <div className="flex flex-col items-center"
             style={{
               justifyContent: 'space-around',
               position: 'absolute', top: 0,
               width: '100%', height: '90%',
               backgroundColor: 'rgba(0,0,0,0.2)'
-            }}>
-            <div>{lang.hello_world[l].toUpperCase()}</div><br />
-            <div>{lang.i_am_developer[l].toUpperCase()}</div><br />
-            <div>{lang.i_like_coding[l].toUpperCase()}</div>
-          </div>
-          <div id="animation_falling" className="animationFalling"
+            }}> */}
+      {/* <span>{lang.hello_world[l].toUpperCase()}</span><br/>
+            <span>{lang.i_am_developer[l].toUpperCase()}</span><br/>
+            <span>{lang.i_like_coding[l].toUpperCase()}</span> */}
+      {/* </div> */}
+      {/* <div id="rain_falling" className="animationFalling"
             style={{
               position: 'absolute', top: 0,
               width: '100%', height: '90%',
               backgroundColor: 'transparent'
             }}
           >
-          </div>
-        </div>
-        <div style={{
+          </div> */}
+      {/* </div> */}
+      {/* <div style={{
           backgroundImage: 'url(v2/img/cover2.jpg)',
           display: 'inline-block',
           width: '100%', height: '100%',
           backgroundSize: '100% 100%',
         }}>
           
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div>
     <div style={{
       position: 'relative',

@@ -25,7 +25,7 @@ function raining() {
     raindrop.style.left = `${leftPosition}%`;
     raindrop.style.animationDuration = `${animationDuration}s`;
 
-    document.getElementById('animation_falling').appendChild(raindrop);
+    document.getElementById('rain_falling').appendChild(raindrop);
   }
 }
 
