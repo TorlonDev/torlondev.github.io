@@ -205,6 +205,7 @@ const Home = () => {
           <span>{lang.i_am_trader[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_love_trading[l].toUpperCase()}</span>
         </div>
+        <ArrowChangeCover direction='right' idCoverTo='snow_falling' leftAbsolute = '390%'/>
       </div>
       {/* <img src="v2/img/cover1.jpg"
         style={{ display: 'inline', width: '100%', height: '100%' }}
@@ -222,9 +223,18 @@ const Home = () => {
       backgroundColor: 'var(--BGColor)',
       color: 'var(--color)',
       border: 'unset',
-      textShadow: 'unset'
+      textShadow: 'unset',
+      padding: '10px',
     }}>
-      <span>{lang.coming_soon[l]}</span>
+      <span>ความสุข ของการเป็นนักพัฒนาคืออะไร?</span><br/>
+      <span>ตลอดหลายปีของการเป็น Developer ที่ผ่านมา สิ่งที่ทำให้ผมมีความสุข ไม่ใช่ ตำแหน่งที่สูงขึ้น+เงินเดือนที่มากขึ้น ไม่ใช่สวัสดิการเว่อร์วัง </span><br/><br/>
+      <span>แต่สิ่งที่ทำให้ผมมีความสุข ในการเป็น Developer คือ </span><br/>
+      <ul>
+        <li>- เวลาที่ User บอกว่า ระบบที่เราทำ ทำให้ User เลิกงานกลับบ้านได้ไวขึ้น</li>
+        <li>- เวลาที่ Boss บอกว่า เราช่วยบริษัทลดค่าใช้จ่ายรายเดือน ที่คนเก่าทำไว้เสียเงินเยอะๆได้</li>
+        <li>- เวลาที่ Lead หรือคนในทีม ชมเราว่าเราเก่ง หรือ เราจบงานได้ ในหลายๆครั้ง หลายๆ Feature ในช่วงหลายปีที่ผ่านมา</li>
+        <li>- เวลาเลิกงานดึกๆ แล้วไม่กลับบ้าน ผมเป็นคนที่ชอบทำงานหามรุ่งหามค่ำ</li>
+      </ul>
     </div>
   </>
 }
