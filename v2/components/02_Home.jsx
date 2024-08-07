@@ -1,7 +1,7 @@
 const Home = () => {
-  const { 
+  const {
     lang, currentLanguage: l, isShowSideBar,
-    isSlideCover, setIsSlideCover, 
+    isSlideCover, setIsSlideCover,
   } = useContext(Context)
 
   const styleTextMobile = `clamp(20px, ${isShowSideBar ? '4vw' : '6vw'}, 36px)`
@@ -14,19 +14,20 @@ const Home = () => {
     raining()
     btc_falling()
 
-    if(!isSlideCover) {
-      document.getElementById('btc_falling').scrollIntoView({
-        behavior: 'smooth', block: 'nearest', inline: 'center'
-      });
-  
-      setTimeout(()=> {
-        document.getElementById('snow_falling').scrollIntoView({
+    if (!isSlideCover) {
+      setTimeout(() => {
+        document.getElementById('btc_falling').scrollIntoView({
           behavior: 'smooth', block: 'nearest', inline: 'center'
         });
-        setTimeout(()=> {
-          setIsSlideCover(true)
-        }, 2000)
-      }, 1000)
+        setTimeout(() => {
+          document.getElementById('snow_falling').scrollIntoView({
+            behavior: 'smooth', block: 'nearest', inline: 'center'
+          });
+          setTimeout(() => {
+            setIsSlideCover(true)
+          }, 2000)
+        }, 1000)
+      }, 2000)
     }
   }, []);
 
