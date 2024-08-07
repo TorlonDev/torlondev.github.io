@@ -34,15 +34,6 @@ const Home = () => {
           .cover_home {
             text-shadow: var(--BGColor) -3px 0px, var(--BGColor) 0px 3px, var(--BGColor) 3px 0px, var(--BGColor) 0px -3px;
           }
-          .leaf {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50% 50% 50% 0; /* Leaf shape */
-            transform: rotate(-45deg); /* Rotate to make it more leaf-like */
-            opacity: 0.8;
-            animation: springfall linear infinite;
-          }
           .raindrop {
             position: absolute;
             width: 2px;
@@ -51,6 +42,15 @@ const Home = () => {
             border-radius: 50%;
             opacity: 0.9;
             animation: fall linear infinite;
+          }
+          .leaf {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50% 50% 50% 0; /* Leaf shape */
+            transform: rotate(-45deg); /* Rotate to make it more leaf-like */
+            opacity: 0.8;
+            animation: springfall linear infinite;
           }
           .btc {
             position: absolute;
@@ -155,27 +155,13 @@ const Home = () => {
         backgroundSize: '100% 100%',
       }}>
         <canvas id="canvas_snow_falling" style={{ width: '100%', height: '100%', }} />
+        <ArrowChangeCover direction='left' idCoverTo='btc_falling' leftAbsolute = '10%'/>
         <div className="cover_content_center" style={{ left: '50%' }}>
           <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_cool[l].toUpperCase()}</span>
         </div>
-        <ArrowChangeCover direction='right' idCoverTo='spring_falling' leftAbsolute = '90%'/>
-      </div>
-
-      <div id="spring_falling" style={{
-        backgroundImage: 'url(v2/img/cover3.jpg)',
-        display: 'inline-block',
-        width: '100%', height: '100%',
-        backgroundSize: '100% 100%',
-      }}>
-        <ArrowChangeCover direction='left' idCoverTo='snow_falling' leftAbsolute = '110%'/>
-        <div className="cover_content_center" style={{ left: '150%' }}>
-          <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
-          <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
-          <span>{lang.i_am_single[l].toUpperCase()}</span>
-        </div>
-        <ArrowChangeCover direction='right' idCoverTo='rain_falling' leftAbsolute = '190%'/>
+        <ArrowChangeCover direction='right' idCoverTo='rain_falling' leftAbsolute = '90%'/>
       </div>
 
       <div id="rain_falling" style={{
@@ -184,11 +170,26 @@ const Home = () => {
         width: '100%', height: '100%',
         backgroundSize: '100% 100%',
       }}>
-        <ArrowChangeCover direction='left' idCoverTo='spring_falling' leftAbsolute = '210%'/>
-        <div className="cover_content_center" style={{ left: '250%' }}>
+        <ArrowChangeCover direction='left' idCoverTo='snow_falling' leftAbsolute = '110%'/>
+        <div className="cover_content_center" style={{ left: '150%' }}>
           <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_love_coding[l].toUpperCase()}</span>
+        </div>
+        <ArrowChangeCover direction='right' idCoverTo='spring_falling' leftAbsolute = '190%'/>
+      </div>
+
+      <div id="spring_falling" style={{
+        backgroundImage: 'url(v2/img/cover3.jpg)',
+        display: 'inline-block',
+        width: '100%', height: '100%',
+        backgroundSize: '100% 100%',
+      }}>
+        <ArrowChangeCover direction='left' idCoverTo='rain_falling' leftAbsolute = '210%'/>
+        <div className="cover_content_center" style={{ left: '250%' }}>
+          <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
+          <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
+          <span>{lang.i_am_single[l].toUpperCase()}</span>
         </div>
         <ArrowChangeCover direction='right' idCoverTo='btc_falling' leftAbsolute = '290%'/>
       </div>
@@ -199,7 +200,7 @@ const Home = () => {
         width: '100%', height: '100%',
         backgroundSize: '100% 100%',
       }}>
-        <ArrowChangeCover direction='left' idCoverTo='rain_falling' leftAbsolute = '310%'/>
+        <ArrowChangeCover direction='left' idCoverTo='spring_falling' leftAbsolute = '310%'/>
         <div className="cover_content_center" style={{ left: '350%' }}>
           <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_trader[l].toUpperCase()}</span><br /><br />
@@ -216,7 +217,7 @@ const Home = () => {
         loading="eager"
       /> */}
     </div>
-    <div style={{
+    <div className="text-xl" style={{
       position: 'relative',
       width: '100%',
       height: '100vh',

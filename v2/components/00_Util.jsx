@@ -75,7 +75,7 @@ function raining() {
     raindrop.className = 'raindrop';
 
     // Randomize position and animation duration
-    const leftPosition = i + 195; // percentage (0% - 100%) + 195 for absolute left
+    const leftPosition = i + 95; // percentage (0% - 100%) + 195 for absolute left
     const animationDuration = Math.random() * 2 + 1; // Random duration between 1s and 3s
 
     raindrop.style.left = `${leftPosition}%`;
@@ -92,7 +92,7 @@ function spring_falling() {
     const raindrop = document.createElement('div');
     raindrop.className = 'leaf';
 
-    const leftPosition = i + 100; // percentage (0% - 100%) + 100 for absolute left
+    const leftPosition = i + 200; // percentage (0% - 100%) + 100 for absolute left
 
     //* Random duration between 4s and 9s */
     const minimumTime = 4

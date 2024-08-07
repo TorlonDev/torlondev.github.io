@@ -48,7 +48,7 @@
       --navBarBGColor: wheat;
       --navBarColor: black;
       --subNavBarColor: coral;
-      --BGColor: white;
+      --BGColor: lightgray;
       --color: black;
       --linkColor: blue;
     }
@@ -157,8 +157,8 @@
         { var: 'navBarBGColor', light: 'wheat', dark: 'darkslategrey' },
         { var: 'navBarColor', light: 'black', dark: 'white' },
         { var: 'subNavBarColor', light: 'coral', dark: 'seagreen' },
-        { var: 'BGColor', light: 'white', dark: 'black' },
-        { var: 'color', light: 'black', dark: 'white' },
+        { var: 'BGColor', light: 'lightgray', dark: 'black' },
+        { var: 'color', light: 'black', dark: 'whitesmoke' },
         { var: 'linkColor', light: 'blue', dark: 'green' },
       ]).forEach(el => {
         $(':root').css(`--${el.var}`, el[themeSet] || el.light)
