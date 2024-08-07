@@ -39,6 +39,7 @@ const TimeMachine = () => {
     minHeight: 'unset',
     backgroundImage: 'url(v2/img/timemachine.jpg)',
     backgroundPosition: 'center',
+    textShadow: 'var(--BGColor) -1px 0px, var(--BGColor) 0px 1px, var(--BGColor) 1px 0px, var(--BGColor) 0px -1px',
   }} className="wrapper_content text-xl text-center">
       <br/>
       <h1>{langTimeMachine.time_machine_starting?.[l]}</h1><br />
