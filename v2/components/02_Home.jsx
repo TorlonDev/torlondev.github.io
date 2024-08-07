@@ -8,7 +8,7 @@ const Home = () => {
 
   const scrollToCover = (idCover = 'snow_falling') => {
     document.getElementById(idCover).scrollIntoView({
-      behavior: 'smooth', block: 'nearest', inline: 'center'
+      block: 'nearest', inline: 'center'
     });
   }
 
@@ -83,6 +83,16 @@ const Home = () => {
             }
           }
 
+          .fa-arrow-left {
+            width: 100%;
+            height: 100%;
+          }
+
+          .fa-arrow-right {
+            width: 100%;
+            height: 100%;
+          }
+
           .fa-arrow-left > path {
             stroke: var(--BGColor);
             stroke-width: 25px;
@@ -115,8 +125,8 @@ const Home = () => {
             height: 18px;
           }
           .change_cover {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             cursor: pointer;
           }
         `) + desktopCSS(`
@@ -125,8 +135,8 @@ const Home = () => {
             border: 10px solid var(--color);
           }
           .change_cover {
-            width: 100px;
-            height: 100px;
+            width: 70px;
+            height: 70px;
             cursor: pointer;
           }
         `)
