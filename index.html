@@ -23,6 +23,8 @@
     onerror="srcOffline('cdn/js/babel-7.25.0.min.js')" del="del"></script>
   <script src="https://tronnatthakorn.github.io/cdn/js/jquery-3.7.1.min.js"
     onerror="srcOffline('cdn/js/jquery-3.7.1.min.js')" del="del"></script>
+  <script src="https://tronnatthakorn.github.io/cdn/js/fontawesome-6.6.0.min.js"
+    onerror="srcOffline('cdn/js/fontawesome-6.6.0.min.js')" del="del"></script>
   <script src="https://tronnatthakorn.github.io/cdn/js/tailwindcss-3.4.5.min.js"
     onerror="srcOffline('cdn/js/tailwindcss-3.4.5.min.js')" del="del"></script>
   <script src="https://tronnatthakorn.github.io/cdn/js/react-18.2.0.production.min.js"
@@ -80,7 +82,6 @@
       color: var(--color);
 
       font-weight: 700;
-      /*text-shadow: var(--BGColor) -2px 0px, var(--BGColor) 0px 2px, var(--BGColor) 2px 0px, var(--BGColor) 0px -2px;*/
     }
   </style>
 </head>
@@ -201,8 +202,12 @@
       coming_soon: { EN: 'Coming Soon.', TH: 'พบกันเร็วๆนี้', CN: '即将推出' },
       hello_world: { EN: 'Hello World.', TH: 'สวัสดีชาวโลก', CN: '你好世界' },
       i_am_developer: { EN: 'I am developer.', TH: 'ผมคือนักพัฒนา', CN: '我是开发人员' },
+      i_am_cool: { EN: 'I am cool.', TH: 'ผมเป็นคนเท่ห์', CN: '我很酷' },
+      i_am_single: { EN: 'I am single.', TH: 'ผมเป็นคนโสด', CN: '我单身' },
+      i_love_coding: { EN: 'I love coding.', TH: 'ผมรักการเขียนโค้ด', CN: '我喜欢编码' },
+      i_am_trader: { EN: 'I am trader.', TH: 'ผมเป็นเทรดเดอร์', CN: '我是交易员' },
+      i_love_trading: { EN: 'I love trading.', TH: 'ผมชอบการเทรด', CN: '我喜欢交易' },
       new_ver_developing: { EN: 'New Version is Developing.', TH: 'เว็บไซต์เวอร์ชันใหม่อยู่ระหว่างการพัฒนา', CN: '新版本正在开发中' },
-      i_like_coding: { EN: 'I love coding.', TH: 'ผมรักการเขียนโค้ด', CN: '我喜欢编码' },
       back_to_top: { EN: 'Scroll up to top.', TH: 'เลื่อนขึ้นด้านบน', CN: '回到顶部' },
       add_to_home: { EN: 'Install mobile app.', TH: 'ติดตั้ง แอพมือถือ', CN: '安装移动应用程序' },
       home: { EN: 'Home', TH: 'หน้าแรก', CN: '主页' },
@@ -259,8 +264,6 @@
       const [isTH, setIsTH] = useState(language === 'TH')
       const [isCN, setIsCN] = useState(language === 'CN')
 
-      const [isSlideCover, setIsSlideCover] = useState(false)
-
       const clearCacheBooleanLang = () => {
         setIsEN(false); setIsTH(false); setIsCN(false);
       }
@@ -297,8 +300,6 @@
           // setIsShowLangChoose,
           isShowSideBar,
           setIsShowSideBar,
-          isSlideCover,
-          setIsSlideCover,
         }}>
         {children}
       </Provider>
