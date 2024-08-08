@@ -4,7 +4,7 @@ const langHome = {
     'ตลอดหลายปีของการเป็น Developer ที่ผ่านมา สิ่งที่ทำให้ผมมีความสุข ไม่ใช่ ตำแหน่งที่สูงขึ้น หรือเงินเดือนที่มากขึ้น ไม่ใช่สวัสดิการเว่อร์วัง แต่สิ่งที่ทำให้ผมมีความสุข ในการเป็น Developer คือ ',
     '- เวลาที่ User บอกว่า ระบบที่ผมทำ ทำให้ User เลิกงานกลับบ้านได้ไวขึ้น',
     '- เวลาที่ Boss บอกว่า ผมช่วยบริษัทลดค่าใช้จ่ายรายเดือน ที่คนก่อนหน้าทำไว้เสียเงินเยอะๆได้',
-    '- เวลาที่ Team Leader หรือเพื่อร่วมทีม ชมผมเวลาที่จบงานได้ ในหลายๆครั้ง หลายๆ Feature ในช่วงหลายปีที่ผ่านมา',
+    '- เวลาที่ Team Leader หรือเพื่อนร่วมทีม ชมผมเวลาที่จบงานได้ ในหลายๆครั้ง หลายๆ Feature ในช่วงหลายปีที่ผ่านมา',
     '- เวลาเลิกงานดึกๆ แล้วยังไม่กลับบ้าน ฺBoss ซื้อพิซซ่า กับเบียร์เย็นๆ ให้กิน ปั่นงานให้เสร็จ, ถ้ากลับบ้านทั้งที่งานยังไม่เสร็จ ผมคงนอนไม่หลับ และก็คงเปิดคอมทำงานอยู่ดี',
   ],
   EN: [
@@ -12,7 +12,7 @@ const langHome = {
     "Throughout my years as a developer, what has brought me happiness is not the prospect of a higher position or increased salary, nor the extravagant benefits. Instead, the joy of being a developer comes from:",
     "- When users inform me that the system I developed allows them to leave work and return home earlier.",
     "- When the boss acknowledges that I have helped the company reduce monthly expenses that were previously high due to prior arrangements.",
-    "- When the team leader or colleagues commend me for completing tasks and features on numerous occasions over the years.",
+    "- When the team leader or teammates commend me for completing tasks and features on numerous occasions over the years.",
     "- Working late into the night and not returning home, especially when the boss provides pizza and cold beer to help us finish the work. If I were to go home while the work remains incomplete, I would likely be unable to sleep and would end up continuing to work on the computer anyway.",
   ],
   CN: [
