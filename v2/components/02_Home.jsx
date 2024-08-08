@@ -2,26 +2,26 @@ const langHome = {
   TH: [
     'ความสุขของการเป็น Developer คืออะไร?',
     'ตลอดหลายปีของการเป็น Developer ที่ผ่านมา สิ่งที่ทำให้ผมมีความสุข ไม่ใช่ ตำแหน่งที่สูงขึ้น หรือเงินเดือนที่มากขึ้น ไม่ใช่สวัสดิการเว่อร์วัง แต่สิ่งที่ทำให้ผมมีความสุข ในการเป็น Developer คือ ',
-    '- เวลาที่ User บอกว่า ระบบที่เราทำ ทำให้ User เลิกงานกลับบ้านได้ไวขึ้น',
-    '- เวลาที่ Boss บอกว่า เราช่วยบริษัทลดค่าใช้จ่ายรายเดือน ที่คนเก่าทำไว้เสียเงินเยอะๆได้',
-    '- เวลาที่ Lead หรือคนในทีม ชมเราว่าเราเก่ง หรือ เราจบงานได้ ในหลายๆครั้ง หลายๆ Feature ในช่วงหลายปีที่ผ่านมา',
+    '- เวลาที่ User บอกว่า ระบบที่ผมทำ ทำให้ User เลิกงานกลับบ้านได้ไวขึ้น',
+    '- เวลาที่ Boss บอกว่า ผมช่วยบริษัทลดค่าใช้จ่ายรายเดือน ที่คนก่อนหน้าทำไว้เสียเงินเยอะๆได้',
+    '- เวลาที่ Team Leader หรือเพื่อร่วมทีม ชมผมเวลาที่จบงานได้ ในหลายๆครั้ง หลายๆ Feature ในช่วงหลายปีที่ผ่านมา',
     '- เวลาเลิกงานดึกๆ แล้วยังไม่กลับบ้าน ฺBoss ซื้อพิซซ่า กับเบียร์เย็นๆ ให้กิน ปั่นงานให้เสร็จ, ถ้ากลับบ้านทั้งที่งานยังไม่เสร็จ ผมคงนอนไม่หลับ และก็คงเปิดคอมทำงานอยู่ดี',
   ],
   EN: [
-    "What is the happiness of being a developer?",
-    "Throughout my years as a developer, what has brought me happiness is not the higher position or increased salary, nor the extravagant benefits. Instead, the joy of being a developer comes from:",
-    "- When users tell me that the system we developed allows them to leave work and return home earlier.",
-    "- When the boss says that we have helped the company reduce monthly expenses that were previously high due to earlier arrangements.",
-    "- When a lead or team member praises us for our skill or acknowledges that we have successfully completed various tasks and features over the years.",
-    "- Working late into the night and not returning home, especially when the boss buys pizza and cold beer for us to enjoy while we complete our tasks. If I were to go home while the work is not finished, I would probably not be able to sleep and would end up working on the computer anyway.",
+    "What is the joy of being a developer?",
+    "Throughout my years as a developer, what has brought me happiness is not the prospect of a higher position or increased salary, nor the extravagant benefits. Instead, the joy of being a developer comes from:",
+    "- When users inform me that the system I developed allows them to leave work and return home earlier.",
+    "- When the boss acknowledges that I have helped the company reduce monthly expenses that were previously high due to prior arrangements.",
+    "- When the team leader or colleagues commend me for completing tasks and features on numerous occasions over the years.",
+    "- Working late into the night and not returning home, especially when the boss provides pizza and cold beer to help us finish the work. If I were to go home while the work remains incomplete, I would likely be unable to sleep and would end up continuing to work on the computer anyway.",
   ],
   CN: [
-    "作为开发者的幸福是什么？",
-    "在过去多年的开发者生涯中，给我带来快乐的不是职位的升迁或薪水的增加，也不是那些奢华的福利。真正让我感到幸福的是：",
-    "- 当用户告诉我，我们开发的系统使他们能够更早地结束工作回家。",
-    "- 当老板说我们帮助公司减少了之前安排导致的高额月度开支。",
-    "- 当领导或团队成员赞扬我们的技能，或者认可我们在这些年中成功完成了各种任务和功能。",
-    "- 在工作到深夜而不回家时，特别是当老板买了比萨和冰啤酒来享用，帮助我们完成工作。如果我在工作没有完成的情况下回家，我可能会睡不着觉，还会继续在电脑上工作。",
+    "作为开发者的快乐是什么？",
+    "在我作为开发者的这些年里，给我带来快乐的不是职位的升迁或薪水的增加，也不是那些奢华的福利。真正让我感到快乐的是：",
+    "- 当用户告诉我，我开发的系统让他们可以更早地结束工作回家。",
+    "- 当老板承认我帮助公司减少了由于前任安排而导致的高额月度开支。",
+    "- 当团队领导或同事在这些年里多次赞扬我完成任务和功能时。",
+    "- 工作到深夜而不回家，特别是当老板提供比萨和冰啤酒帮助我们完成工作时。如果我在工作未完成的情况下回家，我可能会睡不着觉，还会继续在电脑上工作。",
   ]
 }
 
@@ -263,7 +263,7 @@ const Home = () => {
           <li>{langHome[l][4]}</li>
           <li>{langHome[l][5]}</li>
         </ul>
-        <br/>
+        <br />
         <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4" />
       </article>
     </div>
