@@ -1,3 +1,30 @@
+const langHome = {
+  TH: [
+    'ความสุขของการเป็น Developer คืออะไร?',
+    'ตลอดหลายปีของการเป็น Developer ที่ผ่านมา สิ่งที่ทำให้ผมมีความสุข ไม่ใช่ ตำแหน่งที่สูงขึ้น หรือเงินเดือนที่มากขึ้น ไม่ใช่สวัสดิการเว่อร์วัง แต่สิ่งที่ทำให้ผมมีความสุข ในการเป็น Developer คือ ',
+    '- เวลาที่ User บอกว่า ระบบที่เราทำ ทำให้ User เลิกงานกลับบ้านได้ไวขึ้น',
+    '- เวลาที่ Boss บอกว่า เราช่วยบริษัทลดค่าใช้จ่ายรายเดือน ที่คนเก่าทำไว้เสียเงินเยอะๆได้',
+    '- เวลาที่ Lead หรือคนในทีม ชมเราว่าเราเก่ง หรือ เราจบงานได้ ในหลายๆครั้ง หลายๆ Feature ในช่วงหลายปีที่ผ่านมา',
+    '- เวลาเลิกงานดึกๆ แล้วยังไม่กลับบ้าน ฺBoss ซื้อพิซซ่า กับเบียร์เย็นๆ ให้กิน ปั่นงานให้เสร็จ, ถ้ากลับบ้านทั้งที่งานยังไม่เสร็จ ผมคงนอนไม่หลับ และก็คงเปิดคอมทำงานอยู่ดี',
+  ],
+  EN: [
+    "What is the happiness of being a developer?",
+    "Throughout my years as a developer, what has brought me happiness is not the higher position or increased salary, nor the extravagant benefits. Instead, the joy of being a developer comes from:",
+    "- When users tell me that the system we developed allows them to leave work and return home earlier.",
+    "- When the boss says that we have helped the company reduce monthly expenses that were previously high due to earlier arrangements.",
+    "- When a lead or team member praises us for our skill or acknowledges that we have successfully completed various tasks and features over the years.",
+    "- Working late into the night and not returning home, especially when the boss buys pizza and cold beer for us to enjoy while we complete our tasks. If I were to go home while the work is not finished, I would probably not be able to sleep and would end up working on the computer anyway.",
+  ],
+  CN: [
+    "作为开发者的幸福是什么？",
+    "在过去多年的开发者生涯中，给我带来快乐的不是职位的升迁或薪水的增加，也不是那些奢华的福利。真正让我感到幸福的是：",
+    "- 当用户告诉我，我们开发的系统使他们能够更早地结束工作回家。",
+    "- 当老板说我们帮助公司减少了之前安排导致的高额月度开支。",
+    "- 当领导或团队成员赞扬我们的技能，或者认可我们在这些年中成功完成了各种任务和功能。",
+    "- 在工作到深夜而不回家时，特别是当老板买了比萨和冰啤酒来享用，帮助我们完成工作。如果我在工作没有完成的情况下回家，我可能会睡不着觉，还会继续在电脑上工作。",
+  ]
+}
+
 const Home = () => {
   const {
     lang, currentLanguage: l, isShowSideBar,
@@ -155,13 +182,13 @@ const Home = () => {
         backgroundSize: '100% 100%',
       }}>
         <canvas id="canvas_snow_falling" style={{ width: '100%', height: '100%', }} />
-        <ArrowChangeCover direction='left' idCoverTo='btc_falling' leftAbsolute = '10%'/>
+        <ArrowChangeCover direction='left' idCoverTo='btc_falling' leftAbsolute='10%' />
         <div className="cover_content_center" style={{ left: '50%' }}>
           <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_cool[l].toUpperCase()}</span>
         </div>
-        <ArrowChangeCover direction='right' idCoverTo='rain_falling' leftAbsolute = '90%'/>
+        <ArrowChangeCover direction='right' idCoverTo='rain_falling' leftAbsolute='90%' />
       </div>
 
       <div id="rain_falling" style={{
@@ -170,13 +197,13 @@ const Home = () => {
         width: '100%', height: '100%',
         backgroundSize: '100% 100%',
       }}>
-        <ArrowChangeCover direction='left' idCoverTo='snow_falling' leftAbsolute = '110%'/>
+        <ArrowChangeCover direction='left' idCoverTo='snow_falling' leftAbsolute='110%' />
         <div className="cover_content_center" style={{ left: '150%' }}>
           <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_love_coding[l].toUpperCase()}</span>
         </div>
-        <ArrowChangeCover direction='right' idCoverTo='spring_falling' leftAbsolute = '190%'/>
+        <ArrowChangeCover direction='right' idCoverTo='spring_falling' leftAbsolute='190%' />
       </div>
 
       <div id="spring_falling" style={{
@@ -185,13 +212,13 @@ const Home = () => {
         width: '100%', height: '100%',
         backgroundSize: '100% 100%',
       }}>
-        <ArrowChangeCover direction='left' idCoverTo='rain_falling' leftAbsolute = '210%'/>
+        <ArrowChangeCover direction='left' idCoverTo='rain_falling' leftAbsolute='210%' />
         <div className="cover_content_center" style={{ left: '250%' }}>
           <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_single[l].toUpperCase()}</span>
         </div>
-        <ArrowChangeCover direction='right' idCoverTo='btc_falling' leftAbsolute = '290%'/>
+        <ArrowChangeCover direction='right' idCoverTo='btc_falling' leftAbsolute='290%' />
       </div>
 
       <div id="btc_falling" style={{
@@ -200,13 +227,13 @@ const Home = () => {
         width: '100%', height: '100%',
         backgroundSize: '100% 100%',
       }}>
-        <ArrowChangeCover direction='left' idCoverTo='spring_falling' leftAbsolute = '310%'/>
+        <ArrowChangeCover direction='left' idCoverTo='spring_falling' leftAbsolute='310%' />
         <div className="cover_content_center" style={{ left: '350%' }}>
           <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_am_trader[l].toUpperCase()}</span><br /><br />
           <span>{lang.i_love_trading[l].toUpperCase()}</span>
         </div>
-        <ArrowChangeCover direction='right' idCoverTo='snow_falling' leftAbsolute = '390%'/>
+        <ArrowChangeCover direction='right' idCoverTo='snow_falling' leftAbsolute='390%' />
       </div>
       {/* <img src="v2/img/cover1.jpg"
         style={{ display: 'inline', width: '100%', height: '100%' }}
@@ -217,7 +244,7 @@ const Home = () => {
         loading="eager"
       /> */}
     </div>
-    <div className="text-xl" style={{
+    <div style={{
       position: 'relative',
       width: '100%',
       height: '100vh',
@@ -225,17 +252,20 @@ const Home = () => {
       color: 'var(--color)',
       border: 'unset',
       textShadow: 'unset',
-      padding: '10px',
+      padding: '20px',
     }}>
-      <span>ความสุข ของการเป็นนักพัฒนาคืออะไร?</span><br/>
-      <span>ตลอดหลายปีของการเป็น Developer ที่ผ่านมา สิ่งที่ทำให้ผมมีความสุข ไม่ใช่ ตำแหน่งที่สูงขึ้น+เงินเดือนที่มากขึ้น ไม่ใช่สวัสดิการเว่อร์วัง </span><br/><br/>
-      <span>แต่สิ่งที่ทำให้ผมมีความสุข ในการเป็น Developer คือ </span><br/>
-      <ul>
-        <li>- เวลาที่ User บอกว่า ระบบที่เราทำ ทำให้ User เลิกงานกลับบ้านได้ไวขึ้น</li>
-        <li>- เวลาที่ Boss บอกว่า เราช่วยบริษัทลดค่าใช้จ่ายรายเดือน ที่คนเก่าทำไว้เสียเงินเยอะๆได้</li>
-        <li>- เวลาที่ Lead หรือคนในทีม ชมเราว่าเราเก่ง หรือ เราจบงานได้ ในหลายๆครั้ง หลายๆ Feature ในช่วงหลายปีที่ผ่านมา</li>
-        <li>- เวลาเลิกงานดึกๆ แล้วไม่กลับบ้าน ผมเป็นคนที่ชอบทำงานหามรุ่งหามค่ำ</li>
-      </ul>
+      <article>
+        <h3 className="text-3xl" >{langHome[l][0]}</h3><br />
+        <p class="indent-8">{langHome[l][1]}</p><br />
+        <ul class="indent-8">
+          <li>{langHome[l][2]}</li>
+          <li>{langHome[l][3]}</li>
+          <li>{langHome[l][4]}</li>
+          <li>{langHome[l][5]}</li>
+        </ul>
+        <br/>
+        <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4" />
+      </article>
     </div>
   </>
 }
