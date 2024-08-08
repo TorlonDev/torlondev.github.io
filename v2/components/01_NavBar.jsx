@@ -234,7 +234,7 @@ const MenuTopRight = () => {
     const {
       currentLanguage, setCurrentLanguage,
       // isShowLangChoose, setIsShowLangChoose,
-      isEN, isTH, isCN
+      isEN, isTH, isCN, isJP,
     } = useContext(Context)
 
     const toggleLangChoose = () => {
@@ -272,6 +272,7 @@ const MenuTopRight = () => {
         >
           <div className={`p-1 ${isEN ? underLineStyle : ''}`} style={isEN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('EN')}>English</div>
           <div className={`p-1 ${isTH ? underLineStyle : ''}`} style={isTH ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('TH')}>ไทย</div>
+          <div className={`p-1 ${isJP ? underLineStyle : ''}`} style={isJP ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('JP')}>にほんご</div>
           <div className={`p-1 ${isCN ? underLineStyle : ''}`} style={isCN ? { textUnderlineOffset: '6px', fontWeight: '600' } : { opacity: '0.8' }} onClick={changeLanguageTo('CN')}>中文</div>
         </div>
       </div>

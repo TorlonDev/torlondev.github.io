@@ -178,7 +178,7 @@
       setTheme(theme)
     }
 
-    const languageList = ['EN', 'TH', 'CN']
+    const languageList = ['EN', 'TH', 'CN', 'JP']
     let language = localStorage.getItem('LANGUAGE')
 
     if (!language) {
@@ -197,25 +197,25 @@
     localStorage.setItem('LANGUAGE', language)
 
     const lang = {
-      'undefined': { EN: 'Not Found.', TH: 'ไม่พบ', CN: '未找到' },
-      not_found: { EN: 'Not Found.', TH: 'ไม่พบ', CN: '未找到' },
-      coming_soon: { EN: 'Coming Soon.', TH: 'พบกันเร็วๆนี้', CN: '即将推出。' },
-      hello_world: { EN: 'Hello World.', TH: 'สวัสดีชาวโลก', CN: '你好世界，' },
-      i_am_developer: { EN: 'I am developer.', TH: 'ผมคือนักพัฒนา', CN: '我是开发人员、' },
-      i_am_cool: { EN: 'I am cool.', TH: 'ผมเป็นคนเท่ห์', CN: '我很酷。' },
-      i_am_single: { EN: 'I am single.', TH: 'ผมเป็นคนโสด', CN: '我单身。' },
-      i_love_coding: { EN: 'I love coding.', TH: 'ผมรักการเขียนโค้ด', CN: '我喜欢编码。' },
-      i_am_trader: { EN: 'I am trader.', TH: 'ผมเป็นเทรดเดอร์', CN: '我是交易员、' },
-      i_love_trading: { EN: 'I love trading.', TH: 'ผมชอบการเทรด', CN: '我喜欢交易。' },
-      new_ver_developing: { EN: 'New Version is Developing.', TH: 'เว็บไซต์เวอร์ชันใหม่อยู่ระหว่างการพัฒนา', CN: '新版本正在开发中。' },
-      back_to_top: { EN: 'Scroll up to top.', TH: 'เลื่อนขึ้นด้านบน', CN: '回到顶部。' },
-      add_to_home: { EN: 'Install mobile app.', TH: 'ติดตั้ง แอพมือถือ', CN: '安装移动应用程序。' },
-      home: { EN: 'Home', TH: 'หน้าแรก', CN: '主页' },
-      cv: { EN: 'CV', TH: 'ซีวี', CN: '简历' },
-      blogs: { EN: 'Blogs', TH: 'บล็อก', CN: '博客' },
-      life: { EN: 'Life', TH: 'ชีวิต', CN: '生活' },
-      time_machine: { EN: 'Time Machine', TH: 'ไทม์ แมชชีน', CN: '时光机器' },
-      projects: { EN: 'Projects', TH: 'โปรเจค', CN: '项目' },
+      'undefined': { EN: 'Not Found.', TH: 'ไม่พบ', CN: '未找到。', JP: '見つかりません。' },
+      not_found: { EN: 'Not Found.', TH: 'ไม่พบ', CN: '未找到。', JP: '見つかりません。' },
+      coming_soon: { EN: 'Coming Soon.', TH: 'พบกันเร็วๆนี้', CN: '即将推出。', JP: 'もうすぐ公開。' },
+      hello_world: { EN: 'Hello World.', TH: 'สวัสดีชาวโลก', CN: '你好世界，', JP: 'こんにちは、世界。' },
+      i_am_developer: { EN: 'I am developer.', TH: 'ผมคือนักพัฒนา', CN: '我是开发人员、', JP: '私はデベロッパーです。' },
+      i_am_cool: { EN: 'I am cool.', TH: 'ผมเป็นคนเท่ห์', CN: '我很酷。', JP: '私はクールです。' },
+      i_am_single: { EN: 'I am single.', TH: 'ผมเป็นคนโสด', CN: '我单身。', JP: '私はシングルです。' },
+      i_love_coding: { EN: 'I love coding.', TH: 'ผมรักการเขียนโค้ด', CN: '我喜欢编码。', JP: '私はコーディングが好きです。' },
+      i_am_trader: { EN: 'I am trader.', TH: 'ผมเป็นเทรดเดอร์', CN: '我是交易员、', JP: '私はトレーダーです。' },
+      i_love_trading: { EN: 'I love trading.', TH: 'ผมชอบการเทรด', CN: '我喜欢交易。', JP: '私はトレーディングが好きです。' },
+      new_ver_developing: { EN: 'New Version is Developing.', TH: 'เว็บไซต์เวอร์ชันใหม่อยู่ระหว่างการพัฒนา', CN: '新版本正在开发中。', JP: '新しいバージョンが開発中です。' },
+      back_to_top: { EN: 'Scroll up to top.', TH: 'เลื่อนขึ้นด้านบน', CN: '回到顶部。', JP: 'トップに戻る。' },
+      add_to_home: { EN: 'Install mobile app.', TH: 'ติดตั้ง แอพมือถือ', CN: '安装移动应用程序。', JP: 'モバイルアプリをインストールする。' },
+      home: { EN: 'Home', TH: 'หน้าแรก', CN: '主页', JP: 'ホーム' },
+      cv: { EN: 'CV', TH: 'ซีวี', CN: '简历', JP: 'シーブイ' },
+      blogs: { EN: 'Blogs', TH: 'บล็อก', CN: '博客', JP: 'ブログ' },
+      life: { EN: 'Life', TH: 'ชีวิต', CN: '生活', JP: '生活' },
+      time_machine: { EN: 'Time Machine', TH: 'ไทม์ แมชชีน', CN: '时光机器', JP: 'タイムマシン' },
+      projects: { EN: 'Projects', TH: 'โปรเจค', CN: '项目', JP: 'プロジェクト' },
     }
 
     // Stateless Language Choose Wrapper 
@@ -262,10 +262,11 @@
 
       const [isEN, setIsEN] = useState(language === 'EN')
       const [isTH, setIsTH] = useState(language === 'TH')
+      const [isJP, setIsJP] = useState(language === 'JP')
       const [isCN, setIsCN] = useState(language === 'CN')
 
       const clearCacheBooleanLang = () => {
-        setIsEN(false); setIsTH(false); setIsCN(false);
+        setIsEN(false); setIsTH(false); setIsJP(false); setIsCN(false);
       }
 
       const setCurrentLanguage = (lang = 'EN') => {
@@ -277,6 +278,8 @@
             return setIsEN(true)
           case 'TH':
             return setIsTH(true)
+          case 'JP':
+            return setIsJP(true)
           case 'CN':
             return setIsCN(true)
           default:
@@ -295,7 +298,7 @@
           lang,
           currentLanguage,
           setCurrentLanguage,
-          isEN, isTH, isCN,
+          isEN, isTH, isCN, isJP,
           // isShowLangChoose,
           // setIsShowLangChoose,
           isShowSideBar,

@@ -22,6 +22,14 @@ const langHome = {
     "- 当老板承认我帮助公司减少了由于前任安排导致的高额月度开支。",
     "- 当团队领导或同事在这些年里多次赞扬我完成任务和功能时。",
     "- 工作到深夜而不回家，尤其是当老板提供比萨和冰啤酒来帮助我们完成工作时。如果我在工作未完成的情况下回家，我可能会睡不着觉，还会继续在电脑上工作。",
+  ],
+  JP: [
+    '開発者としての喜びとは何ですか？',
+    'これまでの開発者としての年月の中で、私に喜びをもたらしてくれるのは、高い地位や給料の増加、または豪華な福利厚生ではありません。開発者としての喜びは次のようなものです：',
+    '- ユーザーから、私が開発したシステムが彼らが早く仕事を終えて帰れるようにしたと言われる時。',
+    '- ボスから、私が以前の高額な月々の経費を削減する手助けをしたと認められる時。',
+    '- チームリーダーや同僚から、これまでの何度も褒められる時、タスクや機能を完成させたことに対して。',
+    '- 深夜まで働き、家に帰らない時、特にボスがピザや冷たいビールを提供してくれる時。もし仕事が終わらないまま家に帰ると、私は眠れず、結局パソコンで作業を続けることになります。',
   ]
 }
 
@@ -40,7 +48,7 @@ const Home = () => {
   }
 
   const ArrowChangeCover = ({ direction = 'right', idCoverTo = 'spring_falling', leftAbsolute = '90%' }) => {
-    return <div className="change_cover cover_content_center" style={{ left: leftAbsolute }}
+    return <div className="cover_content_center change_cover" style={{ left: leftAbsolute }}
       onClick={() => { scrollToCover(idCoverTo) }}>
       <span class={`fa-solid fa-arrow-${direction}`}></span>
     </div>
@@ -137,6 +145,10 @@ const Home = () => {
             transform: translate(-50%, -50%);
             text-align: center;
             align-content: center;
+          }
+
+          .change_cover {
+            z-index: 100;
           }
         ` + mobileCSS(`
           .cover_home {
