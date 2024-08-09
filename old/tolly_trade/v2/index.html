@@ -691,6 +691,7 @@
                                 //{{url}}/fapi/v1/order?symbol=1000PEPEUSDT&side=BUY&positionSide=SHORT&type=STOP_MARKET&quantity=350&stopPrice=0.017&workingType=MARK_PRICE&priceProtect=true&timestamp={{timestamp}}&signature={{signature}}
 
                                 const batchCloseOrderCutOneWay = [
+                                    // Cut One Way
                                     {
                                         "symbol": symbol,
                                         "side": "SELL",
@@ -708,7 +709,30 @@
                                         "quantity": `${quantity}`,
                                         "stopPrice": `${priceForCloseShortTakeLong}`,
                                         "workingType": "MARK_PRICE"
-                                    }
+                                    },
+                                    // Trailing Stop (Prevent Lost - next plan is Conditional Order)
+                                    // Trailing LONG
+                                    {
+                                        "symbol": symbol,
+                                        "side": "SELL",
+                                        "positionSide": "LONG",
+                                        "type": "TRAILING_STOP_MARKET",
+                                        "callbackRate": "5",
+                                        "activationPrice": `${priceForCloseShortTakeLong}`,
+                                        "quantity": `${quantity}`,
+                                        "workingType": "MARK_PRICE",
+                                    },
+                                    // Trailing SHORT
+                                    {
+                                        "symbol": symbol,
+                                        "side": "BUY",
+                                        "positionSide": "SHORT",
+                                        "type": "TRAILING_STOP_MARKET",
+                                        "callbackRate": "5",
+                                        "activationPrice": `${priceForCloseLongTakeShort}`,
+                                        "quantity": `${quantity}`,
+                                        "workingType": "MARK_PRICE"
+                                    },
                                 ]
 
                                 const encodeCloseOrder = encodeURIComponent(JSON.stringify(batchCloseOrderCutOneWay))
