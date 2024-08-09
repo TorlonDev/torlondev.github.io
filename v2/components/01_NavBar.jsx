@@ -262,9 +262,9 @@ const MenuTopRight = () => {
             // "display": isShowLangChoose ? 'block' : 'none',
             "position": 'absolute',
             top: '50px',
-            'marginLeft': '-40px',
+            'marginLeft': '-60px',
             backgroundColor: 'var(--subNavBarColor)',
-            "width": '100px',
+            "width": '120px',
             'textAlign': 'center',
             padding: '12px',
             borderRadius: '7%'
