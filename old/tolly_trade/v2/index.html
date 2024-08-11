@@ -69,8 +69,7 @@
         Auto Leverage : <input id="auto_leverage" type="number" style="width: 30px;" value="12" />&nbsp;x&nbsp;
         <!-- <button>Change Default Every Coin</button>-->
         | Cut Percent : <input id="cut_percent" type="number" style="width: 40px;" value="5.94" />%<br/><br/>
-        * Trick - Close at PNL < 0.23 (Corcern 75% of Wallet)<br/>
-        * Trick - Close at PNL > 0.46 is very good. (Cut one at 0.33)
+        * Trick - Close at PNL > min_margin is very good. (Because cut near Liq %)
         <br /><br />
         <hr /><br />
 
@@ -457,7 +456,7 @@
             });
         }
 
-        function closeOrder(symbol) {
+        function closeOrder(symbol, cb = () => {}) {
             console.log('close order')
             console.log(symbol)
 
@@ -520,6 +519,7 @@
                             $(`#unrealizedProfit_${symbol}`).html('')
 
                             setTimeout(closeModal, 1000)
+                            cb()
                         },
                         error: function (err) {
                             console.log(err)
@@ -847,7 +847,9 @@
             }
 
             // checkAvailableBalance(setMarginType) This line make api hard call 
-            setMarginType()
+            // setMarginType()
+
+            closeOrder(symbol, setMarginType)
         }
 
         checkExchangeInfoAndPercentMarket()
