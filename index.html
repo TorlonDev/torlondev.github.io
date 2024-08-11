@@ -40,7 +40,7 @@
       --navBarHeight: 60px;
       --navBarElementMaxWidth: 1000px;
       --sideBarWidth: 200px;
-      --mobileMaxWidth: 649px;
+      --mobileMaxWidth: 639px; /* Follow Tailwind CSS min-width of sm is 640px */
       --desktopMinWidth: calc(var(--mobileMaxWidth) + 1px);
       --contentMinWidth: 360px;
 
@@ -139,10 +139,10 @@
     const { HashRouter, NavLink, Route, Switch: Routes, useLocation } = ReactRouterDOM;
 
     const mobileCSS = (styles = '') => `
-    @media only screen and (max-width: 649px) {${styles}}
+    @media only screen and (max-width: 639px) {${styles}}
   `
     const desktopCSS = (styles = '') => `
-    @media only screen and (min-width: 650px) {${styles}}
+    @media only screen and (min-width: 640px) {${styles}}
   `
     const themeList = ['LIGHT', 'DARK']
 

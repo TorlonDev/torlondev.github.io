@@ -7,7 +7,7 @@ const Routing = () => (
       return <></>
     }} />
     <Route exact path="/home" component={DefaultWrapper(<Home />)} />
-    <Route exact path="/cv" component={CV} />
+    <Route exact path="/cv" component={DefaultWrapper(<CV />)} />
     <Route exact path="/blogs" component={DefaultWrapper(<Blogs />)} />
     <Route exact path="/life" component={DefaultWrapper(<Life />)} />
     <Route exact path="/projects" component={DefaultWrapper(<Projects />)} />
