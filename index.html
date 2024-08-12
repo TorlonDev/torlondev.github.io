@@ -40,8 +40,9 @@
       --navBarHeight: 60px;
       --navBarElementMaxWidth: 1000px;
       --sideBarWidth: 200px;
-      --mobileMaxWidth: 639px; /* Follow Tailwind CSS min-width of sm is 640px */
-      --desktopMinWidth: calc(var(--mobileMaxWidth) + 1px);
+      --mobileMaxWidth: 639.9px;
+      /* Follow Tailwind CSS min-width of sm is 640px */
+      --desktopMinWidth: calc(var(--mobileMaxWidth) + 0.1px);
       --contentMinWidth: 360px;
 
       /* theme variable */
@@ -83,6 +84,20 @@
 
       font-weight: 700;
     }
+
+    .marker_bounce {
+      animation: marker_bounce 1s infinite;
+    }
+
+    @keyframes marker_bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
   </style>
 </head>
 
@@ -116,11 +131,7 @@
             return alert('App already installed.')
           }
           else {
-            alert(`
-            Your browser is not support this function for security reason.\r\n
-            For Android & Windows - Please try Google Chrome instead.\r\n
-            For iOS & Apple - Please try Safari instead.
-          `)
+            alert(`Your browser is not support this function.\r\n`)
           }
         }
       });
@@ -139,7 +150,7 @@
     const { HashRouter, NavLink, Route, Switch: Routes, useLocation } = ReactRouterDOM;
 
     const mobileCSS = (styles = '') => `
-    @media only screen and (max-width: 639px) {${styles}}
+    @media only screen and (max-width: 639.9px) {${styles}}
   `
     const desktopCSS = (styles = '') => `
     @media only screen and (min-width: 640px) {${styles}}
@@ -160,6 +171,8 @@
         { var: 'BGColor', light: 'whitesmoke', dark: 'black' },
         { var: 'color', light: 'black', dark: 'whitesmoke' },
         { var: 'linkColor', light: 'blue', dark: 'green' },
+        // cv 
+        { var: 'nameCoverColor', light: 'lightgray', dark: 'dimgray' },
       ]).forEach(el => {
         $(':root').css(`--${el.var}`, el[themeSet] || el.light)
       });
@@ -328,7 +341,28 @@
         e.parentElement.removeChild(e);
       });
     });
+
+    async function initMap() {
+      if (typeof google !== 'undefined' && typeof google.maps.importLibrary === 'function' && document.getElementById("map_tol")) {
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+        const mapProp = {
+          center: new google.maps.LatLng(13.7332699, 100.5499809),
+          zoom: 14,
+          mapId: "AIzaSyAGt4lU6xckIRACaM",
+        };
+        const map = new google.maps.Map(document.getElementById("map_tol"), mapProp);
+
+        const marker = new AdvancedMarkerElement({
+          position: { lat: 13.7332699, lng: 100.5499809 },
+        });
+
+        marker.content.classList.add("marker_bounce")
+        marker.setMap(map);
+      }
+    }
   </script>
+   <script del="del"
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM&loading=async&callback=initMap"></script>
 </body>
 
 </html>

@@ -75,11 +75,11 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
   return <>
     <style>{styles}</style>
     <div className={`sidebar-wrapper ${isShowSideBar ? "active" : ""}`}>
-      <NavLink className="navlink text-l" to="/home" onClick={hideSideBar}>{lang.home?.[l]}</NavLink>
-      <NavLink className="navlink text-l" to="/cv" onClick={hideSideBar}>{lang.cv?.[l]}</NavLink>
-      <NavLink className="navlink text-l" to="/blogs" onClick={hideSideBar}>{lang.blogs?.[l]}</NavLink>
-      <NavLink className="navlink text-l" to="/life" onClick={hideSideBar}>{lang.life?.[l]}</NavLink>
-      <NavLink className="navlink text-l" to="/time_machine" onClick={hideSideBar}>{lang.time_machine?.[l]}</NavLink>
+      <NavLink className="navlink text-l whitespace-nowrap" to="/home" onClick={hideSideBar}>{lang.home?.[l]}</NavLink>
+      <NavLink className="navlink text-l whitespace-nowrap" to="/cv" onClick={hideSideBar}>{lang.cv?.[l]}</NavLink>
+      <NavLink className="navlink text-l whitespace-nowrap" to="/blogs" onClick={hideSideBar}>{lang.blogs?.[l]}</NavLink>
+      <NavLink className="navlink text-l whitespace-nowrap" to="/life" onClick={hideSideBar}>{lang.life?.[l]}</NavLink>
+      <NavLink className="navlink text-l whitespace-nowrap" to="/time_machine" onClick={hideSideBar}>{lang.time_machine?.[l]}</NavLink>
     </div>
   </>
 }
