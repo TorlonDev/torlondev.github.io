@@ -85,7 +85,7 @@ const CV = () => {
       </div>
 
       <div className="name_and_job self-center flex flex-col items-center justify-start sm:self-start sm:items-start sm:justify-center sm:px-4 md:px-5">
-        <p class="text-xl sm:text-2xl md:text-3xl md:text-nowrap lg:text-5xl">{langCV.my_full_name[l]}</p>
+        <p class={`text-nowrap ${isFBApp? 'text-lg sm:text-xl md:text-2xl lg:text-4xl': 'text-xl sm:text-2xl md:text-3xl lg:text-5xl'}`}>{langCV.my_full_name[l]}</p>
         <p class="text-base md:text-xl text-nowrap m-1">{langCV.my_role[l]}</p>
         <p class="text-base md:text-xl text-nowrap m-1 mt-0">tron.natthakorn@engineer.com</p>
         <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class=" mx-auto my-4" />
