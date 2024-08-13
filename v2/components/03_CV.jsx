@@ -41,13 +41,70 @@ const langCV = {
     CN: '地址',
     JP: '住所',
   },
+  age: {
+    EN: 'Age',
+    TH: 'อายุ',
+    CN: '年龄',
+    JP: '年齢',
+  },
+  year: {
+    EN: 'Year',
+    TH: 'ปี',
+    CN: '岁',
+    JP: '歳',
+  },
+  month: {
+    EN: 'Month',
+    TH: 'เดือน',
+    CN: '个月',
+    JP: 'ヶ月',
+  },
+  day: {
+    EN: 'Day',
+    TH: 'วัน',
+    CN: '天',
+    JP: '日',
+  }
 }
 
 const CV = () => {
-  const { currentLanguage: l } = useContext(Context)
+  const { currentLanguage: l, isTH, isEN, isCalculateAge, setIsCalculateAge } = useContext(Context)
+  const [age, setAge] = useState({ year: 2, month: 2, day: 2 })
+
+  const setAgeAfterCalculate = () => {
+    setAge(getAge("11/6/1992"))
+
+    // No Server Attack No Socket Required.
+    setInterval(() => {
+      setAge(getAge("11/6/1992"))
+    }, 7000)
+  }
 
   useEffect(() => {
     initMap()
+
+    if (!isCalculateAge) {
+      const year_loop = (new Date().getFullYear() - 1992) - 1
+      const maxTimeLoop = 5000
+      const goodDevide = maxTimeLoop / year_loop
+
+      for (let i = 1; i <= maxTimeLoop; i++) {
+        setTimeout(function () {
+          if (i < maxTimeLoop - 10) {
+            setAge({
+              year: Math.floor(i / goodDevide),
+              month: randomIntFromInterval(2, 9),
+              day: randomIntFromInterval(10, 28)
+            })
+          } else {
+            setIsCalculateAge(true)
+            setAgeAfterCalculate()
+          }
+        }, i)
+      }
+    } else {
+      setAgeAfterCalculate()
+    }
   }, [])
 
   return <>
@@ -64,11 +121,13 @@ const CV = () => {
             max-width: 250px;
           }
           .name_and_job {
-            height: 220px;
-            width: 100%;
+            height: 180px;
+            width: 680px;
             background-color: var(--nameCoverColor);
             margin-top: 30px;
-            
+          }
+          .cv_content {
+            margin-top: -50px;
           }
           .wrapper_under_image {
             min-width: 250px;
@@ -79,34 +138,44 @@ const CV = () => {
         `)
       }
     </style>
-    <div className={`${isFBApp ? 'text-lg': 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
+    <div className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
       <div className="wrapper_myself_img p-3 self-center items-center flex flex-col sm:self-start" style={{ minWidth: '250px' }}>
         <img className="self-center text-nowrap" src="v2/img/tron_lum.jpg" style={{ minWidth: '200px', height: '250px', borderRadius: '50%' }} />
       </div>
 
       <div className="name_and_job self-center flex flex-col items-center justify-start sm:self-start sm:items-start sm:justify-center sm:px-4 md:px-5">
-        <p class={`text-nowrap ${isFBApp? 'text-lg sm:text-xl md:text-2xl lg:text-4xl': 'text-xl sm:text-2xl md:text-3xl lg:text-5xl'}`}>{langCV.my_full_name[l]}</p>
+        <p class={`text-nowrap ${isFBApp ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl' : 'text-xl sm:text-2xl md:text-3xl lg:text-4xl'}`}>{langCV.my_full_name[l]}</p>
         <p class="text-base md:text-xl text-nowrap m-1">{langCV.my_role[l]}</p>
         <p class="text-base md:text-xl text-nowrap m-1 mt-0">tron.natthakorn@engineer.com</p>
         <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class=" mx-auto my-4" />
       </div>
     </div>
 
-    <div className={`${isFBApp ? 'text-lg': 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
-      <div style={{ flexWrap: 'wrap' }} className={`${isFBApp ? 'text-xs': 'text-sm'} wrapper_under_image flex flex-row items-center justify-center px-3 sm:px-0 sm:flex-col sm:justify-start`}>
-        <p>{langCV.nickname[l]}: {l === 'TH' ? 'ต็อน' : 'Tron'}</p>
-        <p className="ml-5 sm:ml-0">{langCV.nationality[l]}: {l === 'TH' ? 'ไทย' : 'Thai'}</p> <div className="basis-full sm:basis-0"></div>
-        <div style={{ flexWrap: 'wrap' }} className="flex flex-row justify-center sm:flex-col sm:items-center my-1">
-          <p className="whitespace-nowrap">{langCV.address[l]}: <span>{l === 'TH' ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{l === 'TH' ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
-        </div>
-        <div id="map_tol" style={{ width: '90%', height: '120px' }}></div>
+    <div className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
+      <div style={{ flexWrap: 'wrap' }} className={`${isFBApp ? 'text-xs' : 'text-sm'} wrapper_under_image flex flex-row items-center justify-center px-3 sm:px-0 sm:flex-col sm:justify-start`}>
+        <p>{langCV.nickname[l]}: {isTH ? 'ต็อน' : 'Tron'}</p>
+        <p className="ml-5 sm:ml-0 text-nowrap flex flex-row justify-center items-center sm:mt-1">{langCV.nationality[l]}: {isTH ? 'ไทย' : 'Thai'} <img src="v2/img/thai_flag.jpg" className="ml-1" style={{ width: '22px', height: '18px' }} /></p>
+        <div className="basis-full sm:basis-0"></div>
+        <p style={{ flexWrap: 'wrap' }} className="flex flex-row justify-center sm:flex-col sm:items-center mt-1">
+          <p className="text-nowrap">
+            {`${langCV.age[l]}`}: {`
+            ${age.year > 0 ? `${age.year} ${langCV.year[l]}${isEN && age.year > 1 ? 's' : ''}` : ''}
+            ${age.month > 0 ? `${age.month} ${langCV.month[l]}${isEN && age.month > 1 ? 's' : ''}` : ''} 
+            ${age.day > 0 ? `${age.day} ${langCV.day[l]}${isEN && age.day > 1 ? 's' : ''}` : ''}
+            `}
+          </p>
+        </p>
+        <div className="basis-full sm:basis-0"></div>
+        <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-1">
+          <p className="whitespace-nowrap">{langCV.address[l]}: <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
+        </p>
+        <div className="mt-1" id="map_tol" style={{ width: '90%', height: '120px' }}></div>
       </div>
-      <div style={{ height: '500px' }} className="p-4 sm:pt-0 flex flex-col items-center sm:items-start">
+      <div style={{ height: '500px' }} className="cv_content p-4 sm:pt-0 flex flex-col items-center sm:items-start">
         <span>{langCV.cv_developing[l]}</span>
         <a className="underline a_link" target="_blank" href="./old/#/cv">
           {langCV.go_old_cv[l]}</a>
       </div>
     </div>
-
   </>
 }

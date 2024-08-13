@@ -85,10 +85,9 @@ angular.module('starter.controllers', []).controller('NavCtrl', function ($scope
     $scope.isToggle = false
     $scope.isToggle = decisionToggleMode()
 
-    let my_y_animate = (((new Date()).getFullYear()) - 1992) - 1
-
     $('#age_pure').html("0 Year 0 Month And 0 Days")
 
+    let my_y_animate = (((new Date()).getFullYear()) - 1992) - 1
     let maxTimeanimate = 6900
     let goodDevide = maxTimeanimate / my_y_animate
 

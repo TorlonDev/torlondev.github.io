@@ -272,6 +272,7 @@
       // const [isShowLangChoose, setIsShowLangChoose] = useState(false)
       const [isShowSideBar, setIsShowSideBar] = useState(false)
       const [currentLanguage, setCurrentLanguageContext] = useState(language || 'EN')
+      const [isCalculateAge, setIsCalculateAge] = useState(false)
 
       const [isEN, setIsEN] = useState(language === 'EN')
       const [isTH, setIsTH] = useState(language === 'TH')
@@ -316,6 +317,8 @@
           // setIsShowLangChoose,
           isShowSideBar,
           setIsShowSideBar,
+          isCalculateAge,
+          setIsCalculateAge,
         }}>
         {children}
       </Provider>
