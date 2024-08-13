@@ -122,13 +122,13 @@ const CV = () => {
             max-width: 250px;
           }
           .name_and_job {
-            height: 180px;
+            height: 160px;
             width: 680px;
             background-color: var(--nameCoverColor);
             margin-top: 30px;
           }
           .cv_content {
-            margin-top: -50px;
+            margin-top: -70px;
           }
           .wrapper_under_image {
             min-width: 250px;
@@ -147,7 +147,6 @@ const CV = () => {
       <div className="name_and_job self-center flex flex-col items-center justify-start sm:self-start sm:items-start sm:justify-center sm:px-4 md:px-5">
         <p class={`text-nowrap ${isFBApp ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl' : 'text-xl sm:text-2xl md:text-3xl lg:text-4xl'}`}>{langCV.my_full_name[l]}</p>
         <p class="text-base md:text-xl text-nowrap m-1">{langCV.my_role[l]}</p>
-        <p class="text-base md:text-xl text-nowrap m-1 mt-0">tron.natthakorn@engineer.com</p>
         <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class=" mx-auto my-4" />
       </div>
     </div>
@@ -168,9 +167,16 @@ const CV = () => {
         </p>
         <div className="basis-full sm:basis-0"></div>
         <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-1">
-          <p className="whitespace-nowrap">{langCV.address[l]}: <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
+          <p className="whitespace-nowrap">{/*langCV.address[l]*/}<i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
         </p>
-        <div className="mt-1" id="map_tol" style={{ width: '90%', height: '120px' }}></div>
+        <div className="basis-full sm:basis-0"></div>
+        <div className="mt-2" id="map_tol" style={{ width: '90%', height: '120px' }}></div>
+        <div className="basis-full sm:basis-0"></div>
+        <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-1">
+          <p className="text-nowrap"><i class="fa-solid fa-envelope"></i> : tron.natthakorn@engineer.com</p>
+        </p>
+        <p className="mt-1 ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
+        <div className="basis-full sm:basis-0"></div>
       </div>
       <div style={{ height: '500px' }} className="cv_content p-4 sm:pt-0 flex flex-col items-center sm:items-start">
         <span>{langCV.cv_developing[l]}</span>
