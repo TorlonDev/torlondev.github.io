@@ -81,6 +81,7 @@ const CV = () => {
   }
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     initMap()
 
     if (!isCalculateAge) {

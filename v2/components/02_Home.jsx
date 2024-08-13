@@ -56,6 +56,8 @@ const Home = () => {
 
   // componentDidMount
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     load_snow()
     spring_falling()
     raining()
