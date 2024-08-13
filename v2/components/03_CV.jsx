@@ -79,7 +79,7 @@ const CV = () => {
         `)
       }
     </style>
-    <div className="text-xl px-2 sm:px-4 flex !flex-col sm:!flex-row">
+    <div className={`${isFBApp ? 'text-lg': 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
       <div className="wrapper_myself_img p-3 self-center items-center flex flex-col sm:self-start" style={{ minWidth: '250px' }}>
         <img className="self-center text-nowrap" src="v2/img/tron_lum.jpg" style={{ minWidth: '200px', height: '250px', borderRadius: '50%' }} />
       </div>
@@ -92,8 +92,8 @@ const CV = () => {
       </div>
     </div>
 
-    <div className="text-xl px-2 sm:px-4 flex !flex-col sm:!flex-row">
-      <div style={{ flexWrap: 'wrap' }} className="text-sm wrapper_under_image flex flex-row items-center justify-center px-3 sm:px-0 sm:flex-col sm:justify-start">
+    <div className={`${isFBApp ? 'text-lg': 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
+      <div style={{ flexWrap: 'wrap' }} className={`${isFBApp ? 'text-xs': 'text-sm'} wrapper_under_image flex flex-row items-center justify-center px-3 sm:px-0 sm:flex-col sm:justify-start`}>
         <p>{langCV.nickname[l]}: {l === 'TH' ? 'ต็อน' : 'Tron'}</p>
         <p className="ml-5 sm:ml-0">{langCV.nationality[l]}: {l === 'TH' ? 'ไทย' : 'Thai'}</p> <div className="basis-full sm:basis-0"></div>
         <div style={{ flexWrap: 'wrap' }} className="flex flex-row justify-center sm:flex-col sm:items-center my-1">
