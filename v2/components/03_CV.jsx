@@ -114,6 +114,9 @@ const CV = () => {
         `
 
         ` + mobileCSS(`
+          #map_tol {
+            height: 140px;
+          }
 
         `) + desktopCSS(`
           .wrapper_myself_img {
@@ -127,6 +130,11 @@ const CV = () => {
             background-color: var(--nameCoverColor);
             margin-top: 30px;
           }
+
+          #map_tol {
+            height: 120px;
+          }
+
           .cv_content {
             margin-top: -70px;
           }
@@ -170,12 +178,12 @@ const CV = () => {
           <p className="whitespace-nowrap">{/*langCV.address[l]*/}<i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
         </p>
         <div className="basis-full sm:basis-0"></div>
-        <div className="mt-2" id="map_tol" style={{ width: '90%', height: '120px' }}></div>
+        <div className="mt-2" id="map_tol" style={{ width: '90%' }}></div>
         <div className="basis-full sm:basis-0"></div>
-        <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-1">
+        <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-2">
           <p className="text-nowrap"><i class="fa-solid fa-envelope"></i> : tron.natthakorn@engineer.com</p>
         </p>
-        <p className="mt-1 ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
+        <p className="mt-2 sm:mt-1 ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
         <div className="basis-full sm:basis-0"></div>
       </div>
       <div style={{ height: '500px' }} className="cv_content p-4 sm:pt-0 flex flex-col items-center sm:items-start">
