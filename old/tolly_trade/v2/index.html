@@ -66,9 +66,9 @@
             value="" /><br /><br />
         Available Balance: <span id="available_balance">-</span>&nbsp;USDT&nbsp;<button
             onclick="checkAvailableBalance()">Check Balance</button><br /><br />
-        Auto Leverage : <input id="auto_leverage" type="number" style="width: 30px;" value="12" />&nbsp;x&nbsp;
+        Auto Leverage : <input id="auto_leverage" type="number" style="width: 30px;" value="11" />&nbsp;x&nbsp;
         <!-- <button>Change Default Every Coin</button>-->
-        | Cut Percent : <input id="cut_percent" type="number" style="width: 40px;" value="5.94" />%<br/><br/>
+        | Cut Percent : <input id="cut_percent" type="number" style="width: 40px;" value="6.94" />%<br/><br/>
         * Trick - Close at PNL > min_margin is very good. (Because cut near Liq %)
         <br /><br />
         <hr /><br />
@@ -276,7 +276,9 @@
                                     if (symbol in positionListSymbolKey) {
                                         const defaultMargin = 5.1
 
-                                        if (symbol.includes('USDT') && arr_delist_or_no_trade.indexOf(symbol) === -1) {
+                                        if (
+                                            symbol.includes('USDT') && arr_delist_or_no_trade.indexOf(symbol) === -1 && !symbol.includes('_')
+                                        ) {
                                             $('#tbody_percent_change_24h').append(`
                                             <tr>
                                                 <td style="width: 50px !important;">${symbol}</td><!--<td>${lastPrice}</td>--><td style="width: 28px !important;">${parseFloat(priceChangePercent).toFixed(1)} %</td>
@@ -717,7 +719,7 @@
                                         "side": "SELL",
                                         "positionSide": "LONG",
                                         "type": "TRAILING_STOP_MARKET",
-                                        "callbackRate": "4",
+                                        "callbackRate": "5",
                                         "activationPrice": `${priceForCloseShortTakeLong}`,
                                         "quantity": `${quantity}`,
                                         "workingType": "MARK_PRICE",
@@ -728,7 +730,7 @@
                                         "side": "BUY",
                                         "positionSide": "SHORT",
                                         "type": "TRAILING_STOP_MARKET",
-                                        "callbackRate": "4",
+                                        "callbackRate": "5",
                                         "activationPrice": `${priceForCloseLongTakeShort}`,
                                         "quantity": `${quantity}`,
                                         "workingType": "MARK_PRICE"
