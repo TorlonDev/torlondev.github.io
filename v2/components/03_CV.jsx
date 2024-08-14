@@ -11,6 +11,12 @@ const langCV = {
     CN: '转到旧版本',
     JP: '古いバージョンに移動する'
   },
+  download: {
+    EN: 'Download as',
+    TH: 'ดาวน์โหลด',
+    CN: '下载',
+    JP: 'ダウンロード'
+  },
   my_full_name: {
     EN: 'NATTHAKORN NAKHASENO',
     TH: 'ณัฐกรณ์ นาคะเสโน',
@@ -127,6 +133,9 @@ const CV = () => {
           .btn_cv_pdf {
             margin-right: 10px;
           }
+          .fa-file-pdf {
+            vertical-align: middle;
+          }
           .wrapper_myself_img {
             height: 280px;
             background-color: var(--navBarBGColor);
@@ -168,7 +177,7 @@ const CV = () => {
         <p class="text-base md:text-xl text-nowrap m-1">{langCV.my_role[l]}</p>
         <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class=" mx-auto my-4" />
       </div>
-      <a target="_blank" href="doc/CV-TronNatthakorn.pdf" style={{ position: 'absolute', right: 0, top: 4, backgroundColor: '#B30B00' }} class="btn_cv_pdf rounded-lg text-white text-2xl sm:text-xl px-3 py-3 pr-2.5 sm:pt-1.5 text-center"><span className="text-sm hidden sm:inline">Download as</span><i class="fa-solid fa-file-pdf sm:ml-1"></i></a>
+      <a target="_blank" href="doc/CV-TronNatthakorn.pdf" style={{ position: 'absolute', right: 0, top: 4, backgroundColor: '#B30B00' }} class="btn_cv_pdf rounded-lg text-white text-2xl sm:text-xl px-3 py-3 pr-2.5 pt-2 sm:pt-1 text-center"><span className="text-sm hidden sm:inline">{langCV.download[l]}</span><i class="fa-solid fa-file-pdf sm:ml-1"></i></a>
 
     </div>
 
