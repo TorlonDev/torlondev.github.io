@@ -116,6 +116,7 @@ const CV = () => {
         ` + mobileCSS(`
           #map_tol {
             height: 140px;
+            width: 300px;
           }
 
         `) + desktopCSS(`
@@ -133,6 +134,7 @@ const CV = () => {
 
           #map_tol {
             height: 120px;
+            width: 240px;
           }
 
           .cv_content {
@@ -178,7 +180,7 @@ const CV = () => {
           <p className="whitespace-nowrap">{/*langCV.address[l]*/}<i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
         </p>
         <div className="basis-full sm:basis-0"></div>
-        <div className="mt-2" id="map_tol" style={{ width: '90%' }}></div>
+        <div className="mt-2" id="map_tol"></div>
         <div className="basis-full sm:basis-0"></div>
         <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-2">
           <p className="text-nowrap"><i class="fa-solid fa-envelope"></i> : tron.natthakorn@engineer.com</p>
