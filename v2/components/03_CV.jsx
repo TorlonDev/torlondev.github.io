@@ -112,14 +112,21 @@ const CV = () => {
     <style>
       {
         `
-
+          .btn_cv_pdf {
+            cursor: pointer;
+          }
         ` + mobileCSS(`
+          .btn_cv_pdf {
+            margin-right: 20px;
+          }
           #map_tol {
             height: 140px;
             width: 300px;
           }
-
         `) + desktopCSS(`
+          .btn_cv_pdf {
+            margin-right: 10px;
+          }
           .wrapper_myself_img {
             height: 280px;
             background-color: var(--navBarBGColor);
@@ -127,7 +134,7 @@ const CV = () => {
           }
           .name_and_job {
             height: 160px;
-            width: 680px;
+            width: 100%;
             background-color: var(--nameCoverColor);
             margin-top: 30px;
           }
@@ -149,7 +156,9 @@ const CV = () => {
         `)
       }
     </style>
-    <div className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
+  
+    <div style={{ position: 'relative' }} className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
+
       <div className="wrapper_myself_img p-3 self-center items-center flex flex-col sm:self-start" style={{ minWidth: '250px' }}>
         <img className="self-center text-nowrap" src="v2/img/tron_lum.jpg" style={{ minWidth: '200px', height: '250px', borderRadius: '50%' }} />
       </div>
@@ -159,6 +168,8 @@ const CV = () => {
         <p class="text-base md:text-xl text-nowrap m-1">{langCV.my_role[l]}</p>
         <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class=" mx-auto my-4" />
       </div>
+      <a target="_blank" href="doc/CV-TronNatthakorn.pdf" style={{ position: 'absolute', right: 0, top: 4, backgroundColor: '#B30B00' }} class="btn_cv_pdf rounded-lg text-white text-2xl sm:text-xl px-3 py-3 pr-2.5 sm:pt-1.5 text-center"><span className="text-sm hidden sm:inline">Download as</span><i class="fa-solid fa-file-pdf sm:ml-1"></i></a>
+
     </div>
 
     <div className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
