@@ -70,11 +70,23 @@ const langCV = {
     TH: 'วัน',
     CN: '天',
     JP: '日',
-  }
+  },
+  work_experience: {
+    EN: 'WORK EXPERIENCE',
+    TH: 'ประสบการณ์ทำงาน',
+    CN: '工作经验',
+    JP: 'しょくむけいけん',
+  },
+  education: {
+    EN: 'EDUCATION',
+    TH: 'การศึกษา',
+    CN: '教育',
+    JP: 'きょういく',
+  },
 }
 
 const CV = () => {
-  const { currentLanguage: l, isTH, isEN, isCalculateAge, setIsCalculateAge } = useContext(Context)
+  const { currentLanguage: l, isTH, isEN, isCN, isCalculateAge, setIsCalculateAge } = useContext(Context)
   const [age, setAge] = useState({ year: 2, month: 2, day: 2 })
 
   const setAgeAfterCalculate = () => {
@@ -144,7 +156,7 @@ const CV = () => {
           .name_and_job {
             height: 160px;
             width: 100%;
-            background-color: var(--nameCoverColor);
+            background-color: var(--cvCoverColor);
             margin-top: 30px;
           }
 
@@ -160,12 +172,117 @@ const CV = () => {
             min-width: 250px;
             max-width: 250px;
             background-color: var(--navBarBGColor);
-            height: 100vh;
+
           }
         `)
       }
     </style>
-  
+
+    <style>
+      {
+        `
+        /* TimeLine CSS */
+
+        .timeline-left, .timeline-right {
+          position: relative;
+          width: 100%;
+          margin: 0 auto;
+        }
+
+        /* Vertical Time Line */
+        .timeline-left::after, .timeline-right::after {
+          content: '';
+          position: absolute;
+          width: 6px;
+          background-color: var(--color);
+          top: 0;
+          bottom: 0;
+        }
+
+        /* Vertical Time Line */
+        .timeline-left::after {
+          margin-left: -3px;
+          left: 31px;
+        }
+
+        /* Vertical Time Line */
+        .timeline-right::after {
+          margin-right: -3px;
+          right: 31px;
+        }
+
+        /* Circle */
+        .container-left::after, .container-right::after {
+          content: '';
+          position: absolute;
+          width: 30px;
+          height: 30px;
+          background-color: white;
+          border: 4px solid darkslategray;
+          top: 15px;
+          border-radius: 50%;
+          z-index: 1;
+        }
+
+        .container-left {
+          padding: 10px 40px;
+          position: relative;
+          width: 100%;
+
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+
+        .container-right {
+          padding: 10px 40px;
+          position: relative;
+          width: 100%;
+
+          padding-right: 70px;
+          padding-left: 25px;
+        }
+
+        .content-left, .content-right {
+          background-color: var(--BGColor);
+          color: var(--color);
+          position: relative;
+          border-radius: 6px;
+          border: 1px solid var(--color);
+        }
+
+        /* Triangle */
+        .left-t::before, .right-t::before {
+          content: " ";
+          height: 0;
+          position: absolute;
+          top: 22px;
+          width: 0;
+          z-index: 1;
+          border: medium solid var(--color);
+          border-width: 10px 0 10px 10px;
+          border-color: transparent transparent transparent var(--color);
+        }
+
+        .left-t::before {
+          left: 60px;
+          right: 30px;
+        }
+
+        .right-t::before {
+          /* left: 30px; */
+          right: 60px;
+        }
+
+        /* Circle */
+        .left-t::after {
+          left: 15px;
+        }
+        .right-t::after {
+          right: 15px;
+        }`
+      }
+    </style>
+
     <div style={{ position: 'relative' }} className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
 
       <div className="wrapper_myself_img p-3 self-center items-center flex flex-col sm:self-start" style={{ minWidth: '250px' }}>
@@ -197,7 +314,7 @@ const CV = () => {
         </p>
         <div className="basis-full sm:basis-0"></div>
         <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-1">
-          <p className="whitespace-nowrap">{/*langCV.address[l]*/}<i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
+          <p className="whitespace-nowrap"><i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
         </p>
         <div className="basis-full sm:basis-0"></div>
         <div className="mt-2" id="map_tol"></div>
@@ -208,10 +325,60 @@ const CV = () => {
         <p className="mt-2 sm:mt-1 ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
         <div className="basis-full sm:basis-0"></div>
       </div>
-      <div style={{ height: '500px' }} className="cv_content p-4 sm:pt-0 flex flex-col items-center sm:items-start">
-        <span>{langCV.cv_developing[l]}</span>
-        <a className="underline a_link" target="_blank" href="./old/#/cv">
-          {langCV.go_old_cv[l]}</a>
+      <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0 w-full">
+        <div className="p-2 px-5 text-xl" style={{
+          flexBasis: 'auto',
+          'backgroundColor': 'var(--cvCoverColor)',
+          borderBottomLeftRadius: '25px',
+          borderTopRightRadius: '25px',
+          borderBottomRightRadius: '25px',
+        }}>{langCV.work_experience[l]}</div>
+
+        <div class="timeline-left py-5 text-base">
+          <div class="container-left left-t">
+            <div class="content-left p-5">
+              <p>Mar 2019 - Jun 2021: Luma Health Insurance.</p>
+            </div>
+          </div>
+          <div class="container-left left-t">
+            <div class="content-left p-5">
+              <p>Mar 2017 - Jul 2018: Scale360.</p>
+            </div>
+          </div>
+          <div class="container-left left-t">
+            <div class="content-left p-5">
+              <p>May 2014 - Feb 2015: True Corporation.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-2 px-5 text-xl" style={{
+          'backgroundColor': 'var(--cvCoverColor)',
+          borderBottomRightRadius: '25px',
+          borderTopLeftRadius: '25px',
+          borderBottomLeftRadius: '25px',
+          textAlign: 'right'
+        }}>{langCV.education[l]}</div>
+
+        <div class="timeline-right py-5 text-base">
+          <div class="container-right right-t">
+            <div class="content-right p-5">
+              <p>May 2011 - Apr 2015: Panyapiwat Institute Of Management.</p>
+            </div>
+          </div>
+          <div class="container-right right-t">
+            <div class="content-right p-5">
+              <p>May 2008 - Apr 2011: Trimit Wittayalai School.</p>
+            </div>
+          </div>
+          <div class="container-right right-t">
+            <div class="content-right p-5">
+              <p>May 2005 - Apr 2008: Benchamarachuthit Chanthaburi School.</p>
+            </div>
+          </div>
+        </div>
+
+        <br /><br /><br />
       </div>
     </div>
   </>

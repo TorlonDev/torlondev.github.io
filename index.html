@@ -181,8 +181,9 @@
         { var: 'BGColor', light: 'whitesmoke', dark: 'black' },
         { var: 'color', light: 'black', dark: 'whitesmoke' },
         { var: 'linkColor', light: 'blue', dark: 'green' },
+
         // cv 
-        { var: 'nameCoverColor', light: 'lightgray', dark: 'dimgray' },
+        { var: 'cvCoverColor', light: 'lightgray', dark: 'dimgray' },
       ]).forEach(el => {
         $(':root').css(`--${el.var}`, el[themeSet] || el.light)
       });
