@@ -119,9 +119,9 @@ const CV = () => {
             setIsCalculateAge(true)
             setAgeAfterCalculate()
 
-            document.getElementById("img_luma3").scrollIntoView({
-              block: 'nearest', inline: 'center', behavior: 'smooth'
-            });
+            // document.getElementById("img_luma3").scrollIntoView({
+            //   block: 'nearest', inline: 'center', behavior: 'smooth'
+            // });
           }
         }, i)
       }
