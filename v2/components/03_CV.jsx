@@ -337,17 +337,32 @@ const CV = () => {
         <div class="timeline-left py-5 text-base">
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <p>Mar 2019 - Jun 2021: Luma Health Insurance.</p>
+              <p>Mar 2019 - Jun 2021: Luma Health Insurance.</p><br />
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '1020 / 580' }} 
+                class="flex flex-row flex-nowrap">
+                <img src="old/img/luma1.jpg"/>
+                <img src="old/img/luma2.jpg"/>
+                <img src="old/img/luma3.jpg"/>
+              </div>
             </div>
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <p>Mar 2017 - Jul 2018: Scale360.</p>
+              <p>Mar 2017 - Jul 2018: Scale360.</p><br />
+              <div style={{ overflow: 'hidden', overflowX: 'hidden', aspectRatio: '930 / 580' }} 
+                class="flex flex-row flex-nowrap">
+                <img src="old/img/scale1.jpg"/>
+              </div>
             </div>
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
               <p>May 2014 - Feb 2015: True Corporation.</p>
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '740 / 430' }} 
+                class="flex flex-row flex-nowrap">
+                <img src="old/img/true.jpg"/>
+                <img src="v2/img/true2.jpg"/>
+              </div>
             </div>
           </div>
         </div>
