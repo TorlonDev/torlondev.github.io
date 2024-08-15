@@ -143,7 +143,7 @@ const CV = () => {
           }
           #map_tol {
             height: 140px;
-            width: 300px;
+            width: calc(var(--contentMinWidth) - 10px);
           }
         `) + desktopCSS(`
           .btn_cv_pdf {
@@ -362,7 +362,7 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <p>May 2014 - Feb 2015: True Corporation.</p>
+              <p>May 2014 - Feb 2015: True Corporation.</p><br/>
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '740 / 430' }}
                 class="flex flex-row flex-nowrap">
                 <img src="old/img/true.jpg" />
