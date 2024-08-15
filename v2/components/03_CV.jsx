@@ -92,16 +92,16 @@ const FilmStripRow = ({ isTop = false }) => {
   for (let i = 0; i <= 50; i++) {
     arr_film_strip[i] = <div id={`film_strip_${i}`}
       style={{
-        backgroundColor: 'var(--cvFilmStripEl)', width: '16px', height: '16px', marginLeft: '22px',
+        backgroundColor: 'var(--cvFilmStripEl)', width: '12px', height: '12px', marginLeft: '14px',
         flexShrink: '0'
       }}></div>
   }
 
   return <div style={{ 
     overflow: 'hidden', width: '100%', backgroundColor: 'var(--cvFilmStripBG)', 
-    ...(isTop ? { borderTop: '2px solid white' }: { borderBottom: '2px solid white' })
+    ...(isTop ? { borderTop: '3px solid white' }: { borderBottom: '3px solid white' })
   }} 
-    class="flex flex-row flex-nowrap py-2 sm:py-3">
+    class="flex flex-row flex-nowrap py-2">
     {arr_film_strip}
   </div>
 }
@@ -156,7 +156,7 @@ const CV = () => {
           }
           .img_work {
             transition: transform .2s;
-            border-right: 10px solid black;
+            border-right: 14px solid black;
           }
           /*
           .img_work:active {
@@ -386,8 +386,8 @@ const CV = () => {
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '930 / 500' }}
                 class="flex flex-row flex-nowrap">
-                <img src="old/img/scale1.jpg" />
-                <img src="v2/img/scale2.jpg" />
+                <img class="img_work" src="old/img/scale1.jpg" />
+                <img class="img_work" src="v2/img/scale2.jpg" />
               </div>
               <FilmStripRow />
             </div>
@@ -398,8 +398,8 @@ const CV = () => {
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '740 / 430' }}
                 class="flex flex-row flex-nowrap">
-                <img src="old/img/true.jpg" />
-                <img src="v2/img/true2.jpg" />
+                <img class="img_work" src="old/img/true.jpg" />
+                <img class="img_work" src="v2/img/true2.jpg" />
               </div>
               <FilmStripRow />
             </div>
