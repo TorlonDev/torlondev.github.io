@@ -303,19 +303,23 @@ const CV = () => {
         .left-t::before {
           left: 60px;
           right: 30px;
+          top: 35px;
         }
 
         .right-t::before {
           /* left: 30px; */
           right: 60px;
+          top: 35px;
         }
 
         /* Circle */
         .left-t::after {
           left: 15px;
+          top: 30px;
         }
         .right-t::after {
           right: 15px;
+          top: 30px;
         }`
       }
     </style>
@@ -374,7 +378,18 @@ const CV = () => {
         <div class="timeline-left py-5 text-base">
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <p>Mar 2019 - Jun 2021: Luma Health Insurance.</p><br />
+
+              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+                <span>Mar 2019 - Jun 2021:</span>
+                <span className="text-nowrap">Luma Health Insurance.</span>
+              </div>
+              {/* <hr style={{ 'borderTop': '1px solid ', 'width': '100%' }} class="my-2" />
+
+              <div className="flex flex-row flex-wrap pb-1 text-base" style={{ columnGap: '10px' }}>
+                <span>Full Stack Developer & Android Developer & IT Support.</span>
+              </div>
+              <hr style={{ 'borderTop': '1px solid ', 'width': '100%' }} class="my-2" /> */}
+
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
                 class="flex flex-row flex-nowrap">
@@ -387,7 +402,10 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <p>Mar 2017 - Jul 2018: Scale360.</p><br />
+              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+                <span>Mar 2017 - Jul 2018:</span>
+                <span className="text-nowrap">Scale360.</span>
+              </div>
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
                 class="flex flex-row flex-nowrap">
@@ -399,7 +417,10 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <p>May 2014 - Feb 2015: True Corporation.</p><br />
+              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+                <span>May 2014 - Feb 2015:</span>
+                <span className="text-nowrap">True Corporation.</span>
+              </div>
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
                 class="flex flex-row flex-nowrap">
