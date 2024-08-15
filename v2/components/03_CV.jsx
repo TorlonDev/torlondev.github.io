@@ -157,17 +157,18 @@ const CV = () => {
           .img_work {
             /*transition: transform 2s;*/
             border-right: 14px solid black;
-            cursor: pointer;
+            /*cursor: pointer;*/
           }
           
+          /*
           .img_work:active {
             pointer-events: none;
             position: fixed;
             width: 100%;
             top: 0;
             left: 0;
-            /*transform: scale(1.5);*/
-          }
+            transform: scale(1.5);
+          }*/
         ` + mobileCSS(`
           .btn_cv_pdf {
             margin-right: 20px;
