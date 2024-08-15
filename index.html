@@ -184,6 +184,8 @@
 
         // cv 
         { var: 'cvCoverColor', light: 'lightgray', dark: 'dimgray' },
+        { var: 'cvFilmStripBG', light: 'black', dark: 'black' },
+        { var: 'cvFilmStripEl', light: 'white', dark: 'white' },
       ]).forEach(el => {
         $(':root').css(`--${el.var}`, el[themeSet] || el.light)
       });

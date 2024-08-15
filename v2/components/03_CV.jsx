@@ -104,7 +104,7 @@ const CV = () => {
 
     if (!isCalculateAge) {
       const year_loop = (new Date().getFullYear() - 1992) - 1
-      const maxTimeLoop = 5000
+      const maxTimeLoop = 4000
       const goodDevide = maxTimeLoop / year_loop
 
       for (let i = 1; i <= maxTimeLoop; i++) {
@@ -118,10 +118,6 @@ const CV = () => {
           } else {
             setIsCalculateAge(true)
             setAgeAfterCalculate()
-
-            // document.getElementById("img_luma3").scrollIntoView({
-            //   block: 'nearest', inline: 'center', behavior: 'smooth'
-            // });
           }
         }, i)
       }
@@ -129,6 +125,26 @@ const CV = () => {
       setAgeAfterCalculate()
     }
   }, [])
+
+  const FilmStripRow = ({ isTop = false }) => {
+    const arr_film_strip = []
+
+    for (let i = 0; i <= 50; i++) {
+      arr_film_strip[i] = <div id={`film_strip_${i}`}
+        style={{
+          backgroundColor: 'var(--cvFilmStripEl)', width: '12px', height: '12px', marginLeft: '18px',
+          flexShrink: '0'
+        }}></div>
+    }
+
+    return <div style={{ 
+      overflow: 'hidden', width: '100%', backgroundColor: 'var(--cvFilmStripBG)', 
+      ...(isTop ? { borderTop: '2px solid white' }: { borderBottom: '2px solid white' })
+    }} 
+      class="flex flex-row flex-nowrap py-2 sm:py-3">
+      {arr_film_strip}
+    </div>
+  }
 
   return <>
     <style>
@@ -168,9 +184,10 @@ const CV = () => {
             height: 120px;
             width: 240px;
           }
-
           .cv_content {
             margin-top: -70px;
+            min-width: var(--contentMinWidth);
+            max-width: calc(var(--navBarElementMaxWidth) - 300px)
           }
           .wrapper_under_image {
             min-width: 250px;
@@ -178,6 +195,16 @@ const CV = () => {
             background-color: var(--navBarBGColor);
 
           }
+          .img_work {
+            transition: transform .2s;
+            border-right: 10px solid black;
+          }
+          /*
+          .img_work:active {
+            position: relative;
+            width: 200px;
+            transform: scale(1.5);
+          }*/
         `)
       }
     </style>
@@ -329,7 +356,7 @@ const CV = () => {
         <p className="mt-2 sm:mt-1 ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
         <div className="basis-full sm:basis-0"></div>
       </div>
-      <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0 w-full">
+      <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0">
         <div className="p-2 px-5 text-xl" style={{
           flexBasis: 'auto',
           'backgroundColor': 'var(--cvCoverColor)',
@@ -342,32 +369,38 @@ const CV = () => {
           <div class="container-left left-t">
             <div class="content-left p-5">
               <p>Mar 2019 - Jun 2021: Luma Health Insurance.</p><br />
+              <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '1020 / 500' }}
                 class="flex flex-row flex-nowrap">
-                <img src="old/img/luma1.jpg" id="img_luma1" />
-                <img src="old/img/luma2.jpg" id="img_luma2" />
-                <img src="old/img/luma3.jpg" id="img_luma3" />
+                <img class="img_work" src="old/img/luma1.jpg" />
+                <img class="img_work" src="old/img/luma2.jpg" />
+                <img class="img_work" src="old/img/luma3.jpg" />
               </div>
+              <FilmStripRow />
             </div>
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
               <p>Mar 2017 - Jul 2018: Scale360.</p><br />
+              <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '930 / 500' }}
                 class="flex flex-row flex-nowrap">
                 <img src="old/img/scale1.jpg" />
                 <img src="v2/img/scale2.jpg" />
               </div>
+              <FilmStripRow />
             </div>
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <p>May 2014 - Feb 2015: True Corporation.</p><br/>
+              <p>May 2014 - Feb 2015: True Corporation.</p><br />
+              <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '740 / 430' }}
                 class="flex flex-row flex-nowrap">
                 <img src="old/img/true.jpg" />
                 <img src="v2/img/true2.jpg" />
               </div>
+              <FilmStripRow />
             </div>
           </div>
         </div>
