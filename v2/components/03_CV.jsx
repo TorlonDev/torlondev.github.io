@@ -155,7 +155,7 @@ const CV = () => {
             cursor: pointer;
           }
           .img_work {
-            transition: transform 2s;
+            /*transition: transform 2s;*/
             border-right: 14px solid black;
           }
           
@@ -163,7 +163,8 @@ const CV = () => {
             position: absolute;
             z-index: 999;
             width: 100%;
-            transform: scale(1.5);
+            left: 0;
+            /*transform: scale(1.5);*/
           }
         ` + mobileCSS(`
           .btn_cv_pdf {
