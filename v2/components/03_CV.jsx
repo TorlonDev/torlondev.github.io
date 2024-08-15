@@ -162,9 +162,9 @@ const CV = () => {
           
           .img_work:active {
             pointer-events: none;
-            position: absolute;
-            z-index: 999;
+            position: fixed;
             width: 100%;
+            top: 0;
             left: 0;
             /*transform: scale(1.5);*/
           }

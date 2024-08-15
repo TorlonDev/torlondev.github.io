@@ -356,10 +356,6 @@
       document.querySelectorAll("script[del='del']").forEach(function (e) {
         e.parentElement.removeChild(e);
       });
-
-      $('img').bind('contextmenu', function(e){
-        return false;
-      })
     });
 
     async function initMap() {
