@@ -396,7 +396,7 @@ const CV = () => {
             <div class="content-left p-5">
               <p>May 2014 - Feb 2015: True Corporation.</p><br />
               <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '740 / 430' }}
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '740 / 400' }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" src="old/img/true.jpg" />
                 <img class="img_work" src="v2/img/true2.jpg" />
