@@ -376,7 +376,7 @@ const CV = () => {
             <div class="content-left p-5">
               <p>Mar 2019 - Jun 2021: Luma Health Insurance.</p><br />
               <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '1020 / 500' }}
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" src="old/img/luma1.jpg" />
                 <img class="img_work" src="old/img/luma2.jpg" />
@@ -389,7 +389,7 @@ const CV = () => {
             <div class="content-left p-5">
               <p>Mar 2017 - Jul 2018: Scale360.</p><br />
               <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '930 / 500' }}
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" src="old/img/scale1.jpg" />
                 <img class="img_work" src="v2/img/scale2.jpg" />
@@ -401,7 +401,7 @@ const CV = () => {
             <div class="content-left p-5">
               <p>May 2014 - Feb 2015: True Corporation.</p><br />
               <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '740 / 400' }}
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" src="old/img/true.jpg" />
                 <img class="img_work" src="v2/img/true2.jpg" />
