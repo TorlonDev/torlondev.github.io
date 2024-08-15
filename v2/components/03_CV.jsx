@@ -157,9 +157,11 @@ const CV = () => {
           .img_work {
             /*transition: transform 2s;*/
             border-right: 14px solid black;
+            cursor: pointer;
           }
           
           .img_work:active {
+            pointer-events: none;
             position: absolute;
             z-index: 999;
             width: 100%;
