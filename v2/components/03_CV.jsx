@@ -85,6 +85,27 @@ const langCV = {
   },
 }
 
+// Do Not PUT This Component in CV (inner scope) // + because for loop
+const FilmStripRow = ({ isTop = false }) => {
+  const arr_film_strip = []
+
+  for (let i = 0; i <= 50; i++) {
+    arr_film_strip[i] = <div id={`film_strip_${i}`}
+      style={{
+        backgroundColor: 'var(--cvFilmStripEl)', width: '16px', height: '16px', marginLeft: '22px',
+        flexShrink: '0'
+      }}></div>
+  }
+
+  return <div style={{ 
+    overflow: 'hidden', width: '100%', backgroundColor: 'var(--cvFilmStripBG)', 
+    ...(isTop ? { borderTop: '2px solid white' }: { borderBottom: '2px solid white' })
+  }} 
+    class="flex flex-row flex-nowrap py-2 sm:py-3">
+    {arr_film_strip}
+  </div>
+}
+
 const CV = () => {
   const { currentLanguage: l, isTH, isEN, isCN, isCalculateAge, setIsCalculateAge } = useContext(Context)
   const [age, setAge] = useState({ year: 2, month: 2, day: 2 })
@@ -104,7 +125,7 @@ const CV = () => {
 
     if (!isCalculateAge) {
       const year_loop = (new Date().getFullYear() - 1992) - 1
-      const maxTimeLoop = 4000
+      const maxTimeLoop = 3000
       const goodDevide = maxTimeLoop / year_loop
 
       for (let i = 1; i <= maxTimeLoop; i++) {
@@ -126,26 +147,6 @@ const CV = () => {
     }
   }, [])
 
-  const FilmStripRow = ({ isTop = false }) => {
-    const arr_film_strip = []
-
-    for (let i = 0; i <= 50; i++) {
-      arr_film_strip[i] = <div id={`film_strip_${i}`}
-        style={{
-          backgroundColor: 'var(--cvFilmStripEl)', width: '12px', height: '12px', marginLeft: '18px',
-          flexShrink: '0'
-        }}></div>
-    }
-
-    return <div style={{ 
-      overflow: 'hidden', width: '100%', backgroundColor: 'var(--cvFilmStripBG)', 
-      ...(isTop ? { borderTop: '2px solid white' }: { borderBottom: '2px solid white' })
-    }} 
-      class="flex flex-row flex-nowrap py-2 sm:py-3">
-      {arr_film_strip}
-    </div>
-  }
-
   return <>
     <style>
       {
@@ -153,6 +154,16 @@ const CV = () => {
           .btn_cv_pdf {
             cursor: pointer;
           }
+          .img_work {
+            transition: transform .2s;
+            border-right: 10px solid black;
+          }
+          /*
+          .img_work:active {
+            position: relative;
+            width: 200px;
+            transform: scale(1.5);
+          }*/
         ` + mobileCSS(`
           .btn_cv_pdf {
             margin-right: 20px;
@@ -195,16 +206,6 @@ const CV = () => {
             background-color: var(--navBarBGColor);
 
           }
-          .img_work {
-            transition: transform .2s;
-            border-right: 10px solid black;
-          }
-          /*
-          .img_work:active {
-            position: relative;
-            width: 200px;
-            transform: scale(1.5);
-          }*/
         `)
       }
     </style>
