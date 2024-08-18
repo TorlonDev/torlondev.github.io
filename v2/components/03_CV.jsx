@@ -357,7 +357,10 @@ const CV = () => {
     <div style={{ position: 'relative' }} className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
 
       <div className="wrapper_myself_img p-3 self-center items-center flex flex-col sm:self-start" style={{ minWidth: '250px' }}>
-        <img className="self-center text-nowrap" src="v2/img/tron_lum.jpg" style={{ minWidth: '200px', height: '250px', borderRadius: '50%' }} />
+        <img className="self-center text-nowrap" src="v2/img/tron_lum.jpg" 
+        style={{ minWidth: '200px', height: '250px', borderRadius: '50%' }} 
+        onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/tron_lum.jpg" />`)}
+        />
       </div>
 
       <div className="name_and_job self-center flex flex-col items-center justify-start sm:self-start sm:items-start sm:justify-center sm:px-4 md:px-5">
