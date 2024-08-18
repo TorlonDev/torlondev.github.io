@@ -380,7 +380,7 @@ const CV = () => {
           borderBottomRightRadius: '25px',
         }}>{langCV.work_experience[l]}</div>
 
-        <div class="timeline-left py-2 text-base">
+        <div class="timeline-left py-2 text-sm">
           <div class="container-left left-t">
             <div class="content-left p-5">
 
@@ -445,7 +445,7 @@ const CV = () => {
           textAlign: 'right'
         }}>{langCV.education[l]}</div>
 
-        <div class="timeline-right py-2 text-base">
+        <div class="timeline-right py-2 text-sm">
           <div class="container-right right-t">
             <div class="content-right p-5">
 
