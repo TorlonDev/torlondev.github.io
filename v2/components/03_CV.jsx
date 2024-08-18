@@ -176,7 +176,7 @@ const CV = () => {
           #map_tol {
             height: 140px;
             /*width: calc(var(--contentMinWidth) - 10px);*/
-            width: 85%;
+            width: 90%;
           }
         `) + desktopCSS(`
           .btn_cv_pdf {
@@ -191,7 +191,7 @@ const CV = () => {
             max-width: 250px;
           }
           .name_and_job {
-            height: ${isSafari ? '180px': '160px'};
+            height: ${isSafari ? '180px': '145px'};
             width: 100%;
             background-color: var(--cvCoverColor);
             margin-top: 30px;
@@ -202,7 +202,7 @@ const CV = () => {
             width: 240px;
           }
           .cv_content {
-            margin-top: -70px;
+            margin-top: ${isSafari ? '-70px;': '-90px;'}
             min-width: var(--contentMinWidth);
             max-width: calc(var(--navBarElementMaxWidth) - 300px)
           }
@@ -332,8 +332,8 @@ const CV = () => {
       </div>
 
       <div className="name_and_job self-center flex flex-col items-center justify-start sm:self-start sm:items-start sm:justify-center sm:px-4 md:px-5">
-        <p class={`text-nowrap ${isFBApp ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl' : 'text-xl sm:text-2xl md:text-3xl lg:text-4xl'}`}>{langCV.my_full_name[l]}</p>
-        <p class="text-base md:text-xl text-nowrap m-1">{langCV.my_role[l]}</p>
+        <p class={`text-nowrap ${isFBApp ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl sm:mt-2' : 'text-xl sm:text-2xl md:text-3xl lg:text-4xl sm:mt-4'}`}>{langCV.my_full_name[l]}</p>
+        <p class="text-base md:text-xl text-nowrap m-1 mt-0">{langCV.my_role[l]}</p>
         <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class={`mx-auto ${isSafari ? 'my-6': 'my-4'}`} />
       </div>
       <a target="_blank" href="doc/CV-TronNatthakorn.pdf" style={{ position: 'absolute', right: 0, top: 4, backgroundColor: '#B30B00' }} class="btn_cv_pdf rounded-lg text-white text-2xl sm:text-xl px-3 py-3 pr-2.5 pt-2 sm:pt-1 text-center"><span className="text-sm hidden sm:inline">{langCV.download[l]}</span><i class="fa-solid fa-file-pdf sm:ml-1"></i></a>
@@ -341,11 +341,11 @@ const CV = () => {
     </div>
 
     <div className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
-      <div style={{ flexWrap: 'wrap' }} className={`${isFBApp ? 'text-xs' : 'text-sm'} wrapper_under_image flex flex-row items-center justify-center px-3 sm:px-0 sm:flex-col sm:justify-start`}>
+      <div style={{ flexWrap: 'wrap', columnGap: '10px', rowGap: '2px' }} className={`${isFBApp ? 'text-xs' : 'text-sm'} wrapper_under_image flex flex-row items-center justify-center px-3 sm:px-0 sm:flex-col sm:justify-start`}>
         <p>{langCV.nickname[l]}: {isTH ? 'ต็อน' : 'Tron'}</p>
-        <p className="ml-5 sm:ml-0 text-nowrap flex flex-row justify-center items-center sm:mt-1">{langCV.nationality[l]}: {isTH ? 'ไทย' : 'Thai'} <img src="v2/img/thai_flag.jpg" className="ml-1" style={{ width: '22px', height: '18px' }} /></p>
-        <div className="basis-full sm:basis-0"></div>
-        <p style={{ flexWrap: 'wrap' }} className="flex flex-row justify-center sm:flex-col sm:items-center mt-1">
+        <p className="text-nowrap flex flex-row justify-center items-center sm:mt-1">{langCV.nationality[l]}: {isTH ? 'ไทย' : 'Thai'} <img src="v2/img/thai_flag.jpg" className="ml-1" style={{ width: '22px', height: '18px' }} /></p>
+        {/* <div className="basis-full sm:basis-0"></div> */}
+        <p style={{ flexWrap: 'wrap' }} className="flex flex-row justify-center sm:flex-col sm:items-center sm:mt-1">
           <p className="text-nowrap">
             {`${langCV.age[l]}`}: {`
             ${age.year > 0 ? `${age.year} ${langCV.year[l]}${isEN && age.year > 1 ? 's' : ''}` : ''}
@@ -354,17 +354,16 @@ const CV = () => {
             `}
           </p>
         </p>
-        <div className="basis-full sm:basis-0"></div>
-        <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-1">
+        <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center sm:mt-1">
           <p className="whitespace-nowrap"><i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
         </p>
         <div className="basis-full sm:basis-0"></div>
-        <div className="mt-2" id="map_tol"></div>
+        <div id="map_tol"></div>
         <div className="basis-full sm:basis-0"></div>
-        <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center mt-2">
+        <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center">
           <p className="text-nowrap"><i class="fa-solid fa-envelope"></i> : tron.natthakorn@engineer.com</p>
         </p>
-        <p className="mt-2 sm:mt-1 ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
+        <p className="ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
         <div className="basis-full sm:basis-0"></div>
       </div>
       <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0">
@@ -376,7 +375,7 @@ const CV = () => {
           borderBottomRightRadius: '25px',
         }}>{langCV.work_experience[l]}</div>
 
-        <div class="timeline-left py-5 text-base">
+        <div class="timeline-left py-2 text-base">
           <div class="container-left left-t">
             <div class="content-left p-5">
 
@@ -441,7 +440,7 @@ const CV = () => {
           textAlign: 'right'
         }}>{langCV.education[l]}</div>
 
-        <div class="timeline-right py-5 text-base">
+        <div class="timeline-right py-2 text-base">
           <div class="container-right right-t">
             <div class="content-right p-5">
               <p>May 2011 - Apr 2015: Panyapiwat Institute Of Management.</p>
