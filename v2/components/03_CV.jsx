@@ -384,7 +384,7 @@ const CV = () => {
           <div class="container-left left-t">
             <div class="content-left p-5">
 
-              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
                 <span>Mar 2019 - Jun 2021:</span>
                 <span className="text-nowrap">Luma Health Insurance.</span>
               </div>
@@ -407,7 +407,7 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
                 <span>Mar 2017 - Jul 2018:</span>
                 <span className="text-nowrap">Scale360.</span>
               </div>
@@ -422,7 +422,7 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
                 <span>May 2014 - Feb 2015:</span>
                 <span className="text-nowrap">True Corporation.</span>
               </div>
@@ -449,7 +449,7 @@ const CV = () => {
           <div class="container-right right-t">
             <div class="content-right p-5">
 
-              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
                 <span>May 2011 - Apr 2015:</span>
                 <span className="text-nowrap">Panyapiwat Institute Of Management.</span>
               </div>
@@ -466,7 +466,7 @@ const CV = () => {
           </div>
           <div class="container-right right-t">
             <div class="content-right p-5">
-              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
                 <span>May 2008 - Apr 2011:</span>
                 <span className="text-nowrap">Trimit Wittayalai School.</span>
               </div>
