@@ -6,6 +6,10 @@ const Routing = () => (
       window.location.href = window.location.origin + "/#/home"
       return <></>
     }} />
+    <Route exact path="/old" component={() => {
+      window.location.href = window.location.origin + "/old"
+      return <></>
+    }} />
     <Route exact path="/home" component={DefaultWrapper(<Home />)} />
     <Route exact path="/cv" component={DefaultWrapper(<CV />)} />
     <Route exact path="/blogs" component={DefaultWrapper(<Blogs />)} />

@@ -402,6 +402,8 @@ const CV = () => {
         </p>
         <p className="ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
         <div className="basis-full sm:basis-0"></div>
+        <p><i class="fa-brands fa-github"></i> : <a class="a_link" href="https://github.com/TronNatthakorn" target="_blank">TronNatthakorn</a></p>
+        <p><i class="fa-brands fa-docker"></i> : <a class="a_link" href="https://hub.docker.com/u/tronnatthakorn" target="_blank">TronNatthakorn</a></p>
       </div>
       <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0">
         <div className="p-2 px-5 text-xl" style={{
