@@ -448,12 +448,34 @@ const CV = () => {
         <div class="timeline-right py-2 text-base">
           <div class="container-right right-t">
             <div class="content-right p-5">
-              <p>May 2011 - Apr 2015: Panyapiwat Institute Of Management.</p>
+
+              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+                <span>May 2011 - Apr 2015:</span>
+                <span className="text-nowrap">Panyapiwat Institute Of Management.</span>
+              </div>
+              <FilmStripRow isTop />
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
+                class="flex flex-row flex-nowrap">
+                <img class="img_work" src="v2/img/pim1.jpg" />
+                <img class="img_work" src="v2/img/pim2.jpg" />
+                <img class="img_work" src="v2/img/pim3.jpg" />
+              </div>
+              <FilmStripRow />
+
             </div>
           </div>
           <div class="container-right right-t">
             <div class="content-right p-5">
-              <p>May 2008 - Apr 2011: Trimit Wittayalai School.</p>
+              <div className="flex flex-row flex-wrap text-lg pb-2" style={{ columnGap: '10px' }}>
+                <span>May 2008 - Apr 2011:</span>
+                <span className="text-nowrap">Trimit Wittayalai School.</span>
+              </div>
+              <FilmStripRow isTop />
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
+                class="flex flex-row flex-nowrap">
+                <img class="img_work" src="v2/img/tri1.jpg" />
+              </div>
+              <FilmStripRow />
             </div>
           </div>
           <div class="container-right right-t">
