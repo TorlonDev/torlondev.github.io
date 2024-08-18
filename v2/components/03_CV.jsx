@@ -191,7 +191,7 @@ const CV = () => {
             max-width: 250px;
           }
           .name_and_job {
-            height: 160px;
+            height: ${isSafari ? '180px': '160px'};
             width: 100%;
             background-color: var(--cvCoverColor);
             margin-top: 30px;
@@ -334,7 +334,7 @@ const CV = () => {
       <div className="name_and_job self-center flex flex-col items-center justify-start sm:self-start sm:items-start sm:justify-center sm:px-4 md:px-5">
         <p class={`text-nowrap ${isFBApp ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl' : 'text-xl sm:text-2xl md:text-3xl lg:text-4xl'}`}>{langCV.my_full_name[l]}</p>
         <p class="text-base md:text-xl text-nowrap m-1">{langCV.my_role[l]}</p>
-        <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class={`mx-auto ${isSafari ? 'my-7': 'my-4'}`} />
+        <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class={`mx-auto ${isSafari ? 'my-6': 'my-4'}`} />
       </div>
       <a target="_blank" href="doc/CV-TronNatthakorn.pdf" style={{ position: 'absolute', right: 0, top: 4, backgroundColor: '#B30B00' }} class="btn_cv_pdf rounded-lg text-white text-2xl sm:text-xl px-3 py-3 pr-2.5 pt-2 sm:pt-1 text-center"><span className="text-sm hidden sm:inline">{langCV.download[l]}</span><i class="fa-solid fa-file-pdf sm:ml-1"></i></a>
 
