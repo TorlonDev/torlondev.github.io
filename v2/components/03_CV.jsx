@@ -184,6 +184,7 @@ const CV = () => {
             max-width: 100%;
             max-height: 100%;
             object-fit: cover;
+            box-shadow: 0 0 0 100vw black;
           }
         ` + mobileCSS(`
           .btn_cv_pdf {
