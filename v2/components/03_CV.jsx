@@ -332,7 +332,7 @@ const CV = () => {
       </div>
 
       <div className="name_and_job self-center flex flex-col items-center justify-start sm:self-start sm:items-start sm:justify-center sm:px-4 md:px-5">
-        <p class={`text-nowrap ${isFBApp ? 'text-2xl sm:text-2xl md:text-2xl lg:text-3xl sm:mt-2' : 'text-2xl sm:text-2xl md:text-3xl lg:text-4xl sm:mt-4'}`}>{langCV.my_full_name[l]}</p>
+        <p class={`text-nowrap ${isFBApp ? 'text-3xl sm:text-2xl md:text-2xl lg:text-3xl sm:mt-2' : 'text-3xl sm:text-2xl md:text-3xl lg:text-4xl sm:mt-4'}`}>{langCV.my_full_name[l]}</p>
         <p class="text-base md:text-xl text-nowrap m-1 mt-0">{langCV.my_role[l]}</p>
         <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class={`mx-auto ${isSafari ? 'my-6': 'my-4'}`} />
       </div>
