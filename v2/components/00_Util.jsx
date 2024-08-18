@@ -11,6 +11,8 @@ const isFBApp = (() => {
   return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
 })()
 
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
 function load_snow() {
   const canvas = document.getElementById("canvas_snow_falling");
   const ctx = canvas.getContext("2d");
