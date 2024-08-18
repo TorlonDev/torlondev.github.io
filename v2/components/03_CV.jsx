@@ -106,6 +106,18 @@ const FilmStripRow = ({ isTop = false }) => {
   </div>
 }
 
+const onDoubleClickImg = (idImg) => {
+  return () => {
+      if($(`#${idImg}`).hasClass('img_active')){
+        $(`#${idImg}`).removeClass('img_active')
+        return
+      }
+      if(!$(`#${idImg}`).hasClass('img_active')){
+        $(`#${idImg}`).addClass('img_active')
+      }
+  }
+}
+
 const CV = () => {
   const { currentLanguage: l, isTH, isEN, isCN, isCalculateAge, setIsCalculateAge } = useContext(Context)
   const [age, setAge] = useState({ year: 2, month: 2, day: 2 })
@@ -160,15 +172,19 @@ const CV = () => {
             /*cursor: pointer;*/
           }
           
-          /*
-          .img_work:active {
-            pointer-events: none;
+          
+          .img_active {
             position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            transform: scale(1.5);
-          }*/
+            z-index: 1000;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+          }
         ` + mobileCSS(`
           .btn_cv_pdf {
             margin-right: 20px;
@@ -388,19 +404,22 @@ const CV = () => {
                 <span>Mar 2019 - Jun 2021:</span>
                 <span className="text-nowrap">Luma Health Insurance.</span>
               </div>
-              {/* <hr style={{ 'borderTop': '1px solid ', 'width': '100%' }} class="my-2" />
-
-              <div className="flex flex-row flex-wrap pb-1 text-base" style={{ columnGap: '10px' }}>
-                <span>Full Stack Developer & Android Developer & IT Support.</span>
-              </div>
-              <hr style={{ 'borderTop': '1px solid ', 'width': '100%' }} class="my-2" /> */}
 
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
-                <img class="img_work" src="old/img/luma1.jpg" />
-                <img class="img_work" src="old/img/luma2.jpg" />
-                <img class="img_work" src="old/img/luma3.jpg" />
+                <img class="img_work" src="old/img/luma1.jpg" id="img_luma1" 
+                  onDoubleClick={onDoubleClickImg("img_luma1")}
+                  onClick={()=> { $('#img_luma1').removeClass('img_active') }}
+                 />
+                <img class="img_work" id="img_luma2" src="old/img/luma2.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_luma2")}
+                  onClick={()=> { $('#img_luma2').removeClass('img_active') }}                
+                />
+                <img class="img_work" id="img_luma3" src="old/img/luma3.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_luma3")}
+                  onClick={()=> { $('#img_luma3').removeClass('img_active') }}                
+                />
               </div>
               <FilmStripRow />
             </div>
@@ -414,8 +433,14 @@ const CV = () => {
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
-                <img class="img_work" src="old/img/scale1.jpg" />
-                <img class="img_work" src="v2/img/scale2.jpg" />
+                <img class="img_work" id="img_scale1" src="old/img/scale1.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_scale1")}
+                  onClick={()=> { $('#img_scale1').removeClass('img_active') }}                
+                />
+                <img class="img_work" id="img_scale2" src="v2/img/scale2.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_scale2")}
+                  onClick={()=> { $('#img_scale2').removeClass('img_active') }}                
+                />
               </div>
               <FilmStripRow />
             </div>
@@ -429,8 +454,14 @@ const CV = () => {
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
-                <img class="img_work" src="old/img/true.jpg" />
-                <img class="img_work" src="v2/img/true2.jpg" />
+                <img class="img_work" id="img_true" src="old/img/true.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_true")}
+                  onClick={()=> { $('#img_true').removeClass('img_active') }}                
+                />
+                <img class="img_work" id="img_true2" src="v2/img/true2.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_true2")}
+                  onClick={()=> { $('#img_true2').removeClass('img_active') }}                
+                />
               </div>
               <FilmStripRow />
             </div>
@@ -456,9 +487,18 @@ const CV = () => {
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
-                <img class="img_work" src="v2/img/pim1.jpg" />
-                <img class="img_work" src="v2/img/pim2.jpg" />
-                <img class="img_work" src="v2/img/pim3.jpg" />
+                <img class="img_work" id="img_pim1" src="v2/img/pim1.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_pim1")}
+                  onClick={()=> { $('#img_pim1').removeClass('img_active') }}                
+                />
+                <img class="img_work" id="img_pim2" src="v2/img/pim2.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_pim2")}
+                  onClick={()=> { $('#img_pim2').removeClass('img_active') }}                
+                />
+                <img class="img_work" id="img_pim3" src="v2/img/pim3.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_pim3")}
+                  onClick={()=> { $('#img_pim3').removeClass('img_active') }}                
+                />
               </div>
               <FilmStripRow />
 
@@ -473,7 +513,10 @@ const CV = () => {
               <FilmStripRow isTop />
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
-                <img class="img_work" src="v2/img/tri1.jpg" />
+                <img class="img_work" id="img_tri1" src="v2/img/tri1.jpg" 
+                  onDoubleClick={onDoubleClickImg("img_tri1")}
+                  onClick={()=> { $('#img_tri1').removeClass('img_active') }}                
+                />
               </div>
               <FilmStripRow />
             </div>
