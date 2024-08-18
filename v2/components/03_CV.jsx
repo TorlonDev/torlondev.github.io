@@ -392,7 +392,7 @@ const CV = () => {
               <hr style={{ 'borderTop': '1px solid ', 'width': '100%' }} class="my-2" /> */}
 
               <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" src="old/img/luma1.jpg" />
                 <img class="img_work" src="old/img/luma2.jpg" />
@@ -408,7 +408,7 @@ const CV = () => {
                 <span className="text-nowrap">Scale360.</span>
               </div>
               <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" src="old/img/scale1.jpg" />
                 <img class="img_work" src="v2/img/scale2.jpg" />
@@ -423,7 +423,7 @@ const CV = () => {
                 <span className="text-nowrap">True Corporation.</span>
               </div>
               <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: '16 / 8' }}
+              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" src="old/img/true.jpg" />
                 <img class="img_work" src="v2/img/true2.jpg" />
