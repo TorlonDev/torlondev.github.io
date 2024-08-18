@@ -6,6 +6,15 @@ const DefaultWrapper = (content) => {
   return () => <div className="wrapper_content">{content}</div>
 }
 
+function openModal(html = '<h2>Loading...</h2>') {
+  $("#modalContent").html(`${html}`)
+  $("#modal").show()
+}
+
+function closeModal() {
+  $("#modal").hide()
+}
+
 const isFBApp = (() => {
   const ua = navigator.userAgent || window.opera;
   return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);

@@ -171,8 +171,15 @@ const CV = () => {
             border-right: 14px solid black;
             /*cursor: pointer;*/
           }
-          
-          
+
+          .img_modal {
+            width: 90vw !important;
+            max-width: 90vw !important;
+            height: auto;
+            max-height: 80vh !important;
+            object-fit: contain;
+          }
+
           .img_active {
             position: fixed;
             z-index: 1000;
@@ -410,16 +417,13 @@ const CV = () => {
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" src="old/img/luma1.jpg" id="img_luma1" 
-                  onDoubleClick={onDoubleClickImg("img_luma1")}
-                  onClick={()=> { $('#img_luma1').removeClass('img_active') }}
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma1.jpg" />`)}
                  />
                 <img class="img_work" id="img_luma2" src="old/img/luma2.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_luma2")}
-                  onClick={()=> { $('#img_luma2').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma2.jpg" />`)}               
                 />
                 <img class="img_work" id="img_luma3" src="old/img/luma3.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_luma3")}
-                  onClick={()=> { $('#img_luma3').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma3.jpg" />`)}               
                 />
               </div>
               <FilmStripRow />
@@ -435,12 +439,10 @@ const CV = () => {
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" id="img_scale1" src="old/img/scale1.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_scale1")}
-                  onClick={()=> { $('#img_scale1').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/scale1.jpg" />`)}              
                 />
                 <img class="img_work" id="img_scale2" src="v2/img/scale2.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_scale2")}
-                  onClick={()=> { $('#img_scale2').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/scale2.jpg" />`)}               
                 />
               </div>
               <FilmStripRow />
@@ -456,12 +458,10 @@ const CV = () => {
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" id="img_true" src="old/img/true.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_true")}
-                  onClick={()=> { $('#img_true').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/true.jpg" />`)}             
                 />
                 <img class="img_work" id="img_true2" src="v2/img/true2.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_true2")}
-                  onClick={()=> { $('#img_true2').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/true2.jpg" />`)}              
                 />
               </div>
               <FilmStripRow />
@@ -489,16 +489,13 @@ const CV = () => {
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" id="img_pim1" src="v2/img/pim1.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_pim1")}
-                  onClick={()=> { $('#img_pim1').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim1.jpg" />`)}               
                 />
                 <img class="img_work" id="img_pim2" src="v2/img/pim2.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_pim2")}
-                  onClick={()=> { $('#img_pim2').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim2.jpg" />`)}               
                 />
                 <img class="img_work" id="img_pim3" src="v2/img/pim3.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_pim3")}
-                  onClick={()=> { $('#img_pim3').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim3.jpg" />`)}                
                 />
               </div>
               <FilmStripRow />
@@ -515,8 +512,7 @@ const CV = () => {
               <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
                 class="flex flex-row flex-nowrap">
                 <img class="img_work" id="img_tri1" src="v2/img/tri1.jpg" 
-                  onDoubleClick={onDoubleClickImg("img_tri1")}
-                  onClick={()=> { $('#img_tri1').removeClass('img_active') }}                
+                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/tri1.jpg" />`)}               
                 />
               </div>
               <FilmStripRow />
