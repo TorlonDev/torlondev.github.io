@@ -97,10 +97,10 @@ const FilmStripRow = ({ isTop = false }) => {
       }}></div>
   }
 
-  return <div style={{ 
-    overflow: 'hidden', width: '100%', backgroundColor: 'var(--cvFilmStripBG)', 
-    ...(isTop ? { borderTop: '3px solid white' }: { borderBottom: '3px solid white' })
-  }} 
+  return <div style={{
+    overflow: 'hidden', width: '100%', backgroundColor: 'var(--cvFilmStripBG)',
+    ...(isTop ? { borderTop: '3px solid white' } : { borderBottom: '3px solid white' })
+  }}
     class="flex flex-row flex-nowrap py-2">
     {arr_film_strip}
   </div>
@@ -108,13 +108,13 @@ const FilmStripRow = ({ isTop = false }) => {
 
 const onDoubleClickImg = (idImg) => {
   return () => {
-      if($(`#${idImg}`).hasClass('img_active')){
-        $(`#${idImg}`).removeClass('img_active')
-        return
-      }
-      if(!$(`#${idImg}`).hasClass('img_active')){
-        $(`#${idImg}`).addClass('img_active')
-      }
+    if ($(`#${idImg}`).hasClass('img_active')) {
+      $(`#${idImg}`).removeClass('img_active')
+      return
+    }
+    if (!$(`#${idImg}`).hasClass('img_active')) {
+      $(`#${idImg}`).addClass('img_active')
+    }
   }
 }
 
@@ -134,6 +134,11 @@ const CV = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     initMap()
+
+    $('#work_detail_1').hide()
+    $('#work_detail_2').hide()
+
+    $('#edu_detail_1').hide()
 
     if (!isCalculateAge) {
       const year_loop = (new Date().getFullYear() - 1992) - 1
@@ -220,7 +225,7 @@ const CV = () => {
             max-width: 250px;
           }
           .name_and_job {
-            height: ${isSafari ? '180px': '145px'};
+            height: ${isSafari ? '180px' : '145px'};
             width: 100%;
             background-color: var(--cvCoverColor);
             margin-top: 30px;
@@ -231,7 +236,7 @@ const CV = () => {
             width: 240px;
           }
           .cv_content {
-            margin-top: ${isSafari ? '-50px;': '-90px;'}
+            margin-top: ${isSafari ? '-50px;' : '-90px;'}
             min-width: var(--contentMinWidth);
             max-width: calc(var(--navBarElementMaxWidth) - 300px)
           }
@@ -357,16 +362,16 @@ const CV = () => {
     <div style={{ position: 'relative' }} className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
 
       <div className="wrapper_myself_img p-3 self-center items-center flex flex-col sm:self-start" style={{ minWidth: '250px' }}>
-        <img className="self-center text-nowrap" src="v2/img/tron_lum.jpg" 
-        style={{ minWidth: '200px', height: '250px', borderRadius: '50%' }} 
-        onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/tron_lum.jpg" />`)}
+        <img className="self-center text-nowrap" src="v2/img/tron_lum.jpg"
+          style={{ minWidth: '200px', height: '250px', borderRadius: '50%' }}
+          onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/tron_lum.jpg" />`)}
         />
       </div>
 
       <div className="name_and_job self-center flex flex-col items-center justify-start sm:self-start sm:items-start sm:justify-center sm:px-4 md:px-5">
         <p class={`my_full_name text-nowrap ${isFBApp ? 'sm:text-2xl md:text-2xl lg:text-3xl sm:mt-2' : 'sm:text-2xl md:text-3xl lg:text-4xl sm:mt-4'}`}>{langCV.my_full_name[l]}</p>
         <p class="text-base md:text-xl text-nowrap m-1 mt-0 mb-0">{langCV.my_role[l]}</p>
-        <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class={`mx-auto ${isSafari ? 'my-5': 'my-4'}`} />
+        <hr style={{ 'borderTop': '3px solid ', 'width': '100%' }} class={`mx-auto ${isSafari ? 'my-5' : 'my-4'}`} />
       </div>
       <a target="_blank" href="doc/CV-TronNatthakorn.pdf" style={{ position: 'absolute', right: 0, top: 4, backgroundColor: '#B30B00' }} class="btn_cv_pdf rounded-lg text-white text-2xl sm:text-xl px-3 py-3 pr-2.5 pt-2 sm:pt-1 text-center"><span className="text-sm hidden sm:inline">{langCV.download[l]}</span><i class="fa-solid fa-file-pdf sm:ml-1"></i></a>
 
@@ -416,20 +421,23 @@ const CV = () => {
                 <span className="text-nowrap">Luma Health Insurance.</span>
               </div>
 
-              <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
-                class="flex flex-row flex-nowrap">
-                <img class="img_work" src="old/img/luma1.jpg" id="img_luma1" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma1.jpg" />`)}
-                 />
-                <img class="img_work" id="img_luma2" src="old/img/luma2.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma2.jpg" />`)}               
-                />
-                <img class="img_work" id="img_luma3" src="old/img/luma3.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma3.jpg" />`)}               
-                />
+              <div id="work_detail_3" className="work_detail">
+                <FilmStripRow isTop />
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                  class="flex flex-row flex-nowrap">
+                  <img class="img_work" src="old/img/luma1.jpg" id="img_luma1"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma1.jpg" />`)}
+                  />
+                  <img class="img_work" id="img_luma2" src="old/img/luma2.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma2.jpg" />`)}
+                  />
+                  <img class="img_work" id="img_luma3" src="old/img/luma3.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma3.jpg" />`)}
+                  />
+                </div>
+                <FilmStripRow />
               </div>
-              <FilmStripRow />
+
             </div>
           </div>
           <div class="container-left left-t">
@@ -438,17 +446,25 @@ const CV = () => {
                 <span>Mar 2017 - Jul 2018:</span>
                 <span className="text-nowrap">Scale360.</span>
               </div>
-              <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
-                class="flex flex-row flex-nowrap">
-                <img class="img_work" id="img_scale1" src="old/img/scale1.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/scale1.jpg" />`)}              
-                />
-                <img class="img_work" id="img_scale2" src="v2/img/scale2.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/scale2.jpg" />`)}               
-                />
+
+              <div className="text-3xl flex justify-center cursor-pointer" 
+              id="toggle_work_detail_2" 
+              onClick={()=> { $('#toggle_work_detail_2').hide(); $('#work_detail_2').show();  }}>. . .</div>
+
+              <div id="work_detail_2" className="work_detail">
+                <FilmStripRow isTop />
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                  class="flex flex-row flex-nowrap">
+                  <img class="img_work" id="img_scale1" src="old/img/scale1.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/scale1.jpg" />`)}
+                  />
+                  <img class="img_work" id="img_scale2" src="v2/img/scale2.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/scale2.jpg" />`)}
+                  />
+                </div>
+                <FilmStripRow />
               </div>
-              <FilmStripRow />
+
             </div>
           </div>
           <div class="container-left left-t">
@@ -457,17 +473,25 @@ const CV = () => {
                 <span>May 2014 - Feb 2015:</span>
                 <span className="text-nowrap">True Corporation.</span>
               </div>
-              <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
-                class="flex flex-row flex-nowrap">
-                <img class="img_work" id="img_true" src="old/img/true.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/true.jpg" />`)}             
-                />
-                <img class="img_work" id="img_true2" src="v2/img/true2.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/true2.jpg" />`)}              
-                />
+
+              <div className="text-3xl flex justify-center cursor-pointer" 
+              id="toggle_work_detail_1" 
+              onClick={()=> { $('#toggle_work_detail_1').hide(); $('#work_detail_1').show();  }}>. . .</div>
+
+              <div id="work_detail_1" className="work_detail">
+                <FilmStripRow isTop />
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                  class="flex flex-row flex-nowrap">
+                  <img class="img_work" id="img_true" src="old/img/true.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/true.jpg" />`)}
+                  />
+                  <img class="img_work" id="img_true2" src="v2/img/true2.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/true2.jpg" />`)}
+                  />
+                </div>
+                <FilmStripRow />
               </div>
-              <FilmStripRow />
+
             </div>
           </div>
         </div>
@@ -488,21 +512,23 @@ const CV = () => {
                 <span>May 2011 - Apr 2015:</span>
                 <span className="text-nowrap">Panyapiwat Institute Of Management.</span>
               </div>
-              <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
-                class="flex flex-row flex-nowrap">
-                <img class="img_work" id="img_pim1" src="v2/img/pim1.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim1.jpg" />`)}               
-                />
-                <img class="img_work" id="img_pim2" src="v2/img/pim2.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim2.jpg" />`)}               
-                />
-                <img class="img_work" id="img_pim3" src="v2/img/pim3.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim3.jpg" />`)}                
-                />
-              </div>
-              <FilmStripRow />
 
+              <div d="edu_detail_2" className="edu_detail">
+                <FilmStripRow isTop />
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                  class="flex flex-row flex-nowrap">
+                  <img class="img_work" id="img_pim1" src="v2/img/pim1.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim1.jpg" />`)}
+                  />
+                  <img class="img_work" id="img_pim2" src="v2/img/pim2.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim2.jpg" />`)}
+                  />
+                  <img class="img_work" id="img_pim3" src="v2/img/pim3.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim3.jpg" />`)}
+                  />
+                </div>
+                <FilmStripRow />
+              </div>
             </div>
           </div>
           <div class="container-right right-t">
@@ -511,14 +537,21 @@ const CV = () => {
                 <span>May 2008 - Apr 2011:</span>
                 <span className="text-nowrap">Trimit Wittayalai School.</span>
               </div>
-              <FilmStripRow isTop />
-              <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 7': '16 / 8'}` }}
-                class="flex flex-row flex-nowrap">
-                <img class="img_work" id="img_tri1" src="v2/img/tri1.jpg" 
-                  onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/tri1.jpg" />`)}               
-                />
+
+              <div className="text-3xl flex justify-center cursor-pointer" 
+              id="toggle_edu_detail_1" 
+              onClick={()=> { $('#toggle_edu_detail_1').hide(); $('#edu_detail_1').show();  }}>. . .</div>
+              
+              <div id="edu_detail_1" className="edu_detail">
+                <FilmStripRow isTop />
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                  class="flex flex-row flex-nowrap">
+                  <img class="img_work" id="img_tri1" src="v2/img/tri1.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/tri1.jpg" />`)}
+                  />
+                </div>
+                <FilmStripRow />
               </div>
-              <FilmStripRow />
             </div>
           </div>
           <div class="container-right right-t">
