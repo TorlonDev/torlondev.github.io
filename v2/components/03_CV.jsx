@@ -83,6 +83,46 @@ const langCV = {
     CN: '教育',
     JP: 'きょういく',
   },
+
+  fe_exp_header: {
+    EN: 'WEBSITE & MOBILE EXPERIENCE',
+    TH: 'ประสบการณ์ด้านเว็บไซต์และมือถือ',
+    CN: '网络与移动开发经验',
+    JP: 'ウェブ＆モバイル開発経験',
+  },
+
+  be_exp_header: {
+    EN: 'BACKEND EXPERIENCE',
+    TH: 'ประสบการณ์ด้านระบบหลังบ้าน',
+    CN: '后台开发经验',
+    JP: 'バックエンド開発経験',
+  },
+
+  db_exp_header: {
+    EN: 'DATABASE EXPERIENCE',
+    TH: 'ประสบการณ์ด้านฐานข้อมูล',
+    CN: '数据库开发经验',
+    JP: 'データベース開発経験',
+  },
+
+  other_exp_header: {
+    EN: 'OTHER RELEVANT EEPERIENCE',
+    TH: 'ประสบการณ์อื่นๆที่เกี่ยวข้อง',
+    CN: '其他相关经验',
+    JP: 'その他の関連経験',
+  }, 
+
+  fe_exp: `HTML / CSS / JS / ES5 & ES6 / Wordpress / Bootstrap / jQuery
+  / Angular 1 / React / Redux / Lodash / Axios / React Native 
+  / Java (Android) / ObjectiveC (iOS) / TailwindCSS / NextJS`,
+  be_exp: `C# 4 / Java / Tomcat / JSP / PHP / Laravel / Rest API
+  / NodeJS / ExpressJS / NestJS / Prisma / GraphQL`,
+  db_exp: `MySQL / JOIN Table / DB Design / ER Diagram / MariaDB / PostgreSQL
+  / Stored Procedures / Trigger / MongoDB / Aggregation / DB Tuning / DB Backup`,
+  other_exp: `Read Document / Self Learner / Search Google / Ask Stackoverflow / Virtual Box / Trello
+  / Git / Git Flow / Jira / Jest / Unit Test / Automate Test / Cucumber / Linux / Ubuntu / Apache 2 / Cron Job
+  / Ask Serverfault / AWS / EC2 / OVH / Dedicated Server / Windows Server / Firewall / Cloudflare / ESXI / Docker / Temporary IT Support / Ask ChatGPT`,
+
 }
 
 // Do Not PUT This Component in CV (inner scope) // + because for loop
@@ -135,10 +175,10 @@ const CV = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     initMap()
 
-    $('#work_detail_1').hide()
-    $('#work_detail_2').hide()
+    // $('#work_detail_1').hide()
+    // $('#work_detail_2').hide()
 
-    $('#edu_detail_1').hide()
+    // $('#edu_detail_1').hide()
 
     if (!isCalculateAge) {
       const year_loop = (new Date().getFullYear() - 1992) - 1
@@ -406,6 +446,11 @@ const CV = () => {
             `}
           </p>
         </p>
+
+        <div className="hidden sm:flex sm:flex-row sm:w-full">
+          <hr style={{ 'borderTop': '3px solid ', 'width': '80%' }} class={`mx-auto ${isSafari ? 'my-5' : 'my-4'}`} />
+        </div>
+
         <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center sm:mt-1">
           <p className="whitespace-nowrap"><i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
         </p>
@@ -420,6 +465,50 @@ const CV = () => {
           <p className="text_hub" style={{ 'color': 'var(--linkColor)' }}><i class="fa-brands fa-github fa_hub"></i><span class="fa_hub"> : </span><span><a class="a_link" href="https://github.com/TronNatthakorn" target="_blank">TronNatthakorn</a></span></p>
           <p className="text_hub" style={{ 'color': 'var(--linkColor)' }}><i class="fa-brands fa-docker fa_hub"></i><span class="fa_hub"> : </span><span><a class="a_link" href="https://hub.docker.com/u/tronnatthakorn" target="_blank">TronNatthakorn</a></span></p>
         </div>
+        
+        <div className="hidden sm:flex sm:flex-row sm:w-full">
+          <hr style={{ 'borderTop': '3px solid ', 'width': '80%' }} class={`mx-auto ${isSafari ? 'my-5' : 'my-4'}`} />
+        </div>
+
+        <div className="hidden sm:flex sm:flex-col pt-3 pl-3 sm:pl-0">
+          <div className="p-1 px-2" style={{
+            'backgroundColor': 'var(--cvCoverColor)',
+            width: '100%'
+          }}>{langCV.fe_exp_header[l]}</div>
+
+          <div className="flex flex-row flex-wrap p-2">
+            {langCV.fe_exp}
+          </div>
+
+          <div className="p-1 px-2" style={{
+            'backgroundColor': 'var(--cvCoverColor)',
+            width: '100%'
+          }}>{langCV.be_exp_header[l]}</div>
+
+          <div className="flex flex-row flex-wrap p-2">
+            {langCV.be_exp}
+          </div>
+
+          <div className="p-1 px-2" style={{
+            'backgroundColor': 'var(--cvCoverColor)',
+            width: '100%'
+          }}>{langCV.db_exp_header[l]}</div>
+
+          <div className="flex flex-row flex-wrap p-2">
+            {langCV.db_exp}
+          </div>
+
+          <div className="p-1 px-2" style={{
+            'backgroundColor': 'var(--cvCoverColor)',
+            width: '100%'
+          }}>{langCV.other_exp_header[l]}</div>
+
+          <div className="flex flex-row flex-wrap p-2">
+            {langCV.other_exp}
+          </div>
+
+        </div>
+   
       </div>
       <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0">
         <div className="p-2 px-5 text-xl" style={{
@@ -428,7 +517,7 @@ const CV = () => {
           borderBottomLeftRadius: '25px',
           borderTopRightRadius: '25px',
           borderBottomRightRadius: '25px',
-        }}>{langCV.work_experience[l]}</div>
+        }}><i class="fa-solid fa-briefcase pr-2"></i> {langCV.work_experience[l]}</div>
 
         <div class="timeline-left py-2 text-sm">
           <div class="container-left left-t">
@@ -465,10 +554,6 @@ const CV = () => {
                 <span className="text-nowrap">Scale360.</span>
               </div>
 
-              <div className="text-3xl flex justify-center cursor-pointer" 
-              id="toggle_work_detail_2" 
-              onClick={()=> { $('#toggle_work_detail_2').hide(); $('#work_detail_2').show();  }}>. . .</div>
-
               <div id="work_detail_2" className="work_detail">
                 <FilmStripRow isTop />
                 <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
@@ -491,10 +576,6 @@ const CV = () => {
                 <span>May 2014 - Feb 2015:</span>
                 <span className="text-nowrap">True Corporation.</span>
               </div>
-
-              <div className="text-3xl flex justify-center cursor-pointer" 
-              id="toggle_work_detail_1" 
-              onClick={()=> { $('#toggle_work_detail_1').hide(); $('#work_detail_1').show();  }}>. . .</div>
 
               <div id="work_detail_1" className="work_detail">
                 <FilmStripRow isTop />
@@ -520,7 +601,7 @@ const CV = () => {
           borderTopLeftRadius: '25px',
           borderBottomLeftRadius: '25px',
           textAlign: 'right'
-        }}>{langCV.education[l]}</div>
+        }}><i class="fa-solid fa-graduation-cap pr-3"></i>{langCV.education[l]}</div>
 
         <div class="timeline-right py-2 text-sm">
           <div class="container-right right-t">
@@ -556,10 +637,6 @@ const CV = () => {
                 <span className="text-nowrap">Trimit Wittayalai School.</span>
               </div>
 
-              <div className="text-3xl flex justify-center cursor-pointer" 
-              id="toggle_edu_detail_1" 
-              onClick={()=> { $('#toggle_edu_detail_1').hide(); $('#edu_detail_1').show();  }}>. . .</div>
-              
               <div id="edu_detail_1" className="edu_detail">
                 <FilmStripRow isTop />
                 <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
@@ -579,7 +656,45 @@ const CV = () => {
           </div>
         </div>
 
-        <br /><br /><br />
+        <div className="flex sm:hidden flex-col pt-3 pl-3 text-sm">
+          <div className="p-1 px-2" style={{
+            'backgroundColor': 'var(--cvCoverColor)',
+            width: '100%'
+          }}>{langCV.fe_exp_header[l]}</div>
+
+          <div className="flex flex-row flex-wrap p-2">
+            {langCV.fe_exp}
+          </div>
+
+          <div className="p-1 px-2" style={{
+            'backgroundColor': 'var(--cvCoverColor)',
+             width: '100%'
+          }}>{langCV.be_exp_header[l]}</div>
+
+          <div className="flex flex-row flex-wrap p-2">
+            {langCV.be_exp}
+          </div>
+
+          <div className="p-1 px-2" style={{
+            'backgroundColor': 'var(--cvCoverColor)',
+            width: '100%'
+          }}>{langCV.db_exp_header[l]}</div>
+
+          <div className="flex flex-row flex-wrap p-2">
+            {langCV.db_exp}
+          </div>
+
+          <div className="p-1 px-2" style={{
+            'backgroundColor': 'var(--cvCoverColor)',
+             width: '100%'
+          }}>{langCV.other_exp_header[l]}</div>
+
+          <div className="flex flex-row flex-wrap p-2">
+            {langCV.other_exp}
+          </div>
+
+        </div>
+        <br /><br />
       </div>
     </div>
   </>
