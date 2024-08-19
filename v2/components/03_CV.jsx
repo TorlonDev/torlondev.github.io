@@ -198,6 +198,10 @@ const CV = () => {
             object-fit: cover;
             box-shadow: 0 0 0 100vw black;
           }
+
+          .fa_hub {
+            color: var(--color)
+          }
         ` + mobileCSS(`
           .btn_cv_pdf {
             margin-right: 20px;
@@ -211,6 +215,10 @@ const CV = () => {
             height: 140px;
             /*width: calc(var(--contentMinWidth) - 10px);*/
             width: 90%;
+          }
+
+          .text_hub_wrapper {
+            column-gap: 20px;
           }
         `) + desktopCSS(`
           .btn_cv_pdf {
@@ -244,8 +252,15 @@ const CV = () => {
             min-width: 250px;
             max-width: 250px;
             background-color: var(--navBarBGColor);
-
           }
+
+          .text_hub {
+            width: 116px;
+            height: 30px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+
         `)
       }
     </style>
@@ -401,9 +416,10 @@ const CV = () => {
           <p className="text-nowrap"><i class="fa-solid fa-envelope"></i> : tron.natthakorn@engineer.com</p>
         </p>
         <p className="ml-2 sm:ml-0"><i class="fa-solid fa-phone"></i> : +66-XXX-XXX-XXX</p>
-        <div className="basis-full sm:basis-0"></div>
-        <p><i class="fa-brands fa-github"></i> : <a class="a_link" href="https://github.com/TronNatthakorn" target="_blank">TronNatthakorn</a></p>
-        <p><i class="fa-brands fa-docker"></i> : <a class="a_link" href="https://hub.docker.com/u/tronnatthakorn" target="_blank">TronNatthakorn</a></p>
+        <div className="text_hub_wrapper flex flex-row flex-nowrap text-nowrap sm:gap-x-2">
+          <p className="text_hub" style={{ 'color': 'var(--linkColor)' }}><i class="fa-brands fa-github fa_hub"></i><span class="fa_hub"> : </span><span><a class="a_link" href="https://github.com/TronNatthakorn" target="_blank">TronNatthakorn</a></span></p>
+          <p className="text_hub" style={{ 'color': 'var(--linkColor)' }}><i class="fa-brands fa-docker fa_hub"></i><span class="fa_hub"> : </span><span><a class="a_link" href="https://hub.docker.com/u/tronnatthakorn" target="_blank">TronNatthakorn</a></span></p>
+        </div>
       </div>
       <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0">
         <div className="p-2 px-5 text-xl" style={{
