@@ -106,7 +106,7 @@ const langCV = {
   },
 
   other_exp_header: {
-    EN: 'OTHER RELEVANT EEPERIENCE',
+    EN: 'OTHER RELEVANT EXPERIENCE',
     TH: 'ประสบการณ์อื่นๆที่เกี่ยวข้อง',
     CN: '其他相关经验',
     JP: 'その他の関連経験',
