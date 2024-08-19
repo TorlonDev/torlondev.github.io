@@ -656,7 +656,7 @@ const CV = () => {
           </div>
         </div>
 
-        <div className="flex sm:hidden flex-col pt-3 pl-3 text-sm">
+        <div className="flex sm:hidden flex-col pt-3 text-sm">
           <div className="p-1 px-2" style={{
             'backgroundColor': 'var(--cvCoverColor)',
             width: '100%'
