@@ -581,11 +581,11 @@ const CV = () => {
                 <FilmStripRow isTop />
                 <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
                   class="flex flex-row flex-nowrap">
-                  <img class="img_work" id="img_true" src="old/img/true.jpg"
-                    onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/true.jpg" />`)}
-                  />
                   <img class="img_work" id="img_true2" src="v2/img/true2.jpg"
                     onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/true2.jpg" />`)}
+                  />
+                  <img class="img_work" id="img_true" src="old/img/true.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/true.jpg" />`)}
                   />
                 </div>
                 <FilmStripRow />
