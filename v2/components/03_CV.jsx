@@ -112,10 +112,10 @@ const langCV = {
     JP: 'その他の関連経験',
   },
 
-  fe_exp: `HTML, CSS, JS, ES5 & ES6, Wordpress, Bootstrap, jQuery, Angular 1, React, Redux, Lodash, Axios, React Native, Java(Android), ObjectiveC(iOS), TailwindCSS, NextJS`,
-  be_exp: `C# 4, Java, Tomcat, JSP, PHP, Laravel, Rest API, NodeJS, ExpressJS, NestJS, Prisma, GraphQL`,
-  db_exp: `MySQL, JOIN Table, DB Design, ER Diagram, MariaDB, PostgreSQL, Stored Procedures, Trigger, MongoDB, Aggregation, DB Tuning, DB Backup`,
-  other_exp: `Read Document, Self Learner, Search Google, Ask Stackoverflow, Virtual Box, Trello, Git, Git Flow, Jira, Jest, Unit Test, Automate Test, Cucumber, Linux, Ubuntu, Apache 2, Cron Job, Ask Serverfault, AWS, EC2, OVH, Dedicated Server, Windows Server, Firewall, Cloudflare, ESXI, Docker, Temporary IT Support, Ask ChatGPT`,
+  fe_exp: `HTML | CSS | JS | ES5 & ES6 | Wordpress | Bootstrap | jQuery | Angular 1 | React | Redux | Lodash | Axios | React Native | Java(Android) | ObjectiveC(iOS) | TailwindCSS | NextJS`,
+  be_exp: `C# 4 | Java | Tomcat | JSP | PHP | Laravel | Rest API | NodeJS | ExpressJS | NestJS | Prisma | GraphQL`,
+  db_exp: `MySQL | JOIN Table | DB Design | ER Diagram | MariaDB | PostgreSQL | Stored Procedures | Trigger | MongoDB | Aggregation | DB Tuning | DB Backup`,
+  other_exp: `Read Document | Self Learner | Search Google | Ask Stackoverflow | Virtual Box | Trello | Git | Git Flow | Jira | Jest | Unit Test | Automate Test | Cucumber | Linux | Ubuntu | Apache 2 | Cron Job | Ask Serverfault | AWS | EC2 | OVH | Dedicated Server | Windows Server | Firewall | Cloudflare | ESXI | Docker | Temporary IT Support | Ask ChatGPT`,
 }
 
 // Do Not PUT This Component in CV (inner scope) // + because for loop
