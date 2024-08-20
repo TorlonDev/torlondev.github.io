@@ -471,7 +471,7 @@ const CV = () => {
         </div>
 
         <div className="hidden sm:flex sm:flex-col pt-3 pl-3 sm:pl-0">
-          <div className="p-1 px-2" style={{
+          <div className="p-1 px-2 text-nowrap" style={{
             'backgroundColor': 'var(--cvCoverColor)',
             width: '100%'
           }}>{langCV.fe_exp_header[l]}</div>
