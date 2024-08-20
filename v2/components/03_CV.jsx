@@ -452,7 +452,7 @@ const CV = () => {
         </div>
 
         <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center sm:mt-1">
-          <p className="whitespace-nowrap"><i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
+          <p className="whitespace-nowrap"><i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan,'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
         </p>
         <div className="basis-full sm:basis-0"></div>
         <div id="map_tol"></div>
