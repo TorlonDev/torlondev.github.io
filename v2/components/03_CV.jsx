@@ -71,6 +71,24 @@ const langCV = {
     CN: '天',
     JP: '日',
   },
+  years: {
+    EN: 'Years',
+    TH: 'ปี',
+    CN: '岁',
+    JP: '歳',
+  },
+  months: {
+    EN: 'Months',
+    TH: 'เดือน',
+    CN: '个月',
+    JP: 'ヶ月',
+  },
+  days: {
+    EN: 'Days',
+    TH: 'วัน',
+    CN: '天',
+    JP: '日',
+  },
   work_experience: {
     EN: 'WORK EXPERIENCE',
     TH: 'ประสบการณ์ทำงาน',
@@ -116,6 +134,125 @@ const langCV = {
   be_exp: `C# 4 | Java | Tomcat | JSP | PHP | Laravel | Rest API | NodeJS | ExpressJS | NestJS | Prisma | GraphQL`,
   db_exp: `MySQL | JOIN Table | DB Design | ER Diagram | MariaDB | PostgreSQL | Stored Procedures | Trigger | MongoDB | Aggregation | DB Tuning | DB Backup`,
   other_exp: `Read Document | Self Learner | Search Google | Ask Stackoverflow | Virtual Box | Trello | Git | Git Flow | Jira | Jest | Unit Test | Automate Test | Cucumber | Linux | Ubuntu | Apache 2 | Cron Job | Ask Serverfault | AWS | EC2 | OVH | Dedicated Server | Windows Server | Firewall | Cloudflare | ESXI | Docker | Temporary IT Support | Ask ChatGPT`,
+
+  jan: {
+    EN: 'Jan',
+    TH: 'ม.ค.',
+    CN: '一月',
+    JP: '1月'
+  },
+
+  feb: {
+    EN: 'Feb',
+    TH: 'ก.พ.',
+    CN: '二月',
+    JP: '2月'
+  },
+
+  mar: {
+    EN: 'Mar',
+    TH: 'มี.ค.',
+    CN: '三月',
+    JP: '3月'
+  },
+
+  apr: {
+    EN: 'Apr',
+    TH: 'เม.ย.',
+    CN: '四月',
+    JP: '4月'
+  },
+
+  may: {
+    EN: 'May',
+    TH: 'พ.ค.',
+    CN: '五月',
+    JP: '5月'
+  },
+
+  jun: {
+    EN: 'Jun',
+    TH: 'มิ.ย.',
+    CN: '六月',
+    JP: '6月'
+  },
+
+  jul: {
+    EN: 'Jul',
+    TH: 'ก.ค.',
+    CN: '七月',
+    JP: '7月'
+  },
+
+  aug: {
+    EN: 'Aug',
+    TH: 'ส.ค.',
+    CN: '八月',
+    JP: '8月'
+  },
+
+  sep: {
+    EN: 'Sep',
+    TH: 'ก.ย.',
+    CN: '九月',
+    JP: '9月'
+  },
+
+  oct: {
+    EN: 'Oct',
+    TH: 'ต.ค.',
+    CN: '十月',
+    JP: '10月'
+  },
+
+  nov: {
+    EN: 'Nov',
+    TH: 'พ.ย.',
+    CN: '十一月',
+    JP: '11月'
+  },
+
+  dec: {
+    EN: 'Dec',
+    TH: 'ธ.ค.',
+    CN: '十二月',
+    JP: '12月'
+  },
+
+  roles: {
+    EN: 'Roles',
+    TH: 'หน้าที่',
+    CN: '义务',
+    JP: 'ぎむ'
+  },
+  role: {
+    EN: 'Role',
+    TH: 'หน้าที่',
+    CN: '义务',
+    JP: 'ぎむ'
+  },
+
+  luma_roles: {
+    EN: 'Full Stack Developer, IT Support',
+    TH: 'นักพัฒนาเต็มระบบ, ผู้สนับสนุนด้านไอที',
+    CN: '全栈开发者, 信息技术支持',
+    JP: 'フルスタック開発者, アイティーサポート',
+  },
+
+  scale_roles: {
+    EN: 'Mobile App & Web Developer',
+    TH: 'นักพัฒนาแอพมือถือ และเว็บไซต์',
+    CN: '移动应用与网站开发者',
+    JP: 'モバイルアプリとウェブデベロッパー',
+  },
+
+  true_roles: {
+    EN: 'Software Engineer Intern',
+    TH: 'นักศึกษาฝึกงานด้านวิศวกรรมซอฟต์แวร์',
+    CN: '软件工程师实习生',
+    JP: 'ソフトウェアエンジニアインターン',
+  }
+
 }
 
 // Do Not PUT This Component in CV (inner scope) // + because for loop
@@ -278,7 +415,7 @@ const CV = () => {
           }
           .cv_content {
             margin-top: ${isSafari ? '-50px;' : '-90px;'}
-            min-width: var(--contentMinWidth);
+            min-width: calc(var(--contentMinWidth) + 10px);
             max-width: calc(var(--navBarElementMaxWidth) - 300px)
           }
           .wrapper_under_image {
@@ -516,9 +653,15 @@ const CV = () => {
           <div class="container-left left-t">
             <div class="content-left p-5">
 
-              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
-                <span>Mar 2019 - Jun 2021:</span>
-                <span className="text-nowrap">Luma Health Insurance.</span>
+              <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
+                <span className="text-nowrap">{langCV.mar[l]} 2019 - {langCV.jun[l]} 2021: </span>
+                <span className="text-nowrap hidden md:flex md: pl-1">2 {langCV.years[l]} 4 {langCV.months[l]}</span>
+                <div className="basis-0 md:basis-full"></div>
+                <span>Luma Health Insurance.</span>
+              </div>
+              <div className="flex flex-row pb-2 text-base">
+                <span className="text-nowrap">{langCV.roles[l]}: </span>
+                <span className="pl-1">{langCV.luma_roles[l]}</span>
               </div>
 
               <div id="work_detail_3" className="work_detail">
@@ -542,9 +685,16 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
-                <span>Mar 2017 - Jul 2018:</span>
-                <span className="text-nowrap">Scale360.</span>
+              <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
+                <span className="text-nowrap">{langCV.mar[l]} 2017 - {langCV.jul[l]} 2018: </span>
+                <span className="text-nowrap hidden md:flex md: pl-1">1 {langCV.year[l]} 4 {langCV.months[l]}</span>
+                <div className="basis-0 md:basis-full"></div>
+                <span>Scale360.</span>
+              </div>
+
+              <div className="flex flex-row pb-2 text-base">
+                <span className="text-nowrap">{langCV.roles[l]}: </span>
+                <span className="pl-1">{langCV.scale_roles[l]}</span>
               </div>
 
               <div id="work_detail_2" className="work_detail">
@@ -565,9 +715,16 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
-                <span>May 2014 - Feb 2015:</span>
-                <span className="text-nowrap">True Corporation.</span>
+              <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
+                <span className="text-nowrap">{langCV.may[l]} 2014 - {langCV.feb[l]} 2015: </span>
+                <span className="text-nowrap hidden md:flex md: pl-1">9 {langCV.months[l]}</span>
+                <div className="basis-0 md:basis-full"></div>
+                <span>True Corporation.</span>
+              </div>
+
+              <div className="flex flex-row pb-2 text-base">
+                <span className="text-nowrap">{langCV.role[l]}: </span>
+                <span className="pl-1">{langCV.true_roles[l]}</span>
               </div>
 
               <div id="work_detail_1" className="work_detail">
@@ -600,10 +757,11 @@ const CV = () => {
         <div class="timeline-right py-2 text-sm">
           <div class="container-right right-t">
             <div class="content-right p-5">
-
-              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
-                <span>May 2011 - Apr 2015:</span>
-                <span className="text-nowrap">Panyapiwat Institute Of Management.</span>
+              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
+                <span className="text-nowrap">{langCV.may[l]} 2011 - {langCV.apr[l]} 2015: </span>
+                <span className="text-nowrap hidden md:flex md: pl-1">4 {langCV.years[l]}</span>
+                <div className="basis-0 md:basis-full"></div>
+                <span>Panyapiwat Institute Of Management.</span>
               </div>
 
               <div d="edu_detail_2" className="edu_detail">
@@ -626,9 +784,12 @@ const CV = () => {
           </div>
           <div class="container-right right-t">
             <div class="content-right p-5">
-              <div className="flex flex-row flex-wrap pb-2" style={{ columnGap: '10px' }}>
-                <span>May 2008 - Apr 2011:</span>
-                <span className="text-nowrap">Trimit Wittayalai School.</span>
+
+              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
+                <span className="text-nowrap">{langCV.may[l]} 2008 - {langCV.apr[l]} 2011: </span>
+                <span className="text-nowrap hidden md:flex md: pl-1">3 {langCV.years[l]}</span>
+                <div className="basis-0 md:basis-full"></div>
+                <span>Trimit Wittayalai School.</span>
               </div>
 
               <div id="edu_detail_1" className="edu_detail">
@@ -645,7 +806,14 @@ const CV = () => {
           </div>
           <div class="container-right right-t">
             <div class="content-right p-5">
-              <p>May 2005 - Apr 2008: Benchamarachuthit Chanthaburi School.</p>
+
+              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
+                <span className="text-nowrap">{langCV.may[l]} 2005 - {langCV.apr[l]} 2008: </span>
+                <span className="text-nowrap hidden md:flex md: pl-1">3 {langCV.years[l]}</span>
+                <div className="basis-0 md:basis-full"></div>
+                <span>Benchamarachuthit Chanthaburi School.</span>
+              </div>
+
             </div>
           </div>
         </div>
