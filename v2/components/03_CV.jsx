@@ -476,7 +476,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.fe_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2">
+          <div className="flex flex-row flex-wrap p-2 text-xs">
             {langCV.fe_exp}
           </div>
 
@@ -485,7 +485,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.be_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2">
+          <div className="flex flex-row flex-wrap p-2 text-xs">
             {langCV.be_exp}
           </div>
 
@@ -494,7 +494,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.db_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2">
+          <div className="flex flex-row flex-wrap p-2 text-xs">
             {langCV.db_exp}
           </div>
 
@@ -503,7 +503,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.other_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2">
+          <div className="flex flex-row flex-wrap p-2 text-xs">
             {langCV.other_exp}
           </div>
 
@@ -581,12 +581,13 @@ const CV = () => {
                 <FilmStripRow isTop />
                 <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
                   class="flex flex-row flex-nowrap">
-                  <img class="img_work" id="img_true2" src="v2/img/true2.jpg"
-                    onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/true2.jpg" />`)}
-                  />
                   <img class="img_work" id="img_true" src="old/img/true.jpg"
                     onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/true.jpg" />`)}
                   />
+                  <img class="img_work" id="img_true2" src="v2/img/true2.jpg"
+                    onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/true2.jpg" />`)}
+                  />
+
                 </div>
                 <FilmStripRow />
               </div>
@@ -662,7 +663,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.fe_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2">
+          <div className="flex flex-row flex-wrap p-2 text-xs">
             {langCV.fe_exp}
           </div>
 
@@ -671,7 +672,7 @@ const CV = () => {
              width: '100%'
           }}>{langCV.be_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2">
+          <div className="flex flex-row flex-wrap p-2 text-xs">
             {langCV.be_exp}
           </div>
 
@@ -680,7 +681,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.db_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2">
+          <div className="flex flex-row flex-wrap p-2 text-xs">
             {langCV.db_exp}
           </div>
 
@@ -689,7 +690,7 @@ const CV = () => {
              width: '100%'
           }}>{langCV.other_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2">
+          <div className="flex flex-row flex-wrap p-2 text-xs">
             {langCV.other_exp}
           </div>
 
