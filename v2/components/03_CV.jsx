@@ -476,7 +476,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.fe_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-3 pb-6 text-xs text-justify" style={{ fontSize: '11px' }}>
+          <div className="flex flex-row flex-wrap p-3 pb-6 text-justify" style={{ fontSize: '10px' }}>
             {langCV.fe_exp}
           </div>
 
@@ -485,7 +485,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.be_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-3 pb-6 text-xs text-justify" style={{ fontSize: '11px' }}>
+          <div className="flex flex-row flex-wrap p-3 pb-6 text-justify" style={{ fontSize: '10px' }}>
             {langCV.be_exp}
           </div>
 
@@ -494,7 +494,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.db_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-3 pb-6 text-xs text-justify" style={{ fontSize: '11px' }}>
+          <div className="flex flex-row flex-wrap p-3 pb-6 text-justify" style={{ fontSize: '10px' }}>
             {langCV.db_exp}
           </div>
 
@@ -503,7 +503,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.other_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-3 pb-6 text-xs text-justify" style={{ fontSize: '11px' }}>
+          <div className="flex flex-row flex-wrap p-3 pb-6 text-justify" style={{ fontSize: '10px' }}>
             {langCV.other_exp}
           </div>
 
