@@ -110,18 +110,18 @@ const langCV = {
     TH: 'ประสบการณ์อื่นๆที่เกี่ยวข้อง',
     CN: '其他相关经验',
     JP: 'その他の関連経験',
-  }, 
+  },
 
-  fe_exp: `HTML / CSS / JS / ES5 & ES6 / Wordpress / Bootstrap / jQuery
-  / Angular 1 / React / Redux / Lodash / Axios / React Native 
-  / Java (Android) / ObjectiveC (iOS) / TailwindCSS / NextJS`,
-  be_exp: `C# 4 / Java / Tomcat / JSP / PHP / Laravel / Rest API
-  / NodeJS / ExpressJS / NestJS / Prisma / GraphQL`,
-  db_exp: `MySQL / JOIN Table / DB Design / ER Diagram / MariaDB / PostgreSQL
-  / Stored Procedures / Trigger / MongoDB / Aggregation / DB Tuning / DB Backup`,
-  other_exp: `Read Document / Self Learner / Search Google / Ask Stackoverflow / Virtual Box / Trello
-  / Git / Git Flow / Jira / Jest / Unit Test / Automate Test / Cucumber / Linux / Ubuntu / Apache 2 / Cron Job
-  / Ask Serverfault / AWS / EC2 / OVH / Dedicated Server / Windows Server / Firewall / Cloudflare / ESXI / Docker / Temporary IT Support / Ask ChatGPT`,
+  fe_exp: `HTML, CSS, JS, ES5 & ES6, Wordpress, Bootstrap, jQuery
+ , Angular 1, React, Redux, Lodash, Axios, React Native 
+ , Java (Android), ObjectiveC (iOS), TailwindCSS, NextJS`,
+  be_exp: `C# 4, Java, Tomcat, JSP, PHP, Laravel, Rest API
+ , NodeJS, ExpressJS, NestJS, Prisma, GraphQL`,
+  db_exp: `MySQL, JOIN Table, DB Design, ER Diagram, MariaDB, PostgreSQL
+ , Stored Procedures, Trigger, MongoDB, Aggregation, DB Tuning, DB Backup`,
+  other_exp: `Read Document, Self Learner, Search Google, Ask Stackoverflow, Virtual Box, Trello
+ , Git, Git Flow, Jira, Jest, Unit Test, Automate Test, Cucumber, Linux, Ubuntu, Apache 2, Cron Job
+ , Ask Serverfault, AWS, EC2, OVH, Dedicated Server, Windows Server, Firewall, Cloudflare, ESXI, Docker, Temporary IT Support, Ask ChatGPT`,
 
 }
 
@@ -465,7 +465,7 @@ const CV = () => {
           <p className="text_hub" style={{ 'color': 'var(--linkColor)' }}><i class="fa-brands fa-github fa_hub"></i><span class="fa_hub"> : </span><span><a class="a_link" href="https://github.com/TronNatthakorn" target="_blank">TronNatthakorn</a></span></p>
           <p className="text_hub" style={{ 'color': 'var(--linkColor)' }}><i class="fa-brands fa-docker fa_hub"></i><span class="fa_hub"> : </span><span><a class="a_link" href="https://hub.docker.com/u/tronnatthakorn" target="_blank">TronNatthakorn</a></span></p>
         </div>
-        
+
         <div className="hidden sm:flex sm:flex-row sm:w-full">
           <hr style={{ 'borderTop': '3px solid ', 'width': '80%' }} class={`mx-auto ${isSafari ? 'my-5' : 'my-4'}`} />
         </div>
@@ -508,7 +508,7 @@ const CV = () => {
           </div>
 
         </div>
-   
+
       </div>
       <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0">
         <div className="p-2 px-5 text-xl" style={{
@@ -669,7 +669,7 @@ const CV = () => {
 
           <div className="p-1 px-2" style={{
             'backgroundColor': 'var(--cvCoverColor)',
-             width: '100%'
+            width: '100%'
           }}>{langCV.be_exp_header[l]}</div>
 
           <div className="flex flex-row flex-wrap p-2 pb-4 text-xs text-justify indent-6">
@@ -687,7 +687,7 @@ const CV = () => {
 
           <div className="p-1 px-2" style={{
             'backgroundColor': 'var(--cvCoverColor)',
-             width: '100%'
+            width: '100%'
           }}>{langCV.other_exp_header[l]}</div>
 
           <div className="flex flex-row flex-wrap p-2 pb-4 text-xs text-justify indent-6">
