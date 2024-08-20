@@ -466,7 +466,7 @@ const CV = () => {
         <div className="hidden sm:flex sm:flex-col pt-3 pl-3 sm:pl-0">
           <div className={`p-1 px-2 text-nowrap ${isFBApp ? 'pr-0': ''}`} style={{
             'backgroundColor': 'var(--cvCoverColor)',
-            width: '100%'
+            width: '100%', maxWidth: '250px',
           }}>{langCV.fe_exp_header[l]}</div>
 
           <div className="flex flex-row flex-wrap p-3 pb-6 text-justify" style={{ fontSize: '10px' }}>
