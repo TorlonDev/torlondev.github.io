@@ -269,7 +269,7 @@ const Home = () => {
       padding: '20px',
     }}>
       <article>
-        <h3 className="text-3xl" >{langHome[l][0]}</h3><br />
+        <h3 className={`${isFBApp? 'text-2xl': 'text-3xl'}`} >{langHome[l][0]}</h3><br />
         <p class="indent-8">{langHome[l][1]}</p><br />
         <ul class="indent-8">
           <li>{langHome[l][2]}</li>
