@@ -428,7 +428,7 @@ const CV = () => {
     <div className={`${isFBApp ? 'text-lg' : 'text-xl'} px-2 sm:px-4 flex !flex-col sm:!flex-row`}>
       <div style={{ flexWrap: 'wrap', columnGap: '20px', rowGap: '2px' }} className={`${isFBApp ? 'text-xs' : 'text-sm'} wrapper_under_image flex flex-row items-center justify-center px-3 sm:px-0 sm:flex-col sm:justify-start`}>
         <p>{langCV.nickname[l]}: {isTH ? 'ต็อน' : 'Tron'}</p>
-        <p className="text-nowrap flex flex-row justify-center items-center sm:mt-1">{langCV.nationality[l]}: {isTH ? 'ไทย' : 'Thai'} <img src="v2/img/thai_flag.jpg" className="ml-1" style={{ width: '22px', height: '18px' }} /></p>
+        <p className="text-nowrap flex flex-row justify-center items-center sm:mt-1">{langCV.nationality[l]}: {isTH ? 'ไทย' : 'Thai'} <img src="v2/img/thai_flag.jpg" className="ml-1" style={{ width: '22px', height: '16px' }} /></p>
         {/* <div className="basis-full sm:basis-0"></div> */}
         <p style={{ flexWrap: 'wrap' }} className="flex flex-row justify-center sm:flex-col sm:items-center sm:mt-1">
           <p className="text-nowrap">
