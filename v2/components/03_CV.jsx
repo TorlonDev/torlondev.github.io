@@ -281,7 +281,7 @@ const CV = () => {
 
           #map_tol {
             height: 120px;
-            width: 240px;
+            width: 230px;
           }
           .cv_content {
             margin-top: ${isSafari ? '-50px;' : '-90px;'}
@@ -476,7 +476,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.fe_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2 text-xs">
+          <div className="flex flex-row flex-wrap p-3 pb-6 text-xs text-justify">
             {langCV.fe_exp}
           </div>
 
@@ -485,7 +485,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.be_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2 text-xs">
+          <div className="flex flex-row flex-wrap p-3 pb-6 text-xs text-justify">
             {langCV.be_exp}
           </div>
 
@@ -494,7 +494,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.db_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2 text-xs">
+          <div className="flex flex-row flex-wrap p-3 pb-6 text-xs text-justify">
             {langCV.db_exp}
           </div>
 
@@ -503,7 +503,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.other_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2 text-xs">
+          <div className="flex flex-row flex-wrap p-3 pb-6 text-xs text-justify">
             {langCV.other_exp}
           </div>
 
@@ -663,7 +663,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.fe_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2 text-xs">
+          <div className="flex flex-row flex-wrap p-2 pb-4 text-xs text-justify">
             {langCV.fe_exp}
           </div>
 
@@ -672,7 +672,7 @@ const CV = () => {
              width: '100%'
           }}>{langCV.be_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2 text-xs">
+          <div className="flex flex-row flex-wrap p-2 pb-4 text-xs text-justify">
             {langCV.be_exp}
           </div>
 
@@ -681,7 +681,7 @@ const CV = () => {
             width: '100%'
           }}>{langCV.db_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2 text-xs">
+          <div className="flex flex-row flex-wrap p-2 pb-4 text-xs text-justify">
             {langCV.db_exp}
           </div>
 
@@ -690,7 +690,7 @@ const CV = () => {
              width: '100%'
           }}>{langCV.other_exp_header[l]}</div>
 
-          <div className="flex flex-row flex-wrap p-2 text-xs">
+          <div className="flex flex-row flex-wrap p-2 pb-4 text-xs text-justify">
             {langCV.other_exp}
           </div>
 
