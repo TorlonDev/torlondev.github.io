@@ -183,6 +183,34 @@ const Home = () => {
         `)
       }
     </style>
+
+    <style>
+      {`
+         .text_ani {
+          animation-duration: 3s;
+          animation-name: fadein;
+          animation-iteration-count: 1;
+          opacity: 0;
+          animation-fill-mode: forwards;  
+         }
+
+        @keyframes fadein {
+            0% { opacity: 0; }
+            25%,75%  { opacity: 1; }
+            100% { opacity: 1;}
+        }
+
+        .text_ani_1 { animation-delay: 1s;}
+        .text_ani_2 { animation-delay: 2s;}
+        .text_ani_3 { animation-delay: 3s;}
+        .text_ani_4 { animation-delay: 4s;}
+        .text_ani_5 { animation-delay: 5s;}
+        .text_ani_6 { animation-delay: 6s;}
+        .text_ani_7 { animation-delay: 7s;}
+        .text_ani_8 { animation-delay: 8s;}
+        .text_ani_9 { animation-delay: 9s;}
+      `}
+    </style>
     <div className="cover_home" style={{
       aspectRatio: '1000 / 550',
       position: 'relative',
@@ -198,9 +226,9 @@ const Home = () => {
         <canvas id="canvas_snow_falling" style={{ width: '100%', height: '100%', }} />
         <ArrowChangeCover direction='left' idCoverTo='btc_falling' leftAbsolute='10%' />
         <div className="cover_content_center" style={{ left: '50%' }}>
-          <span>{lang.hello_world[l].toUpperCase()}</span><br /><br />
-          <span>{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
-          <span>{lang.i_am_cool[l].toUpperCase()}</span>
+          <span className="text_ani text_ani_1">{lang.hello_world[l].toUpperCase()}</span><br /><br />
+          <span className="text_ani text_ani_2">{lang.i_am_developer[l].toUpperCase()}</span><br /><br />
+          <span className="text_ani text_ani_3">{lang.i_am_cool[l].toUpperCase()}</span>
         </div>
         <ArrowChangeCover direction='right' idCoverTo='rain_falling' leftAbsolute='90%' />
       </div>
@@ -249,15 +277,10 @@ const Home = () => {
         </div>
         <ArrowChangeCover direction='right' idCoverTo='snow_falling' leftAbsolute='390%' />
       </div>
-      {/* <img src="v2/img/cover1.jpg"
-        style={{ display: 'inline', width: '100%', height: '100%' }}
-        loading="eager"
-      />
-      <img src="v2/img/cover2.jpg"
-        style={{ display: 'inline', width: '100%', height: '100%' }}
-        loading="eager"
-      /> */}
+
     </div>
+ 
+
     <div style={{
       position: 'relative',
       width: '100%',
@@ -269,9 +292,9 @@ const Home = () => {
       padding: '20px',
     }}>
       <article>
-        <h3 className={`${isFBApp? 'text-2xl': 'text-3xl'}`} >{langHome[l][0]}</h3><br />
-        <p class="indent-8">{langHome[l][1]}</p><br />
-        <ul class="indent-8">
+        <h3 className={`${isFBApp? 'text-2xl': 'text-3xl'} text_ani text_ani_4`} >{langHome[l][0]}</h3><br />
+        <p className="indent-8 text_ani text_ani_5">{langHome[l][1]}</p><br />
+        <ul className="indent-8 text_ani text_ani_6">
           <li>{langHome[l][2]}</li>
           <li>{langHome[l][3]}</li>
           <li>{langHome[l][4]}</li>
