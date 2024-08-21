@@ -783,7 +783,7 @@ const CV = () => {
                 </div>
                 <div className="basis-full"></div>
                 <div className="flex flex-row text-sm sm:text-base">
-                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="text-nowrap indent-6 sm:indent-7"><i class='fa-solid fa-calendar-alt'></i></span>
                   <span className="pl-2">{langCV.may[l]} 2011 - {langCV.apr[l]} 2015: <span className="text-nowrap">4 {langCV.years[l]}</span></span>
                 </div>
               </div>
@@ -816,7 +816,7 @@ const CV = () => {
                 </div>
                 <div className="basis-full"></div>
                 <div className="flex flex-row text-sm sm:text-base">
-                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="text-nowrap indent-6 sm:indent-7"><i class='fa-solid fa-calendar-alt'></i></span>
                   <span className="pl-2">{langCV.may[l]} 2008 - {langCV.apr[l]} 2011: <span className="text-nowrap">3 {langCV.years[l]}</span></span>
                 </div>
               </div>
@@ -843,7 +843,7 @@ const CV = () => {
                 </div>
                 <div className="basis-full"></div>
                 <div className="flex flex-row text-sm sm:text-base">
-                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="text-nowrap indent-6 sm:indent-7"><i class='fa-solid fa-calendar-alt'></i></span>
                   <span className="pl-2">{langCV.may[l]} 2005 - {langCV.apr[l]} 2008: <span className="text-nowrap">3 {langCV.years[l]}</span></span>
                 </div>
               </div>
