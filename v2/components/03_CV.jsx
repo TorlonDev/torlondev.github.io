@@ -375,7 +375,7 @@ const CV = () => {
 
           ${ isFBApp ? `
             .svg-inline--fa {
-              margin-bottom: 1px;
+              margin-bottom: 2px;
             }
           `: '' }
         ` + mobileCSS(`
