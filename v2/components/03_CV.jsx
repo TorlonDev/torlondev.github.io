@@ -415,7 +415,7 @@ const CV = () => {
           }
           .cv_content {
             margin-top: ${isSafari ? '-50px;' : '-90px;'}
-            min-width: calc(var(--contentMinWidth) + 10px);
+            min-width: calc(var(--contentMinWidth) + 20px);
             max-width: calc(var(--navBarElementMaxWidth) - 300px)
           }
           .wrapper_under_image {
@@ -601,7 +601,7 @@ const CV = () => {
         </div>
 
         <div className="hidden sm:flex sm:flex-col pt-3 pl-3 sm:pl-0">
-          <div className={`p-1 px-2 text-nowrap ${isFBApp ? 'pr-0': ''}`} style={{
+          <div className={`p-1 px-2 text-nowrap ${isFBApp ? 'pr-0' : ''}`} style={{
             'backgroundColor': 'var(--cvCoverColor)',
             width: '100%', maxWidth: '250px',
           }}>{langCV.fe_exp_header[l]}</div>
@@ -653,17 +653,23 @@ const CV = () => {
           <div class="container-left left-t">
             <div class="content-left p-5">
 
-              <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
-                <span className="text-nowrap">{langCV.mar[l]} 2019 - {langCV.jun[l]} 2021: </span>
-                <span className="text-nowrap hidden md:flex md: pl-1">2 {langCV.years[l]} 4 {langCV.months[l]}</span>
+              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px', rowGap:'2px' }}>
+                <div className="flex flex-row text-xl">
+                  <span className="text-nowrap"><i class='fa-solid fa-building'></i></span>
+                  <span className="pl-2">Luma Health Insurance</span>
+                </div>
                 <div className="basis-full"></div>
-                <span>Luma Health Insurance.</span>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="pl-2">{langCV.mar[l]} 2019 - {langCV.jun[l]} 2021: <span className="text-nowrap">2 {langCV.years[l]} 4 {langCV.months[l]}</span></span>
+                </div>
+                <div className="basis-full"></div>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class="fa-brands fa-dev"></i></span>
+                  <span className="pl-2">{langCV.luma_roles[l]}</span>
+                </div>
               </div>
-              <div className="flex flex-row pb-2 text-base">
-                <span className="text-nowrap">{langCV.roles[l]}: </span>
-                <span className="pl-1">{langCV.luma_roles[l]}</span>
-              </div>
-
+ 
               <div id="work_detail_3" className="work_detail">
                 <FilmStripRow isTop />
                 <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
@@ -685,16 +691,22 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
-                <span className="text-nowrap">{langCV.mar[l]} 2017 - {langCV.jul[l]} 2018: </span>
-                <span className="text-nowrap hidden md:flex md: pl-1">1 {langCV.year[l]} 4 {langCV.months[l]}</span>
-                <div className="basis-full"></div>
-                <span>Scale360.</span>
-              </div>
 
-              <div className="flex flex-row pb-2 text-base">
-                <span className="text-nowrap">{langCV.roles[l]}: </span>
-                <span className="pl-1">{langCV.scale_roles[l]}</span>
+              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px', rowGap:'2px' }}>
+                <div className="flex flex-row text-xl">
+                  <span className="text-nowrap"><i class='fa-solid fa-building'></i></span>
+                  <span className="pl-2">Scale360</span>
+                </div>
+                <div className="basis-full"></div>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="pl-2">{langCV.mar[l]} 2017 - {langCV.jul[l]} 2018: <span className="text-nowrap">1 {langCV.year[l]} 4 {langCV.months[l]}</span></span>
+                </div>
+                <div className="basis-full"></div>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class="fa-brands fa-dev"></i></span>
+                  <span className="pl-2">{langCV.scale_roles[l]}</span>
+                </div>
               </div>
 
               <div id="work_detail_2" className="work_detail">
@@ -715,16 +727,22 @@ const CV = () => {
           </div>
           <div class="container-left left-t">
             <div class="content-left p-5">
-              <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
-                <span className="text-nowrap">{langCV.may[l]} 2014 - {langCV.feb[l]} 2015: </span>
-                <span className="text-nowrap hidden md:flex md: pl-1">9 {langCV.months[l]}</span>
-                <div className="basis-full"></div>
-                <span>True Corporation.</span>
-              </div>
 
-              <div className="flex flex-row pb-2 text-base">
-                <span className="text-nowrap">{langCV.role[l]}: </span>
-                <span className="pl-1">{langCV.true_roles[l]}</span>
+              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px', rowGap:'2px' }}>
+                <div className="flex flex-row text-xl">
+                  <span className="text-nowrap"><i class='fa-solid fa-building'></i></span>
+                  <span className="pl-2">True Corporation</span>
+                </div>
+                <div className="basis-full"></div>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="pl-2">{langCV.may[l]} 2014 - {langCV.feb[l]} 2015: <span className="text-nowrap">9 {langCV.months[l]}</span></span>
+                </div>
+                <div className="basis-full"></div>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class="fa-brands fa-dev"></i></span>
+                  <span className="pl-2">{langCV.true_roles[l]}</span>
+                </div>
               </div>
 
               <div id="work_detail_1" className="work_detail">
@@ -757,11 +775,17 @@ const CV = () => {
         <div class="timeline-right py-2 text-sm">
           <div class="container-right right-t">
             <div class="content-right p-5">
-              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
-                <span className="text-nowrap">{langCV.may[l]} 2011 - {langCV.apr[l]} 2015: </span>
-                <span className="text-nowrap hidden md:flex md: pl-1">4 {langCV.years[l]}</span>
+
+              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px', rowGap:'2px' }}>
+                <div className="flex flex-row text-xl">
+                  <span className="text-nowrap"><i class='fa-solid fa-school'></i></span>
+                  <span className="pl-2">Panyapiwat Institute Of Management</span>
+                </div>
                 <div className="basis-full"></div>
-                <span>Panyapiwat Institute Of Management.</span>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="pl-2">{langCV.may[l]} 2011 - {langCV.apr[l]} 2015: <span className="text-nowrap">4 {langCV.years[l]}</span></span>
+                </div>
               </div>
 
               <div d="edu_detail_2" className="edu_detail">
@@ -785,11 +809,16 @@ const CV = () => {
           <div class="container-right right-t">
             <div class="content-right p-5">
 
-              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
-                <span className="text-nowrap">{langCV.may[l]} 2008 - {langCV.apr[l]} 2011: </span>
-                <span className="text-nowrap hidden md:flex md: pl-1">3 {langCV.years[l]}</span>
+              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px', rowGap:'2px' }}>
+                <div className="flex flex-row text-xl">
+                  <span className="text-nowrap"><i class='fa-solid fa-school'></i></span>
+                  <span className="pl-2">Trimit Wittayalai School</span>
+                </div>
                 <div className="basis-full"></div>
-                <span>Trimit Wittayalai School.</span>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="pl-2">{langCV.may[l]} 2008 - {langCV.apr[l]} 2011: <span className="text-nowrap">3 {langCV.years[l]}</span></span>
+                </div>
               </div>
 
               <div id="edu_detail_1" className="edu_detail">
@@ -807,11 +836,16 @@ const CV = () => {
           <div class="container-right right-t">
             <div class="content-right p-5">
 
-              <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
-                <span className="text-nowrap">{langCV.may[l]} 2005 - {langCV.apr[l]} 2008: </span>
-                <span className="text-nowrap hidden md:flex md: pl-1">3 {langCV.years[l]}</span>
+              <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px', rowGap:'2px' }}>
+                <div className="flex flex-row text-xl">
+                  <span className="text-nowrap"><i class='fa-solid fa-school'></i></span>
+                  <span className="pl-2">Benchamarachuthit Chanthaburi School</span>
+                </div>
                 <div className="basis-full"></div>
-                <span>Benchamarachuthit Chanthaburi School.</span>
+                <div className="flex flex-row text-sm sm:text-base">
+                  <span className="text-nowrap indent-5 sm:indent-6"><i class='fa-solid fa-calendar-alt'></i></span>
+                  <span className="pl-2">{langCV.may[l]} 2005 - {langCV.apr[l]} 2008: <span className="text-nowrap">3 {langCV.years[l]}</span></span>
+                </div>
               </div>
 
             </div>
