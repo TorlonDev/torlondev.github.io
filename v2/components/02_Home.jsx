@@ -280,7 +280,6 @@ const Home = () => {
 
     </div>
  
-
     <div style={{
       position: 'relative',
       width: '100%',
@@ -295,13 +294,13 @@ const Home = () => {
         <h3 className={`${isFBApp? 'text-2xl': 'text-3xl'} text_ani text_ani_2`} >{langHome[l][0]}</h3><br />
         <p className="indent-8 text_ani text_ani_3">{langHome[l][1]}</p><br />
         <ul className="indent-8 text_ani text_ani_4">
-          <li>{langHome[l][2]}</li>
-          <li>{langHome[l][3]}</li>
-          <li>{langHome[l][4]}</li>
-          <li>{langHome[l][5]}</li>
+          <li className="text_ani text_ani_4">{langHome[l][2]}</li>
+          <li className="text_ani text_ani_5">{langHome[l][3]}</li>
+          <li className="text_ani text_ani_6">{langHome[l][4]}</li>
+          <li className="text_ani text_ani_7">{langHome[l][5]}</li>
         </ul>
         <br />
-        <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4" />
+        <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4 text_ani text_ani_8" />
       </article>
     </div>
   </>
