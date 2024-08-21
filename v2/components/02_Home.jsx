@@ -292,9 +292,9 @@ const Home = () => {
       padding: '20px',
     }}>
       <article>
-        <h3 className={`${isFBApp? 'text-2xl': 'text-3xl'} text_ani text_ani_4`} >{langHome[l][0]}</h3><br />
-        <p className="indent-8 text_ani text_ani_5">{langHome[l][1]}</p><br />
-        <ul className="indent-8 text_ani text_ani_6">
+        <h3 className={`${isFBApp? 'text-2xl': 'text-3xl'} text_ani text_ani_2`} >{langHome[l][0]}</h3><br />
+        <p className="indent-8 text_ani text_ani_3">{langHome[l][1]}</p><br />
+        <ul className="indent-8 text_ani text_ani_4">
           <li>{langHome[l][2]}</li>
           <li>{langHome[l][3]}</li>
           <li>{langHome[l][4]}</li>
