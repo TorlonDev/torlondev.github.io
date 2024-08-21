@@ -656,7 +656,7 @@ const CV = () => {
               <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
                 <span className="text-nowrap">{langCV.mar[l]} 2019 - {langCV.jun[l]} 2021: </span>
                 <span className="text-nowrap hidden md:flex md: pl-1">2 {langCV.years[l]} 4 {langCV.months[l]}</span>
-                <div className="basis-0 md:basis-full"></div>
+                <div className="basis-full"></div>
                 <span>Luma Health Insurance.</span>
               </div>
               <div className="flex flex-row pb-2 text-base">
@@ -688,7 +688,7 @@ const CV = () => {
               <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
                 <span className="text-nowrap">{langCV.mar[l]} 2017 - {langCV.jul[l]} 2018: </span>
                 <span className="text-nowrap hidden md:flex md: pl-1">1 {langCV.year[l]} 4 {langCV.months[l]}</span>
-                <div className="basis-0 md:basis-full"></div>
+                <div className="basis-full"></div>
                 <span>Scale360.</span>
               </div>
 
@@ -718,7 +718,7 @@ const CV = () => {
               <div className="flex flex-row flex-wrap text-base" style={{ columnGap: '2px' }}>
                 <span className="text-nowrap">{langCV.may[l]} 2014 - {langCV.feb[l]} 2015: </span>
                 <span className="text-nowrap hidden md:flex md: pl-1">9 {langCV.months[l]}</span>
-                <div className="basis-0 md:basis-full"></div>
+                <div className="basis-full"></div>
                 <span>True Corporation.</span>
               </div>
 
@@ -760,7 +760,7 @@ const CV = () => {
               <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
                 <span className="text-nowrap">{langCV.may[l]} 2011 - {langCV.apr[l]} 2015: </span>
                 <span className="text-nowrap hidden md:flex md: pl-1">4 {langCV.years[l]}</span>
-                <div className="basis-0 md:basis-full"></div>
+                <div className="basis-full"></div>
                 <span>Panyapiwat Institute Of Management.</span>
               </div>
 
@@ -788,7 +788,7 @@ const CV = () => {
               <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
                 <span className="text-nowrap">{langCV.may[l]} 2008 - {langCV.apr[l]} 2011: </span>
                 <span className="text-nowrap hidden md:flex md: pl-1">3 {langCV.years[l]}</span>
-                <div className="basis-0 md:basis-full"></div>
+                <div className="basis-full"></div>
                 <span>Trimit Wittayalai School.</span>
               </div>
 
@@ -810,7 +810,7 @@ const CV = () => {
               <div className="flex flex-row flex-wrap text-base pb-2" style={{ columnGap: '2px' }}>
                 <span className="text-nowrap">{langCV.may[l]} 2005 - {langCV.apr[l]} 2008: </span>
                 <span className="text-nowrap hidden md:flex md: pl-1">3 {langCV.years[l]}</span>
-                <div className="basis-0 md:basis-full"></div>
+                <div className="basis-full"></div>
                 <span>Benchamarachuthit Chanthaburi School.</span>
               </div>
 
