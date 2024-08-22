@@ -279,11 +279,10 @@ const Home = () => {
       </div>
 
     </div>
- 
+
     <div style={{
       position: 'relative',
       width: '100%',
-      height: '100vh',
       backgroundColor: 'var(--BGColor)',
       color: 'var(--color)',
       border: 'unset',
@@ -291,7 +290,7 @@ const Home = () => {
       padding: '20px',
     }}>
       <article>
-        <h3 className={`${isFBApp? 'text-2xl': 'text-3xl'} text_ani text_ani_2`} >{langHome[l][0]}</h3><br />
+        <h3 className={`${isFBApp ? 'text-2xl' : 'text-3xl'} text_ani text_ani_2`} >{langHome[l][0]}</h3><br />
         <p className="indent-8 text_ani text_ani_3">{langHome[l][1]}</p><br />
         <ul className="indent-8 text_ani text_ani_4">
           <li className="text_ani text_ani_4">{langHome[l][2]}</li>
@@ -301,7 +300,13 @@ const Home = () => {
         </ul>
         <br />
         <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4 text_ani text_ani_8" />
+        <br />
       </article>
+      <iframe class="text_ani text_ani_8 instagram-media instagram-media-rendered" id="instagram-embed-1" src="https://www.instagram.com/torlon.dev/embed/?cr=1&amp;v=14&amp;wp=675"
+        style={{ width: '90%', margin: 'auto', border: '3px solid pink' }}
+      ></iframe>
+      <br /><br /><br />
     </div>
+
   </>
 }
