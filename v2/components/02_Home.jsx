@@ -62,6 +62,10 @@ const Home = () => {
     spring_falling()
     raining()
     btc_falling()
+
+    if(isFBApp){
+      $(':root').css(`--contentMinWidth`, '400px')
+    }
   }, []);
 
   return <>
