@@ -302,7 +302,7 @@ const Home = () => {
         <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4 text_ani text_ani_8" />
         <br />
       </article>
-      <iframe class="text_ani text_ani_8 instagram-media instagram-media-rendered" id="instagram-embed-1" src="https://www.instagram.com/torlon.dev/embed/?cr=1&amp;v=14&amp;wp=675"
+      <iframe class="text_ani text_ani_8 instagram-media instagram-media-rendered" id="instagram-embed-1" src="https://www.instagram.com/torlon.dev/embed"
         style={{ width: '90%', margin: 'auto', border: '3px solid pink' }}
       ></iframe>
       <br /><br /><br />
