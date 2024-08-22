@@ -62,6 +62,15 @@ const Home = () => {
     spring_falling()
     raining()
     btc_falling()
+
+    if(isFBApp) {
+
+      // IG Font-Size Button
+      if(document.getElementsByClassName('xwhw2v2')[0]){
+        document.getElementsByClassName('xwhw2v2')[0].style.fontSize = '12px'
+      }
+    }
+
   }, []);
 
   return <>
