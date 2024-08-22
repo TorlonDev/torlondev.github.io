@@ -362,6 +362,18 @@
       document.querySelectorAll("script[del='del']").forEach(function (e) {
         e.parentElement.removeChild(e);
       });
+
+      setTimeout(()=> {
+        if(isFBApp) {
+          alert('1')
+          // IG Font-Size Button
+          if(document.getElementsByClassName('xwhw2v2')[0]){
+            alert('2')
+            document.getElementsByClassName('xwhw2v2')[0].style.fontSize = '10px'
+          }
+        }
+      }, 10000)
+
     });
 
     async function initMap() {
