@@ -12,9 +12,10 @@ const Routing = () => (
     }} />
     <Route exact path="/home" component={DefaultWrapper(<Home />)} />
     <Route exact path="/cv" component={DefaultWrapper(<CV />)} />
-    <Route exact path="/blogs" component={DefaultWrapper(<Blogs />)} />
+    <Route exact path="/autobiography" component={DefaultWrapper(<AutoBiography />)} />
+    {/* <Route exact path="/blogs" component={DefaultWrapper(<Blogs />)} />
     <Route exact path="/life" component={DefaultWrapper(<Life />)} />
-    <Route exact path="/projects" component={DefaultWrapper(<Projects />)} />
+    <Route exact path="/projects" component={DefaultWrapper(<Projects />)} /> */}
     <Route exact path="/time_machine" component={TimeMachine} />
     <Route component={DefaultWrapper(<NotFound />)} />
   </Routes>
@@ -81,8 +82,9 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
     <div className={`sidebar-wrapper ${isShowSideBar ? "active" : ""}`}>
       <NavLink className="navlink text-l whitespace-nowrap" to="/home" onClick={hideSideBar}>{lang.home?.[l]}</NavLink>
       <NavLink className="navlink text-l whitespace-nowrap" to="/cv" onClick={hideSideBar}>{lang.cv?.[l]}</NavLink>
-      <NavLink className="navlink text-l whitespace-nowrap" to="/blogs" onClick={hideSideBar}>{lang.blogs?.[l]}</NavLink>
-      <NavLink className="navlink text-l whitespace-nowrap" to="/life" onClick={hideSideBar}>{lang.life?.[l]}</NavLink>
+      <NavLink className="navlink text-l whitespace-nowrap" to="/autobiography" onClick={hideSideBar}>{lang.autobiography?.[l]}</NavLink>
+      {/* <NavLink className="navlink text-l whitespace-nowrap" to="/blogs" onClick={hideSideBar}>{lang.blogs?.[l]}</NavLink>
+      <NavLink className="navlink text-l whitespace-nowrap" to="/life" onClick={hideSideBar}>{lang.life?.[l]}</NavLink> */}
       <NavLink className="navlink text-l whitespace-nowrap" to="/time_machine" onClick={hideSideBar}>{lang.time_machine?.[l]}</NavLink>
     </div>
   </>
@@ -161,6 +163,10 @@ const TitleMobile = () => {
       return ''
     }
 
+    if(path === '/autobiography' && l === 'EN'){
+      return 'BIOGRAPHY'
+    }
+
     const firstPathWithoutSub = path.split('/')[1]
 
     return (lang[firstPathWithoutSub] || {})[l]
@@ -171,6 +177,8 @@ const TitleMobile = () => {
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0%);
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   `) + desktopCSS(`
     .title_mobile {
@@ -181,7 +189,7 @@ const TitleMobile = () => {
   return <>
     <style>{styles}</style>
 
-    <div className="title_mobile text-2xl font-medium">
+    <div className="title_mobile text-xl font-medium">
       <span>{`${changePathToTitle(useLocation().pathname) || ''}`.toUpperCase()}</span>
     </div>
   </>
@@ -257,7 +265,7 @@ const MenuTopRight = () => {
 
     return (
       <div className="language_change"
-        style={{ marginRight: '25px', cursor: 'pointer' }}
+        style={{ marginRight: '20px', cursor: 'pointer' }}
         onClick={toggleLangChoose}>
         <span>{currentLanguage}</span>
         <div className="language_choose" id="language_choose_wrapper"
@@ -266,7 +274,7 @@ const MenuTopRight = () => {
             // "display": isShowLangChoose ? 'block' : 'none',
             "position": 'absolute',
             top: '50px',
-            'marginLeft': '-60px',
+            'marginLeft': '-51px',
             backgroundColor: 'var(--subNavBarColor)',
             "width": '120px',
             'textAlign': 'center',
