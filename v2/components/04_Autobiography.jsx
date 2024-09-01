@@ -22,46 +22,28 @@ const AutoBiography = () => {
       }
     `)}</style>
 
-    <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '10px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', minHeight: '100vh' }}>
-      <div style={{ width: '320px', height: `${isFBApp ? '623px' : '553px'}` }}>
+    <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '6px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', minHeight: '100vh' }}>
+      <div style={{ width: '324px', height: `${isFBApp ? '623px' : '553px'}` }}>
         <span className="text-xl">2010-2015</span>
         <a href="https://www.facebook.com/tor.onlyalone" target="_blank">
-          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D692949137434104%26set%3Da.255540504508305&show_text=false&width=320"
-            width="320" height={`${isFBApp ? '623px' : '553px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D692949137434104%26set%3Da.255540504508305&show_text=false&width=324"
+            width="324" height={`${isFBApp ? '623px' : '553px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
       </div>
-      <div style={{ width: '280px', height: `${isFBApp ? '470px' : '430px'}` }}>
+      <div style={{ width: '324px', height: `${isFBApp ? '470px' : '430px'}` }}>
         <span className="text-xl">2016-2017</span>
         <a href="https://www.facebook.com/torn.onlyalone" target="_blank">
-          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D378241239184959%26set%3Da.131442370531515&show_text=false&width=280"
-            width="280" height={`${isFBApp ? '470px' : '430px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D378241239184959%26set%3Da.131442370531515&show_text=false&width=324"
+            width="324" height={`${isFBApp ? '470px' : '430px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
       </div>
-
-      {/* <div style={{ width: '280px', height: `${isFBApp ? '623px' : '553px'}` }}>
-        <span className="text-xl">2010-2015</span>
-        <a href="https://www.facebook.com/tor.onlyalone" target="_blank">
-          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D692949137434104%26set%3Da.255540504508305&show_text=false&width=280"
-            width="280" height={`${isFBApp ? '623px' : '553px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
-        </a>
-      </div>
-      <div style={{ width: '280px', height: `${isFBApp ? '470px' : '430px'}` }}>
-        <span className="text-xl">2016-2017</span>
-        <a href="https://www.facebook.com/torn.onlyalone" target="_blank">
-          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D378241239184959%26set%3Da.131442370531515&show_text=false&width=280"
-            width="280" height={`${isFBApp ? '470px' : '430px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
-        </a>
-        
-      </div>
-      <div style={{ width: '280px', height: `${isFBApp ? '403px' : '373px'}` }}>
+      <div style={{ width: '324px', height: `${isFBApp ? '403px' : '373px'}` }}>
         <span className="text-xl">2017-2023</span>
         <a href="https://www.facebook.com/tron.json" target="_blank">
-          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D1359321627882023%26set%3Da.104674606680071&show_text=false&width=280"
-            width="280" height={`${isFBApp ? '403px' : '373px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D1359321627882023%26set%3Da.104674606680071&show_text=false&width=324"
+            width="324" height={`${isFBApp ? '403px' : '373px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
-      </div> */}
-
-
+      </div>
     </div>
     <br />< br /><br />< br />
   </div>
