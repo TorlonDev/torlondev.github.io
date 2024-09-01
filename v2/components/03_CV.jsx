@@ -678,7 +678,7 @@ const CV = () => {
  
               <div id="work_detail_3" className="work_detail">
                 <FilmStripRow isTop />
-                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 5' : '16 / 6'}` }}
                   class="flex flex-row flex-nowrap">
                   <img class="img_work" src="old/img/luma1.jpg" id="img_luma1"
                     onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/luma1.jpg" />`)}
@@ -717,7 +717,7 @@ const CV = () => {
 
               <div id="work_detail_2" className="work_detail">
                 <FilmStripRow isTop />
-                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 5' : '16 / 6'}` }}
                   class="flex flex-row flex-nowrap">
                   <img class="img_work" id="img_scale1" src="old/img/scale1.jpg"
                     onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/scale1.jpg" />`)}
@@ -753,7 +753,7 @@ const CV = () => {
 
               <div id="work_detail_1" className="work_detail">
                 <FilmStripRow isTop />
-                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 5' : '16 / 6'}` }}
                   class="flex flex-row flex-nowrap">
                   <img class="img_work" id="img_true" src="old/img/true.jpg"
                     onDoubleClick={() => openModal(`<img class="img_modal" src="old/img/true.jpg" />`)}
@@ -796,7 +796,7 @@ const CV = () => {
 
               <div d="edu_detail_2" className="edu_detail">
                 <FilmStripRow isTop />
-                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 5' : '16 / 6'}` }}
                   class="flex flex-row flex-nowrap">
                   <img class="img_work" id="img_pim1" src="v2/img/pim1.jpg"
                     onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/pim1.jpg" />`)}
@@ -829,7 +829,7 @@ const CV = () => {
 
               <div id="edu_detail_1" className="edu_detail">
                 <FilmStripRow isTop />
-                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 6' : '16 / 7'}` }}
+                <div style={{ overflow: 'hidden', overflowX: 'scroll', aspectRatio: `${isSafari ? '16 / 5' : '16 / 6'}` }}
                   class="flex flex-row flex-nowrap">
                   <img class="img_work" id="img_tri1" src="v2/img/tri1.jpg"
                     onDoubleClick={() => openModal(`<img class="img_modal" src="v2/img/tri1.jpg" />`)}
