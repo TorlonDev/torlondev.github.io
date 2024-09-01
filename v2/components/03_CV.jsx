@@ -29,6 +29,23 @@ const langCV = {
     CN: '全栈开发者 / 软件工程师.',
     JP: 'フルスタック開発者 / ソフトウェア技術者。',
   },
+
+  professional_summary: {
+    EN: 'PROFESSIONAL SUMMARY',
+    TH: 'สรุปความเป็นมืออาชีพ',
+    CN: '职业总结',
+    JP: 'しょくむ ようやく',
+  },
+
+  professional_detail : [
+    {
+      EN: 'I am an experienced programmer with a proven ability to fix any bug. I never decline tasks and am always willing to take on the most challenging assignments. I frequently choose to select tasks last during task allocation, which often leads me to handle complex tasks, including building systems from scratch, adding new features, fixing bugs, and improving performance.',
+      TH: 'ผมเป็นโปรแกรมเมอร์มากประสบการณ์ ไม่มีบั๊กไหนที่ผมแก้ไม่ได้ ผมไม่เคยปฎิเสธงาน ผมเป็นคนที่ชอบเสียสละ เช่น เวลาที่ทีมแบ่งงานกัน ผมจะรอเลือกงานคนสุดท้ายทุกครั้ง ก็เลยมีโอกาสได้ทำงานที่ยากๆ บ่อยครั้ง ทั้งการสร้างทุกอย่างจากจุดเริ่มต้น, การเพิ่มฟีเจอร์ใหม่ๆ, การแก้บั๊ก และการทำให้ระบบเร็วขึ้น',
+      CN: '我是一名经验丰富的程序员，具备解决任何错误的能力。我从不拒绝任务，总是愿意接受最具挑战性的工作。我经常在团队分配任务时最后选择，这使我有机会处理复杂的任务，包括从零开始构建系统、添加新功能、修复错误和提升性能。',
+      JP: '私は経験豊富なプログラマーで、どんなバグでも解決できる能力があります。タスクを拒否することはなく、常に最も挑戦的な課題を引き受ける意欲があります。チームでタスクが分配される際には、よく最後にタスクを選ぶことが多く、その結果、システムのゼロからの構築、新機能の追加、バグの修正、パフォーマンスの向上といった複雑なタスクを扱う機会が得られます。'
+    },
+  ],
+
   nickname: {
     EN: 'Nickname',
     TH: 'ชื่อเล่น',
@@ -133,7 +150,7 @@ const langCV = {
   fe_exp: `HTML | CSS | JS | ES5 & ES6 | Wordpress | Bootstrap | jQuery | Angular 1 | React | Redux | Lodash | Axios | React Native | Java(Android) | ObjectiveC(iOS) | TailwindCSS | NextJS`,
   be_exp: `C# 4 | Java | Tomcat | JSP | PHP | Laravel | Rest API | NodeJS | ExpressJS | NestJS | Prisma | GraphQL`,
   db_exp: `MySQL | JOIN Table | DB Design | ER Diagram | MariaDB | PostgreSQL | Stored Procedures | Trigger | MongoDB | Aggregation | DB Tuning | DB Backup`,
-  other_exp: `Read Document | Self Learner | Search Google | Ask Stackoverflow | Virtual Box | Trello | Git | Git Flow | Jira | Jest | Unit Test | Automate Test | Cucumber | Linux | Ubuntu | Apache 2 | Cron Job | Ask Serverfault | AWS | EC2 | OVH | Dedicated Server | Windows Server | Firewall | Cloudflare | ESXI | Docker | Temporary IT Support | Ask ChatGPT`,
+  other_exp: `Read Document | Self Learner | Search Google | Ask Stackoverflow | Virtual Box | Trello | Git | Git Flow | Jira | Jest | Unit Test | Automate Test | Cucumber | Linux | Ubuntu | Apache 2 | Cron Job | Ask Serverfault | AWS | EC2 | OVH | Dedicated Server | Windows Server | Firewall | Cloudflare | Zabbix | ESXI | Docker | Temporary IT Support | Ask ChatGPT`,
 
   jan: {
     EN: 'Jan',
@@ -647,6 +664,19 @@ const CV = () => {
 
       </div>
       <div style={{ position: 'relative' }} className="flex flex-col cv_content text-lg p-4 sm:pt-0">
+
+        <div className="p-2 px-5 text-xl" style={{
+          flexBasis: 'auto',
+          'backgroundColor': 'var(--cvCoverColor)',
+          borderBottomLeftRadius: '25px',
+          borderTopRightRadius: '25px',
+          borderBottomRightRadius: '25px',
+        }}><i class="fa-solid fa-user pr-2"></i> {langCV.professional_summary[l]}</div>
+
+        <div className="professional_summary_wrapper indent-8 text-base py-4 sm:pl-4 pb-5 text-justify">
+          {langCV.professional_detail[0][l]}
+        </div>
+
         <div className="p-2 px-5 text-xl" style={{
           flexBasis: 'auto',
           'backgroundColor': 'var(--cvCoverColor)',

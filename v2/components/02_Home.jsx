@@ -30,7 +30,19 @@ const langHome = {
     '- ボスから、私が以前の高額な月々の経費を削減する手助けをしたと認められる時。',
     '- チームリーダーや同僚から、これまでの何度も褒められる時、タスクや機能を完成させたことに対して。',
     '- 深夜まで働き、家に帰らない時、特にボスがピザや冷たいビールを提供してくれる時。もし仕事が終わらないまま家に帰ると、私は眠れず、結局パソコンで作業を続けることになります。',
-  ]
+  ],
+  copyright: {
+    EN: 'Copyright',
+    TH: 'ลิขสิทธิ์',
+    JP: 'ちょさくけん',
+    CN: '版权',
+  },
+  all_right_reserved: {
+    EN: 'All right reserved',
+    TH: 'สงวนสิทธิ์ทั้งหมด',
+    JP: 'ぜんちょさくけんしょゆう',
+    CN: '版权所有',
+  }
 }
 
 const Home = () => {
@@ -63,7 +75,7 @@ const Home = () => {
     raining()
     btc_falling()
 
-    if(isFBApp){
+    if (isFBApp) {
       $(':root').css(`--contentMinWidth`, '400px')
     }
   }, []);
@@ -309,6 +321,13 @@ const Home = () => {
       <iframe class="text_ani text_ani_8 instagram-media instagram-media-rendered" id="instagram-embed-1" src="https://www.instagram.com/torlon.dev/embed"
         style={{ width: '90%', margin: 'auto', border: '3px solid pink' }}
       ></iframe>
+      <br />
+
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <span className="text-sm">{langHome.copyright[l]} © 2024</span>
+        <span className="text-sm">{langHome.all_right_reserved[l]}</span>
+      </div>
+
       <br /><br /><br />
     </div>
 
