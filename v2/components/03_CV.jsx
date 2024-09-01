@@ -673,7 +673,7 @@ const CV = () => {
           borderBottomRightRadius: '25px',
         }}><i class="fa-solid fa-user pr-2"></i> {langCV.professional_summary[l]}</div>
 
-        <div className="professional_summary_wrapper indent-10 text-sm py-4 sm:pl-4 pb-5">
+        <div className="professional_summary_wrapper indent-12 sm:indent-10 text-sm py-4 sm:pl-4 pb-5">
           {langCV.professional_detail[0][l]}
         </div>
 
