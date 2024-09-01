@@ -23,11 +23,11 @@ const AutoBiography = () => {
     `)}</style>
 
     <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '10px', justifyContent: 'center', flexWrap: 'wrap', width: '100%'}}>
-      <div style={{ width: '280px', height: `${isFBApp ? '683px' : '553px'}` }}>
+      <div style={{ width: '280px', height: `${isFBApp ? '663px' : '553px'}` }}>
         <span className="text-xl">2010-2015</span>
         <a href="https://www.facebook.com/tor.onlyalone" target="_blank">
           <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D692949137434104%26set%3Da.255540504508305&show_text=false&width=280"
-            width="280" height={`${isFBApp ? '683px' : '553px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
+            width="280" height={`${isFBApp ? '663px' : '553px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
       </div>
       <div style={{ width: '280px', height: `${isFBApp ? '460px' : '430px'}` }}>
