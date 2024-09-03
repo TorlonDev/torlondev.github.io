@@ -49,7 +49,7 @@ const AutoBiography = () => {
     <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4" />
     <br />
 
-    <article className="px-4">
+    <article className="px-4 py-4 sm:py-0">
       <p className="text-2xl"># ประวัติการย้ายที่อยู่อาศัย</p>
       <ul className="indent-6 py-2 text-sm">
         <li>1. ตอนเกิดอยู่บ้านยายที่ซอยโปโล จนถึงอนุบาล 2</li>
