@@ -22,12 +22,12 @@ const AutoBiography = () => {
       }
     `)}</style>
 
-    <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '6px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', minHeight: `${isFBApp ? '620px' : '550px'}` }}>
-      <div style={{ width: '324px', height: `${isFBApp ? '623px' : '553px'}` }}>
+    <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '6px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', minHeight: `${isFBApp ? '630px' : '550px'}` }}>
+      <div style={{ width: '324px', height: `${isFBApp ? '630px' : '553px'}` }}>
         <span className="text-xl">FB 2010-2015 (ชีวิตวัยเรียน)</span>
         <a href="https://www.facebook.com/tor.onlyalone" target="_blank">
           <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D692949137434104%26set%3Da.255540504508305&show_text=false&width=324"
-            width="324" height={`${isFBApp ? '623px' : '553px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
+            width="324" height={`${isFBApp ? '630px' : '553px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
       </div>
       <div style={{ width: '324px', height: `${isFBApp ? '490px' : '440px'}` }}>
