@@ -22,7 +22,7 @@ const AutoBiography = () => {
       }
     `)}</style>
 
-    <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '6px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', minHeight: '550px' }}>
+    <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '6px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', minHeight: `${isFBApp ? '620px' : '550px'}` }}>
       <div style={{ width: '324px', height: `${isFBApp ? '623px' : '553px'}` }}>
         <span className="text-xl">FB 2010-2015 (ชีวิตวัยเรียน)</span>
         <a href="https://www.facebook.com/tor.onlyalone" target="_blank">
