@@ -4,7 +4,9 @@
 <head>
     <title>Tolly Auto Trade V2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css">
     <style>
         body,
         select {
@@ -51,7 +53,18 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script> -->
+
+    <script src="https://cdn.datatables.net/2.1.6/js/dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.print.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
         integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -60,15 +73,14 @@
 <body>
     <center>
         <h2>Tolly Binance Future Auto Trade V2</h2>
-        Binance API Key : <input id="binance_api_key" type="text" style="width: 40%;"
-            value="" /><br /><br />
+        Binance API Key : <input id="binance_api_key" type="text" style="width: 40%;" value="" /><br /><br />
         Binance Secret Key : <input id="binance_api_secret_key" type="password" style="width: 40%;"
             value="" /><br /><br />
         Available Balance: <span id="available_balance">-</span>&nbsp;USDT&nbsp;<button
             onclick="checkAvailableBalance()">Check Balance</button><br /><br />
         Auto Leverage : <input id="auto_leverage" type="number" style="width: 30px;" value="11" />&nbsp;x&nbsp;
         <!-- <button>Change Default Every Coin</button>-->
-        | Cut Percent : <input id="cut_percent" type="number" style="width: 40px;" value="6.94" />%<br/><br/>
+        | Cut Percent : <input id="cut_percent" type="number" style="width: 40px;" value="6.94" />%<br /><br />
         * Trick - Close at PNL > min_margin is very good. (Because cut near Liq %)
         <br /><br />
         <hr /><br />
@@ -84,10 +96,11 @@
         <table id="table_percent_change_1D" style="font-size: 14px; width: 90%;" class="table">
             <thead>
                 <tr>
-                    <th style="width: 50px !important;">Coin</th>
+                    <th style="border: 1px solid wheat;"></th>
+                    <th style="width: 50px !important; border: 1px solid wheat;">Coin</th>
                     <!-- <th>Last Price</th> -->
-                    <th style="width: 28px !important;">1Day %</th>
-                    <th>Action & Status & PNL</th>
+                    <th style="width: 28px !important; border: 1px solid wheat;">1Day %</th>
+                    <th style="border: 1px solid wheat;">Action & Status & PNL</th>
                 </tr>
             </thead>
             <tbody id="tbody_percent_change_24h">
@@ -173,6 +186,43 @@
 
         let positionListSymbolKey = {}
         //let dataTableTrade = ''
+
+        let dataTable1 = $('#table_percent_change_1D').DataTable({
+            "pageLength": 10,
+            order: [[2, 'desc']],
+        })
+
+        function reInitailDataTable() {
+            dataTable1 = $('#table_percent_change_1D').DataTable({
+                "pageLength": 10,
+                order: [[2, 'desc']],
+                layout: {
+                    topStart: {
+                        buttons: [//'copy', 'csv', 'excel',
+                            {
+                                extend: 'pdfHtml5',
+                                exportOptions: {
+                                    columns: [0, 1, 2]
+                                },
+                                // Future Bug ISO not same locale
+                                title: `${new Date().toISOString().split('T')[0] + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}`
+                            },
+                            //'print'
+                        ]
+                    }
+                }
+            })
+
+            dataTable1.on('order.dt search.dt', function () {
+                let i = 1;
+
+                dataTable1
+                    .cells(null, 0, { search: 'applied', order: 'applied' })
+                    .every(function (cell) {
+                        this.data(i++);
+                    });
+            }).draw();
+        }
 
         function openModal(txt = 'Loading...') {
             $("#modalContent").html(`<h2>${txt}</h2>`)
@@ -271,6 +321,9 @@
                         url: `${binance_api_url}/fapi/v1/ticker/24hr`, // Not Validate Delist
                         contentType: "application/json; charset=utf-8",
                         success: function (result) {
+                            // dataTable1.fnDestroy()
+                            dataTable1.destroy()
+
                             if (Array.isArray(result)) {
                                 result.forEach(({ symbol, priceChangePercent, lastPrice }) => {
                                     if (symbol in positionListSymbolKey) {
@@ -281,6 +334,7 @@
                                         ) {
                                             $('#tbody_percent_change_24h').append(`
                                             <tr>
+                                                <td></td>
                                                 <td style="width: 50px !important;">${symbol}</td><!--<td>${lastPrice}</td>--><td style="width: 28px !important;">${parseFloat(priceChangePercent).toFixed(1)} %</td>
                                                 <td>Size: <input id="size_usdt_${symbol}" style="width: 32px;" type="number" value="${defaultMargin}"/> $
                                                 <button disabled id="btn_trade_${symbol}" onclick="trade('${symbol}', '${lastPrice}')">Trade</button>
@@ -293,9 +347,8 @@
                                     }
                                 })
 
-                                $('#table_percent_change_1D').dataTable({
-                                    "pageLength": 20, order: [[1, 'desc']],
-                                })
+                                reInitailDataTable()
+
                                 closeModal()
 
                                 // checkAvailableBalance()
@@ -322,7 +375,8 @@
             const ts = Date.now()
             const qs = `recvWindow=10000&timestamp=${ts}`
 
-            $('#table_percent_change_1D').dataTable().fnDestroy()
+            //$('#table_percent_change_1D').dataTable().fnDestroy()
+            dataTable1.destroy()
 
             openModal('Checking Balance...')
             $.ajax({
@@ -438,7 +492,10 @@
                     // console.log('positionListSymbolKey 2')
                     // console.log(positionListSymbolKey)
 
-                    $('#table_percent_change_1D').dataTable({ "pageLength": 20, order: [[1, 'desc']] })
+                    // $('#table_percent_change_1D').dataTable({ "pageLength": 20, order: [[1, 'desc']] })
+
+                    reInitailDataTable()
+
                     closeModal()
                     $('#select_order_status').val('')
                     cb()
@@ -458,7 +515,7 @@
             });
         }
 
-        function closeOrder(symbol, cb = () => {}) {
+        function closeOrder(symbol, cb = () => { }) {
             console.log('close order')
             console.log(symbol)
 
