@@ -37,13 +37,13 @@ const AutoBiography = () => {
             width="324" height={`${isFBApp ? '510px' : '450px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
       </div>
-      <div style={{ width: '324px', height: `${isFBApp ? '403px' : '373px'}` }}>
+      {/* <div style={{ width: '324px', height: `${isFBApp ? '403px' : '373px'}` }}>
         <span className="text-lg">FB 2017-2023 (ชีวิตการทำงานก่อนอายุ 30)</span>
         <a href="https://www.facebook.com/tron.json" target="_blank">
           <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D1359321627882023%26set%3Da.104674606680071&show_text=false&width=324"
             width="324" height={`${isFBApp ? '403px' : '373px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
-      </div>
+      </div> */}
     </div>
 
     <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4" />
