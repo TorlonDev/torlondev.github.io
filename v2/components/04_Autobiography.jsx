@@ -22,8 +22,8 @@ const AutoBiography = () => {
       }
     `)}</style>
 
-    <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '6px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', minHeight: `${isFBApp ? '580px' : '520px'}` }}>
-      <div style={{ width: '324px', height: `${isFBApp ? '580px' : '520px'}` }}>
+    {/* <div className="fb_wrapper" style={{ display: "flex", flexDirection: "row", gap: '6px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', minHeight: `${isFBApp ? '580px' : '520px'}` }}> */}
+      {/* <div style={{ width: '324px', height: `${isFBApp ? '580px' : '520px'}` }}>
         <span className="text-lg">FB 2010-2015 (ชีวิตวัยเรียน)</span>
         <a href="https://www.facebook.com/tor.onlyalone" target="_blank">
           <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D692949137434104%26set%3Da.255540504508305&show_text=false&width=324"
@@ -36,7 +36,7 @@ const AutoBiography = () => {
           <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F%3Ffbid%3D378241239184959%26set%3Da.131442370531515&show_text=false&width=324"
             width="324" height={`${isFBApp ? '510px' : '450px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
-      </div>
+      </div> */}
       {/* <div style={{ width: '324px', height: `${isFBApp ? '403px' : '373px'}` }}>
         <span className="text-lg">FB 2017-2023 (ชีวิตการทำงานก่อนอายุ 30)</span>
         <a href="https://www.facebook.com/tron.json" target="_blank">
@@ -44,10 +44,10 @@ const AutoBiography = () => {
             width="324" height={`${isFBApp ? '403px' : '373px'}`} style={{ overflow: 'hidden', pointerEvents: 'none', border: 'none' }} frameborder="0" ></iframe>
         </a>
       </div> */}
-    </div>
-
+    {/* </div> */}
+{/* 
     <hr style={{ 'borderTop': '3px solid var(--color)' }} class="w-80 mx-auto my-4" />
-    <br />
+    <br /> */}
 
     <article className="px-4 py-4 sm:py-0">
       <p className="text-2xl"># ประวัติการย้ายโรงเรียน</p>
