@@ -82,8 +82,8 @@ const SideBarElements = ({ hideSideBar = () => { }, isShowSideBar = false }) => 
     <div className={`sidebar-wrapper ${isShowSideBar ? "active" : ""}`}>
       <NavLink className="navlink text-l whitespace-nowrap" to="/home" onClick={hideSideBar}>{lang.home?.[l]}</NavLink>
       <NavLink className="navlink text-l whitespace-nowrap" to="/cv" onClick={hideSideBar}>{lang.cv?.[l]}</NavLink>
-      <NavLink className="navlink text-l whitespace-nowrap" to="/autobiography" onClick={hideSideBar}>{lang.autobiography?.[l]}</NavLink>
-      {/* <NavLink className="navlink text-l whitespace-nowrap" to="/blogs" onClick={hideSideBar}>{lang.blogs?.[l]}</NavLink>
+      {/* <NavLink className="navlink text-l whitespace-nowrap" to="/autobiography" onClick={hideSideBar}>{lang.autobiography?.[l]}</NavLink>
+      <NavLink className="navlink text-l whitespace-nowrap" to="/blogs" onClick={hideSideBar}>{lang.blogs?.[l]}</NavLink>
       <NavLink className="navlink text-l whitespace-nowrap" to="/life" onClick={hideSideBar}>{lang.life?.[l]}</NavLink> */}
       <NavLink className="navlink text-l whitespace-nowrap" to="/time_machine" onClick={hideSideBar}>{lang.time_machine?.[l]}</NavLink>
     </div>
