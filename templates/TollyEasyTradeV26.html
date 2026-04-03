@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tolly Easy Trade V26 (Beta)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css">
+    <style>
+        body,
+        select {
+            font-size: 15px;
+            background-color: black !important;
+            color: wheat !important;
+        }
+
+        th,
+        td {
+            border: 1px solid;
+            color: wheat;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            color: black;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+        }
+
+        [class='paginate_button current'] {
+            background-color: gray !important;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.1.6/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+        integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <center>
+        <h2>Tolly Binance Future Easy Trade V26</h2>
+        <h3 id="clock_time">00:00:00</h3>
+        <a target="_blank" style="color: yellow;"
+            href="https://www.binance.com/en/support/announcement/list/48">binance.com/en/support/announcement/list/48</a><br /><br />
+        Binance API Key : <input id="binance_api_key" type="text" style="width: 40%;"
+            value="" /><br /><br />
+        Binance Secret Key : <input id="binance_api_secret_key" type="password" style="width: 40%;"
+            value="" /><br /><br />
+        Available Balance: <span id="available_balance">-</span>&nbsp;USDT&nbsp;<button
+            onclick="checkAvailableBalanceAndExistPosition(() => { checkExchangeInfo(() => {checkPercentMarket(() => { refreshTable()})}) })">Check
+            Balance</button>
+        <br /><br />
+        Auto Leverage : <input id="auto_leverage" type="number" style="width: 40px;" value="50" />&nbsp;x&nbsp;
+        Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT
+
+        <!-- | Cut One Side Percent : <input id="cut_percent" type="number" style="width: 48px;" value="2.2" />% <br />
+        Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
+            style="width: 48px;" value="1.3" />%
+        | Callback Rate: <input id="callback_rate" type="number" style="width: 48px;" value="0.3" /> <br /> -->
+
+        <br /><br />CSV Old Day Order (0, 3, 4): <input type="file" id="csvFile" accept=".csv" />
+
+        <table id="table_percent_change_1D" style="font-size: 14px; width: 90%;" class="table">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid wheat;"></th>
+                    <th style="width: 30px !important; border: 1px solid wheat;">Date</th>
+                    <th style="width: 30px !important; border: 1px solid wheat;">Day</th>
+                    <th style="width: 30px !important; border: 1px solid wheat;">Coin</th>
+                    <th style="width: 26px !important; border: 1px solid wheat;">1Day %</th>
+
+                    <th style="border: 1px solid wheat;">Action</th>
+                    <th style="border: 1px solid wheat;">Old Day</th>
+                    <th style="border: 1px solid wheat;">Change</th>
+                    <th style="border: 1px solid wheat;">Old Day %</th>
+
+                </tr>
+            </thead>
+            <tbody id="tbody_percent_change_24h">
+            </tbody>
+        </table>
+    </center>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <div id="modalContent" class="modal-content" onclick="closeModal()"></div>
+    </div>
+
+    <script id="util" type="text/javascript">
+        function openModal(txt = 'Loading...') {
+            $("#modalContent").html(`<h2>${txt}</h2>`)
+            $("#modal").show()
+        }
+
+        function closeModal() {
+            $("#modal").hide()
+        }
+
+        function findPercent2Points(max_price, min_price) {
+            const max = parseFloat(max_price); const min = parseFloat(min_price);
+            const percent = 100 - ((min / max) * 100)
+            return percent
+        }
+        function findMaxFromPercent(min_price, percent) {
+            const min = parseFloat(min_price); const p = parseFloat(percent);
+            return parseFloat(min * (100 + p) / 100)
+        }
+        function findMinFromPercent(max_price, percent) {
+            const max = parseFloat(max_price); const p = parseFloat(percent);
+            return parseFloat((max * (100 - p)) / 100)
+        }
+        function castNumDayToAbbr(dateObj) {
+            const numDay = dateObj.getDay()
+            const arrDayAbbr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
+            return arrDayAbbr[numDay]
+        }
+        function formatUnixDate(ms) {
+            const date = new Date(ms);
+            const yyyy = date.getFullYear();
+            const MM = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const hh = String(date.getHours()).padStart(2, '0');
+            const mm = String(date.getMinutes()).padStart(2, '0');
+            const ss = String(date.getSeconds()).padStart(2, '0');
+            const dayStr = castNumDayToAbbr(date)
+            return `${yyyy}-${MM}-${dd} ${hh}:${mm} | ${dayStr}`;
+        }
+
+        /* Example 1.5 -> 1.4 / 0.000278 -> 0.000277 / 25 -> 24 */
+        function floorDownBySelfPrecision(str) {
+            const parts = str.split(".");
+            const decimals = parts[1] ? parts[1].length : 0;
+            // Calculate Step - 1, 0.001, 0.000001
+            const step = Math.pow(10, -decimals);
+            // sub by step
+            const result = parseFloat(str) - step;
+            // convert to str and change decimal back
+            return result.toFixed(decimals);
+        }
+
+        function randomByRange(min = 0.3, max = 0.5) {
+            let rand = parseFloat(Math.random()) //.toFixed(2)
+
+            if (rand < min || rand > max) {
+                return randomByRange(min, max) // NEED return for recursive
+            }
+            return rand
+        }
+
+        // range random interest 1.60 - 1.99
+        // let rand1 = +randomByRange(0.60, 0.99).toFixed(2)
+        // let percentTP = parseFloat(1 + +(rand1)).toFixed(2)
+        // let percentSL = parseFloat((1 + +(rand1)) * 2).toFixed(2)
+
+        // Need more EXP for this value
+        // let percentTP = '1.94' // Why because near compound of 50x
+        // let percentSL = '3.8' // Why not often see 4% wave
+
+        // let rand_cut_one_way_and_tp = +randomByRange(0.17, 0.49).toFixed(2)
+        let rand_act1 = +randomByRange(0.01, 0.59).toFixed(2)
+
+        // let rand_cbr1 = +randomByRange(0.39, 0.89).toFixed(2)
+        // let rand_act2 = +randomByRange(0.01, 0.19).toFixed(2)
+        // let rand_cbr2 = +randomByRange(0.39, 0.49).toFixed(2)
+
+        // let percentSL = parseFloat(3 + rand_cut_one_way_and_tp).toFixed(2) // Basic 3
+
+        // let percentAct1 = parseFloat(2 + rand_act1).toFixed(2) // Basic 2
+        // let percentCbR1 = parseFloat(3 + rand_cbr1).toFixed(2) // Basic 3
+
+        // let percentAct1 = parseFloat(10 + rand_act1).toFixed(2) // 10
+        // let percentAct1 = parseFloat(20 + rand_act1).toFixed(2) // 10
+        let percentAct1 = parseFloat(36 + rand_act1).toFixed(2) // 10
+
+        let percentCbR1 = parseFloat(9.97).toFixed(2) // 9.9
+
+        // let percentSL = parseFloat(10.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 0.3
+        // let percentSL = parseFloat(20.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 0.3
+        let percentSL = parseFloat(37.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 1.3
+
+        // // Multi-Stage Trailing
+        // let percentAct2 = parseFloat(3 + rand_act2).toFixed(2) // Basic 3
+        // let percentCbR2 = parseFloat(3 + rand_cbr2).toFixed(2) // Morning Hard to 3 (Not 2)
+
+        // let percentCbR2 = parseFloat(4.91).toFixed(2) // 4.9
+        let percentCbR2 = parseFloat(9.84).toFixed(2)
+
+        // let percentTP1_Half = parseFloat(4.07 + rand_cut_one_way_and_tp).toFixed(2)
+
+        // console.log('percentSL', percentSL)
+        // console.log('percentAct1', percentAct1)
+        // console.log('percentCbR1', percentCbR1)
+
+        // console.log('percentAct2', percentAct2)
+        // console.log('percentCbR2', percentCbR2)
+        // console.log('percentTP1_Half', percentTP1_Half)
+
+        let counting_oldday_csv = 0
+        let current_oldday_filename_csv = ''
+
+    </script>
+
+    <script type="text/javascript">
+        const binance_api_url = "https://fapi.binance.com"
+
+        function binanceSignatureSign(qs) {
+            $.ajaxSetup({
+                headers: { "X-MBX-APIKEY": $('#binance_api_key').val(), },
+                contentType: "application/json; charset=utf-8",
+            })
+
+            // CryptoJS.createHmac('sha256', apiSecret).update(qs).digest('hex');
+            const signature = CryptoJS.HmacSHA256(qs, $('#binance_api_secret_key').val())//.digest('hex')
+
+            return signature
+        }
+
+        const arr_no_trade = [
+            "BTCDOMUSDT",
+            "BTCUSDT",
+            "ETHUSDT",
+        ]
+
+        let timePageFirstLoad = (new Date()).getTime()
+        let isAlreadyCheckedBalance = false
+        let positionListSymbolKey = {}
+
+        let isAutoReportCSV7AM = false
+
+        // Simple Initial Datatable
+        let dataTable1 = $('#table_percent_change_1D').DataTable({ "pageLength": 15, order: [[1, 'desc']], }) // First is zero
+
+        function reInitailDataTable(col_sort = 1) {
+            dataTable1 = $('#table_percent_change_1D').DataTable({
+                "pageLength": 15,
+                order: [[col_sort, 'desc']],
+                layout: {
+                    topStart: {
+                        buttons: [//'copy', 'csv', 'excel',
+                            {
+                                extend: 'pdfHtml5',
+                                text: 'PDF',
+                                exportOptions: {
+                                    columns: [0, /*1, 2,*/ 3, 4, 6, 7, 8]
+                                },
+                                title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}${counting_oldday_csv ? ` - ${counting_oldday_csv}D`: ''}${current_oldday_filename_csv ? ` - ${current_oldday_filename_csv}`: ''}`
+                            },
+                            {
+                                extend: 'csv',
+                                // text: 'CSV Current Order (0,3)',
+                                text: 'CSV Only Current Order (0,3,4)',
+                                exportOptions: {
+                                    columns: [0, 3, 4]
+                                },
+                                title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}`
+                            },
+                            // {
+                            //     extend: 'copy',
+                            //     exportOptions: {
+                            //         columns: [0, 1, 2, 3, 4]
+                            //     },
+                            //     title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}`
+                            // },
+                            //'print'
+                            // {
+                            //     extend: 'csv',
+                            //     text: 'CSV Compare Order (0,3,6,7)',
+                            //     exportOptions: { // not work for custom action
+                            //         columns: [0, 3, 6, 7],
+                            //     },
+                            //     title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')} Order-Change`,
+
+                            //     // // // Override by use custom action
+                            //     // action: function (e, dt, button, config) {
+                            //     //     let data = dt.rows({ order: 'applied' }).data().toArray();
+
+                            //     //     // sort ตาม column 7
+                            //     //     data.sort(function (a, b) {
+                            //     //         return b[7] - a[7];
+                            //     //     });
+
+                            //     //     console.log(data)
+
+
+                            //     // }
+                            // },
+
+                        ]
+                    }
+                }
+            })
+
+            dataTable1.on('order.dt search.dt', function () {
+                // Check Sorting Column
+                let currentOrder = dataTable1.order();
+
+                // console.log(currentOrder)
+
+                if (currentOrder[0]) {
+                    let sortedColumnIndex = currentOrder[0][0]
+                    // console.log('sortedColumnIndex', sortedColumnIndex)
+
+                    // if Sorting Column Specific Column
+                    // if (sortedColumnIndex === 7) {
+                    //     return;
+                    // }
+                    if (sortedColumnIndex !== 4) {
+                        return // lock first column with column 4
+                    }
+                }
+
+                let i = 1;
+
+                dataTable1
+                    .cells(null, 0, { search: 'applied', order: 'applied' })
+                    // .rows({ search: 'applied', order: 'applied' })
+                    // .rows({ order: 'applied' })
+                    .every(function () {
+                        this.data(i)
+                        i += 1;
+                    });
+
+                let j = 1;
+
+                dataTable1
+                    .rows()
+                    .every(function () {
+                        let rowData = this.data();
+                        //console.log(rowData)
+                        rowData[4] = +(`${rowData[4]}`.replace(' %', ''))
+                        rowData[6] = +rowData[6]
+                        rowData[7] = rowData[6] - j
+                        this.data(rowData);
+                        j += 1
+                    });
+
+            }).draw();
+        }
+
+        function checkExchangeInfo(cb = () => { }) {
+            openModal('Get Exchange Info')
+
+            $.ajax({
+                type: 'GET',
+                url: `${binance_api_url}/fapi/v1/exchangeInfo`,
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    const { symbols = [] } = result
+                    // console.log(result)
+
+                    symbols.forEach(({ symbol, quantityPrecision = 0, /*pricePrecision = 1,*/ status = "SETTLING", filters, onboardDate }) => {
+                        if (status === "TRADING") {
+                            if (!(symbol in positionListSymbolKey)) {
+                                positionListSymbolKey[symbol] = {
+                                    existLong: false,
+                                    existShort: false,
+                                    onboardDate,
+                                    csv_oldday_order: 0,
+                                    csv_oldday_percent: 0,
+                                }
+                            }
+
+                            // No more use pricePrecision it is strange
+                            // it is maximum decimal can send via API but it is not good for server tick
+                            // And not follow decimal in UI
+                            // But still get this in case can not find tickSize
+
+                            // tickSize is proper than pricePrecision
+                            // "1", "0.1" , "0.001", "0.0010" --> (buggy api)
+                            // -> 0, 1 , 3, 3
+
+                            let { tickSize = undefined } = filters[0]
+
+                            if (!tickSize) {
+                                alert("Cannot find tickSize of " + sym)
+                                return;
+                            }
+
+                            // Override pricePrecision with tickSize
+                            pricePrecision = 1
+
+                            if (tickSize === "1" || !tickSize.includes('.')) {
+                                pricePrecision = 0 // !!!
+                            } else {
+                                const strAfterPoint = tickSize.split('.')[1]
+
+                                for (let i = 0; i < strAfterPoint.length; i++) {
+                                    if (strAfterPoint[i] !== '0') {
+                                        break
+                                    }
+                                    pricePrecision += 1
+                                }
+                            }
+
+                            positionListSymbolKey[symbol] = {
+                                ...positionListSymbolKey[symbol],
+                                quantityPrecision,
+                                tickSize,
+
+                                // Normally Every Price Always Precision except 'YFI'
+                                // YFI API Allow Precision = 1 but will send 0 instead (follow tickSize)
+                                pricePrecision,
+
+                            }
+                        }
+                    })
+
+
+                    closeModal()
+                    cb()
+                },
+                error: function (err) {
+                    alert("error - cannot connect binance api - exchangeInfo")
+                    console.log("error - cannot connect binance api - exchangeInfo")
+                    console.log(err)
+                    closeModal()
+                }
+            });
+        }
+
+        function checkPercentMarket(cb = () => { }) {
+            openModal('Loading Percent Change')
+
+            $.ajax({
+                type: 'GET',
+                url: `${binance_api_url}/fapi/v1/ticker/24hr`, // Not Validate Delist
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    // console.log(result)
+
+                    if (Array.isArray(result)) {
+                        result.forEach(({ symbol, priceChangePercent, lastPrice, count: countTrade, volume, openPrice }) => {
+                            if (symbol in positionListSymbolKey) {
+                                positionListSymbolKey[symbol] = {
+                                    ...positionListSymbolKey[symbol],
+                                    lastPrice,
+                                    openPrice,
+                                    priceChangePercent,
+                                    countTrade,
+                                    volume,
+                                }
+                            }
+                        })
+                        closeModal()
+                        cb()
+                    }
+                },
+                error: function (err) {
+                    alert("error - cannot connect binance api - ticker 24hr")
+                    console.log("error - cannot connect binance api - ticker 24hr")
+                    console.log(err)
+                }
+            })
+        }
+
+        function checkAvailableBalanceAndExistPosition(cb = () => { }) {
+            const endPoint = `/fapi/v2/account?`
+            const ts = Date.now()
+            const qs = `recvWindow=10000&timestamp=${ts}`
+
+            openModal('Checking Balance...')
+            $.ajax({
+                type: 'GET',
+                url: `${binance_api_url}${endPoint}${qs}&signature=${binanceSignatureSign(qs)}`,
+                success: function (result) {
+                    const { availableBalance = undefined, positions = [], } = result
+
+                    if (availableBalance === undefined) {
+                        alert("Fail to get Available Balance")
+                        $('#available_balance').html('-')
+                        return;
+                    }
+
+                    $('#available_balance').html(`<span style="color:${availableBalance > 0 ? 'lime' : 'red'};">${+availableBalance}</span>`)
+                    isAlreadyCheckedBalance = true
+
+                    for (let i = 0; i < positions.length; i++) {
+                        const {
+                            symbol = "USDT", positionSide = "LONG",
+                            isolated = false, leverage = "20",
+                            entryPrice = "0.0", positionAmt = "0.0", unrealizedProfit = "0.00000000",
+                        } = positions[i]
+
+                        positionListSymbolKey[symbol] = {
+                            ...positionListSymbolKey[symbol],
+                            marginType: isolated ? 'ISOLATED' : 'CROSS',
+                            leverage
+                        }
+
+                        if (positionSide === "LONG" && entryPrice != 0) {
+                            positionListSymbolKey[symbol].existLong = true
+                            positionListSymbolKey[symbol].positionAmtLong = positionAmt
+                            positionListSymbolKey[symbol].unrealizedProfitLong = unrealizedProfit
+                        }
+
+                        if (positionSide === "SHORT" && entryPrice != 0) {
+                            positionListSymbolKey[symbol].existShort = true
+                            positionListSymbolKey[symbol].positionAmtShort = positionAmt
+                            positionListSymbolKey[symbol].unrealizedProfitShort = unrealizedProfit
+                        }
+                    }
+
+                    closeModal()
+                    cb()
+                },
+                error: function (err) {
+                    console.log("Error get Available Balance")
+                    console.log(err)
+
+                    if ('msg' in err.responseJSON) {
+                        alert(err.responseJSON.msg)
+                    } else {
+                        alert("Error get Available Balance")
+                    }
+
+                    closeModal()
+                }
+            });
+        }
+
+        function closeOrderAndPosition(symbol, cb = () => { }) {
+            openModal(symbol + ": Closing Order")
+
+            const endpoint = "/fapi/v1/allOpenOrders?" //type Delete
+            const ts = Date.now()
+            const qs = `symbol=${encodeURIComponent(symbol)}&recvWindow=10000&timestamp=${ts}`
+
+            $.ajax({
+                type: 'DELETE',
+                url: `${binance_api_url}${endpoint}${qs}&signature=${binanceSignatureSign(qs)}`,
+                success: function (result) {
+
+                    const endpointAlgo = "/fapi/v1/algoOpenOrders?"
+                    const ts2 = Date.now()
+                    const qs2 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts}`
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: `${binance_api_url}${endpointAlgo}${qs2}&signature=${binanceSignatureSign(qs2)}`,
+                        success: function (result) {
+                            openModal(symbol + ": Closed All Order Success")
+
+                            const { positionAmtLong, positionAmtShort } = positionListSymbolKey[symbol]
+
+                            const batchClosePosition = [
+                                {
+                                    "symbol": symbol,
+                                    "side": "SELL",
+                                    "positionSide": "LONG",
+                                    "type": "MARKET",
+                                    "quantity": `${positionAmtLong}`.replaceAll('-', ''),
+                                },
+                                {
+                                    "symbol": symbol,
+                                    "side": "BUY",
+                                    "positionSide": "SHORT",
+                                    "type": "MARKET",
+                                    "quantity": `${positionAmtShort}`.replaceAll('-', ''),
+                                }
+                            ]
+
+                            const encodeClosePosition = encodeURIComponent(JSON.stringify(batchClosePosition))
+
+                            const endpoint2 = "/fapi/v1/batchOrders?"
+                            const ts6 = Date.now()
+                            const qs6 = `batchOrders=${encodeClosePosition}&recvWindow=10000&timestamp=${ts6}`
+
+                            openModal(symbol + ": Closing Position")
+                            $.ajax({
+                                type: 'POST',
+                                url: `${binance_api_url}${endpoint2}${qs6}&signature=${binanceSignatureSign(qs6)}`,
+                                success: function (result) {
+                                    openModal(symbol + ": Closed Position Success")
+
+                                    positionListSymbolKey[symbol].existLong = false
+                                    positionListSymbolKey[symbol].existShort = false
+                                    positionListSymbolKey[symbol].positionAmtLong = "0.0"
+                                    positionListSymbolKey[symbol].positionAmtShort = "0.0"
+
+                                    $(`#close_order_${symbol}`).css('display', 'none')
+
+                                    closeModal()
+                                    cb()
+                                },
+                                error: function (err) {
+                                    console.log(err)
+
+                                    if ('msg' in err.responseJSON) {
+                                        alert(symbol + ": " + err.responseJSON.msg)
+                                    } else {
+                                        alert("Error Close Position " + symbol)
+                                    }
+                                }
+                            });
+
+                        },
+                        error: function (err) {
+                            if ('msg' in err.responseJSON) {
+                                alert(symbol + ": " + err.responseJSON.msg)
+                            } else {
+                                alert("Error Close All Algo Order " + symbol)
+                            }
+                        }
+                    })
+                },
+                error: function (err) {
+                    console.log(err)
+
+                    if ('msg' in err.responseJSON) {
+                        alert(symbol + ": " + err.responseJSON.msg)
+                    } else {
+                        alert("Error Close All Basic Order " + symbol)
+                    }
+                }
+            });
+        }
+
+        function setMarginType(symbol, marginType = 'ISOLATED', cb = () => { }) {
+            openModal(symbol + ": " + 'Changing Margin Type to ' + marginType)
+
+            const endPoint1 = '/fapi/v1/marginType?'
+            const ts1 = Date.now()
+            const qs1 = `symbol=${encodeURIComponent(symbol)}&marginType=${marginType}&timestamp=${ts1}`
+
+            $.ajax({
+                type: 'POST',
+                url: `${binance_api_url}${endPoint1}${qs1}&signature=${binanceSignatureSign(qs1)}`,
+                success: function (result) {
+                    positionListSymbolKey[symbol].marginType = marginType
+                    closeModal()
+                    cb()
+                },
+                error: function (err) {
+                    // console.log(err)
+                    // {"code":-4046,"msg":"No need to change margin type."}
+                    if ('msg' in err.responseJSON) {
+                        openModal(symbol + ": " + err.responseJSON.msg)
+                        positionListSymbolKey[symbol].marginType = marginType
+                        closeModal()
+                        cb()
+                    } else {
+                        console.log("Error Changing Margin Type for " + symbol)
+                        console.log(err)
+                        alert("Error Changing Margin Type for " + symbol)
+                    }
+                }
+            })
+        }
+
+        function setLeverage(symbol, leverage = '4', cb = () => { }) {
+
+            if (+leverage <= 0) {
+                alert("Leverage <= 0: " + leverage)
+                return
+            }
+
+            openModal(symbol + ": " + 'Adjust Leverage ... ' + leverage + 'x')
+
+            const endPoint2 = '/fapi/v1/leverage?'
+            const ts2 = Date.now()
+            const qs2 = `symbol=${encodeURIComponent(symbol)}&leverage=${leverage}&timestamp=${ts2}`
+
+            $.ajax({
+                type: 'POST',
+                url: `${binance_api_url}${endPoint2}${qs2}&signature=${binanceSignatureSign(qs2)}`,
+                success: function (result) {
+                    positionListSymbolKey[symbol].leverage = leverage
+                    closeModal()
+                    cb()
+                },
+                error: function (err) {
+                    // console.log(err)
+                    // leverage not suppose {"code":-4028,"msg":"Leverage 50 is not valid"}
+
+                    if ('msg' in err.responseJSON) {
+
+                        if (`${err.responseJSON.msg}`.includes('is not valid')) {
+                            setLeverage(symbol, `${(+leverage - 10)}`, cb)
+                            return
+                        }
+
+                        openModal(symbol + ": " + err.responseJSON.msg)
+                    } else {
+                        console.log("Error Adjust Leverage for " + symbol)
+                        console.log(err)
+                        alert("Error Adjust Leverage for " + symbol)
+                    }
+                }
+            });
+
+        }
+
+        function trade(symbol) {
+            closeOrderAndPosition(symbol, () => {
+                setMarginType(symbol, 'CROSSED', () => {
+                    setLeverage(symbol, $('#auto_leverage').val(), () => {
+                        checkPercentMarket(() => {
+
+                            openModal(symbol + ": Trading Start")
+
+                            const sizeUsdt = +($(`#coin_size`).val())
+                            const { quantityPrecision, pricePrecision, lastPrice } = positionListSymbolKey[symbol]
+
+                            let quantity = sizeUsdt / lastPrice
+                            let quantityHalf = quantity / 2
+
+                            if (quantityPrecision > 0) {
+                                quantity = parseFloat(quantity).toFixed(quantityPrecision)
+                                quantityHalf = parseFloat(quantityHalf).toFixed(quantityPrecision)
+                            } else if (quantityPrecision == 0) {
+                                quantity = parseInt(quantity)
+                                quantityHalf = parseInt(quantityHalf)
+                            }
+
+                            positionListSymbolKey[symbol].positionAmtLong = quantity
+                            positionListSymbolKey[symbol].positionAmtShort = quantity
+
+                            // let percentSL = '3' // 2.8 Cut one way
+                            // let percentTP1_Half = '4.4'
+
+                            // let percentAct1 = '2' // 2.2
+                            // let percentCbR1 = '3' // 2.6
+
+                            // // Multi-Stage Trailing
+                            // let percentAct2 = '3'
+                            // let percentCbR2 = '2'
+
+                            // const priceForFastTakeLong = findMaxFromPercent(lastPrice, percentTP).toFixed(pricePrecision)
+                            // const priceForFastTakeShort = findMinFromPercent(lastPrice, percentTP).toFixed(pricePrecision)
+
+                            const priceForStopLossShort = findMaxFromPercent(lastPrice, percentSL).toFixed(pricePrecision)
+                            const priceForStopLossLong = findMinFromPercent(lastPrice, percentSL).toFixed(pricePrecision)
+
+                            const priceForAct1Long = findMaxFromPercent(lastPrice, percentAct1).toFixed(pricePrecision)
+                            const priceForAct1Short = findMinFromPercent(lastPrice, percentAct1).toFixed(pricePrecision)
+
+                            // const priceForAct2Long = findMaxFromPercent(lastPrice, percentAct2).toFixed(pricePrecision)
+                            // const priceForAct2Short = findMinFromPercent(lastPrice, percentAct2).toFixed(pricePrecision)
+
+                            // const priceForTP1_Half_Long = findMaxFromPercent(lastPrice, percentTP1_Half).toFixed(pricePrecision)
+                            // const priceForTP1_Half_Short = findMinFromPercent(lastPrice, percentTP1_Half).toFixed(pricePrecision)
+
+                            // console.log('quantity', quantity)
+                            // console.log('lastprice', lastPrice)
+                            // console.log('priceForStopLossShort', priceForStopLossShort)
+                            // console.log('priceForStopLossLong', priceForStopLossLong)
+                            // console.log('priceForFastTakeLong', priceForFastTakeLong)
+                            // console.log('priceForFastTakeShort', priceForFastTakeShort)
+
+                            let batchOpenPosition = []
+
+                            batchOpenPosition = [
+                                {
+                                    "symbol": symbol,
+                                    "side": "BUY",
+                                    "positionSide": "LONG",
+                                    "type": "MARKET",
+                                    "quantity": `${quantity}`
+                                },
+                                {
+                                    "symbol": symbol,
+                                    "side": "SELL",
+                                    "positionSide": "SHORT",
+                                    "type": "MARKET",
+                                    "quantity": `${quantity}`
+                                },
+                            ]
+
+                            const encodeOpenPosition = encodeURIComponent(JSON.stringify(batchOpenPosition))
+                            const endpoint3 = "/fapi/v1/batchOrders?"
+                            const ts3 = Date.now()
+                            const qs3 = `batchOrders=${encodeOpenPosition}&recvWindow=10000&timestamp=${ts3}`
+
+                            $.ajax({
+                                type: 'POST',
+                                url: `${binance_api_url}${endpoint3}${qs3}&signature=${binanceSignatureSign(qs3)}`,
+                                success: function (result) {
+                                    // console.log(result)
+
+                                    /** 
+                                     * Batch failure case still success with array result like
+                                     * 
+                                     * [
+                                     *   { code: -4164, msg: "Order's notional must be no smaller than 5 (unless you choose reduce only)." },
+                                     *   { code: -4164, msg: "Order's notional must be no smaller than 5 (unless you choose reduce only)." }
+                                     * ]
+                                     * 
+                                     * Batch Success Case 
+                                     * [{ orderId, clientOrderId, updateTime, ... },{ orderId, clientOrderId, updateTime, ... }]
+                                    */
+
+                                    let isRealSuccessOpenPosition = true
+
+                                    if (Array.isArray(result)) {
+                                        for (let i = 0; i < result.length; i++) {
+                                            const { msg = undefined, code = undefined, updateTime = undefined } = result[i]
+
+                                            if (msg) {
+                                                closeOrderAndPosition(symbol, () => { openModal(symbol + " fail open position: " + msg) })
+                                                isRealSuccessOpenPosition = false
+                                                break
+                                            }
+
+                                            if (code && isRealSuccessOpenPosition) {
+                                                closeOrderAndPosition(symbol, () => { openModal(symbol + " fail open position with code: " + code) })
+                                                isRealSuccessOpenPosition = false
+                                                break
+                                            }
+
+                                            if (!updateTime) {
+                                                closeOrderAndPosition(symbol, () => { openModal(symbol + " fail open position no updateTime Response") })
+                                                isRealSuccessOpenPosition = false
+                                                break
+                                            }
+                                        }
+
+                                        if (isRealSuccessOpenPosition) {
+                                            closeModal()
+
+                                            // Basic STOP_MARKET / TAKE_PROFIT_MARKET Order Deprecated of 2025 use Algo Order instead
+                                            // Order type not supported for this endpoint. Please use the Algo Order API endpoints instead.
+
+                                            // let batchOrderTPSL = []
+
+                                            // batchOrderTPSL = [
+                                            //     {
+                                            //         "symbol": symbol,
+                                            //         "side": "SELL",
+                                            //         "positionSide": "LONG",
+                                            //         "type": "TAKE_PROFIT_MARKET",
+                                            //         "quantity": `${quantity}`,
+                                            //         "stopPrice": `${priceForFastTakeLong}`,
+                                            //         "workingType": "MARK_PRICE"
+                                            //     },
+                                            //     {
+                                            //         "symbol": symbol,
+                                            //         "side": "BUY",
+                                            //         "positionSide": "SHORT",
+                                            //         "type": "TAKE_PROFIT_MARKET",
+                                            //         "quantity": `${quantity}`,
+                                            //         "stopPrice": `${priceForFastTakeShort}`,
+                                            //         "workingType": "MARK_PRICE"
+                                            //     },
+                                            //     {
+                                            //         "symbol": symbol,
+                                            //         "side": "BUY",
+                                            //         "positionSide": "SHORT",
+                                            //         "type": "STOP_MARKET",
+                                            //         "quantity": `${quantity}`,
+                                            //         "stopPrice": `${priceForStopLossShort}`,
+                                            //         "workingType": "MARK_PRICE"
+                                            //     },
+                                            //     {
+                                            //         "symbol": symbol,
+                                            //         "side": "SELL",
+                                            //         "positionSide": "LONG",
+                                            //         "type": "STOP_MARKET",
+                                            //         "quantity": `${quantity}`,
+                                            //         "stopPrice": `${priceForStopLossLong}`,
+                                            //         "workingType": "MARK_PRICE"
+                                            //     },
+                                            // ]
+
+                                            // const encodeOrderTPSL = encodeURIComponent(JSON.stringify(batchOrderTPSL))
+                                            // const ts4 = Date.now()
+                                            // const qs4 = `batchOrders=${encodeOrderTPSL}&recvWindow=10000&timestamp=${ts4}`
+
+                                            // openModal(symbol + ": Order TP / SL")
+
+                                            // $.ajax({
+                                            //     type: 'POST',
+                                            //     url: `${binance_api_url}${endpoint3}${qs4}&signature=${binanceSignatureSign(qs4)}`,
+                                            //     success: function (result) {
+                                            //         // console.log(result)
+
+                                            //         let isRealSuccessOrderTPSL = true
+
+                                            //         if (Array.isArray(result)) {
+                                            //             for (let i = 0; i < result.length; i++) {
+                                            //                 const { msg = undefined, code = undefined, updateTime = undefined } = result[i]
+
+                                            //                 if (msg) {
+                                            //                     closeOrderAndPosition(symbol, () => { openModal(symbol + " fail order TP / SL: " + msg) })
+                                            //                     isRealSuccessOrderTPSL = false
+                                            //                     break
+                                            //                 }
+
+                                            //                 if (code && isRealSuccessOrderTPSL) {
+                                            //                     closeOrderAndPosition(symbol, () => { openModal(symbol + " fail order TP / SL with code: " + code) })
+                                            //                     isRealSuccessOrderTPSL = false
+                                            //                     break
+                                            //                 }
+
+                                            //                 if (!updateTime) {
+                                            //                     closeOrderAndPosition(symbol, () => { openModal(symbol + " fail order TP / SL no updateTime Response") })
+                                            //                     isRealSuccessOrderTPSL = false
+                                            //                     break 
+                                            //                 }
+                                            //             }
+
+                                            //             if(isRealSuccessOrderTPSL){
+                                            //                 openModal(symbol + ": Order TP / SL")
+                                            //                 positionListSymbolKey[symbol].existLong = true
+                                            //                 positionListSymbolKey[symbol].existShort = true
+                                            //                 refreshTable() // toggle close button instead
+                                            //             }
+                                            //         }
+                                            //     },
+                                            //     error: function (err) {
+                                            //         closeOrderAndPosition(symbol, () => {
+                                            //             if ('msg' in err.responseJSON) {
+                                            //                 alert(symbol + ": " + err.responseJSON.msg)
+                                            //             } else {
+                                            //                 alert("Error TP/SL Order " + symbol)
+                                            //             }
+                                            //         })
+                                            //     }
+                                            // })
+
+                                            const endPointAlgoOrder = '/fapi/v1/algoOrder?'
+
+                                            // const ts4 = Date.now()
+                                            // // const qs4 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts4}&algoType=CONDITIONAL&side=BUY&positionSide=SHORT&type=STOP_MARKET&quantity=${quantity}&triggerPrice=${priceForStopLossShort}&stopPrice=${priceForStopLossShort}&workingType=MARK_PRICE`
+                                            // // quantity Cannot be sent with closePosition=true (Close-All)
+                                            // const qs4 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts4}&algoType=CONDITIONAL&side=BUY&positionSide=SHORT&type=STOP_MARKET&closePosition=true&triggerPrice=${priceForStopLossShort}&stopPrice=${priceForStopLossShort}&workingType=MARK_PRICE`
+
+                                            // $.ajax({
+                                            //     type: 'POST',
+                                            //     url: `${binance_api_url}${endPointAlgoOrder}${qs4}&signature=${binanceSignatureSign(qs4)}`,
+                                            //     success: function (result) {
+
+                                            //     },
+                                            //     error: function (err) {
+                                            //         closeOrderAndPosition(symbol)
+                                            //         if ('msg' in err.responseJSON) {
+                                            //             alert(symbol + ": " + err.responseJSON.msg)
+                                            //         } else {
+                                            //             alert("Error Algo Order (Stoploss for Short) " + symbol)
+                                            //             alert(err)
+                                            //         }
+                                            //     }
+                                            // })
+
+                                            // const ts5 = Date.now()
+                                            // // const qs5 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts5}&algoType=CONDITIONAL&side=SELL&positionSide=LONG&type=STOP_MARKET&quantity=${quantity}&triggerPrice=${priceForStopLossLong}&stopPrice=${priceForStopLossLong}&workingType=MARK_PRICE`
+                                            // // quantity Cannot be sent with closePosition=true (Close-All)
+                                            // const qs5 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts5}&algoType=CONDITIONAL&side=SELL&positionSide=LONG&type=STOP_MARKET&closePosition=true&triggerPrice=${priceForStopLossLong}&stopPrice=${priceForStopLossLong}&workingType=MARK_PRICE`
+
+                                            // $.ajax({
+                                            //     type: 'POST',
+                                            //     url: `${binance_api_url}${endPointAlgoOrder}${qs5}&signature=${binanceSignatureSign(qs5)}`,
+                                            //     success: function (result) {
+
+                                            //     },
+                                            //     error: function (err) {
+                                            //         closeOrderAndPosition(symbol)
+                                            //         if ('msg' in err.responseJSON) {
+                                            //             alert(symbol + ": " + err.responseJSON.msg)
+                                            //         } else {
+                                            //             alert("Error Algo Order (Stoploss for Long) " + symbol)
+                                            //             alert(err)
+                                            //         }
+
+                                            //     }
+                                            // })
+
+                                            // const ts6 = Date.now()
+                                            // // const qs6 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts6}&algoType=CONDITIONAL&side=SELL&positionSide=LONG&type=TAKE_PROFIT_MARKET&quantity=${quantity}&triggerPrice=${priceForFastTakeLong}&workingType=MARK_PRICE`
+                                            // // quantity Cannot be sent with closePosition=true (Close-All)
+                                            // const qs6 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts6}&algoType=CONDITIONAL&side=SELL&positionSide=LONG&type=TAKE_PROFIT_MARKET&closePosition=true&triggerPrice=${priceForFastTakeLong}&workingType=MARK_PRICE`
+
+                                            // $.ajax({
+                                            //     type: 'POST',
+                                            //     url: `${binance_api_url}${endPointAlgoOrder}${qs6}&signature=${binanceSignatureSign(qs6)}`,
+                                            //     success: function (result) {
+
+                                            //     },
+                                            //     error: function (err) {
+                                            //         closeOrderAndPosition(symbol)
+                                            //         if ('msg' in err.responseJSON) {
+                                            //             alert(symbol + ": " + err.responseJSON.msg)
+                                            //         } else {
+                                            //             alert("Error Algo Order (Take Profit for Long) " + symbol)
+                                            //             alert(err)
+                                            //         }
+
+                                            //     }
+                                            // })
+
+                                            // const ts7 = Date.now()
+                                            // // const qs7 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts7}&algoType=CONDITIONAL&side=BUY&positionSide=SHORT&type=TAKE_PROFIT_MARKET&quantity=${quantity}&triggerPrice=${priceForFastTakeShort}&workingType=MARK_PRICE`
+                                            // // quantity Cannot be sent with closePosition=true (Close-All)
+                                            // const qs7 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts7}&algoType=CONDITIONAL&side=BUY&positionSide=SHORT&type=TAKE_PROFIT_MARKET&closePosition=true&triggerPrice=${priceForFastTakeShort}&workingType=MARK_PRICE`
+
+                                            // $.ajax({
+                                            //     type: 'POST',
+                                            //     url: `${binance_api_url}${endPointAlgoOrder}${qs7}&signature=${binanceSignatureSign(qs7)}`,
+                                            //     success: function (result) {
+
+                                            //     },
+                                            //     error: function (err) {
+                                            //         closeOrderAndPosition(symbol)
+                                            //         if ('msg' in err.responseJSON) {
+                                            //             alert(symbol + ": " + err.responseJSON.msg)
+                                            //         } else {
+                                            //             alert("Error Algo Order (Take Profit for Short) " + symbol)
+                                            //             alert(err)
+                                            //         }
+                                            //     }
+                                            // })
+
+                                            // Make Object Instead
+
+                                            // const qsObjStopLossForShort = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts4}&${new URLSearchParams({
+                                            //     algoType: 'CONDITIONAL',
+                                            //     side: 'BUY',
+                                            //     positionSide: 'SHORT',
+                                            //     type: 'STOP_MARKET',
+                                            //     closePosition: true, //quantity Cannot be sent with closePosition=true (Close-All)
+                                            //     triggerPrice: `${priceForStopLossShort}`,
+                                            //     stopPrice: `${priceForStopLossShort}`,
+                                            //     workingType: 'MARK_PRICE',
+                                            // })}`
+
+                                            // const orderObj = {
+                                            //     qsStopLossShort: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                            //         algoType: 'CONDITIONAL',
+                                            //         side: 'BUY',
+                                            //         positionSide: 'SHORT',
+                                            //         type: 'STOP_MARKET',
+                                            //         closePosition: true, //quantity Cannot be sent with closePosition=true (Close-All)
+                                            //         triggerPrice: `${priceForStopLossShort}`,
+                                            //         stopPrice: `${priceForStopLossShort}`,
+                                            //         workingType: 'MARK_PRICE',
+                                            //     })}`,
+                                            //     qsStopLossLong: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                            //         algoType: 'CONDITIONAL',
+                                            //         side: 'SELL',
+                                            //         positionSide: 'LONG',
+                                            //         type: 'STOP_MARKET',
+                                            //         closePosition: true, //quantity Cannot be sent with closePosition=true (Close-All)
+                                            //         triggerPrice: `${priceForStopLossLong}`,
+                                            //         stopPrice: `${priceForStopLossLong}`,
+                                            //         workingType: 'MARK_PRICE',
+                                            //     })}`,
+                                            //     qsTP1HalfLong: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                            //         algoType: 'CONDITIONAL',
+                                            //         side: 'SELL',
+                                            //         positionSide: 'LONG',
+                                            //         type: 'TAKE_PROFIT_MARKET',
+                                            //         quantity: quantityHalf,
+                                            //         triggerPrice: `${priceForTP1_Half_Long}`,
+                                            //         workingType: 'MARK_PRICE',
+                                            //     })}`,
+                                            //     qsTP1HalfShort: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                            //         algoType: 'CONDITIONAL',
+                                            //         side: 'BUY',
+                                            //         positionSide: 'SHORT',
+                                            //         type: 'TAKE_PROFIT_MARKET',
+                                            //         quantity: quantityHalf,
+                                            //         triggerPrice: `${priceForTP1_Half_Short}`,
+                                            //         workingType: 'MARK_PRICE',
+                                            //     })}`,
+                                            //     qsTSAct1Long: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                            //         algoType: 'CONDITIONAL',
+                                            //         side: 'SELL',
+                                            //         positionSide: 'LONG',
+                                            //         type: 'TRAILING_STOP_MARKET',
+                                            //         quantity: quantity,
+                                            //         // closePosition: true, // invalid for orderType TRAILING_STOP_MARKET,closePosition true
+                                            //         activatePrice: `${priceForAct1Long}`,
+                                            //         callbackRate: percentCbR1,
+                                            //         workingType: 'MARK_PRICE',
+                                            //     })}`,
+                                            //     qsTSAct1Short: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                            //         algoType: 'CONDITIONAL',
+                                            //         side: 'BUY',
+                                            //         positionSide: 'SHORT',
+                                            //         type: 'TRAILING_STOP_MARKET',
+                                            //         quantity: quantity,
+                                            //         activatePrice: `${priceForAct1Short}`,
+                                            //         callbackRate: percentCbR1,
+                                            //         workingType: 'MARK_PRICE',
+                                            //     })}`,
+                                            //     // Multi-Stage Trailing
+                                            //     qsTSAct2Long: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                            //         algoType: 'CONDITIONAL',
+                                            //         side: 'SELL',
+                                            //         positionSide: 'LONG',
+                                            //         type: 'TRAILING_STOP_MARKET',
+                                            //         quantity: quantity,
+                                            //         activatePrice: `${priceForAct2Long}`,
+                                            //         callbackRate: percentCbR2,
+                                            //         workingType: 'MARK_PRICE',
+                                            //     })}`,
+                                            //     qsTSAct2Short: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                            //         algoType: 'CONDITIONAL',
+                                            //         side: 'BUY',
+                                            //         positionSide: 'SHORT',
+                                            //         type: 'TRAILING_STOP_MARKET',
+                                            //         quantity: quantity,
+                                            //         activatePrice: `${priceForAct2Short}`,
+                                            //         callbackRate: percentCbR2,
+                                            //         workingType: 'MARK_PRICE',
+                                            //     })}`
+                                            // }
+
+                                            const orderObj = {
+                                                qsStopLossShort: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                    algoType: 'CONDITIONAL',
+                                                    side: 'BUY',
+                                                    positionSide: 'SHORT',
+                                                    type: 'STOP_MARKET',
+                                                    closePosition: true, //quantity Cannot be sent with closePosition=true (Close-All)
+                                                    triggerPrice: `${priceForStopLossShort}`,
+                                                    stopPrice: `${priceForStopLossShort}`,
+                                                    workingType: 'MARK_PRICE',
+                                                })}`,
+                                                qsStopLossLong: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                    algoType: 'CONDITIONAL',
+                                                    side: 'SELL',
+                                                    positionSide: 'LONG',
+                                                    type: 'STOP_MARKET',
+                                                    closePosition: true, //quantity Cannot be sent with closePosition=true (Close-All)
+                                                    triggerPrice: `${priceForStopLossLong}`,
+                                                    stopPrice: `${priceForStopLossLong}`,
+                                                    workingType: 'MARK_PRICE',
+                                                })}`,
+                                                qsTSAct1LongCbR1: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                    algoType: 'CONDITIONAL',
+                                                    side: 'SELL',
+                                                    positionSide: 'LONG',
+                                                    type: 'TRAILING_STOP_MARKET',
+                                                    // quantity: quantityHalf,
+                                                    quantity: quantity,
+                                                    activatePrice: `${priceForAct1Long}`,
+                                                    callbackRate: percentCbR1, // 9.9
+                                                    workingType: 'MARK_PRICE',
+                                                })}`,
+                                                qsTSAct1ShortCbR1: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                    algoType: 'CONDITIONAL',
+                                                    side: 'BUY',
+                                                    positionSide: 'SHORT',
+                                                    type: 'TRAILING_STOP_MARKET',
+                                                    // quantity: quantityHalf,
+                                                    quantity: quantity,
+                                                    activatePrice: `${priceForAct1Short}`,
+                                                    callbackRate: percentCbR1, // 9.9
+                                                    workingType: 'MARK_PRICE',
+                                                })}`,
+                                                // qsTSAct1LongCbR2: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                //     algoType: 'CONDITIONAL',
+                                                //     side: 'SELL',
+                                                //     positionSide: 'LONG',
+                                                //     type: 'TRAILING_STOP_MARKET',
+                                                //     quantity: quantityHalf,
+                                                //     activatePrice: `${priceForAct1Long}`,
+                                                //     callbackRate: percentCbR2, // 4.9
+                                                //     workingType: 'MARK_PRICE',
+                                                // })}`,
+                                                // qsTSAct1ShortCbR2: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                //     algoType: 'CONDITIONAL',
+                                                //     side: 'BUY',
+                                                //     positionSide: 'SHORT',
+                                                //     type: 'TRAILING_STOP_MARKET',
+                                                //     quantity: quantityHalf,
+                                                //     activatePrice: `${priceForAct1Short}`,
+                                                //     callbackRate: percentCbR2, // 4.9
+                                                //     workingType: 'MARK_PRICE',
+                                                // })}`,
+                                            }
+
+                                            $(`#close_order_${symbol}`).css('display', 'block')
+
+                                            for (const keyOrderObj in orderObj) {
+                                                const qs = orderObj[keyOrderObj]
+                                                // console.log(qs)
+
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: `${binance_api_url}${endPointAlgoOrder}${qs}&signature=${binanceSignatureSign(qs)}`,
+                                                    success: function (result) {
+
+                                                    },
+                                                    error: function (err) {
+                                                        closeOrderAndPosition(symbol)
+                                                        if ('msg' in err.responseJSON) {
+                                                            alert(symbol + ": " + err.responseJSON.msg)
+                                                        } else {
+                                                            alert(`Error Algo Order (${keyOrderObj}) ` + symbol)
+                                                            alert(err)
+                                                        }
+                                                    }
+                                                })
+                                            }
+
+                                            // $.ajax({
+                                            //     type: 'POST',
+                                            //     url: `${binance_api_url}${endPointAlgoOrder}${qsStopLossShort}&signature=${binanceSignatureSign(qsStopLossShort)}`,
+                                            //     success: function (result) {
+
+                                            //     },
+                                            //     error: function (err) {
+                                            //         closeOrderAndPosition(symbol)
+                                            //         if ('msg' in err.responseJSON) {
+                                            //             alert(symbol + ": " + err.responseJSON.msg)
+                                            //         } else {
+                                            //             alert("Error Algo Order (Stoploss for Short) " + symbol)
+                                            //             alert(err)
+                                            //         }
+                                            //     }
+                                            // })
+
+                                        }
+                                    }
+                                },
+                                error: function (err) {
+                                    closeOrderAndPosition(symbol, () => {
+                                        if ('msg' in err.responseJSON) {
+                                            alert(symbol + ": " + err.responseJSON.msg)
+                                        } else {
+                                            alert("Error Trading Open Order " + symbol)
+                                        }
+                                    })
+                                }
+                            })
+
+                        })
+                    })
+                })
+            })
+        }
+
+        function refreshTable() {
+            // console.log(positionListSymbolKey)
+            dataTable1.destroy()
+            $('#tbody_percent_change_24h').html('')
+
+            for (const symbol in positionListSymbolKey) {
+                const { priceChangePercent, lastPrice, count: countTrade,
+                    volume, openPrice, onboardDate, pricePrecision,
+                    existLong, existShort,
+                    csv_oldday_order, csv_oldday_percent,
+                } = positionListSymbolKey[symbol]
+
+                const [dateTime, dayStr] = formatUnixDate(onboardDate).split(' | ')
+                const isNewCoin = onboardDate > timePageFirstLoad
+
+                if (pricePrecision === undefined || !symbol.endsWith('USDT') || arr_no_trade.indexOf(symbol) !== -1) {
+                    continue
+                }
+
+                const isExistPosition = (existLong || existShort) && isAlreadyCheckedBalance
+
+                $('#tbody_percent_change_24h').append(`
+                    <tr ${isNewCoin ? 'style="background-color: purple;"' : ''}>
+                        <td></td>
+                        <td style="width: 30px !important;" class="dt-type-date">${dateTime}</td>
+                        <td style="width: 30px !important;">${dayStr}</td>
+                        <td style="width: 30px !important;">${symbol}</td>
+                        <td style="width: 28px !important;" class="dt-type-numeric">${parseFloat(priceChangePercent).toFixed(1)} %</td>
+                        <td>
+                            ${isExistPosition ? '.' : ''}
+                            <button style="display: ${isExistPosition ? 'block' : 'none'};" id="close_order_${symbol}" onclick="closeOrderAndPosition('${symbol}')">Close</button>
+                            ${isExistPosition ? '&nbsp;' : ''}
+                            <button style="display: ${isAlreadyCheckedBalance ? 'block' : 'none'};" id="btn_trade_${symbol}" onclick="trade('${symbol}')">Trade</button>
+                        </td>
+                        <td class="dt-type-numeric">${csv_oldday_order}</td>
+                        <td class="dt-type-numeric"></td>
+                        <td class="dt-type-numeric">${csv_oldday_percent}</td>
+                    </tr>
+                `)
+            }
+
+            reInitailDataTable(4)
+        }
+
+        checkExchangeInfo(() => { checkPercentMarket(() => { refreshTable() }) })
+
+        setInterval(() => {
+            const now = new Date()
+            const currentHour = now.getHours()
+            const currentMinute = now.getMinutes()
+            const currentSecond = now.getSeconds()
+            // const currentMilliSecond = now.getMilliseconds()
+
+            const formattedTime = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+            $('#clock_time').html(formattedTime + ' Recommend :00-05')
+
+            if((currentHour == 6 || currentHour == 3) && currentMinute == 51 && currentSecond <= 3){
+                window.location.reload()
+            }
+
+            if(isAutoReportCSV7AM === false && (currentHour == 6 || currentHour == 3) && currentMinute == 52 && currentSecond <= 3){
+                isAutoReportCSV7AM = true
+                $('.buttons-csv').click()
+                $('.buttons-pdf').click()
+            }
+
+        }, 400) // 1000 is lag 500 is not lag
+
+    </script>
+
+    <script id="csv" type="text/javascript">
+        document.getElementById('csvFile').addEventListener('change', function (event) {
+            openModal("Loading CSV...")
+            const file = event.target.files[0];
+            if (!file) {
+                current_oldday_filename_csv = ''
+                closeModal()
+                return;
+            }
+
+            // console.log(file)
+
+            current_oldday_filename_csv = file.name.replace(/.csv/g, '')
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const text = e.target.result;
+
+                const rows = text.split('\n');
+
+                for (let i = 1; i < rows.length; i++) {
+                   
+                    let str = rows[i]
+                    // console.log(str)
+                    // '"1","PHAUSDT"\r'
+                    // '"553","POWERUSDT","-79.6"\r'
+
+                    let cleaned = str.replace(/\r/g, '')
+                    let parts = cleaned.split(',');
+
+                    let oldday_order = +(parts[0].replace(/"/g, '')) // 43
+                    let symbol = (parts[1] || '').replace(/"/g, '') // FOLKSUSDT
+                    let oldday_percent = +((parts[2] || '0').replace(/"/g, '')) // -79.6
+
+                    if (symbol && symbol.includes('USDT')) {
+                        if(positionListSymbolKey[symbol] === undefined){
+                            positionListSymbolKey[symbol] = {}
+                        }
+                        // console.log(num, symbol)
+                        positionListSymbolKey[symbol].csv_oldday_order = oldday_order
+                        positionListSymbolKey[symbol].csv_oldday_percent = oldday_percent
+                    }
+                }
+                counting_oldday_csv += 1
+
+                refreshTable()
+                closeModal()
+
+                dataTable1.order([7, 'desc']).draw()
+                $('.buttons-pdf').click()
+            };
+
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+
+</html>
