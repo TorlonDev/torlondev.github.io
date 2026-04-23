@@ -123,9 +123,10 @@
             <tbody id="tbody_percent_change_24h">
             </tbody>
         </table>
-        <br/><br/>
+        <br /><br />
         <textarea id="console_log" rows="20" style="width: 80%; font-size: 24px;"></textarea>
-        <br/><br/><br/><br/><br/><hr /><br/><br/><br/><br/><br/>
+        <br /><br /><br /><br /><br />
+        <hr /><br /><br /><br /><br /><br />
 
     </center>
 
@@ -405,6 +406,7 @@
                                     onboardDate,
                                     csv_oldday_order: 0,
                                     csv_oldday_percent: 0,
+                                    maxLeverage: 0,
                                 }
                             }
 
@@ -452,7 +454,6 @@
                             }
                         }
                     })
-
 
                     closeModal()
                     cb()
@@ -529,6 +530,10 @@
                             entryPrice = "0.0", positionAmt = "0.0", unrealizedProfit = "0.00000000",
                         } = positions[i]
 
+                        if(!(symbol in positionListSymbolKey)){
+                            continue
+                        }
+
                         positionListSymbolKey[symbol] = {
                             ...positionListSymbolKey[symbol],
                             marginType: isolated ? 'ISOLATED' : 'CROSS',
@@ -548,7 +553,44 @@
                         }
                     }
 
-                    closeModal()
+                    
+                    const endPointCheckMaxLeverage = `/fapi/v1/leverageBracket?`
+                    const ts2 = Date.now()
+                    const qs2 = `recvWindow=10000&timestamp=${ts2}`
+
+                    openModal('Checking Max Leverage...')
+                    $.ajax({
+                        type: 'GET',
+                        url: `${binance_api_url}${endPointCheckMaxLeverage}${qs2}&signature=${binanceSignatureSign(qs2)}`,
+                        success: function (result) {
+                            // console.log(result)
+                            // {symbol: 'AGIXUSDT', brackets: Array(7)}
+                            // brackets: [...]
+                            // brackets[0] -> {bracket: 1, initialLeverage: 25, notionalCap: 5000, notionalFloor: 0, maintMarginRatio: 0.02, …}
+
+                            for(let i = 0; i < result.length; i++){
+                                if(result[i].symbol in positionListSymbolKey){
+                                    positionListSymbolKey[result[i].symbol].maxLeverage = result[i].brackets[0].initialLeverage
+                                    // console.log(result[i].symbol, result[i].brackets[0].initialLeverage)
+                                }
+                            }
+
+                            closeModal()
+                        },
+                        error: function (err) {
+                            console.log("Error get Max Leverage (Leverage Bracket)")
+                            console.log(err)
+
+                            if ('msg' in err.responseJSON) {
+                                alert(err.responseJSON.msg)
+                            } else {
+                                alert("Error get Max Leverage (Leverage Bracket)")
+                            }
+
+                            openModal('Error get Max Leverage (Leverage Bracket)')
+                        }
+                    });
+
                     cb()
                 },
                 error: function (err) {
@@ -1582,7 +1624,9 @@
                         // console.log(`${x.symbol} Max ${x.max} Risk ${x.risk}`);
                         // console.log(`${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} Lev `)
 
-                        result_ranking += `${x.symbol} - ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${r > 3 ? 'Lev': ''} \n`
+                        const maxLeverage = positionListSymbolKey[x.symbol].maxLeverage
+
+                        result_ranking += `${x.symbol} - ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${maxLeverage > 0 ? `Lev ${maxLeverage}` : r > 3 ? 'Lev ' : ''} \n`
                     });
             }
 
