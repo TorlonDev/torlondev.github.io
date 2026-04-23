@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Tolly Easy Trade V26 (Beta)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css">
@@ -87,7 +88,21 @@
             style="width: 48px;" value="1.3" />%
         | Callback Rate: <input id="callback_rate" type="number" style="width: 48px;" value="0.3" /> <br /> -->
 
-        <br /><br />CSV Old Day Order (0, 3, 4): <input type="file" id="csvFile" accept=".csv" />
+        <!-- Prompt : เฉพาะหน้าแรกของแต่ละไฟล์ มีเหรียญไหนเป็นตัวร่วม -->
+        <!--
+
+        เฉพาะหน้าแรกของไฟล์ ทั้ง 5 ไฟล์ ช่วยหาเหรียญตัวร่วมให้ที โดยจัดลำดับความสำคัญ ดังนี้ คือ 
+        1. อยู่ในหน้าแรกทั้ง 5 ไฟล์ 
+        2. อยู่ในหน้าแรก 4 ไฟล์ 
+        3. อยู่ในหน้าแรก 3 ไฟล์
+        พร้อม 1 Day % change และ Old Day % ของแต่ละไฟล์ที่ปรากฏด้วย 
+        -->
+
+        <br /><br />CSV Old Day 1 File Order (0, 3, 4) Compare:<br /><br /> <input type="file" id="csvFile"
+            accept=".csv" /><br /><br />
+
+        CSV 1D-ND Multiple Files (0, 3, 8) After Compare:<br /><br />
+        <input type="file" id="csvMultipleFiles" accept=".csv" multiple />
 
         <table id="table_percent_change_1D" style="font-size: 14px; width: 90%;" class="table">
             <thead>
@@ -108,6 +123,10 @@
             <tbody id="tbody_percent_change_24h">
             </tbody>
         </table>
+        <br/><br/>
+        <textarea id="console_log" rows="20" style="width: 80%; font-size: 24px;"></textarea>
+        <br/><br/><br/><br/><br/><hr /><br/><br/><br/><br/><br/>
+
     </center>
 
     <div id="modal" class="modal" onclick="closeModal()">
@@ -271,16 +290,17 @@
                                 exportOptions: {
                                     columns: [0, /*1, 2,*/ 3, 4, 6, 7, 8]
                                 },
-                                title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}${counting_oldday_csv ? ` - ${counting_oldday_csv}D`: ''}${current_oldday_filename_csv ? ` - ${current_oldday_filename_csv}`: ''}`
+                                title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}${counting_oldday_csv ? ` - ${counting_oldday_csv}D` : ''}${current_oldday_filename_csv ? ` - ${current_oldday_filename_csv}` : ''}`
                             },
                             {
                                 extend: 'csv',
                                 // text: 'CSV Current Order (0,3)',
-                                text: 'CSV Only Current Order (0,3,4)',
+                                // text: 'CSV Only Current Order (0,3,4)',
+                                text: 'CSV Only Current Order (0,3,4,6,7,8)',
                                 exportOptions: {
-                                    columns: [0, 3, 4]
+                                    columns: [0, 3, 4, 6, 7, 8]
                                 },
-                                title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}`
+                                title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}${counting_oldday_csv ? ` - ${counting_oldday_csv}D` : ''}${current_oldday_filename_csv ? ` - ${current_oldday_filename_csv}` : ''}`
                             },
                             // {
                             //     extend: 'copy',
@@ -1315,11 +1335,12 @@
             const formattedTime = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
             $('#clock_time').html(formattedTime + ' Recommend :00-05')
 
-            if((currentHour == 6 || currentHour == 3) && currentMinute == 51 && currentSecond <= 3){
+            if ((currentHour == 6 /*|| currentHour == 3*/) && currentMinute == 51 && currentSecond <= 3) {
+                isAutoReportCSV7AM = false
                 window.location.reload()
             }
 
-            if(isAutoReportCSV7AM === false && (currentHour == 6 || currentHour == 3) && currentMinute == 52 && currentSecond <= 3){
+            if (isAutoReportCSV7AM === false && (currentHour == 6 /*|| currentHour == 3*/) && currentMinute == 52 && currentSecond <= 3) {
                 isAutoReportCSV7AM = true
                 $('.buttons-csv').click()
                 $('.buttons-pdf').click()
@@ -1351,7 +1372,7 @@
                 const rows = text.split('\n');
 
                 for (let i = 1; i < rows.length; i++) {
-                   
+
                     let str = rows[i]
                     // console.log(str)
                     // '"1","PHAUSDT"\r'
@@ -1362,15 +1383,15 @@
 
                     let oldday_order = +(parts[0].replace(/"/g, '')) // 43
                     let symbol = (parts[1] || '').replace(/"/g, '') // FOLKSUSDT
-                    let oldday_percent = +((parts[2] || '0').replace(/"/g, '')) // -79.6
+                    let oldday_percent_of_1d = +((parts[2] || '0').replace(/"/g, '')) // -79.6
 
                     if (symbol && symbol.includes('USDT')) {
-                        if(positionListSymbolKey[symbol] === undefined){
+                        if (positionListSymbolKey[symbol] === undefined) {
                             positionListSymbolKey[symbol] = {}
                         }
                         // console.log(num, symbol)
                         positionListSymbolKey[symbol].csv_oldday_order = oldday_order
-                        positionListSymbolKey[symbol].csv_oldday_percent = oldday_percent
+                        positionListSymbolKey[symbol].csv_oldday_percent = oldday_percent_of_1d
                     }
                 }
                 counting_oldday_csv += 1
@@ -1379,11 +1400,198 @@
                 closeModal()
 
                 dataTable1.order([7, 'desc']).draw()
-                $('.buttons-pdf').click()
+                //$('.buttons-pdf').click()
+                $('.buttons-csv').click()
             };
 
             reader.readAsText(file);
         });
+
+        let index_file_analysis = 0
+        let arr_is_have = []
+        let set_coin = new Set()
+        let result_ranking = ''
+
+        let obj_key_by_filename_for_oldday_percent = {} // Always need analysis from 1D to ND
+
+        function readCsvFile(file, fileName) {
+            return new Promise((resolve, reject) => {
+
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+
+                    const text = e.target.result;
+                    const rows = text.split('\n');
+
+                    for (let i = 1; i < 31; i++) {
+
+                        let str = rows[i];
+                        if (!str) continue;
+
+                        let cleaned = str.replace(/\r/g, '');
+                        let parts = cleaned.split(',');
+
+                        let oldday_order = +(parts[0].replace(/"/g, ''));
+
+                        let symbol = (parts[1] || '').replace(/"/g, '');
+
+                        //let oldday_percent = +((parts[2] || '0').replace(/"/g, ''));
+                        let oldday_percent = +((parts[5] || '0').replace(/"/g, '')); // 5 is old day percent after compare
+
+                        if (oldday_order == 0 || symbol == '') {
+                            continue
+                        }
+
+                        // console.log(`${oldday_order}, ${symbol}, ${oldday_percent}`);
+
+                        set_coin.add(symbol)
+
+                        arr_is_have[index_file_analysis] += '|' + symbol
+
+                        obj_key_by_filename_for_oldday_percent[fileName][symbol] = oldday_percent
+                    }
+
+                    resolve(); // บอกว่าไฟล์นี้อ่านเสร็จแล้ว
+                };
+                reader.onerror = reject;
+                reader.readAsText(file);
+
+            });
+        }
+
+        document.getElementById('csvMultipleFiles').addEventListener('change', async function (event) {
+
+            openModal("Loading CSV...");
+            // console.log(event.target.files);
+
+            const files = event.target.files;
+
+            if (!files || files.length <= 0) {
+                current_oldday_filename_csv = '';
+                closeModal();
+                return;
+            }
+
+            index_file_analysis = 0
+            arr_is_have = []
+            set_coin = new Set()
+            obj_key_by_filename_for_oldday_percent = {}
+            result_ranking = ''
+            $('#console_log').val(result_ranking)
+
+            for (const file of files) {
+
+                current_oldday_filename_csv = file.name.replace(/\.csv/g, '');
+
+                // console.log(current_oldday_filename_csv);
+
+                openModal(`Reading ${current_oldday_filename_csv}`);
+
+                obj_key_by_filename_for_oldday_percent[current_oldday_filename_csv] = {}
+
+                arr_is_have[index_file_analysis] = ''
+
+                await readCsvFile(file, current_oldday_filename_csv); // รอไฟล์นี้เสร็จก่อนค่อยไปไฟล์ถัดไป
+                await index_file_analysis++
+            }
+
+            ////////////////////////////////////////////
+
+            // console.log(obj_key_by_filename_for_oldday_percent)
+
+            const stats = Object.values(obj_key_by_filename_for_oldday_percent).reduce((acc, dayData) => {
+
+                Object.entries(dayData).forEach(([symbol, val]) => {
+
+                    if (!acc[symbol]) {
+                        acc[symbol] = {
+                            rank: 0,
+                            // max: val,
+                            max: parseFloat(positionListSymbolKey[symbol].priceChangePercent),
+                            min: val
+                        };
+                    }
+
+                    let s = acc[symbol];
+
+                    s.rank++;
+
+                    if (val > s.max) s.max = val;
+                    if (val < s.min) s.min = val;
+
+                });
+
+                return acc;
+
+            }, {});
+
+            // console.log(stats)
+
+            // --------------------------
+            // เติม Risk
+            // --------------------------
+
+            Object.values(stats).forEach(s => {
+                s.risk =
+                    s.min < 0
+                        ? s.max + Math.abs(s.min)
+                        : s.max - s.min;
+            });
+
+            // --------------------------
+            // Group by Rank
+            // --------------------------
+
+            const grouped = Object.entries(stats)
+                .reduce((acc, [symbol, data]) => {
+
+                    let r = data.rank;
+
+                    if (!acc[r]) acc[r] = [];
+
+                    acc[r].push({
+                        symbol,
+                        ...data
+                    });
+
+                    return acc;
+
+                }, {});
+
+            const now = new Date()
+            const currentDay = (`${new Date()}`.split(`${(new Date()).getFullYear()}`)[0] + (new Date()).getFullYear())
+            const currentHour = now.getHours()
+            const currentMinute = now.getMinutes()
+
+            result_ranking += `เหรียญน่าสนใจ ${currentDay} เวลา ${currentHour}:${currentMinute}\n(*คำเตือน: ไม่ใช่คำแนะนำการลงทุน เป็นเพียงการวิเคราะห์ความเสี่ยงเท่านั้น)\n`
+
+            for (let r = 10; r >= 3; r--) {
+                if (!grouped[r]) {
+                    // console.log("No");
+                    continue;
+                }
+
+                // console.log(`Rank ${r}`);
+
+                result_ranking += `\nRank ${r}\n`
+
+                grouped[r]
+                    .sort((a, b) => b.risk - a.risk)
+                    .forEach(x => {
+                        // console.log(`${x.symbol} Max ${x.max} Risk ${x.risk}`);
+                        // console.log(`${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} Lev `)
+
+                        result_ranking += `${x.symbol} - ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${r > 3 ? 'Lev': ''} \n`
+                    });
+            }
+
+            $('#console_log').val(result_ranking)
+
+            closeModal();
+
+        });
+
     </script>
 </body>
 
