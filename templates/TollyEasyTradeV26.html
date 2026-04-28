@@ -99,7 +99,7 @@
         -->
 
         <br /><br />CSV Old Day 1 File Order (0, 3, 4) Compare:<br /><br /> <input type="file" id="csvFile"
-            accept=".csv" /><br /><br />
+            accept=".csv" multiple /><br /><br />
 
         CSV 1D-ND Multiple Files (0, 3, 8) After Compare:<br /><br />
         <input type="file" id="csvMultipleFiles" accept=".csv" multiple />
@@ -530,7 +530,7 @@
                             entryPrice = "0.0", positionAmt = "0.0", unrealizedProfit = "0.00000000",
                         } = positions[i]
 
-                        if(!(symbol in positionListSymbolKey)){
+                        if (!(symbol in positionListSymbolKey)) {
                             continue
                         }
 
@@ -553,7 +553,7 @@
                         }
                     }
 
-                    
+
                     const endPointCheckMaxLeverage = `/fapi/v1/leverageBracket?`
                     const ts2 = Date.now()
                     const qs2 = `recvWindow=10000&timestamp=${ts2}`
@@ -568,8 +568,8 @@
                             // brackets: [...]
                             // brackets[0] -> {bracket: 1, initialLeverage: 25, notionalCap: 5000, notionalFloor: 0, maintMarginRatio: 0.02, …}
 
-                            for(let i = 0; i < result.length; i++){
-                                if(result[i].symbol in positionListSymbolKey){
+                            for (let i = 0; i < result.length; i++) {
+                                if (result[i].symbol in positionListSymbolKey) {
                                     positionListSymbolKey[result[i].symbol].maxLeverage = result[i].brackets[0].initialLeverage
                                     // console.log(result[i].symbol, result[i].brackets[0].initialLeverage)
                                 }
@@ -1393,61 +1393,113 @@
     </script>
 
     <script id="csv" type="text/javascript">
-        document.getElementById('csvFile').addEventListener('change', function (event) {
+        document.getElementById('csvFile').addEventListener('change', async function (event) {
+
             openModal("Loading CSV...")
-            const file = event.target.files[0];
-            if (!file) {
+
+            const fileList = event.target.files
+
+            if (!fileList[0]) {
                 current_oldday_filename_csv = ''
                 closeModal()
-                return;
+                return
             }
 
-            // console.log(file)
+            function readFileAsync(file) {
+                return new Promise((resolve, reject) => {
 
-            current_oldday_filename_csv = file.name.replace(/.csv/g, '')
+                    const reader = new FileReader()
 
-            const reader = new FileReader();
+                    reader.onload = e => resolve(e.target.result)
 
-            reader.onload = function (e) {
-                const text = e.target.result;
+                    reader.onerror = err => reject(err)
+
+                    reader.readAsText(file)
+
+                })
+            }
+
+            // for (let k = 0; k < fileList.length; k++) {
+            //     let file = fileList[k]
+            //     current_oldday_filename_csv = file.name.replace(/\.csv/g, '')
+            //     console.log(current_oldday_filename_csv)
+            //     openModal("Loading CSV... " + current_oldday_filename_csv)
+            //     const text = await readFileAsync(file)
+            //     const rows = text.split('\n')
+            //     for (let i = 1; i < rows.length; i++) {
+            //         let cleaned = rows[i].replace(/\r/g, '')
+            //         let parts = cleaned.split(',')
+            //         let oldday_order = +(parts[0].replace(/"/g, ''))
+            //         let symbol = (parts[1] || '').replace(/"/g, '')
+            //         let oldday_percent_of_1d = +((parts[2] || '0').replace(/"/g, ''))
+            //         if (symbol && symbol.includes('USDT')) {
+            //             if (positionListSymbolKey[symbol] === undefined) {
+            //                 positionListSymbolKey[symbol] = {}
+            //             }
+            //             positionListSymbolKey[symbol].csv_oldday_order = oldday_order
+            //             positionListSymbolKey[symbol].csv_oldday_percent = oldday_percent_of_1d
+            //         }
+            //     } counting_oldday_csv += 1
+            //     refreshTable()
+            //     dataTable1.order([7, 'desc']).draw().button('.buttons-csv').trigger();
+            // }
+
+            // Recursive in stead of for
+            async function processMultiFiles(k) {
+
+                if (k >= fileList.length) {
+                    closeModal()
+                    return;
+                }
+
+                let file = fileList[k];
+
+                current_oldday_filename_csv = file.name.replace(/\.csv/g, '');
+
+                // console.log(current_oldday_filename_csv);
+
+                openModal("Loading CSV... " + current_oldday_filename_csv);
+
+                const text = await readFileAsync(file);
 
                 const rows = text.split('\n');
 
                 for (let i = 1; i < rows.length; i++) {
-
-                    let str = rows[i]
-                    // console.log(str)
-                    // '"1","PHAUSDT"\r'
-                    // '"553","POWERUSDT","-79.6"\r'
-
-                    let cleaned = str.replace(/\r/g, '')
+                    let cleaned = rows[i].replace(/\r/g, '');
                     let parts = cleaned.split(',');
 
-                    let oldday_order = +(parts[0].replace(/"/g, '')) // 43
-                    let symbol = (parts[1] || '').replace(/"/g, '') // FOLKSUSDT
-                    let oldday_percent_of_1d = +((parts[2] || '0').replace(/"/g, '')) // -79.6
+                    let oldday_order = +(parts[0].replace(/"/g, ''));
+
+                    let symbol = (parts[1] || '').replace(/"/g, '');
+
+                    let oldday_percent_of_1d = +((parts[2] || '0').replace(/"/g, ''));
 
                     if (symbol && symbol.includes('USDT')) {
+
                         if (positionListSymbolKey[symbol] === undefined) {
-                            positionListSymbolKey[symbol] = {}
+                            positionListSymbolKey[symbol] = {};
                         }
-                        // console.log(num, symbol)
-                        positionListSymbolKey[symbol].csv_oldday_order = oldday_order
-                        positionListSymbolKey[symbol].csv_oldday_percent = oldday_percent_of_1d
+
+                        positionListSymbolKey[symbol].csv_oldday_order = oldday_order;
+                        positionListSymbolKey[symbol].csv_oldday_percent = oldday_percent_of_1d;
                     }
                 }
-                counting_oldday_csv += 1
 
-                refreshTable()
-                closeModal()
+                counting_oldday_csv += 1;
 
-                dataTable1.order([7, 'desc']).draw()
-                //$('.buttons-pdf').click()
-                $('.buttons-csv').click()
-            };
+                refreshTable();
 
-            reader.readAsText(file);
-        });
+                dataTable1.order([7, 'desc']).draw().button('.buttons-csv').trigger();
+
+                setTimeout(async () => {
+                    // recursive next ตัวถัดไป
+                    await processMultiFiles(k + 1);
+                }, 5000)
+            }
+
+            await processMultiFiles(0);
+            closeModal()
+        })
 
         let index_file_analysis = 0
         let arr_is_have = []
