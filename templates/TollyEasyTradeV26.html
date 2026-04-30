@@ -124,7 +124,9 @@
             </tbody>
         </table>
         <br /><br />
-        <textarea id="console_log" rows="20" style="width: 80%; font-size: 24px;"></textarea>
+        <textarea id="txt_area_log_ranking" rows="20" style="width: 80%; font-size: 18px;"></textarea>
+        <br /><br />
+        <textarea id="txt_area_log_gainer" rows="33" style="width: 80%; font-size: 18px; background-color: black; color: wheat; font-weight: bold;"></textarea>
         <br /><br /><br /><br /><br />
         <hr /><br /><br /><br /><br /><br />
 
@@ -271,12 +273,16 @@
 
         let timePageFirstLoad = (new Date()).getTime()
         let isAlreadyCheckedBalance = false
+        let isAlreadyCheckedMaxLeverage = false
         let positionListSymbolKey = {}
 
         let isAutoReportCSV7AM = false
 
         // Simple Initial Datatable
         let dataTable1 = $('#table_percent_change_1D').DataTable({ "pageLength": 15, order: [[1, 'desc']], }) // First is zero
+
+        let txt_area_log_gainer = ''
+        let isAlreadyScrapGainer = false
 
         function reInitailDataTable(col_sort = 1) {
             dataTable1 = $('#table_percent_change_1D').DataTable({
@@ -384,6 +390,23 @@
                     });
 
             }).draw();
+
+            if(!isAlreadyScrapGainer && isAlreadyCheckedMaxLeverage){
+                txt_area_log_gainer = ''
+
+                let arr_tb_sort = dataTable1.rows().data().toArray()
+
+                for(let i = 0; i < 30; i++){
+                    let coin_usdt = arr_tb_sort[i][3]
+                    let coin_usdt_percent = arr_tb_sort[i][4]
+                    let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
+
+                    txt_area_log_gainer += `${i+1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                }
+
+                isAlreadyScrapGainer = true
+                $('#txt_area_log_gainer').val("GAINERS\n\n" + txt_area_log_gainer)
+            }
         }
 
         function checkExchangeInfo(cb = () => { }) {
@@ -574,6 +597,8 @@
                                     // console.log(result[i].symbol, result[i].brackets[0].initialLeverage)
                                 }
                             }
+
+                            isAlreadyCheckedMaxLeverage = true
 
                             closeModal()
                         },
@@ -1572,7 +1597,7 @@
             set_coin = new Set()
             obj_key_by_filename_for_oldday_percent = {}
             result_ranking = ''
-            $('#console_log').val(result_ranking)
+            $('#txt_area_log_ranking').val(result_ranking)
 
             for (const file of files) {
 
@@ -1682,7 +1707,7 @@
                     });
             }
 
-            $('#console_log').val(result_ranking)
+            $('#txt_area_log_ranking').val(result_ranking)
 
             closeModal();
 
