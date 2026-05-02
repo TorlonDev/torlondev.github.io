@@ -1693,7 +1693,7 @@
 
                 // console.log(`Rank ${r}`);
 
-                result_ranking += `\nRank ${r}\n`
+                result_ranking += `\nRank ${r < 10 ? r: "S".repeat(r - 9)}\n`
 
                 grouped[r]
                     .sort((a, b) => b.risk - a.risk)
