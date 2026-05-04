@@ -124,9 +124,10 @@
             </tbody>
         </table>
         <br /><br />
-        <textarea id="txt_area_log_ranking" rows="20" style="width: 80%; font-size: 18px;"></textarea>
-        <br /><br />
-        <textarea id="txt_area_log_gainer" rows="33" style="width: 54%; font-size: 18px; background-color: black; color: wheat; font-weight: bold;"></textarea>
+        <textarea id="txt_area_log_ranking" rows="20" style="width: 80%; font-size: 16px;"></textarea>
+        <br /><br /><br />
+        <textarea id="txt_area_log_gainer_1" rows="33" style="width: 40%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea>
+        <textarea id="txt_area_log_gainer_2" rows="33" style="width: 40%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea>
         <br /><br /><br /><br /><br />
         <hr /><br /><br /><br /><br /><br />
 
@@ -281,7 +282,8 @@
         // Simple Initial Datatable
         let dataTable1 = $('#table_percent_change_1D').DataTable({ "pageLength": 15, order: [[1, 'desc']], }) // First is zero
 
-        let txt_area_log_gainer = ''
+        let txt_area_log_gainer_1 = ''
+        let txt_area_log_gainer_2 = ''
         let isAlreadyScrapGainer = false
 
         function reInitailDataTable(col_sort = 1) {
@@ -308,6 +310,14 @@
                                     columns: [0, 3, 4, 6, 7, 8]
                                 },
                                 title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}${counting_oldday_csv ? ` - ${counting_oldday_csv}D` : ''}${current_oldday_filename_csv ? ` - ${current_oldday_filename_csv}` : ''}`
+                            },
+                            {
+                                extend: 'excel',
+                                text: 'xlsx',
+                                exportOptions: {
+                                    columns: [0, 1, 2, 3]
+                                },
+                                title: `${new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().toLocaleTimeString().replaceAll(':', '-')}`
                             },
                             // {
                             //     extend: 'copy',
@@ -392,20 +402,26 @@
             }).draw();
 
             if(!isAlreadyScrapGainer && isAlreadyCheckedMaxLeverage){
-                txt_area_log_gainer = ''
+                txt_area_log_gainer_1 = ''
+                txt_area_log_gainer_2 = ''
 
                 let arr_tb_sort = dataTable1.rows().data().toArray()
 
-                for(let i = 0; i < 30; i++){
+                for(let i = 0; i < 60; i++){
                     let coin_usdt = arr_tb_sort[i][3]
                     let coin_usdt_percent = arr_tb_sort[i][4]
                     let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
 
-                    txt_area_log_gainer += `${i+1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                    if(i < 30){
+                        txt_area_log_gainer_1 += `${i+1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                    } else {
+                        txt_area_log_gainer_2 += `${i+1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                    }
                 }
 
                 isAlreadyScrapGainer = true
-                $('#txt_area_log_gainer').val("GAINERS\n\n" + txt_area_log_gainer)
+                $('#txt_area_log_gainer_1').val("GAINERS 1\n\n" + txt_area_log_gainer_1)
+                $('#txt_area_log_gainer_2').val("GAINERS 2\n\n" + txt_area_log_gainer_2)
             }
         }
 
