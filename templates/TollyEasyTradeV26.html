@@ -81,10 +81,8 @@
             Balance</button>
         <br /><br />
         Auto Leverage : <input id="auto_leverage" type="number" style="width: 40px;" value="50" />&nbsp;x&nbsp;
-        Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT
-
-        <!-- | Cut One Side Percent : <input id="cut_percent" type="number" style="width: 48px;" value="2.2" />% <br />
-        Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
+        Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT &nbsp;| Cut One Side Percent : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="10" />%
+         <!-- Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
             style="width: 48px;" value="1.3" />%
         | Callback Rate: <input id="callback_rate" type="number" style="width: 48px;" value="0.3" /> <br /> -->
 
@@ -198,6 +196,9 @@
             return rand
         }
 
+        let cut_one_side_percent = +$('#cut_one_side_percent').val()
+        let act_before_cut_one_side_percent = cut_one_side_percent - 1.3 // NEED SURE ACt already Start why - 1.3
+
         // range random interest 1.60 - 1.99
         // let rand1 = +randomByRange(0.60, 0.99).toFixed(2)
         // let percentTP = parseFloat(1 + +(rand1)).toFixed(2)
@@ -221,13 +222,16 @@
 
         // let percentAct1 = parseFloat(10 + rand_act1).toFixed(2) // 10
         // let percentAct1 = parseFloat(20 + rand_act1).toFixed(2) // 10
-        let percentAct1 = parseFloat(36 + rand_act1).toFixed(2) // 10
+        // let percentAct1 = parseFloat(36 + rand_act1).toFixed(2) // 10
+        let percentAct1 = parseFloat(act_before_cut_one_side_percent + rand_act1).toFixed(2)
+
 
         let percentCbR1 = parseFloat(9.97).toFixed(2) // 9.9
 
         // let percentSL = parseFloat(10.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 0.3
         // let percentSL = parseFloat(20.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 0.3
-        let percentSL = parseFloat(37.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 1.3
+        // let percentSL = parseFloat(37.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 1.3
+        let percentSL = parseFloat(cut_one_side_percent + rand_act1).toFixed(2)
 
         // // Multi-Stage Trailing
         // let percentAct2 = parseFloat(3 + rand_act2).toFixed(2) // Basic 3
@@ -245,6 +249,13 @@
         // console.log('percentAct2', percentAct2)
         // console.log('percentCbR2', percentCbR2)
         // console.log('percentTP1_Half', percentTP1_Half)
+
+        function regeneratePercentCutAfterChange(){
+            cut_one_side_percent = +$('#cut_one_side_percent').val()
+            act_before_cut_one_side_percent = cut_one_side_percent - 1.3
+            percentAct1 = parseFloat(act_before_cut_one_side_percent + rand_act1).toFixed(2)
+            percentSL = parseFloat(cut_one_side_percent + rand_act1).toFixed(2)
+        }
 
         let counting_oldday_csv = 0
         let current_oldday_filename_csv = ''
@@ -822,6 +833,8 @@
         }
 
         function trade(symbol) {
+            regeneratePercentCutAfterChange()
+
             closeOrderAndPosition(symbol, () => {
                 setMarginType(symbol, 'CROSSED', () => {
                     setLeverage(symbol, $('#auto_leverage').val(), () => {
@@ -875,6 +888,11 @@
                             // console.log('lastprice', lastPrice)
                             // console.log('priceForStopLossShort', priceForStopLossShort)
                             // console.log('priceForStopLossLong', priceForStopLossLong)
+                            // console.log('priceForAct1Long', priceForAct1Long)
+                            // console.log('priceForAct1Short', priceForAct1Short)
+
+                            // return;
+
                             // console.log('priceForFastTakeLong', priceForFastTakeLong)
                             // console.log('priceForFastTakeShort', priceForFastTakeShort)
 
@@ -1300,6 +1318,8 @@
                                                 //     workingType: 'MARK_PRICE',
                                                 // })}`,
                                             }
+
+                                            // console.log(orderObj)
 
                                             $(`#close_order_${symbol}`).css('display', 'block')
 
