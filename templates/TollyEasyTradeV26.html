@@ -81,8 +81,9 @@
             Balance</button>
         <br /><br />
         Auto Leverage : <input id="auto_leverage" type="number" style="width: 40px;" value="50" />&nbsp;x&nbsp;
-        Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT &nbsp;| Cut One Side Percent : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="10" />%
-         <!-- Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
+        Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT &nbsp;| Cut One
+        Side Percent : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="10" />%
+        <!-- Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
             style="width: 48px;" value="1.3" />%
         | Callback Rate: <input id="callback_rate" type="number" style="width: 48px;" value="0.3" /> <br /> -->
 
@@ -124,8 +125,12 @@
         <br /><br />
         <textarea id="txt_area_log_ranking" rows="20" style="width: 80%; font-size: 16px;"></textarea>
         <br /><br /><br />
-        <textarea id="txt_area_log_gainer_1" rows="33" style="width: 40%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea>
-        <textarea id="txt_area_log_gainer_2" rows="33" style="width: 40%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea>
+        <textarea id="txt_area_log_gainer_1" rows="54"
+            style="width: 40%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea>
+        <textarea id="txt_area_log_gainer_2" rows="54"
+            style="width: 40%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea>
+        <!-- <textarea id="txt_area_log_loser_1" rows="33"
+            style="width: 26%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea> -->
         <br /><br /><br /><br /><br />
         <hr /><br /><br /><br /><br /><br />
 
@@ -250,7 +255,7 @@
         // console.log('percentCbR2', percentCbR2)
         // console.log('percentTP1_Half', percentTP1_Half)
 
-        function regeneratePercentCutAfterChange(){
+        function regeneratePercentCutAfterChange() {
             cut_one_side_percent = +$('#cut_one_side_percent').val()
             act_before_cut_one_side_percent = cut_one_side_percent - 1.3
             percentAct1 = parseFloat(act_before_cut_one_side_percent + rand_act1).toFixed(2)
@@ -295,6 +300,7 @@
 
         let txt_area_log_gainer_1 = ''
         let txt_area_log_gainer_2 = ''
+        // let txt_area_log_loser_1 = ''
         let isAlreadyScrapGainer = false
 
         function reInitailDataTable(col_sort = 1) {
@@ -412,27 +418,40 @@
 
             }).draw();
 
-            if(!isAlreadyScrapGainer && isAlreadyCheckedMaxLeverage){
+            if (!isAlreadyScrapGainer && isAlreadyCheckedMaxLeverage) {
                 txt_area_log_gainer_1 = ''
                 txt_area_log_gainer_2 = ''
+                // txt_area_log_loser_1 = ''
 
                 let arr_tb_sort = dataTable1.rows().data().toArray()
+                let last_index_tb = arr_tb_sort.length - 1
 
-                for(let i = 0; i < 60; i++){
+                for (let i = 0; i < 50; i++) {
                     let coin_usdt = arr_tb_sort[i][3]
                     let coin_usdt_percent = arr_tb_sort[i][4]
                     let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
 
-                    if(i < 30){
-                        txt_area_log_gainer_1 += `${i+1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
-                    } else {
-                        txt_area_log_gainer_2 += `${i+1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
-                    }
+                    // if (i < 30) {
+                    txt_area_log_gainer_1 += `${i + 1}. ${coin_usdt} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                    // } else {
+                    //     txt_area_log_gainer_2 += `${i + 1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                    // }
+                }
+
+                // console.log(last_index_tb)
+
+                for (let j = last_index_tb; j > last_index_tb - 50; j--) {
+                    let coin_usdt = arr_tb_sort[j][3]
+                    let coin_usdt_percent = arr_tb_sort[j][4]
+                    let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
+
+                    // txt_area_log_loser_1 += `${j - last_index_tb}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                    txt_area_log_gainer_2 += `${last_index_tb - j + 1}. ${coin_usdt} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
                 }
 
                 isAlreadyScrapGainer = true
-                $('#txt_area_log_gainer_1').val("GAINERS 1\n\n" + txt_area_log_gainer_1)
-                $('#txt_area_log_gainer_2').val("GAINERS 2\n\n" + txt_area_log_gainer_2)
+                $('#txt_area_log_gainer_1').val("GAINERS\n\n" + txt_area_log_gainer_1)
+                $('#txt_area_log_gainer_2').val("LOSER\n\n" + txt_area_log_gainer_2)
             }
         }
 
@@ -1275,17 +1294,19 @@
                                                     stopPrice: `${priceForStopLossLong}`,
                                                     workingType: 'MARK_PRICE',
                                                 })}`,
-                                                qsTSAct1LongCbR1: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
-                                                    algoType: 'CONDITIONAL',
-                                                    side: 'SELL',
-                                                    positionSide: 'LONG',
-                                                    type: 'TRAILING_STOP_MARKET',
-                                                    // quantity: quantityHalf,
-                                                    quantity: quantity,
-                                                    activatePrice: `${priceForAct1Long}`,
-                                                    callbackRate: percentCbR1, // 9.9
-                                                    workingType: 'MARK_PRICE',
-                                                })}`,
+                                                // No Need and no fomo support Heaven Moon - No Wait too.
+                                                // Recheck future if this not work
+                                                // qsTSAct1LongCbR1: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                //     algoType: 'CONDITIONAL',
+                                                //     side: 'SELL',
+                                                //     positionSide: 'LONG',
+                                                //     type: 'TRAILING_STOP_MARKET',
+                                                //     // quantity: quantityHalf,
+                                                //     quantity: quantity,
+                                                //     activatePrice: `${priceForAct1Long}`,
+                                                //     callbackRate: percentCbR1, // 9.9
+                                                //     workingType: 'MARK_PRICE',
+                                                // })}`,
                                                 qsTSAct1ShortCbR1: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
                                                     algoType: 'CONDITIONAL',
                                                     side: 'BUY',
@@ -1555,7 +1576,7 @@
                 setTimeout(async () => {
                     // recursive next ตัวถัดไป
                     await processMultiFiles(k + 1);
-                }, 5000)
+                }, 3500)
             }
 
             await processMultiFiles(0);
@@ -1578,8 +1599,9 @@
 
                     const text = e.target.result;
                     const rows = text.split('\n');
+                    const rows_index = rows.length - 1
 
-                    for (let i = 1; i < 31; i++) {
+                    for (let i = 1; i < 101; i++) {
 
                         let str = rows[i];
                         if (!str) continue;
@@ -1604,7 +1626,31 @@
 
                         arr_is_have[index_file_analysis] += '|' + symbol
 
-                        obj_key_by_filename_for_oldday_percent[fileName][symbol] = oldday_percent
+                        obj_key_by_filename_for_oldday_percent[fileName]['change_up'][symbol] = oldday_percent
+                    }
+
+                    for (let j = rows_index; j > rows_index - 101; j--) {
+                        let str = rows[j];
+                        if (!str) continue;
+
+                        let cleaned = str.replace(/\r/g, '');
+                        let parts = cleaned.split(',');
+
+                        let oldday_order = +(parts[0].replace(/"/g, ''));
+
+                        let symbol = (parts[1] || '').replace(/"/g, '');
+
+                        let oldday_percent = +((parts[5] || '0').replace(/"/g, ''));
+
+                        if (oldday_order == 0 || symbol == '') {
+                            continue
+                        }
+
+                        set_coin.add(symbol)
+
+                        arr_is_have[index_file_analysis] += '|' + symbol
+
+                        obj_key_by_filename_for_oldday_percent[fileName]['change_down'][symbol] = oldday_percent
                     }
 
                     resolve(); // บอกว่าไฟล์นี้อ่านเสร็จแล้ว
@@ -1643,7 +1689,12 @@
 
                 openModal(`Reading ${current_oldday_filename_csv}`);
 
-                obj_key_by_filename_for_oldday_percent[current_oldday_filename_csv] = {}
+                // obj_key_by_filename_for_oldday_percent[current_oldday_filename_csv] = {}
+
+                obj_key_by_filename_for_oldday_percent[current_oldday_filename_csv] = {
+                    change_up: {},
+                    change_down: {},
+                }
 
                 arr_is_have[index_file_analysis] = ''
 
@@ -1655,93 +1706,402 @@
 
             // console.log(obj_key_by_filename_for_oldday_percent)
 
-            const stats = Object.values(obj_key_by_filename_for_oldday_percent).reduce((acc, dayData) => {
+            function analysis(day_obj) {
 
-                Object.entries(dayData).forEach(([symbol, val]) => {
+                const periods = [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+                const result = {}
 
-                    if (!acc[symbol]) {
-                        acc[symbol] = {
-                            rank: 0,
-                            // max: val,
-                            max: parseFloat(positionListSymbolKey[symbol].priceChangePercent),
-                            min: val
-                        };
+                // main_obj เป็น global
+                // เช่น main_obj['P'].pc
+
+                // แปลง object -> array พร้อมหา day number
+                const dayList = Object.entries(day_obj)
+                    .map(([key, value]) => {
+
+                        // ดึง 1D / 2D / 3D จาก key
+                        const match = key.match(/(\d+)D/)
+                        const dayNum = match ? Number(match[1]) : null
+
+                        return {
+                            key,
+                            dayNum,
+                            data: value
+                        }
+                    })
+                    .filter(x => x.dayNum !== null)
+                    .sort((a, b) => a.dayNum - b.dayNum)
+
+                // คำนวณแต่ละช่วง
+                for (const period of periods) {
+
+                    const upMap = {}
+                    const downMap = {}
+
+                    // เอาเฉพาะ 1D -> period D
+                    const selectedDays = dayList.filter(x => x.dayNum <= period)
+
+                    for (const day of selectedDays) {
+
+                        const dayData = day.data
+
+                        // ---------------- UP ----------------
+                        for (const [symbol, value] of Object.entries(dayData.change_up || {})) {
+
+                            const val = Number(value)
+
+                            if (!upMap[symbol]) {
+
+                                const mainPc = parseFloat(positionListSymbolKey?.[symbol]?.priceChangePercent || val)
+
+                                upMap[symbol] = {
+                                    count: 0,
+                                    max: mainPc,
+                                    min: mainPc,
+                                }
+                            }
+
+                            upMap[symbol].count++
+
+                            if (val > upMap[symbol].max)
+                                upMap[symbol].max = val
+
+                            if (val < upMap[symbol].min)
+                                upMap[symbol].min = val
+                        }
+
+                        // ---------------- DOWN ----------------
+                        for (const [symbol, value] of Object.entries(dayData.change_down || {})) {
+
+                            const val = Number(value)
+
+                            if (!downMap[symbol]) {
+
+                                const mainPc = parseFloat(positionListSymbolKey?.[symbol]?.priceChangePercent || val)
+
+                                downMap[symbol] = {
+                                    count: 0,
+                                    max: mainPc,
+                                    min: mainPc,
+                                }
+                            }
+
+                            downMap[symbol].count++
+
+                            if (val > downMap[symbol].max)
+                                downMap[symbol].max = val
+
+                            if (val < downMap[symbol].min)
+                                downMap[symbol].min = val
+                        }
                     }
 
-                    let s = acc[symbol];
+                    // Risk
+                    const calcRisk = (max, min) => {
+                        return min < 0
+                            ? max + Math.abs(min)
+                            : max - min
+                    }
 
-                    s.rank++;
+                    const upRank = []
+                    const downRank = []
 
-                    if (val > s.max) s.max = val;
-                    if (val < s.min) s.min = val;
+                    // ต้องอยู่ครบทุกวัน
+                    for (const [symbol, data] of Object.entries(upMap)) {
 
-                });
+                        if (data.count === period) {
 
-                return acc;
+                            upRank.push({
+                                symbol,
+                                risk: calcRisk(data.max, data.min),
+                                max: data.max,
+                                min: data.min,
+                            })
+                        }
+                    }
 
-            }, {});
+                    for (const [symbol, data] of Object.entries(downMap)) {
 
-            // console.log(stats)
+                        if (data.count === period) {
 
-            // --------------------------
-            // เติม Risk
-            // --------------------------
+                            downRank.push({
+                                symbol,
+                                risk: calcRisk(data.max, data.min),
+                                max: data.max,
+                                min: data.min,
+                            })
+                        }
+                    }
 
-            Object.values(stats).forEach(s => {
-                s.risk =
-                    s.min < 0
-                        ? s.max + Math.abs(s.min)
-                        : s.max - s.min;
-            });
+                    // sort risk มาก -> น้อย
+                    upRank.sort((a, b) => b.risk - a.risk)
+                    downRank.sort((a, b) => b.risk - a.risk)
 
-            // --------------------------
-            // Group by Rank
-            // --------------------------
+                    result[`${period}D`] = {
+                        change_up_rank: upRank,
+                        change_down_rank: downRank,
+                    }
+                }
 
-            const grouped = Object.entries(stats)
-                .reduce((acc, [symbol, data]) => {
+                return result
+            }
 
-                    let r = data.rank;
+            function getRankLabel(day) {
 
-                    if (!acc[r]) acc[r] = [];
+                const num = parseInt(day);
 
-                    acc[r].push({
-                        symbol,
-                        ...data
+                if (num < 10) {
+                    return `Rank ${num}`;
+                }
+
+                return `Rank ${'S'.repeat(num - 9)}`;
+            }
+
+
+            function buildRankText(obj) {
+
+                let upText = "Gainer:\n";
+                let downText = "Loser:\n";
+
+                // เก็บ symbol ที่แสดงไปแล้ว
+                const shownUpSymbols = new Set();
+                const shownDownSymbols = new Set();
+
+                for (const day of Object.keys(obj)
+                    .sort((a, b) => parseInt(b) - parseInt(a))) {
+
+                    // ---------- UP ----------
+                    const upArr = [...obj[day].change_up_rank]
+                        .sort((a, b) => b.risk - a.risk)
+
+                        // ตัด symbol ซ้ำ
+                        .filter(v => {
+                            const symbol = v.symbol;
+
+                            if (shownUpSymbols.has(symbol)) {
+                                return false;
+                            }
+
+                            shownUpSymbols.add(symbol);
+                            return true;
+                        });
+
+                    const upLine = upArr.length
+                        ? upArr
+                            .map(v => `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${(positionListSymbolKey[v.symbol].maxLeverage || 0) > 0 ? ` Lev ${positionListSymbolKey[v.symbol].maxLeverage}` : ''}`)
+                            .join(" | ")
+                        : "-";
+
+                    if (upLine !== '-') {
+                        upText += `${getRankLabel(day)} -> | ${upLine}\n`;
+                    }
+
+
+                    // ---------- DOWN ----------
+                    const downArr = [...obj[day].change_down_rank]
+                        .sort((a, b) => b.risk - a.risk)
+
+                        // ตัด symbol ซ้ำ
+                        .filter(v => {
+                            const symbol = v.symbol;
+
+                            if (shownDownSymbols.has(symbol)) {
+                                return false;
+                            }
+
+                            shownDownSymbols.add(symbol);
+                            return true;
+                        });
+
+                    const downLine = downArr.length
+                        ? downArr
+                            .map(v => `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${(positionListSymbolKey[v.symbol].maxLeverage || 0) > 0 ? ` Lev ${positionListSymbolKey[v.symbol].maxLeverage}` : ''}`)
+                            .join(" | ")
+                        : "-";
+
+                    if (downLine !== '-') {
+                        downText += `${getRankLabel(day)} -> | ${downLine}\n`;
+                    }
+                }
+
+                return `${upText}\n${downText}`;
+            }
+
+            function analysis_old_version() {
+                const stats_change_up = Object.values(obj_key_by_filename_for_oldday_percent).reduce((acc, dayData) => {
+
+                    Object.entries(dayData.change_up).forEach(([symbol, val]) => {
+
+                        if (!acc[symbol]) {
+                            if (positionListSymbolKey[symbol] === undefined) {
+                                positionListSymbolKey[symbol] = {
+                                    priceChangePercent: 0
+                                }
+                            }
+
+                            acc[symbol] = {
+                                rank: 0,
+                                // max: val,
+                                max: parseFloat(positionListSymbolKey[symbol].priceChangePercent),
+                                min: val
+                            };
+                        }
+
+                        let s = acc[symbol];
+
+                        s.rank++;
+
+                        if (val > s.max) s.max = val;
+                        if (val < s.min) s.min = val;
+
                     });
 
                     return acc;
 
                 }, {});
 
+                const stats_change_down = Object.values(obj_key_by_filename_for_oldday_percent).reduce((acc, dayData) => {
+
+                    Object.entries(dayData.change_down).forEach(([symbol, val]) => {
+
+                        if (!acc[symbol]) {
+                            if (positionListSymbolKey[symbol] === undefined) {
+                                positionListSymbolKey[symbol] = {
+                                    priceChangePercent: 0
+                                }
+                            }
+
+                            acc[symbol] = {
+                                rank: 0,
+                                // max: val,
+                                max: parseFloat(positionListSymbolKey[symbol].priceChangePercent),
+                                min: val
+                            };
+                        }
+
+                        let s = acc[symbol];
+
+                        s.rank++;
+
+                        if (val > s.max) s.max = val;
+                        if (val < s.min) s.min = val;
+
+                    });
+
+                    return acc;
+
+                }, {});
+
+                // console.log(stats_change_up)
+                // console.log(stats_change_down)
+
+                // --------------------------
+                // เติม Risk
+                // --------------------------
+
+                Object.values(stats_change_up).forEach(s => {
+                    s.risk =
+                        s.min < 0
+                            ? s.max + Math.abs(s.min)
+                            : s.max - s.min;
+                });
+
+                Object.values(stats_change_down).forEach(s => {
+                    s.risk =
+                        s.min < 0
+                            ? s.max + Math.abs(s.min)
+                            : s.max - s.min;
+                });
+
+                // console.log(stats_change_up)
+                // console.log(stats_change_down)
+
+                // --------------------------
+                // Group by Rank
+                // --------------------------
+
+                const grouped_change_up = Object.entries(stats_change_up)
+                    .reduce((acc, [symbol, data]) => {
+
+                        let r = data.rank;
+
+                        if (!acc[r]) acc[r] = [];
+
+                        acc[r].push({
+                            symbol,
+                            ...data
+                        });
+
+                        return acc;
+
+                    }, {});
+
+                const grouped_change_down = Object.entries(stats_change_down)
+                    .reduce((acc, [symbol, data]) => {
+
+                        let r = data.rank;
+
+                        if (!acc[r]) acc[r] = [];
+
+                        acc[r].push({
+                            symbol,
+                            ...data
+                        });
+
+                        return acc;
+
+                    }, {});
+
+                result_ranking += `\nOld Version - Gainer:`
+
+                for (let r = 32; r >= 4; r--) {
+                    if (!grouped_change_up[r]) {
+                        continue;
+                    }
+
+                    // console.log(`Rank ${r}`);
+
+                    result_ranking += `\nRank ${r < 10 ? r : "S".repeat(r - 9)} ->`
+
+                    grouped_change_up[r]
+                        .sort((a, b) => b.risk - a.risk)
+                        .forEach(x => {
+                            const maxLeverage = positionListSymbolKey[x.symbol].maxLeverage
+
+                            result_ranking += `| ${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${maxLeverage > 0 ? `Lev ${maxLeverage}` : ''}`
+                        });
+                }
+
+                result_ranking += `\n\nOld Version - Loser:`
+
+                for (let r = 32; r >= 4; r--) {
+                    if (!grouped_change_down[r]) {
+                        continue;
+                    }
+
+                    // console.log(`Rank ${r}`);
+
+                    result_ranking += `\nRank ${r < 10 ? r : "S".repeat(r - 9)} ->`
+
+                    grouped_change_down[r]
+                        .sort((a, b) => b.risk - a.risk)
+                        .forEach(x => {
+                            const maxLeverage = positionListSymbolKey[x.symbol].maxLeverage
+
+                            result_ranking += `| ${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${maxLeverage > 0 ? `Lev ${maxLeverage}` : ''}`
+                        });
+                }
+            }
+
             const now = new Date()
             const currentDay = (`${new Date()}`.split(`${(new Date()).getFullYear()}`)[0] + (new Date()).getFullYear())
             const currentHour = now.getHours()
             const currentMinute = now.getMinutes()
 
-            result_ranking += `เหรียญน่าสนใจ ${currentDay} เวลา ${currentHour}:${currentMinute}\n(*คำเตือน: ไม่ใช่คำแนะนำการลงทุน เป็นเพียงการวิเคราะห์ความเสี่ยงเท่านั้น)\n`
+            result_ranking += `เหรียญน่าสนใจ ${currentDay} เวลา ${currentHour}:${currentMinute}\n(*คำเตือน: ไม่ใช่คำแนะนำการลงทุน เป็นเพียงการวิเคราะห์ความเสี่ยงเท่านั้น)\n\n`
 
-            for (let r = 32; r >= 4; r--) {
-                if (!grouped[r]) {
-                    // console.log("No");
-                    continue;
-                }
+            result_ranking += buildRankText(analysis(obj_key_by_filename_for_oldday_percent))
 
-                // console.log(`Rank ${r}`);
-
-                result_ranking += `\nRank ${r < 10 ? r: "S".repeat(r - 9)}\n`
-
-                grouped[r]
-                    .sort((a, b) => b.risk - a.risk)
-                    .forEach(x => {
-                        // console.log(`${x.symbol} Max ${x.max} Risk ${x.risk}`);
-                        // console.log(`${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} Lev `)
-
-                        const maxLeverage = positionListSymbolKey[x.symbol].maxLeverage
-
-                        result_ranking += `${x.symbol} - ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${maxLeverage > 0 ? `Lev ${maxLeverage}` : r > 3 ? 'Lev ' : ''} \n`
-                    });
-            }
+            // analysis_old_version()
 
             $('#txt_area_log_ranking').val(result_ranking)
 
