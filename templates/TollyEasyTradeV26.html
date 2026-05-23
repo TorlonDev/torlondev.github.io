@@ -85,7 +85,7 @@
         Side Percent : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="10" />%
         <br /><br />
         Top / Bottom Interest Count Rank After Sort: <input id="top_bottom_interest_count_rank" type="number" style="width: 40px;" value="100" /><br/>
-        Top Space Skip Analysis <input id="top_space_skip_analysis" type="number" style="width: 40px;" value="0" />
+        Top / Bottom Space Skip Analysis <input id="top_bottom_space_skip_analysis" type="number" style="width: 40px;" value="0" />
         <!-- Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
             style="width: 48px;" value="1.3" />%
         | Callback Rate: <input id="callback_rate" type="number" style="width: 48px;" value="0.3" /> <br /> -->
@@ -1606,7 +1606,7 @@
                     const rows = text.split('\n');
                     const rows_index = rows.length - 1
 
-                    for (let i = (1 + (+$('#top_space_skip_analysis').val())); i < (+$('#top_bottom_interest_count_rank').val() + 1); i++) {
+                    for (let i = (1 + (+$('#top_bottom_space_skip_analysis').val())); i < (+$('#top_bottom_interest_count_rank').val() + 1); i++) {
 
                         let str = rows[i];
                         if (!str) continue;
@@ -1634,7 +1634,7 @@
                         obj_key_by_filename_for_oldday_percent[fileName]['change_up'][symbol] = oldday_percent
                     }
 
-                    for (let j = rows_index; j > rows_index - (+$('#top_bottom_interest_count_rank').val() + 1); j--) {
+                    for (let j = rows_index - (+$('#top_bottom_space_skip_analysis').val()); j > (rows_index - (+$('#top_bottom_space_skip_analysis').val())) - (+$('#top_bottom_interest_count_rank').val() + 1); j--) {
                         let str = rows[j];
                         if (!str) continue;
 
@@ -1683,8 +1683,8 @@
             arr_is_have = []
             set_coin = new Set()
             obj_key_by_filename_for_oldday_percent = {}
-            result_ranking = ''
-            $('#txt_area_log_ranking').val(result_ranking)
+            // result_ranking = ''
+            // $('#txt_area_log_ranking').val(result_ranking)
 
             for (const file of files) {
 
@@ -1852,24 +1852,24 @@
 
             function getRankLabel(day) {
 
-
+                let labelClass = (+$('#top_bottom_space_skip_analysis').val()) > 0 ? 'A': 'S'
 
                 const num = parseInt(day);
 
                 if (num < 10) {
-                    return `Rank ${num}`;
+                    return `Rank ${num}${labelClass}`;
                 }
 
-                return `Rank ${'S'.repeat(num - 9)}`;
+                return `Rank ${labelClass.repeat(num - 9)}`;
             }
 
 
             function buildRankText(obj) {
 
+                let labelClass = +$('#top_bottom_space_skip_analysis').val() > 0 ? 'Risk A': 'Risk S & A'
 
-
-                let upText = "Gainer:\n";
-                let downText = "Loser:\n";
+                let upText = `Gainer ${labelClass} :\n`;
+                let downText = `Loser ${labelClass} :\n`;
 
                 // เก็บ symbol ที่แสดงไปแล้ว
                 const shownUpSymbols = new Set();
@@ -1935,184 +1935,184 @@
                 return `${upText}\n${downText}`;
             }
 
-            function analysis_old_version() {
-                const stats_change_up = Object.values(obj_key_by_filename_for_oldday_percent).reduce((acc, dayData) => {
+            // function analysis_old_version() {
+            //     const stats_change_up = Object.values(obj_key_by_filename_for_oldday_percent).reduce((acc, dayData) => {
 
-                    Object.entries(dayData.change_up).forEach(([symbol, val]) => {
+            //         Object.entries(dayData.change_up).forEach(([symbol, val]) => {
 
-                        if (!acc[symbol]) {
-                            if (positionListSymbolKey[symbol] === undefined) {
-                                positionListSymbolKey[symbol] = {
-                                    priceChangePercent: 0
-                                }
-                            }
+            //             if (!acc[symbol]) {
+            //                 if (positionListSymbolKey[symbol] === undefined) {
+            //                     positionListSymbolKey[symbol] = {
+            //                         priceChangePercent: 0
+            //                     }
+            //                 }
 
-                            acc[symbol] = {
-                                rank: 0,
-                                // max: val,
-                                max: parseFloat(positionListSymbolKey[symbol].priceChangePercent),
-                                min: val
-                            };
-                        }
+            //                 acc[symbol] = {
+            //                     rank: 0,
+            //                     // max: val,
+            //                     max: parseFloat(positionListSymbolKey[symbol].priceChangePercent),
+            //                     min: val
+            //                 };
+            //             }
 
-                        let s = acc[symbol];
+            //             let s = acc[symbol];
 
-                        s.rank++;
+            //             s.rank++;
 
-                        if (val > s.max) s.max = val;
-                        if (val < s.min) s.min = val;
+            //             if (val > s.max) s.max = val;
+            //             if (val < s.min) s.min = val;
 
-                    });
+            //         });
 
-                    return acc;
+            //         return acc;
 
-                }, {});
+            //     }, {});
 
-                const stats_change_down = Object.values(obj_key_by_filename_for_oldday_percent).reduce((acc, dayData) => {
+            //     const stats_change_down = Object.values(obj_key_by_filename_for_oldday_percent).reduce((acc, dayData) => {
 
-                    Object.entries(dayData.change_down).forEach(([symbol, val]) => {
+            //         Object.entries(dayData.change_down).forEach(([symbol, val]) => {
 
-                        if (!acc[symbol]) {
-                            if (positionListSymbolKey[symbol] === undefined) {
-                                positionListSymbolKey[symbol] = {
-                                    priceChangePercent: 0
-                                }
-                            }
+            //             if (!acc[symbol]) {
+            //                 if (positionListSymbolKey[symbol] === undefined) {
+            //                     positionListSymbolKey[symbol] = {
+            //                         priceChangePercent: 0
+            //                     }
+            //                 }
 
-                            acc[symbol] = {
-                                rank: 0,
-                                // max: val,
-                                max: parseFloat(positionListSymbolKey[symbol].priceChangePercent),
-                                min: val
-                            };
-                        }
+            //                 acc[symbol] = {
+            //                     rank: 0,
+            //                     // max: val,
+            //                     max: parseFloat(positionListSymbolKey[symbol].priceChangePercent),
+            //                     min: val
+            //                 };
+            //             }
 
-                        let s = acc[symbol];
+            //             let s = acc[symbol];
 
-                        s.rank++;
+            //             s.rank++;
 
-                        if (val > s.max) s.max = val;
-                        if (val < s.min) s.min = val;
+            //             if (val > s.max) s.max = val;
+            //             if (val < s.min) s.min = val;
 
-                    });
+            //         });
 
-                    return acc;
+            //         return acc;
 
-                }, {});
+            //     }, {});
 
-                // console.log(stats_change_up)
-                // console.log(stats_change_down)
+            //     // console.log(stats_change_up)
+            //     // console.log(stats_change_down)
 
-                // --------------------------
-                // เติม Risk
-                // --------------------------
+            //     // --------------------------
+            //     // เติม Risk
+            //     // --------------------------
 
-                Object.values(stats_change_up).forEach(s => {
-                    s.risk =
-                        s.min < 0
-                            ? s.max + Math.abs(s.min)
-                            : s.max - s.min;
-                });
+            //     Object.values(stats_change_up).forEach(s => {
+            //         s.risk =
+            //             s.min < 0
+            //                 ? s.max + Math.abs(s.min)
+            //                 : s.max - s.min;
+            //     });
 
-                Object.values(stats_change_down).forEach(s => {
-                    s.risk =
-                        s.min < 0
-                            ? s.max + Math.abs(s.min)
-                            : s.max - s.min;
-                });
+            //     Object.values(stats_change_down).forEach(s => {
+            //         s.risk =
+            //             s.min < 0
+            //                 ? s.max + Math.abs(s.min)
+            //                 : s.max - s.min;
+            //     });
 
-                // console.log(stats_change_up)
-                // console.log(stats_change_down)
+            //     // console.log(stats_change_up)
+            //     // console.log(stats_change_down)
 
-                // --------------------------
-                // Group by Rank
-                // --------------------------
+            //     // --------------------------
+            //     // Group by Rank
+            //     // --------------------------
 
-                const grouped_change_up = Object.entries(stats_change_up)
-                    .reduce((acc, [symbol, data]) => {
+            //     const grouped_change_up = Object.entries(stats_change_up)
+            //         .reduce((acc, [symbol, data]) => {
 
-                        let r = data.rank;
+            //             let r = data.rank;
 
-                        if (!acc[r]) acc[r] = [];
+            //             if (!acc[r]) acc[r] = [];
 
-                        acc[r].push({
-                            symbol,
-                            ...data
-                        });
+            //             acc[r].push({
+            //                 symbol,
+            //                 ...data
+            //             });
 
-                        return acc;
+            //             return acc;
 
-                    }, {});
+            //         }, {});
 
-                const grouped_change_down = Object.entries(stats_change_down)
-                    .reduce((acc, [symbol, data]) => {
+            //     const grouped_change_down = Object.entries(stats_change_down)
+            //         .reduce((acc, [symbol, data]) => {
 
-                        let r = data.rank;
+            //             let r = data.rank;
 
-                        if (!acc[r]) acc[r] = [];
+            //             if (!acc[r]) acc[r] = [];
 
-                        acc[r].push({
-                            symbol,
-                            ...data
-                        });
+            //             acc[r].push({
+            //                 symbol,
+            //                 ...data
+            //             });
 
-                        return acc;
+            //             return acc;
 
-                    }, {});
+            //         }, {});
 
-                result_ranking += `\nOld Version - Gainer:`
+            //     result_ranking += `\nOld Version - Gainer:`
 
-                for (let r = 32; r >= 4; r--) {
-                    if (!grouped_change_up[r]) {
-                        continue;
-                    }
+            //     for (let r = 32; r >= 4; r--) {
+            //         if (!grouped_change_up[r]) {
+            //             continue;
+            //         }
 
-                    // console.log(`Rank ${r}`);
+            //         // console.log(`Rank ${r}`);
 
-                    result_ranking += `\nRank ${r < 10 ? r : "S".repeat(r - 9)} ->`
+            //         result_ranking += `\nRank ${r < 10 ? r : "S".repeat(r - 9)} ->`
 
-                    grouped_change_up[r]
-                        .sort((a, b) => b.risk - a.risk)
-                        .forEach(x => {
-                            const maxLeverage = positionListSymbolKey[x.symbol].maxLeverage
+            //         grouped_change_up[r]
+            //             .sort((a, b) => b.risk - a.risk)
+            //             .forEach(x => {
+            //                 const maxLeverage = positionListSymbolKey[x.symbol].maxLeverage
 
-                            result_ranking += `| ${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${maxLeverage > 0 ? `Lev ${maxLeverage}` : ''}`
-                        });
-                }
+            //                 result_ranking += `| ${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${maxLeverage > 0 ? `Lev ${maxLeverage}` : ''}`
+            //             });
+            //     }
 
-                result_ranking += `\n\nOld Version - Loser:`
+            //     result_ranking += `\n\nOld Version - Loser:`
 
-                for (let r = 32; r >= 4; r--) {
-                    if (!grouped_change_down[r]) {
-                        continue;
-                    }
+            //     for (let r = 32; r >= 4; r--) {
+            //         if (!grouped_change_down[r]) {
+            //             continue;
+            //         }
 
-                    // console.log(`Rank ${r}`);
+            //         // console.log(`Rank ${r}`);
 
-                    result_ranking += `\nRank ${r < 10 ? r : "S".repeat(r - 9)} ->`
+            //         result_ranking += `\nRank ${r < 10 ? r : "S".repeat(r - 9)} ->`
 
-                    grouped_change_down[r]
-                        .sort((a, b) => b.risk - a.risk)
-                        .forEach(x => {
-                            const maxLeverage = positionListSymbolKey[x.symbol].maxLeverage
+            //         grouped_change_down[r]
+            //             .sort((a, b) => b.risk - a.risk)
+            //             .forEach(x => {
+            //                 const maxLeverage = positionListSymbolKey[x.symbol].maxLeverage
 
-                            result_ranking += `| ${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${maxLeverage > 0 ? `Lev ${maxLeverage}` : ''}`
-                        });
-                }
-            }
+            //                 result_ranking += `| ${x.symbol} ${parseFloat(x.max).toFixed(1)} Risk ${parseFloat(x.risk).toFixed(1)} ${maxLeverage > 0 ? `Lev ${maxLeverage}` : ''}`
+            //             });
+            //     }
+            // }
 
             const now = new Date()
             const currentDay = (`${new Date()}`.split(`${(new Date()).getFullYear()}`)[0] + (new Date()).getFullYear())
             const currentHour = now.getHours()
             const currentMinute = now.getMinutes()
 
-            result_ranking += `เหรียญน่าสนใจ ${currentDay} เวลา ${currentHour}:${currentMinute}\n(*คำเตือน: ไม่ใช่คำแนะนำการลงทุน เป็นเพียงการวิเคราะห์ความเสี่ยงเท่านั้น)\n\n`
+            // result_ranking += `เหรียญน่าสนใจ ${currentDay} เวลา ${currentHour}:${currentMinute}\n(*คำเตือน: ไม่ใช่คำแนะนำการลงทุน เป็นเพียงการวิเคราะห์ความเสี่ยงเท่านั้น)\n\n`
 
-            result_ranking += buildRankText(analysis(obj_key_by_filename_for_oldday_percent))
+            result_ranking = buildRankText(analysis(obj_key_by_filename_for_oldday_percent)) + '\n' + result_ranking
 
             // analysis_old_version()
 
-            $('#txt_area_log_ranking').val(result_ranking)
+            $('#txt_area_log_ranking').val(`เหรียญน่าสนใจ ${currentDay} เวลา ${currentHour}:${currentMinute}\n(*คำเตือน: ไม่ใช่คำแนะนำการลงทุน เป็นเพียงการวิเคราะห์ความเสี่ยงเท่านั้น)\n\n` + result_ranking)
 
             closeModal();
 
