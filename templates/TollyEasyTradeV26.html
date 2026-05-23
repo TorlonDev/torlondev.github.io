@@ -83,6 +83,9 @@
         Auto Leverage : <input id="auto_leverage" type="number" style="width: 40px;" value="50" />&nbsp;x&nbsp;
         Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT &nbsp;| Cut One
         Side Percent : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="10" />%
+        <br /><br />
+        Top / Bottom Interest Count Rank After Sort: <input id="top_bottom_interest_count_rank" type="number" style="width: 40px;" value="100" /><br/>
+        Top Space Skip Analysis <input id="top_space_skip_analysis" type="number" style="width: 40px;" value="0" />
         <!-- Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
             style="width: 48px;" value="1.3" />%
         | Callback Rate: <input id="callback_rate" type="number" style="width: 48px;" value="0.3" /> <br /> -->
@@ -1540,7 +1543,7 @@
 
                 // console.log(current_oldday_filename_csv);
 
-                openModal("Loading CSV... " + current_oldday_filename_csv);
+                openModal("Loading CSV... (For Generate Compare from Current) " + current_oldday_filename_csv);
 
                 const text = await readFileAsync(file);
 
@@ -1583,6 +1586,8 @@
             closeModal()
         })
 
+        //////////////////////////////////////////////
+
         let index_file_analysis = 0
         let arr_is_have = []
         let set_coin = new Set()
@@ -1601,7 +1606,7 @@
                     const rows = text.split('\n');
                     const rows_index = rows.length - 1
 
-                    for (let i = 1; i < 101; i++) {
+                    for (let i = (1 + (+$('#top_space_skip_analysis').val())); i < (+$('#top_bottom_interest_count_rank').val() + 1); i++) {
 
                         let str = rows[i];
                         if (!str) continue;
@@ -1629,7 +1634,7 @@
                         obj_key_by_filename_for_oldday_percent[fileName]['change_up'][symbol] = oldday_percent
                     }
 
-                    for (let j = rows_index; j > rows_index - 101; j--) {
+                    for (let j = rows_index; j > rows_index - (+$('#top_bottom_interest_count_rank').val() + 1); j--) {
                         let str = rows[j];
                         if (!str) continue;
 
@@ -1663,7 +1668,7 @@
 
         document.getElementById('csvMultipleFiles').addEventListener('change', async function (event) {
 
-            openModal("Loading CSV...");
+            openModal("Loading CSV After Compare...");
             // console.log(event.target.files);
 
             const files = event.target.files;
@@ -1847,6 +1852,8 @@
 
             function getRankLabel(day) {
 
+
+
                 const num = parseInt(day);
 
                 if (num < 10) {
@@ -1858,6 +1865,8 @@
 
 
             function buildRankText(obj) {
+
+
 
                 let upText = "Gainer:\n";
                 let downText = "Loser:\n";
