@@ -84,7 +84,7 @@
         Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT &nbsp;| Cut One
         Side Percent : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="10" />%
         <br /><br />
-        Top / Bottom Interest Count Rank After Sort: <input id="top_bottom_interest_count_rank" type="number" style="width: 40px;" value="100" /><br/>
+        Top / Bottom Interest Count Rank After Sort: <input id="top_bottom_interest_count_rank" type="number" style="width: 40px;" value="100" /><br />
         Top / Bottom Space Skip Analysis <input id="top_bottom_space_skip_analysis" type="number" style="width: 40px;" value="0" />
         <!-- Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
             style="width: 48px;" value="1.3" />%
@@ -128,10 +128,10 @@
         <br /><br />
         <textarea id="txt_area_log_ranking" rows="20" style="width: 80%; font-size: 16px;"></textarea>
         <br /><br /><br />
-        <textarea id="txt_area_log_gainer_1" rows="54"
-            style="width: 40%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea>
-        <textarea id="txt_area_log_gainer_2" rows="54"
-            style="width: 40%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea>
+        <textarea id="txt_area_log_gainer_1" rows="56"
+            style="width: 40%; font-size: 14px; background-color: black; color: wheat; font-weight: bold;"></textarea>
+        <textarea id="txt_area_log_gainer_2" rows="56"
+            style="width: 40%; font-size: 14px; background-color: black; color: wheat; font-weight: bold;"></textarea>
         <!-- <textarea id="txt_area_log_loser_1" rows="33"
             style="width: 26%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea> -->
         <br /><br /><br /><br /><br />
@@ -181,6 +181,34 @@
             const ss = String(date.getSeconds()).padStart(2, '0');
             const dayStr = castNumDayToAbbr(date)
             return `${yyyy}-${MM}-${dd} ${hh}:${mm} | ${dayStr}`;
+        }
+
+        function formatLargeNumber(value, decimals = 0) {
+            const num = Number(value)
+
+            if (isNaN(num)) return value
+
+            const absNum = Math.abs(num)
+
+            const units = [
+                { value: 1e12, suffix: 'T' },
+                { value: 1e9, suffix: 'B' },
+                { value: 1e6, suffix: 'M' },
+                { value: 1e3, suffix: 'K' },
+            ]
+
+            for (const unit of units) {
+                if (absNum >= unit.value) {
+                    return (
+                        (num / unit.value)
+                            .toFixed(decimals)
+                            .replace(/\.0+$/, '')
+                    ) + unit.suffix
+                }
+            }
+
+            // น้อยกว่า 1000
+            return num.toFixed(decimals).replace(/\.0+$/, '')
         }
 
         /* Example 1.5 -> 1.4 / 0.000278 -> 0.000277 / 25 -> 24 */
@@ -433,9 +461,11 @@
                     let coin_usdt = arr_tb_sort[i][3]
                     let coin_usdt_percent = arr_tb_sort[i][4]
                     let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
+                    let countTrade = formatLargeNumber(positionListSymbolKey[coin_usdt].countTrade || 0)
+                    let volume = formatLargeNumber(positionListSymbolKey[coin_usdt].volume || 0)
 
                     // if (i < 30) {
-                    txt_area_log_gainer_1 += `${i + 1}. ${coin_usdt} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                    txt_area_log_gainer_1 += `${i + 1}. ${coin_usdt} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} | C - ${countTrade} | V - ${volume} \n`
                     // } else {
                     //     txt_area_log_gainer_2 += `${i + 1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
                     // }
@@ -447,9 +477,11 @@
                     let coin_usdt = arr_tb_sort[j][3]
                     let coin_usdt_percent = arr_tb_sort[j][4]
                     let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
+                    let countTrade = formatLargeNumber(positionListSymbolKey[coin_usdt].countTrade || 0)
+                    let volume = formatLargeNumber(positionListSymbolKey[coin_usdt].volume || 0)
 
                     // txt_area_log_loser_1 += `${j - last_index_tb}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
-                    txt_area_log_gainer_2 += `${last_index_tb - j + 1}. ${coin_usdt} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
+                    txt_area_log_gainer_2 += `${last_index_tb - j + 1}. ${coin_usdt} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} | C - ${countTrade} | V - ${volume} \n`
                 }
 
                 isAlreadyScrapGainer = true
@@ -1713,7 +1745,7 @@
 
             function analysis(day_obj) {
 
-                const periods = [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+                const periods = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
                 const result = {}
 
                 // main_obj เป็น global
@@ -1852,7 +1884,7 @@
 
             function getRankLabel(day) {
 
-                let labelClass = (+$('#top_bottom_space_skip_analysis').val()) > 0 ? 'A': 'S'
+                let labelClass = (+$('#top_bottom_space_skip_analysis').val()) > 0 ? 'A' : 'S'
 
                 const num = parseInt(day);
 
@@ -1866,7 +1898,7 @@
 
             function buildRankText(obj) {
 
-                let labelClass = +$('#top_bottom_space_skip_analysis').val() > 0 ? 'Risk A': 'Risk S & A'
+                let labelClass = +$('#top_bottom_space_skip_analysis').val() > 0 ? 'Risk A' : 'Risk S & A'
 
                 let upText = `Gainer ${labelClass} :\n`;
                 let downText = `Loser ${labelClass} :\n`;
@@ -1896,7 +1928,11 @@
 
                     const upLine = upArr.length
                         ? upArr
-                            .map(v => `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${(positionListSymbolKey[v.symbol].maxLeverage || 0) > 0 ? ` Lev ${positionListSymbolKey[v.symbol].maxLeverage}` : ''}`)
+                            .map(v => {
+                                let countTrade = formatLargeNumber(positionListSymbolKey[v.symbol].countTrade || 0)
+                                let volume = formatLargeNumber(positionListSymbolKey[v.symbol].volume || 0)
+                                return `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${(positionListSymbolKey[v.symbol].maxLeverage || 0) > 0 ? ` Lev ${positionListSymbolKey[v.symbol].maxLeverage}` : ''} (C - ${countTrade} / V - ${volume})`
+                            })
                             .join(" | ")
                         : "-";
 
@@ -1923,8 +1959,11 @@
 
                     const downLine = downArr.length
                         ? downArr
-                            .map(v => `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${(positionListSymbolKey[v.symbol].maxLeverage || 0) > 0 ? ` Lev ${positionListSymbolKey[v.symbol].maxLeverage}` : ''}`)
-                            .join(" | ")
+                            .map(v => {
+                                let countTrade = formatLargeNumber(positionListSymbolKey[v.symbol].countTrade || 0)
+                                let volume = formatLargeNumber(positionListSymbolKey[v.symbol].volume || 0)
+                                return `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${(positionListSymbolKey[v.symbol].maxLeverage || 0) > 0 ? ` Lev ${positionListSymbolKey[v.symbol].maxLeverage}` : ''} (C - ${countTrade} / V - ${volume})`
+                            }).join(" | ")
                         : "-";
 
                     if (downLine !== '-') {
