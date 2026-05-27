@@ -15,6 +15,14 @@
             color: wheat !important;
         }
 
+        .textarea_dark {
+            width: 45%;
+            font-size: 12px;
+            background-color: black;
+            color: wheat;
+            font-weight: bold;
+        }
+
         th,
         td {
             border: 1px solid;
@@ -84,8 +92,10 @@
         Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT &nbsp;| Cut One
         Side Percent : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="10" />%
         <br /><br />
-        Top / Bottom Interest Count Rank After Sort: <input id="top_bottom_interest_count_rank" type="number" style="width: 40px;" value="100" /><br />
-        Top / Bottom Space Skip Analysis <input id="top_bottom_space_skip_analysis" type="number" style="width: 40px;" value="0" />
+        Top / Bottom Interest Count Rank After Sort: <input id="top_bottom_interest_count_rank" type="number"
+            style="width: 40px;" value="100" /><br />
+        Top / Bottom Space Skip Analysis <input id="top_bottom_space_skip_analysis" type="number" style="width: 40px;"
+            value="0" />
         <!-- Activation Start Percent Fast Profit (1/2). <input id="activation_start_percent" type="number"
             style="width: 48px;" value="1.3" />%
         | Callback Rate: <input id="callback_rate" type="number" style="width: 48px;" value="0.3" /> <br /> -->
@@ -128,10 +138,9 @@
         <br /><br />
         <textarea id="txt_area_log_ranking" rows="20" style="width: 80%; font-size: 16px;"></textarea>
         <br /><br /><br />
-        <textarea id="txt_area_log_gainer_1" rows="56"
-            style="width: 45%; font-size: 12px; background-color: black; color: wheat; font-weight: bold;"></textarea>
-        <textarea id="txt_area_log_gainer_2" rows="56"
-            style="width: 45%; font-size: 12px; background-color: black; color: wheat; font-weight: bold;"></textarea>
+        <textarea id="header_price" rows="1" class="textarea_dark" style="width: 91%; font-size: 16px;"></textarea>
+        <textarea id="txt_area_log_gainer_1" rows="56" class="textarea_dark"></textarea>
+        <textarea id="txt_area_log_gainer_2" rows="56" class="textarea_dark"></textarea>
         <!-- <textarea id="txt_area_log_loser_1" rows="33"
             style="width: 26%; font-size: 16px; background-color: black; color: wheat; font-weight: bold;"></textarea> -->
         <br /><br /><br /><br /><br />
@@ -1482,7 +1491,14 @@
             reInitailDataTable(4)
         }
 
-        checkExchangeInfo(() => { checkPercentMarket(() => { refreshTable() }) })
+        checkExchangeInfo(() => { checkPercentMarket(() => {
+            let btcPercentChange = parseFloat(positionListSymbolKey['BTCUSDT'].priceChangePercent).toFixed(2)
+            let btcLastPrice = parseFloat(positionListSymbolKey['BTCUSDT'].lastPrice).toFixed(0)
+            let btcCountTrade = formatLargeNumber(positionListSymbolKey['BTCUSDT'].countTrade)
+            let btcVolume = formatLargeNumber(positionListSymbolKey['BTCUSDT'].volume)
+            $("#header_price").val(`BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume})`)
+            refreshTable()
+        }) })
 
         setInterval(() => {
             const now = new Date()
