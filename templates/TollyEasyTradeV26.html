@@ -1509,7 +1509,13 @@
             let xagCountTrade = formatLargeNumber(positionListSymbolKey['XAGUSDT'].countTrade)
             let xagVolume = formatLargeNumber(positionListSymbolKey['XAGUSDT'].volume)
 
-            $("#header_price").val(`BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume})\nPAXG ${paxgPercentChange}% | ${paxgLastPrice} | (C - ${paxgCountTrade} / V - ${paxgVolume}) | XAG ${xagPercentChange}% | ${xagLastPrice} | (C - ${xagCountTrade} / V - ${xagVolume})`)
+            // Brent Oil
+            let bzPercentChange = parseFloat(positionListSymbolKey['BZUSDT'].priceChangePercent).toFixed(2)
+            let bzLastPrice = parseFloat(positionListSymbolKey['BZUSDT'].lastPrice).toFixed(0)
+            let bzCountTrade = formatLargeNumber(positionListSymbolKey['BZUSDT'].countTrade)
+            let bzVolume = formatLargeNumber(positionListSymbolKey['BZUSDT'].volume)
+
+            $("#header_price").val(`BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume}) | BZ ${bzPercentChange}% | ${bzLastPrice} | (C - ${bzCountTrade} / V - ${bzVolume})\nPAXG ${paxgPercentChange}% | ${paxgLastPrice} | (C - ${paxgCountTrade} / V - ${paxgVolume}) | XAG ${xagPercentChange}% | ${xagLastPrice} | (C - ${xagCountTrade} / V - ${xagVolume})`)
             refreshTable()
         }) })
 
