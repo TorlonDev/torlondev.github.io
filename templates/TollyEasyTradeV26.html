@@ -467,7 +467,7 @@
                 let last_index_tb = arr_tb_sort.length - 1
 
                 for (let i = 0; i < 50; i++) {
-                    let coin_usdt = arr_tb_sort[i][3]
+                    let coin_usdt = (arr_tb_sort[i][3]).replace('USDT','')
                     let coin_usdt_percent = arr_tb_sort[i][4]
                     let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
                     let countTrade = formatLargeNumber(positionListSymbolKey[coin_usdt].countTrade || 0)
@@ -483,7 +483,7 @@
                 // console.log(last_index_tb)
 
                 for (let j = last_index_tb; j > last_index_tb - 50; j--) {
-                    let coin_usdt = arr_tb_sort[j][3]
+                    let coin_usdt = (arr_tb_sort[j][3]).replace('USDT','')
                     let coin_usdt_percent = arr_tb_sort[j][4]
                     let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
                     let countTrade = formatLargeNumber(positionListSymbolKey[coin_usdt].countTrade || 0)
@@ -1496,7 +1496,20 @@
             let btcLastPrice = parseFloat(positionListSymbolKey['BTCUSDT'].lastPrice).toFixed(0)
             let btcCountTrade = formatLargeNumber(positionListSymbolKey['BTCUSDT'].countTrade)
             let btcVolume = formatLargeNumber(positionListSymbolKey['BTCUSDT'].volume)
-            $("#header_price").val(`BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume})`)
+
+            // Gold
+            let paxgPercentChange = parseFloat(positionListSymbolKey['PAXGUSDT'].priceChangePercent).toFixed(2)
+            let paxgLastPrice = parseFloat(positionListSymbolKey['PAXGUSDT'].lastPrice).toFixed(0)
+            let paxgCountTrade = formatLargeNumber(positionListSymbolKey['PAXGUSDT'].countTrade)
+            let paxgVolume = formatLargeNumber(positionListSymbolKey['PAXGUSDT'].volume)
+
+            // Silver
+            let xagPercentChange = parseFloat(positionListSymbolKey['XAGUSDT'].priceChangePercent).toFixed(2)
+            let xagLastPrice = parseFloat(positionListSymbolKey['XAGUSDT'].lastPrice).toFixed(0)
+            let xagCountTrade = formatLargeNumber(positionListSymbolKey['XAGUSDT'].countTrade)
+            let xagVolume = formatLargeNumber(positionListSymbolKey['XAGUSDT'].volume)
+
+            $("#header_price").val(`BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume}) | PAXG ${paxgPercentChange}% | ${paxgLastPrice} | (C - ${paxgCountTrade} / V - ${paxgVolume}) | XAG ${xagPercentChange}% | ${xagLastPrice} | (C - ${xagCountTrade} / V - ${xagVolume})`)
             refreshTable()
         }) })
 
