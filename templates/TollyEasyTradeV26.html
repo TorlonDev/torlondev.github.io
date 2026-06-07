@@ -138,7 +138,7 @@
         <br /><br />
         <textarea id="txt_area_log_ranking" rows="20" style="width: 80%; font-size: 16px;"></textarea>
         <br /><br /><br />
-        <textarea id="header_price" rows="2" class="textarea_dark" style="width: 91%;"></textarea>
+        <textarea id="header_price" rows="3" class="textarea_dark" style="width: 91%;"></textarea>
         <textarea id="txt_area_log_gainer_1" rows="56" class="textarea_dark"></textarea>
         <textarea id="txt_area_log_gainer_2" rows="56" class="textarea_dark"></textarea>
         <!-- <textarea id="txt_area_log_loser_1" rows="33"
@@ -1497,25 +1497,41 @@
             let btcCountTrade = formatLargeNumber(positionListSymbolKey['BTCUSDT'].countTrade)
             let btcVolume = formatLargeNumber(positionListSymbolKey['BTCUSDT'].volume)
 
-            // Gold
+            // Gold - PAXG / XAU
             let paxgPercentChange = parseFloat(positionListSymbolKey['PAXGUSDT'].priceChangePercent).toFixed(2)
             let paxgLastPrice = parseFloat(positionListSymbolKey['PAXGUSDT'].lastPrice).toFixed(0)
             let paxgCountTrade = formatLargeNumber(positionListSymbolKey['PAXGUSDT'].countTrade)
             let paxgVolume = formatLargeNumber(positionListSymbolKey['PAXGUSDT'].volume)
 
-            // Silver
+            // Silver - XAG
             let xagPercentChange = parseFloat(positionListSymbolKey['XAGUSDT'].priceChangePercent).toFixed(2)
             let xagLastPrice = parseFloat(positionListSymbolKey['XAGUSDT'].lastPrice).toFixed(0)
             let xagCountTrade = formatLargeNumber(positionListSymbolKey['XAGUSDT'].countTrade)
             let xagVolume = formatLargeNumber(positionListSymbolKey['XAGUSDT'].volume)
 
-            // Brent Oil
+            // Brent Oil - BZ
             let bzPercentChange = parseFloat(positionListSymbolKey['BZUSDT'].priceChangePercent).toFixed(2)
             let bzLastPrice = parseFloat(positionListSymbolKey['BZUSDT'].lastPrice).toFixed(0)
             let bzCountTrade = formatLargeNumber(positionListSymbolKey['BZUSDT'].countTrade)
             let bzVolume = formatLargeNumber(positionListSymbolKey['BZUSDT'].volume)
 
-            $("#header_price").val(`BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume}) | BZ ${bzPercentChange}% | ${bzLastPrice} | (C - ${bzCountTrade} / V - ${bzVolume})\nPAXG ${paxgPercentChange}% | ${paxgLastPrice} | (C - ${paxgCountTrade} / V - ${paxgVolume}) | XAG ${xagPercentChange}% | ${xagLastPrice} | (C - ${xagCountTrade} / V - ${xagVolume})`)
+            // Copper
+            let copperPercentChange = parseFloat(positionListSymbolKey['COPPERUSDT'].priceChangePercent).toFixed(2)
+            let copperLastPrice = parseFloat(positionListSymbolKey['COPPERUSDT'].lastPrice).toFixed(0)
+            let copperCountTrade = formatLargeNumber(positionListSymbolKey['COPPERUSDT'].countTrade)
+            let copperVolume = formatLargeNumber(positionListSymbolKey['COPPERUSDT'].volume)
+
+            // Platinum - XPT
+            let xptPercentChange = parseFloat(positionListSymbolKey['XPTUSDT'].priceChangePercent).toFixed(2)
+            let xptLastPrice = parseFloat(positionListSymbolKey['XPTUSDT'].lastPrice).toFixed(0)
+            let xptCountTrade = formatLargeNumber(positionListSymbolKey['XPTUSDT'].countTrade)
+            let xptVolume = formatLargeNumber(positionListSymbolKey['XPTUSDT'].volume)
+
+            let line1 = `BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume}) | BZ ${bzPercentChange}% | ${bzLastPrice} | (C - ${bzCountTrade} / V - ${bzVolume})`
+            let line2 = `PAXG ${paxgPercentChange}% | ${paxgLastPrice} | (C - ${paxgCountTrade} / V - ${paxgVolume}) | XAG ${xagPercentChange}% | ${xagLastPrice} | (C - ${xagCountTrade} / V - ${xagVolume})`
+            let line3 = `COPPER ${copperPercentChange}% | ${copperLastPrice} | (C - ${copperCountTrade} / V - ${copperVolume}) | XPT ${xptPercentChange}% | ${xptLastPrice} | (C - ${xptCountTrade} / V - ${xptVolume})`
+
+            $("#header_price").val(`${line1}\n${line2}\n${line3}`)
             refreshTable()
         }) })
 
@@ -1641,6 +1657,8 @@
 
                 refreshTable();
 
+                // บั๊กที่แก้ไม่ได้ เรื่องเหรียญใหม่ ติดกับ report เก่าๆไปด้วย เพราะ lib เอาทั้ง ตาราง ส่ง CSV ไปให้
+                // ตรง Refresh Table น่าจะต้องเพิ่มลูกเล่น
                 dataTable1.order([7, 'desc']).draw().button('.buttons-csv').trigger();
 
                 setTimeout(async () => {
