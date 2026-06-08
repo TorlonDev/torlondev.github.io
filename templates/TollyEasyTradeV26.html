@@ -90,7 +90,7 @@
         <br /><br />
         Auto Leverage : <input id="auto_leverage" type="number" style="width: 40px;" value="50" />&nbsp;x&nbsp;
         Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT &nbsp;| Cut One
-        Side Percent : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="10" />%
+        Side Percent || Fast TP for One Side : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="5" />%
         <br /><br />
         Top / Bottom Interest Count Rank After Sort: <input id="top_bottom_interest_count_rank" type="number"
             style="width: 40px;" value="100" /><br />
@@ -276,7 +276,8 @@
         // let percentSL = parseFloat(10.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 0.3
         // let percentSL = parseFloat(20.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 0.3
         // let percentSL = parseFloat(37.3 + rand_act1).toFixed(2) // CUT ONE WAY - NEED SURE ACt already Start why + 1.3
-        let percentSL = parseFloat(cut_one_side_percent + rand_act1).toFixed(2)
+        // let percentSL = parseFloat(cut_one_side_percent + rand_act1).toFixed(2)
+        let percentSL = parseFloat(12 + rand_act1).toFixed(2) // Hard Code to 12
 
         // // Multi-Stage Trailing
         // let percentAct2 = parseFloat(3 + rand_act2).toFixed(2) // Basic 3
@@ -299,7 +300,8 @@
             cut_one_side_percent = +$('#cut_one_side_percent').val()
             act_before_cut_one_side_percent = cut_one_side_percent - 1.3
             percentAct1 = parseFloat(act_before_cut_one_side_percent + rand_act1).toFixed(2)
-            percentSL = parseFloat(cut_one_side_percent + rand_act1).toFixed(2)
+            // percentSL = parseFloat(cut_one_side_percent + rand_act1).toFixed(2)
+            percentSL = parseFloat(12 + rand_act1).toFixed(2) // Hard Code to 12
         }
 
         let counting_oldday_csv = 0
@@ -962,13 +964,13 @@
                             let batchOpenPosition = []
 
                             batchOpenPosition = [
-                                {
+                                /*{
                                     "symbol": symbol,
                                     "side": "BUY",
                                     "positionSide": "LONG",
                                     "type": "MARKET",
                                     "quantity": `${quantity}`
-                                },
+                                },*/
                                 {
                                     "symbol": symbol,
                                     "side": "SELL",
@@ -1328,16 +1330,16 @@
                                                     stopPrice: `${priceForStopLossShort}`,
                                                     workingType: 'MARK_PRICE',
                                                 })}`,
-                                                qsStopLossLong: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
-                                                    algoType: 'CONDITIONAL',
-                                                    side: 'SELL',
-                                                    positionSide: 'LONG',
-                                                    type: 'STOP_MARKET',
-                                                    closePosition: true, //quantity Cannot be sent with closePosition=true (Close-All)
-                                                    triggerPrice: `${priceForStopLossLong}`,
-                                                    stopPrice: `${priceForStopLossLong}`,
-                                                    workingType: 'MARK_PRICE',
-                                                })}`,
+                                                // qsStopLossLong: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                //     algoType: 'CONDITIONAL',
+                                                //     side: 'SELL',
+                                                //     positionSide: 'LONG',
+                                                //     type: 'STOP_MARKET',
+                                                //     closePosition: true, //quantity Cannot be sent with closePosition=true (Close-All)
+                                                //     triggerPrice: `${priceForStopLossLong}`,
+                                                //     stopPrice: `${priceForStopLossLong}`,
+                                                //     workingType: 'MARK_PRICE',
+                                                // })}`,
                                                 // No Need and no fomo support Heaven Moon - No Wait too.
                                                 // Recheck future if this not work
                                                 // qsTSAct1LongCbR1: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
@@ -1356,10 +1358,11 @@
                                                     side: 'BUY',
                                                     positionSide: 'SHORT',
                                                     type: 'TRAILING_STOP_MARKET',
-                                                    // quantity: quantityHalf,
-                                                    quantity: quantity,
+                                                    quantity: quantityHalf,
+                                                    // quantity: quantity,
                                                     activatePrice: `${priceForAct1Short}`,
-                                                    callbackRate: percentCbR1, // 9.9
+                                                    // callbackRate: percentCbR1, // 9.9
+                                                    callbackRate: 0.1,
                                                     workingType: 'MARK_PRICE',
                                                 })}`,
                                                 // qsTSAct1LongCbR2: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
