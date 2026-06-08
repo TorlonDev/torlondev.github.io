@@ -854,7 +854,7 @@
             })
         }
 
-        function setLeverage(symbol, leverage = '4', cb = () => { }) {
+        function setLeverage(symbol, leverage = '50', cb = () => { }) {
 
             if (+leverage <= 0) {
                 alert("Leverage <= 0: " + leverage)
@@ -882,7 +882,8 @@
                     if ('msg' in err.responseJSON) {
 
                         if (`${err.responseJSON.msg}`.includes('is not valid')) {
-                            setLeverage(symbol, `${(+leverage - 10)}`, cb)
+                            // setLeverage(symbol, `${(+leverage - 10)}`, cb)
+                            setLeverage(symbol, `${positionListSymbolKey[symbol].maxLeverage || `${(+leverage - 10)}`}`, cb)
                             return
                         }
 
