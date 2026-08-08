@@ -78,6 +78,7 @@
     <center>
         <h2>Tolly Binance Future Easy Trade V26.</h2>
         <h3 id="clock_time">00:00:00</h3>
+        <input type="text" id="client_public_ip" value="0.0.0.0" /><br /><br />
         <a target="_blank" style="color: yellow;"
             href="https://www.binance.com/en/support/announcement/list/48">binance.com/en/support/announcement/list/48</a><br /><br />
         Binance API Key : <input id="binance_api_key" type="text" style="width: 40%;"
@@ -90,7 +91,8 @@
         <br /><br />
         Auto Leverage : <input id="auto_leverage" type="number" style="width: 40px;" value="50" />&nbsp;x&nbsp;
         Coin Size : <input id="coin_size" type="number" style="width: 50px;" value="5.8" />&nbsp;USDT &nbsp;| Cut One
-        Side Percent || Fast TP for One Side : <input id="cut_one_side_percent" type="number" style="width: 48px;" value="5" />%
+        Side Percent || Fast TP for One Side : <input id="cut_one_side_percent" type="number" style="width: 48px;"
+            value="5" />%
         <br /><br />
         Top / Bottom Interest Count Rank After Sort: <input id="top_bottom_interest_count_rank" type="number"
             style="width: 40px;" value="100" /><br />
@@ -153,6 +155,20 @@
     </div>
 
     <script id="util" type="text/javascript">
+        $.ajax({
+            type: 'GET',
+            url: `https://api.ipify.org/?format=json`,
+            contentType: "application/json; charset=utf-8",
+            success: function ({ ip }) {
+                console.log('ip is', ip)
+                $('#client_public_ip').val(ip)
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+
+
         function openModal(txt = 'Loading...') {
             $("#modalContent").html(`<h2>${txt}</h2>`)
             $("#modal").show()
@@ -476,7 +492,7 @@
                     let volume = formatLargeNumber(positionListSymbolKey[coin_usdt].volume || 0)
 
                     // if (i < 30) {
-                    txt_area_log_gainer_1 += `${i + 1}. ${coin_usdt.replace('USDT','')} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} | C - ${countTrade} | V - ${volume} \n`
+                    txt_area_log_gainer_1 += `${i + 1}. ${coin_usdt.replace('USDT', '')} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} | C - ${countTrade} | V - ${volume} \n`
                     // } else {
                     //     txt_area_log_gainer_2 += `${i + 1}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
                     // }
@@ -492,7 +508,7 @@
                     let volume = formatLargeNumber(positionListSymbolKey[coin_usdt].volume || 0)
 
                     // txt_area_log_loser_1 += `${j - last_index_tb}. ${coin_usdt} - ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} \n`
-                    txt_area_log_gainer_2 += `${last_index_tb - j + 1}. ${coin_usdt.replace('USDT','')} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} | C - ${countTrade} | V - ${volume} \n`
+                    txt_area_log_gainer_2 += `${last_index_tb - j + 1}. ${coin_usdt.replace('USDT', '')} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} | C - ${countTrade} | V - ${volume} \n`
                 }
 
                 isAlreadyScrapGainer = true
@@ -914,12 +930,16 @@
                             let quantity = sizeUsdt / lastPrice
                             let quantityHalf = quantity / 2
 
+                            let quantityQuarter = quantity / 4
+
                             if (quantityPrecision > 0) {
                                 quantity = parseFloat(quantity).toFixed(quantityPrecision)
                                 quantityHalf = parseFloat(quantityHalf).toFixed(quantityPrecision)
+                                quantityQuarter = parseFloat(quantityQuarter).toFixed(quantityPrecision)
                             } else if (quantityPrecision == 0) {
                                 quantity = parseInt(quantity)
                                 quantityHalf = parseInt(quantityHalf)
+                                quantityQuarter = parseInt(quantityQuarter)
                             }
 
                             positionListSymbolKey[symbol].positionAmtLong = quantity
@@ -1386,6 +1406,16 @@
                                                 //     callbackRate: percentCbR2, // 4.9
                                                 //     workingType: 'MARK_PRICE',
                                                 // })}`,
+                                                qsTSAct1ShortCbR2: `symbol=${encodeURIComponent(symbol)}&timestamp=${Date.now()}&${new URLSearchParams({
+                                                    algoType: 'CONDITIONAL',
+                                                    side: 'BUY',
+                                                    positionSide: 'SHORT',
+                                                    type: 'TRAILING_STOP_MARKET',
+                                                    quantity: quantityQuarter,
+                                                    activatePrice: `${priceForAct1Short}`,
+                                                    callbackRate: 4, //percentAct1,
+                                                    workingType: 'MARK_PRICE',
+                                                })}`,
                                             }
 
                                             // console.log(orderObj)
@@ -1495,49 +1525,51 @@
             reInitailDataTable(4)
         }
 
-        checkExchangeInfo(() => { checkPercentMarket(() => {
-            let btcPercentChange = parseFloat(positionListSymbolKey['BTCUSDT'].priceChangePercent).toFixed(2)
-            let btcLastPrice = parseFloat(positionListSymbolKey['BTCUSDT'].lastPrice).toFixed(0)
-            let btcCountTrade = formatLargeNumber(positionListSymbolKey['BTCUSDT'].countTrade)
-            let btcVolume = formatLargeNumber(positionListSymbolKey['BTCUSDT'].volume)
+        checkExchangeInfo(() => {
+            checkPercentMarket(() => {
+                let btcPercentChange = parseFloat(positionListSymbolKey['BTCUSDT'].priceChangePercent).toFixed(2)
+                let btcLastPrice = parseFloat(positionListSymbolKey['BTCUSDT'].lastPrice).toFixed(0)
+                let btcCountTrade = formatLargeNumber(positionListSymbolKey['BTCUSDT'].countTrade)
+                let btcVolume = formatLargeNumber(positionListSymbolKey['BTCUSDT'].volume)
 
-            // Gold - PAXG / XAU
-            let paxgPercentChange = parseFloat(positionListSymbolKey['PAXGUSDT'].priceChangePercent).toFixed(2)
-            let paxgLastPrice = parseFloat(positionListSymbolKey['PAXGUSDT'].lastPrice).toFixed(0)
-            let paxgCountTrade = formatLargeNumber(positionListSymbolKey['PAXGUSDT'].countTrade)
-            let paxgVolume = formatLargeNumber(positionListSymbolKey['PAXGUSDT'].volume)
+                // Gold - PAXG / XAU
+                let paxgPercentChange = parseFloat(positionListSymbolKey['PAXGUSDT'].priceChangePercent).toFixed(2)
+                let paxgLastPrice = parseFloat(positionListSymbolKey['PAXGUSDT'].lastPrice).toFixed(0)
+                let paxgCountTrade = formatLargeNumber(positionListSymbolKey['PAXGUSDT'].countTrade)
+                let paxgVolume = formatLargeNumber(positionListSymbolKey['PAXGUSDT'].volume)
 
-            // Silver - XAG
-            let xagPercentChange = parseFloat(positionListSymbolKey['XAGUSDT'].priceChangePercent).toFixed(2)
-            let xagLastPrice = parseFloat(positionListSymbolKey['XAGUSDT'].lastPrice).toFixed(0)
-            let xagCountTrade = formatLargeNumber(positionListSymbolKey['XAGUSDT'].countTrade)
-            let xagVolume = formatLargeNumber(positionListSymbolKey['XAGUSDT'].volume)
+                // Silver - XAG
+                let xagPercentChange = parseFloat(positionListSymbolKey['XAGUSDT'].priceChangePercent).toFixed(2)
+                let xagLastPrice = parseFloat(positionListSymbolKey['XAGUSDT'].lastPrice).toFixed(0)
+                let xagCountTrade = formatLargeNumber(positionListSymbolKey['XAGUSDT'].countTrade)
+                let xagVolume = formatLargeNumber(positionListSymbolKey['XAGUSDT'].volume)
 
-            // Brent Oil - BZ
-            let bzPercentChange = parseFloat(positionListSymbolKey['BZUSDT'].priceChangePercent).toFixed(2)
-            let bzLastPrice = parseFloat(positionListSymbolKey['BZUSDT'].lastPrice).toFixed(0)
-            let bzCountTrade = formatLargeNumber(positionListSymbolKey['BZUSDT'].countTrade)
-            let bzVolume = formatLargeNumber(positionListSymbolKey['BZUSDT'].volume)
+                // Brent Oil - BZ
+                let bzPercentChange = parseFloat(positionListSymbolKey['BZUSDT'].priceChangePercent).toFixed(2)
+                let bzLastPrice = parseFloat(positionListSymbolKey['BZUSDT'].lastPrice).toFixed(0)
+                let bzCountTrade = formatLargeNumber(positionListSymbolKey['BZUSDT'].countTrade)
+                let bzVolume = formatLargeNumber(positionListSymbolKey['BZUSDT'].volume)
 
-            // Copper
-            let copperPercentChange = parseFloat(positionListSymbolKey['COPPERUSDT'].priceChangePercent).toFixed(2)
-            let copperLastPrice = parseFloat(positionListSymbolKey['COPPERUSDT'].lastPrice).toFixed(0)
-            let copperCountTrade = formatLargeNumber(positionListSymbolKey['COPPERUSDT'].countTrade)
-            let copperVolume = formatLargeNumber(positionListSymbolKey['COPPERUSDT'].volume)
+                // Copper
+                let copperPercentChange = parseFloat(positionListSymbolKey['COPPERUSDT'].priceChangePercent).toFixed(2)
+                let copperLastPrice = parseFloat(positionListSymbolKey['COPPERUSDT'].lastPrice).toFixed(0)
+                let copperCountTrade = formatLargeNumber(positionListSymbolKey['COPPERUSDT'].countTrade)
+                let copperVolume = formatLargeNumber(positionListSymbolKey['COPPERUSDT'].volume)
 
-            // Platinum - XPT
-            let xptPercentChange = parseFloat(positionListSymbolKey['XPTUSDT'].priceChangePercent).toFixed(2)
-            let xptLastPrice = parseFloat(positionListSymbolKey['XPTUSDT'].lastPrice).toFixed(0)
-            let xptCountTrade = formatLargeNumber(positionListSymbolKey['XPTUSDT'].countTrade)
-            let xptVolume = formatLargeNumber(positionListSymbolKey['XPTUSDT'].volume)
+                // Platinum - XPT
+                let xptPercentChange = parseFloat(positionListSymbolKey['XPTUSDT'].priceChangePercent).toFixed(2)
+                let xptLastPrice = parseFloat(positionListSymbolKey['XPTUSDT'].lastPrice).toFixed(0)
+                let xptCountTrade = formatLargeNumber(positionListSymbolKey['XPTUSDT'].countTrade)
+                let xptVolume = formatLargeNumber(positionListSymbolKey['XPTUSDT'].volume)
 
-            let line1 = `BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume}) | BZ ${bzPercentChange}% | ${bzLastPrice} | (C - ${bzCountTrade} / V - ${bzVolume})`
-            let line2 = `PAXG ${paxgPercentChange}% | ${paxgLastPrice} | (C - ${paxgCountTrade} / V - ${paxgVolume}) | XAG ${xagPercentChange}% | ${xagLastPrice} | (C - ${xagCountTrade} / V - ${xagVolume})`
-            let line3 = `COPPER ${copperPercentChange}% | ${copperLastPrice} | (C - ${copperCountTrade} / V - ${copperVolume}) | XPT ${xptPercentChange}% | ${xptLastPrice} | (C - ${xptCountTrade} / V - ${xptVolume})`
+                let line1 = `BTC ${btcPercentChange}% | ${btcLastPrice} | (C - ${btcCountTrade} / V - ${btcVolume}) | BZ ${bzPercentChange}% | ${bzLastPrice} | (C - ${bzCountTrade} / V - ${bzVolume})`
+                let line2 = `PAXG ${paxgPercentChange}% | ${paxgLastPrice} | (C - ${paxgCountTrade} / V - ${paxgVolume}) | XAG ${xagPercentChange}% | ${xagLastPrice} | (C - ${xagCountTrade} / V - ${xagVolume})`
+                let line3 = `COPPER ${copperPercentChange}% | ${copperLastPrice} | (C - ${copperCountTrade} / V - ${copperVolume}) | XPT ${xptPercentChange}% | ${xptLastPrice} | (C - ${xptCountTrade} / V - ${xptVolume})`
 
-            $("#header_price").val(`${line1}\n${line2}\n${line3}`)
-            refreshTable()
-        }) })
+                $("#header_price").val(`${line1}\n${line2}\n${line3}`)
+                refreshTable()
+            })
+        })
 
         setInterval(() => {
             const now = new Date()
