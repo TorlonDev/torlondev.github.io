@@ -155,18 +155,30 @@
     </div>
 
     <script id="util" type="text/javascript">
-        $.ajax({
-            type: 'GET',
-            url: `https://api.ipify.org/?format=json`,
-            contentType: "application/json; charset=utf-8",
-            success: function ({ ip }) {
-                console.log('ip is', ip)
-                $('#client_public_ip').val(ip)
-            },
-            error: function (err) {
-                console.log(err)
-            }
-        })
+        // $.ajax({
+        //     type: 'GET',
+        //     url: `https://api.ipify.org/?format=json`,
+        //     contentType: "application/json; charset=utf-8",
+        //     success: function ({ ip }) {
+        //         console.log('ip is', ip)
+        //         $('#client_public_ip').val(ip)
+        //     },
+        //     error: function (err) {
+        //         console.log(err)
+        //     }
+        // })
+
+        // $.ajax have some setup use fetch instead
+
+        fetch("https://api.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.ip);
+                $('#client_public_ip').val(data.ip)
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
 
         function openModal(txt = 'Loading...') {
@@ -1662,7 +1674,7 @@
 
                 // console.log(current_oldday_filename_csv);
 
-                openModal("Loading CSV... (For Generate Compare from Current) " + current_oldday_filename_csv);
+                openModal("Loading CSV... (For Generate Compare from Current) " + current_oldday_filename_csv + ` (${k + 1} / (fileList.length)`);
 
                 const text = await readFileAsync(file);
 
