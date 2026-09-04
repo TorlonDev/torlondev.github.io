@@ -2004,6 +2004,16 @@
                 let upText = `Gainer ${labelClass} :\n`;
                 let downText = `Loser ${labelClass} :\n`;
 
+                let GainerVolumeK = ''
+                let GainerVolumeM = ''
+                let GainerVolumeB = ''
+                let GainerVolumeT = ''
+
+                let LoserVolumeK = ''
+                let LoserVolumeM = ''
+                let LoserVolumeB = ''
+                let LoserVolumeT = ''
+
                 // เก็บ symbol ที่แสดงไปแล้ว
                 const shownUpSymbols = new Set();
                 const shownDownSymbols = new Set();
@@ -2032,7 +2042,25 @@
                             .map(v => {
                                 let countTrade = formatLargeNumber(positionListSymbolKey[v.symbol].countTrade || 0)
                                 let volume = formatLargeNumber(positionListSymbolKey[v.symbol].volume || 0)
-                                return `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${(positionListSymbolKey[v.symbol].maxLeverage || 0) > 0 ? ` Lev ${positionListSymbolKey[v.symbol].maxLeverage}` : ''} (C - ${countTrade} / V - ${volume})`
+                                let maxLeverage = positionListSymbolKey[v.symbol].maxLeverage || 0
+
+                                const txt_show = `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${maxLeverage > 0 ? ` Lev ${maxLeverage}` : ''} (C - ${countTrade} / V - ${volume})`
+
+                                if (maxLeverage >= 40) {
+                                    if (`${volume}`.includes('K')) {
+                                        GainerVolumeK += txt_show + '\n'
+                                    } else if (`${volume}`.includes('M')) {
+                                        GainerVolumeM += txt_show + '\n'
+
+                                    } else if (`${volume}`.includes('B')) {
+                                        GainerVolumeB += txt_show + '\n'
+
+                                    } else if (`${volume}`.includes('T')) {
+                                        GainerVolumeT += txt_show + '\n'
+                                    }
+                                }
+
+                                return txt_show
                             })
                             .join(" | ")
                         : "-";
@@ -2063,7 +2091,26 @@
                             .map(v => {
                                 let countTrade = formatLargeNumber(positionListSymbolKey[v.symbol].countTrade || 0)
                                 let volume = formatLargeNumber(positionListSymbolKey[v.symbol].volume || 0)
-                                return `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${(positionListSymbolKey[v.symbol].maxLeverage || 0) > 0 ? ` Lev ${positionListSymbolKey[v.symbol].maxLeverage}` : ''} (C - ${countTrade} / V - ${volume})`
+                                let maxLeverage = positionListSymbolKey[v.symbol].maxLeverage || 0
+
+                                const txt_show = `${v.symbol.replace("USDT", "")} ${parseFloat(positionListSymbolKey[v.symbol].priceChangePercent).toFixed(1)} Risk ${v.risk.toFixed(1)}${maxLeverage > 0 ? ` Lev ${maxLeverage}` : ''} (C - ${countTrade} / V - ${volume})`
+
+                                if (maxLeverage >= 40) {
+
+                                    if (`${volume}`.includes('K')) {
+                                        LoserVolumeK += txt_show + '\n'
+                                    } else if (`${volume}`.includes('M')) {
+                                        LoserVolumeM += txt_show + '\n'
+
+                                    } else if (`${volume}`.includes('B')) {
+                                        LoserVolumeB += txt_show + '\n'
+
+                                    } else if (`${volume}`.includes('T')) {
+                                        LoserVolumeT += txt_show + '\n'
+                                    }
+                                }
+
+                                return txt_show
                             }).join(" | ")
                         : "-";
 
@@ -2072,7 +2119,7 @@
                     }
                 }
 
-                return `${upText}\n${downText}`;
+                return `${upText}\n${downText}\n${'Volume K (Gainer) -'}\n${GainerVolumeK}${'Volume K (Loser) -'}\n${LoserVolumeK}${'Volume M (Gainer) -'}\n${GainerVolumeM}${'Volume M (Loser) -'}\n${LoserVolumeM}${'Volume B (Gainer) -'}\n${GainerVolumeB}${'Volume B (Loser) -'}\n${LoserVolumeB}${'Volume T (Gainer) -'}\n${GainerVolumeT}${'Volume T (Loser) -'}\n${LoserVolumeT}`;
             }
 
             // function analysis_old_version() {
