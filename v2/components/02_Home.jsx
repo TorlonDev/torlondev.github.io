@@ -326,7 +326,7 @@ const Home = () => {
       <br />
 
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <span className="text-sm">{langHome.copyright[l]} © 2024</span>
+        <span className="text-sm">{langHome.copyright[l]} © {new Date().getFullYear()}</span>
         <span className="text-sm">{langHome.all_right_reserved[l]}</span>
       </div>
 
