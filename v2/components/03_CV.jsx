@@ -319,7 +319,7 @@ const CV = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    initMap()
+    // initMap()
 
     // $('#work_detail_1').hide()
     // $('#work_detail_2').hide()
@@ -404,7 +404,7 @@ const CV = () => {
           }
 
           #map_tol {
-            height: 140px;
+            /*height: 140px;*/
             /*width: calc(var(--contentMinWidth) - 10px);*/
             width: 90%;
           }
@@ -607,7 +607,8 @@ const CV = () => {
           <p className="whitespace-nowrap"><i class="fa-solid fa-house"></i> : <span>{isTH ? 'ถนนวิทยุ เขตปทุมวัน' : 'Wireless Rd. Pathumwan,'}</span></p><p class="ml-1 sm:ml-0">{isTH ? 'กรุงเทพฯ 10330.' : 'Bangkok 10330.'}</p>
         </p>
         <div className="basis-full sm:basis-0"></div>
-        <div id="map_tol"></div>
+        {/* <div id="map_tol"></div> */}
+        <img id="map_tol" src="v2/img/mapcv.png" style={{ 'border': '1px solid' }} />
         <div className="basis-full sm:basis-0"></div>
         <p className="flex flex-row flex-wrap justify-center sm:flex-col sm:items-center">
           <p className="text-nowrap"><i class="fa-solid fa-envelope"></i> : tron.natthakorn@engineer.com</p>

@@ -375,28 +375,28 @@
       });
     });
 
-    async function initMap() {
-      if (typeof google !== 'undefined' && typeof google.maps.importLibrary === 'function' && document.getElementById("map_tol")) {
-        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-        const mapProp = {
-          center: new google.maps.LatLng(13.7332699, 100.5499809),
-          zoom: 17,
-          mapTypeId: google.maps.MapTypeId.HYBRID || google.maps.MapTypeId.SATELLITE,
-          mapId: "AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM",
-        };
-        const map = new google.maps.Map(document.getElementById("map_tol"), mapProp);
+    // async function initMap() {
+    //   if (typeof google !== 'undefined' && typeof google.maps.importLibrary === 'function' && document.getElementById("map_tol")) {
+    //     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    //     const mapProp = {
+    //       center: new google.maps.LatLng(13.7332699, 100.5499809),
+    //       zoom: 17,
+    //       mapTypeId: google.maps.MapTypeId.HYBRID || google.maps.MapTypeId.SATELLITE,
+    //       mapId: "AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM",
+    //     };
+    //     const map = new google.maps.Map(document.getElementById("map_tol"), mapProp);
 
-        const marker = new AdvancedMarkerElement({
-          position: { lat: 13.7332699, lng: 100.5499809 },
-        });
+    //     const marker = new AdvancedMarkerElement({
+    //       position: { lat: 13.7332699, lng: 100.5499809 },
+    //     });
 
-        marker.content.classList.add("marker_bounce")
-        marker.setMap(map);
-      }
-    }
+    //     marker.content.classList.add("marker_bounce")
+    //     marker.setMap(map);
+    //   }
+    // }
   </script>
-  <script del="del"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM&loading=async&callback=initMap"></script>
+  <!-- <script del="del"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM&loading=async&callback=initMap"></script> -->
 
   <style>
     .modal {
