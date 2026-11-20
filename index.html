@@ -1,89 +1,438 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta property="fb:app_id" content="966242223397117"/>
-        <meta property="og:site_name" content="TRON Programmer Website"/>
-        <meta property="og:title" content="Hello World. I Am TRON And Programmer." />
-        <meta property="og:description" 
-              content="I am full stack js lover. I like to coding." />
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://torlondev.js.org"/>
-        <meta property="og:image" content="http://www.mx7.com/i/53a/uJkowk.jpg"/>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1,minimum-scale=1.0,maximum-scale=10.0, user-scalable=yes, width=device-width">
+<html class="notranslate" translate="no">
 
-        <!--<link href="lib/ionic/css/ionic.css" rel="stylesheet">-->
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/ionic/1.1.1/css/ionic.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
+  
+<head>
+  <title>Tron Natthakorn</title>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport"
+    content="initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,width=device-width">
+  <meta name="apple-mobile-web-app-title" content="Tron Natthakorn">
+  <meta name="apple-mobile-web-app-status-bar" content="#6F8FAF">
+  <meta name="theme-color" content="black">
 
-        <!--<script src="lib/ionic/js/ionic.bundle.js" type="text/javascript"></script>-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/ionic/1.1.1/js/ionic.bundle.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.9.1/highcharts.js" type="text/javascript"></script>
-        <!--<script src="https://rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.min.js" type="text/javascript"></script>-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-google-maps/1.18.5/ng-map.min.js" type="text/javascript"></script>
-        <script src="js/custom.js" type="text/javascript"></script>
-        <script src="js/app.js"></script>
-        <script src="js/controller.js" type="text/javascript"></script>
-        <script src="js/routes.js" type="text/javascript"></script>
-        <!-- <script src="js/services.js"></script> -->
-        <!-- <script src="js/directives.js"></script> -->
-    </head>
-    <body ng-app="starter">
-        
-    <ion-side-menus enable-menu-with-back-views="true" align-title="center">
-        <ion-side-menu-content ng-controller="NavCtrl">
-            <ion-nav-bar class="bar border-none custom-bar">
+  <link rel="manifest" href="manifest.json">
 
-                <ion-nav-buttons side="left">
-                    <button class="button custom-hamburger-bar button-icon icon ion-navicon" ng-click="showLeftMenu()"></button>
-                    <a href="#/home"><button class="button custom-menu-bar button-icon button-clear icon ion-home"></button></a>
-                    <button class="button custom-menu-bar button-icon button-clear icon ion-person" ng-click="showContact()"></button>
-                </ion-nav-buttons>
-                <ion-nav-buttons side="right">
-                    <button class="button custom-menu-bar button-icon ion-gear-b" ng-click="showRightMenu()">
-                    </button>
-                </ion-nav-buttons>
+  <script type="text/ecmascript" del="del">
+    srcOffline = path => {
+      script = document.createElement('script')
+      script.src = path
+      document.head.append(script)
+    }
+    isBabelTransform = false;
+  </script>
+  <!-- <script src="https://tronnatthakorn.github.io/cdn/js/embed.js"
+    onerror="srcOffline('cdn/js/embed.js')" del="del"></script>
+  <script src="https://tronnatthakorn.github.io/cdn/js/babel-7.25.0.min.js"
+    onerror="srcOffline('cdn/js/babel-7.25.0.min.js')" del="del"></script>
+  <script src="https://tronnatthakorn.github.io/cdn/js/jquery-3.7.1.min.js"
+    onerror="srcOffline('cdn/js/jquery-3.7.1.min.js')" del="del"></script>
+  <script src="https://tronnatthakorn.github.io/cdn/js/fontawesome-6.6.0.min.js"
+    onerror="srcOffline('cdn/js/fontawesome-6.6.0.min.js')" del="del"></script>
+  <script src="https://tronnatthakorn.github.io/cdn/js/tailwindcss-3.4.5.min.js"
+    onerror="srcOffline('cdn/js/tailwindcss-3.4.5.min.js')" del="del"></script>
+  <script src="https://tronnatthakorn.github.io/cdn/js/react-18.2.0.production.min.js"
+    onerror="srcOffline('cdn/js/react-18.2.0.production.min.js')" del="del"></script>
+  <script src="https://tronnatthakorn.github.io/cdn/js/react-dom-18.2.0.production.min.js"
+    onerror="srcOffline('cdn/js/react-dom-18.2.0.production.min.js')" del="del"></script>
+  <script src="https://tronnatthakorn.github.io/cdn/js/react-router-dom-5.3.4.min.js"
+    onerror="srcOffline('cdn/js/react-router-dom-5.3.4.min.js')" del="del"></script> -->
 
-            </ion-nav-bar>
-            <ion-nav-view></ion-nav-view>
-        </ion-side-menu-content> 
+  <script src='cdn/js/embed.js' del="del"></script>
+  <script src='cdn/js/babel-7.25.0.min.js' del="del"></script>
+  <script src='cdn/js/jquery-3.7.1.min.js' del="del"></script>
+  <script src='cdn/js/fontawesome-6.6.0.min.js' del="del"></script>
+  <script src='cdn/js/tailwindcss-3.4.5.min.js' del="del"></script>
+  <script src='cdn/js/react-18.2.0.production.min.js' del="del"></script>
+  <script src='cdn/js/react-dom-18.2.0.production.min.js' del="del"></script>
+  <script src='cdn/js/react-router-dom-5.3.4.min.js' del="del"></script>
+  <style>
+    :root {
+      /* constant variable */
+      --navBarHeight: 60px;
+      --navBarElementMaxWidth: 1000px;
+      --sideBarWidth: 200px;
+      --mobileMaxWidth: 639.9px;
+      /* Follow Tailwind CSS min-width of sm is 640px */
+      --desktopMinWidth: calc(var(--mobileMaxWidth) + 0.1px);
+      --contentMinWidth: 360px;
 
-        <ion-side-menu side="left">
-            <ion-content style="background-color: black;" has-header="true">
-                <ul class="list">
-                    <li>
-                        <a class="item" menu-close nav-clear href="#/cv">
-                            Curriculum Vitae ( CV )
-                        </a>
-                        <br/>
-                        <a class="item">
-                            <b>Programming Project</b></a>
-                        <a class="item" menu-close nav-clear href="#/google_map_project">
-                            Google Map Project
-                        </a>
-                        <a class="item" menu-close nav-clear href="#/nodejs_project">
-                            NodeJS Project
-                        </a>
-                        <a class="item" menu-close nav-clear href="#/php_project">
-                            PHP Project
-                        </a>
-                        <a class="item" menu-close nav-clear href="#/java_project">
-                            Java Project
-                        </a>
-                        <a class="item" menu-close nav-clear href="#/c_sharp_project">
-                            C# Project
-                        </a>
+      /* theme variable */
+      --navBarBGColor: wheat;
+      --navBarColor: black;
+      --subNavBarColor: coral;
+      --BGColor: whitesmoke;
+      --color: black;
+      --linkColor: blue;
+    }
 
-                    </li>
-                </ul>
-            </ion-content>
-        </ion-side-menu>
-    </ion-side-menus>
+    @media only screen and (min-width: 650px) {
+      :root {
+        --navBarHeight: 65px;
+      }
+    }
 
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM"></script>
+    html,
+    body {
+      background-color: black;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
 
-    
+    .a_link {
+      color: var(--linkColor) !important;
+      text-decoration: underline;
+      text-underline-offset: 6px !important;
+    }
+
+    .wrapper_content {
+      margin: auto;
+      margin-top: var(--navBarHeight);
+      min-width: var(--contentMinWidth);
+      max-width: var(--navBarElementMaxWidth);
+      min-height: 100vh;
+
+      background-color: var(--BGColor);
+      color: var(--color);
+
+      font-weight: 700;
+    }
+
+    .marker_bounce {
+      animation: marker_bounce 1s infinite;
+    }
+
+    /* .RIFJN-maps-pin-view-border,
+    .RIFvHW-maps-pin-view-background {
+      fill: darkgreen;
+    }
+
+    .KWCFZI-maps-pin-view-default-glyph {
+      fill: yellow;
+    } */
+
+    @keyframes marker_bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel" del="del">
+    isBabelTransform = true;
+    let deferredPrompt = undefined;
+    const PWAInitial = () => {
+      window.addEventListener('beforeinstallprompt', (e) => {
+        deferredPrompt = e;
+        document.getElementById('install-app-btn').style.display = 'flex'
+
+        // e.userChoice.then(function (choiceResult) {
+        //   if (choiceResult.outcome === 'accepted') {
+        //     deferredPrompt = null;
+        //   }
+        // });
+      });
+      document.getElementById('install-app-btn').addEventListener('click', async () => {
+        if (typeof deferredPrompt === 'object') {
+
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            await localStorage.setItem('deferredPrompt', 'deferredPrompt')
+          }
+
+        } else {
+          if (localStorage.getItem('deferredPrompt') === 'deferredPrompt') {
+            return alert('App already installed.')
+          }
+          else {
+            alert(`Your browser is not support this function.\r\n`)
+          }
+        }
+      });
+    }
+
+    () => {
+      if (typeof React === undefined) {
+        return false
+      }
+    }
+
+    const { useState, useContext, useEffect, useCallback } = React
+    const Context = React.createContext({}) //leave empty do not pass anything
+    const { Provider } = Context
+    const { render } = ReactDOM
+    const { HashRouter, NavLink, Route, Switch: Routes, useLocation } = ReactRouterDOM;
+
+    const mobileCSS = (styles = '') => `
+    @media only screen and (max-width: 639.9px) {${styles}}
+  `
+    const desktopCSS = (styles = '') => `
+    @media only screen and (min-width: 640px) {${styles}}
+  `
+    const themeList = ['LIGHT', 'DARK']
+
+    const setTheme = (themeSet = 'LIGHT') => {
+      localStorage.setItem('THEME', (themeSet || 'LIGHT'))
+
+      themeSet = themeSet.toLowerCase()
+      /* Old Web */
+      localStorage.setItem("defaultModeTheme", themeSet);
+
+      ([
+        { var: 'navBarBGColor', light: 'wheat', dark: 'darkslategrey' },
+        { var: 'navBarColor', light: 'black', dark: 'white' },
+        { var: 'subNavBarColor', light: 'coral', dark: 'seagreen' },
+        { var: 'BGColor', light: 'whitesmoke', dark: 'black' },
+        { var: 'color', light: 'black', dark: 'whitesmoke' },
+        { var: 'linkColor', light: 'blue', dark: 'deepskyblue' },
+
+        // cv 
+        { var: 'cvCoverColor', light: 'lightgray', dark: 'dimgray' },
+        { var: 'cvFilmStripBG', light: 'black', dark: 'black' },
+        { var: 'cvFilmStripEl', light: 'white', dark: 'white' },
+      ]).forEach(el => {
+        $(':root').css(`--${el.var}`, el[themeSet] || el.light)
+      });
+    }
+
+    let theme = localStorage.getItem('THEME')
+
+    if (!theme || !(themeList.find(el => theme === el))) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        theme = 'DARK'
+      } else {
+        theme = 'LIGHT'
+      }
+      setTheme(theme)
+    } else {
+      setTheme(theme)
+    }
+
+    const languageList = ['EN', 'TH', 'CN', 'JP']
+    let language = localStorage.getItem('LANGUAGE')
+
+    if (!language) {
+      if (typeof navigator !== undefined) {
+        const userLanguage =
+          (`${navigator.language || navigator.userLanguage || 'en'}`).toUpperCase()
+
+        language = languageList.find(el => userLanguage === el) || 'EN'
+      } else {
+        language = 'EN'
+      }
+    } else {
+      language = languageList.find(el => language === el) || 'EN'
+    }
+
+    localStorage.setItem('LANGUAGE', language)
+
+    const lang = {
+      'undefined': { EN: 'Not Found.', TH: 'ไม่พบ', CN: '未找到。', JP: '見つかりません。' },
+      not_found: { EN: 'Not Found.', TH: 'ไม่พบ', CN: '未找到。', JP: '見つかりません。' },
+      coming_soon: { EN: 'Coming Soon.', TH: 'พบกันเร็วๆนี้', CN: '即将推出。', JP: 'もうすぐ公開。' },
+      hello_world: { EN: 'Hello World.', TH: 'สวัสดีชาวโลก', CN: '你好世界，', JP: 'こんにちは、世界。' },
+      i_am_developer: { EN: 'I am developer.', TH: 'ผมคือนักพัฒนา', CN: '我是开发人员、', JP: '私はデベロッパーです。' },
+      i_am_cool: { EN: 'I am cool.', TH: 'ผมเป็นคนเท่ห์', CN: '我很酷。', JP: '私はクールです。' },
+      i_am_single: { EN: 'I am single.', TH: 'ผมเป็นคนโสด', CN: '我单身。', JP: '私はシングルです。' },
+      i_love_coding: { EN: 'I love coding.', TH: 'ผมรักการเขียนโค้ด', CN: '我喜欢编码。', JP: '私はコーディングが好きです。' },
+      i_am_trader: { EN: 'I am trader.', TH: 'ผมเป็นเทรดเดอร์', CN: '我是交易员、', JP: '私はトレーダーです。' },
+      i_love_trading: { EN: 'I love trading.', TH: 'ผมชอบการเทรด', CN: '我喜欢交易。', JP: '私はトレーディングが好きです。' },
+      new_ver_developing: { EN: 'New Version is Developing.', TH: 'เว็บไซต์เวอร์ชันใหม่อยู่ระหว่างการพัฒนา', CN: '新版本正在开发中。', JP: '新しいバージョンが開発中です。' },
+      back_to_top: { EN: 'Scroll up to top.', TH: 'เลื่อนขึ้นด้านบน', CN: '回到顶部。', JP: 'トップに戻る。' },
+      add_to_home: { EN: 'Install mobile app.', TH: 'ติดตั้ง แอพมือถือ', CN: '安装移动应用程序。', JP: 'モバイルアプリをインストールする。' },
+      home: { EN: 'Home', TH: 'หน้าแรก', CN: '主页', JP: 'ホーム' },
+      cv: { EN: 'CV', TH: 'ซีวี', CN: '简历', JP: 'シーブイ' },
+      autobiography: { EN: 'Autobiography', TH: 'อัตชีวประวัติ', CN: '自传', JP: 'じでんき' },
+      blogs: { EN: 'Blogs', TH: 'บล็อก', CN: '博客', JP: 'ブログ' },
+      life: { EN: 'Life', TH: 'ชีวิต', CN: '生活', JP: '生活' },
+      time_machine: { EN: 'Time Machine', TH: 'ไทม์ แมชชีน', CN: '时光机器', JP: 'タイムマシン' },
+      projects: { EN: 'Projects', TH: 'โปรเจค', CN: '项目', JP: 'プロジェクト' },
+    }
+
+    // Stateless Language Choose Wrapper 
+    // (No React State just JS Global Scope Variable)
+    // Learning Purpose - Test jQuery with React
+    let isShowLangChoose = false
+    const setIsShowLangChoose = (isShow = false) => {
+      isShowLangChoose = isShow
+
+      if (isShow) {
+        $('#language_choose_wrapper').show()
+      } else {
+
+        // $('#language_choose_wrapper').hide() //Not work if react state change
+
+        // JQuery (& Vanilla JS) + React Knowledge
+        // jquery code .hide() not work with ReactDom when react change state of language
+        // (Hackway is use setTimeout)
+
+        setTimeout(() => $('#language_choose_wrapper').hide(), 1)
+
+        // Alternation if do not want to use setTimeout (Normal Practise)
+        // and prefer react toggle UI but still react stateless
+        // In ReactDOM of Element use
+        // "display": isShowLangChoose ? 'block' : 'none', 
+        // 'isShowLangChoose' is still be JS Global Scope Variable not React State
+      }
+    }
+  </script>
+  <script type="text/babel" src="./v2/components/00_Util.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/01_NavBar.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/02_Home.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/03_CV.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/04_Autobiography.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/04_Blogs.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/05_Life.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/05_Projects.jsx" del="del"></script>
+  <script type="text/babel" src="./v2/components/99_TimeMachine.jsx" del="del"></script>
+
+  <script type="text/babel" del="del">
+    const App = ({ children }) => {
+      // const [isShowLangChoose, setIsShowLangChoose] = useState(false)
+      const [isShowSideBar, setIsShowSideBar] = useState(false)
+      const [currentLanguage, setCurrentLanguageContext] = useState(language || 'EN')
+      const [isCalculateAge, setIsCalculateAge] = useState(false)
+
+      const [isEN, setIsEN] = useState(language === 'EN')
+      const [isTH, setIsTH] = useState(language === 'TH')
+      const [isJP, setIsJP] = useState(language === 'JP')
+      const [isCN, setIsCN] = useState(language === 'CN')
+
+      const clearCacheBooleanLang = () => {
+        setIsEN(false); setIsTH(false); setIsJP(false); setIsCN(false);
+      }
+
+      const setCurrentLanguage = (lang = 'EN') => {
+        setCurrentLanguageContext(lang)
+        localStorage.setItem('LANGUAGE', lang)
+        clearCacheBooleanLang()
+        switch (lang) {
+          case 'EN':
+            return setIsEN(true)
+          case 'TH':
+            return setIsTH(true)
+          case 'JP':
+            return setIsJP(true)
+          case 'CN':
+            return setIsCN(true)
+          default:
+            break
+        }
+      }
+
+      // componentDidMount
+      useEffect(() => {
+        setIsShowLangChoose(false)
+        PWAInitial()
+      }, []);
+
+      return <Provider
+        value={{
+          lang,
+          currentLanguage,
+          setCurrentLanguage,
+          isEN, isTH, isCN, isJP,
+          // isShowLangChoose,
+          // setIsShowLangChoose,
+          isShowSideBar,
+          setIsShowSideBar,
+          isCalculateAge,
+          setIsCalculateAge,
+        }}>
+        {children}
+      </Provider>
+    }
+
+    render(
+      <App>
+        <HashRouter>
+          <Navbar />
+        </HashRouter>
+      </App>,
+      document.getElementById("root")
+    );
+  </script>
+
+  <script del="del">
+    // jQuery + React Knowledge 
+    // React Component Did Mount After document.ready
+    $(function () {
+      if (!isBabelTransform) { Babel.transformScriptTags(); }
+
+      document.querySelectorAll("script[del='del']").forEach(function (e) {
+        e.parentElement.removeChild(e);
+      });
+    });
+
+    async function initMap() {
+      if (typeof google !== 'undefined' && typeof google.maps.importLibrary === 'function' && document.getElementById("map_tol")) {
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+        const mapProp = {
+          center: new google.maps.LatLng(13.7332699, 100.5499809),
+          zoom: 17,
+          mapTypeId: google.maps.MapTypeId.HYBRID || google.maps.MapTypeId.SATELLITE,
+          mapId: "AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM",
+        };
+        const map = new google.maps.Map(document.getElementById("map_tol"), mapProp);
+
+        const marker = new AdvancedMarkerElement({
+          position: { lat: 13.7332699, lng: 100.5499809 },
+        });
+
+        marker.content.classList.add("marker_bounce")
+        marker.setMap(map);
+      }
+    }
+  </script>
+  <script del="del"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM&loading=async&callback=initMap"></script>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .modalContent {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--BGColor);
+      color: var(--color);
+      border: 2px solid dimgray;
+    }
+
+    .closeModal {
+      color: var(--color);
+      float: right;
+      cursor: pointer;
+    }
+  </style>
+
+  <div id="modal" class="modal">
+    <div class="modalContent p-6 pt-1">
+      <span class="closeModal text-5xl sm:text-6xl" onclick="closeModal()">&times;</span>
+      <div id="modalContent"></div>
+  </div>
 </body>
+
 </html>

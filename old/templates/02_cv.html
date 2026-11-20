@@ -1,0 +1,339 @@
+<style>
+    /*.track {
+        background-color: black !important;
+    }*/
+
+    .item {
+        border: 0px solid !important;
+        border-style: unset;
+    }
+
+    .item-toggle {
+        padding-right: 75px !important;
+        padding-left: 10px !important;
+    }
+
+    .toggle input:checked+.track {
+        background-color: black !important;
+        border-color: white !important;
+    }
+
+    .ban_skill {
+        background-color: #EDFCFF;
+        padding: 2px;
+    }
+    
+    .img_past {
+        width : 100%;
+        padding-top: 3px;
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+
+    .ionic-slide {
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+
+    .story_text_detail {
+        padding-left: 16px; padding-top: 6px;
+    }
+
+    @media only screen and (max-width: 749px){
+        #map_tol {width: 100%; height: 140px; padding: 3px; }
+        #map_tol_2 {width: 100%; height: 140px;}
+        #img_student, #img_lum {width: 40%; }
+        #graph_backend{
+            height: 250px;
+        }
+        #graph_frontend{
+            height: 250px;
+        }
+        #graph_db{
+            height: 250px;
+        }
+        #graph_other_skill{
+            height: 250px;
+        }
+        .story_text {
+            padding-left: 7px;
+        }
+        .img_past {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        #cv_wrapper {
+            margin-top: -52px;
+        }
+    }
+
+    @media only screen and (min-width: 750px) {
+        #map_tol {width: 100%; height: 200px; }
+        #map_tol_2 {width: 100%; height: 200px; padding-right: 15px; padding-bottom: 20px; padding-top: 10px; }
+        #img_student, #img_lum { width: 170px; }
+        #graph_backend{
+            height: 300px;
+        }
+        #graph_frontend{
+            height: 300px;
+        }
+        #graph_db{
+            height: 300px;
+        }
+        #graph_other_skill{
+            height: 300px;
+        }
+        .story_text {
+            padding-right: 16px;
+        }
+
+        #desktop_right_box {
+            padding-left: 8px;
+            border-top: 3px solid;
+            border-left: 3px solid;
+            padding-top: 12px;
+            padding-left: 20px;
+        }
+
+        #top_wrapper_name_to_address {
+            padding-bottom: 10px;
+        }
+
+        .ionic-slide {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+    }
+
+</style>
+
+<!--
+    Hello guy, why you Inspect my website? haha It is okay I have many comment.
+    I develop this website since 2015
+    That time Angular 1 + ionic were very popular that why I use it. (React was not boom that time.)
+-->
+
+<ion-view view-title="CV" class="cv_pane">
+    <ion-content overflow-scroll="true">
+        <div class="rowly" id="header_setting" style="display: flex; flex-direction: row; justify-content: flex-end; align-items: center; padding-right: 10px; padding-top: 10px;">
+            <!-- <img src="../old/img/sun200.png" width="33px" height="33px" style="margin-left: -30px !important; margin-top: 3px;" /> -->
+            <ion-toggle id="toggleMode" ng-checked={{isToggle}} onChange="toggleColorMode()" style="height: 45px; width: 10px;" color="primary"></ion-toggle> <!-- ng-checked="true" -->
+            <img ng-click="scopeOnMoonClick()" src="../old/img/moon200.png" width="40px" height="38px" style="padding-left:2px; padding-right: 5px; color: yellow;" />
+        </div>
+        <div class="rowly" id="cv_wrapper">
+            <div class="coly-1"></div>
+            <div class="coly-10">
+                <div class="rowly" id="top_wrapper_name_to_address">
+                    <div class="desktop_left_70" >
+                        <h2><b><span class="now_rap">Curriculum Vitae</span></b></h2>
+                    </div>
+                    <div class="desktop_right_30 desktop_center mobile_center" >
+                        <!-- <a href=""><img ng-click="showImageMeCV()" id="img_student" src="../old/img/torn_stu.jpg" alt=""/></a> -->
+                        <ion-slide-box id="pic_me_slide" does-continue="false" auto-play="true" slide-interval="1100" >
+                            <ion-slide>
+                                <a href=""><img id="img_student" src="../old/img/torn_stu.jpg" alt=""/></a>
+                            </ion-slide>
+                         </ion-slide-box>
+                    </div>
+                    <div class="desktop_left_70" >
+                        <div class="story_text">
+                            <br/>
+                            <span class="now_rap"><b>First name: </b>Natthakorn&nbsp;&nbsp;</span>
+                            <span class="now_rap"><b>Last name: </b>Nakhaseno&nbsp;&nbsp;</span>
+                            <span class="now_rap"><b>Nickname: </b>Tron&nbsp;&nbsp;</span>
+                            <br/>
+                            <span class="now_rap"><b>Birthday: </b>6 Nov 1992&nbsp;&nbsp;</span>
+                            <span class="now_rap"><b>Nationality: </b>Thailand <img src="../old/img/thai flag.jpg" width="16px"/></span>
+                            <br/>
+                            <!-- <span class="now_rap"><b>Age: </b>{{tol_age}}&nbsp;&nbsp;</span><br/> -->
+                            <span class="now_rap"><b>Age: </b><span id="age_pure"></span>&nbsp;&nbsp;</span>
+                            <br/><br/>
+                            <span class="now_rap"><b>E-mail: </b>tron.natthakorn@engineer.com &nbsp; </span>
+                            <span class="now_rap"><b>Mobile: </b>(+66)XX-XX-XXXX</span>
+                            <br/>
+                            <span class="now_rap"><b>GitHub: </b><a href="https://github.com/TronNatthakorn" target="_blank">TronNatthakorn</a> &nbsp;</span>
+                            <span class="now_rap"><b>DockerHub: </b><a href="https://hub.docker.com/u/tronnatthakorn" target="_blank">TronNatthakorn</a></span>
+                            <br/><br/>
+                            <span class="now_rap"><b>Address: </b>Wireless Rd.</span>
+                            <span class="now_rap"> Pathumwan Bangkok 10330.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rowly">
+                    <div class="desktop_left_50" >
+                        <div class="desktop_left_50" id="map_tol" map-lazy-load="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGt4l5xfw-FYykMWS0a52lU6xckIRACaM&loading=async&libraries=marker">
+                            <!-- zoom="14" //commend for better perform -->
+                            <ng-map id="map_tol_2" center="[13.7332699, 100.5499809]">
+                                <marker position ="[13.7332699, 100.5499809]" animation="Animation.BOUNCE" centered="true"></marker>
+                            </ng-map>
+                        </div>
+
+                        <h3><b><span class="now_rap">History Work & Life</span></b></h3>
+                            <div class="story_text">
+                                <span class="now_rap"><b>Mar 2017 - Jul 2018</b></span>&nbsp;<span class="now_rap">(1 year 4 months)</span><br/>
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span class="now_rap">Mobile & Web Developer.</span><br/>
+                                    <b>Company: </b><span class="now_rap">Scale360.</span><br/>
+                                    <b>Product: </b>
+                                    <a target="_blank" href="https://play.google.com/store/apps/details?id=com.scale360.lqid.chat">LQID / Shop Bank</a> / Internal Project and App.<br/>
+                                    <b>Works: </b><span>React / React-Native / Redux / Unit & Automation Test & Report (Jest / Mocha / Detox / Cucumber) / JQuery</span>
+                                </div>
+
+                                <ion-slide-box class="ionic-slide" does-continue="true" auto-play="true" slide-interval="1800" >
+                                    <ion-slide>
+                                        <img class="img_past" src="../old/img/scale1.jpg" />
+                                    </ion-slide>
+                                    <ion-slide>
+                                        <img class="img_past" src="../old/img/scale2.jpg" />
+                                    </ion-slide>
+                                 </ion-slide-box>
+
+                                 <b>Reason for leaving: </b>
+                                 <span> Good environment, work, and team.</span>
+                                 <span> I did not have any problem here. I just felt very tired from hard work and need more time to relax.</span>
+                                 
+                                <br/><br/>
+                                <hr/><br/>
+                                
+                                <span class="now_rap"><b>Feb 2016 - May 2016</b></span>&nbsp;<span class="now_rap">(4 months)</span><br/>
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span class="now_rap">Laravel Developer & Head IT Support.</span><br/>
+                                    <b>Company: </b><span class="now_rap">INFINITI Global Investor.</span><br/>
+                                    <b>Works: </b><span class="now_rap">Laravel / Git</span>
+                                </div>
+
+                                <img class="img_past" src="../old/img/infiniti.jpg" />
+
+                                <b>Reason for leaving: </b>
+                                <span >
+                                    I was not happy because I desired to be a programmer, not the head of IT Support.
+                                </span>
+                                <br/><br/>
+                                <hr/><br/>
+                 
+                                <span class="now_rap"><b>May 2014 - Feb 2015</b></span>&nbsp;<span class="now_rap">(9 months)</span><br/>
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span class="now_rap">Trainee Programmer.</span><br/>
+                                    <b>Company: </b><span class="now_rap">True Corporation.</span><br/>
+                                    <b>Works: </b><span class="now_rap">PHP & MySQL & Thai Word Sentiment</span><br/>
+                                </div>
+                                <img class="img_past" src="../old/img/true.jpg" />
+                                <b>Reason for leaving: </b>
+                                <span >
+                                    Out of contract.
+                                </span>
+                                <br/><br/>
+                                <hr/><br/>
+                                <span class="now_rap"><b>Dec 2012 - Mar 2013</b></span>&nbsp;<span class="now_rap">(3 months)</span><br/>
+                                <div class="story_text_detail">
+                                    <b>Roles: </b><span class="now_rap">Trainee programmer.</span><br/>
+                                    <b>Company: </b><span class="now_rap">Pakgon co., ltd.</span><br/>
+                                    <b>Works: </b><span class="now_rap">CakePHP 2 + MySQL</span>
+                                </div>
+                                <b>Reason for leaving: </b>
+                                <span >
+                                    Out of contract.
+                                </span>
+                                <br/><br/>
+                                <hr/><br/>
+                            </div>
+                    </div>
+                    
+                    <div class="desktop_right_50" id="desktop_right_box" >
+                        <h3><b><span class="now_rap">Advantage</span></b></h3>
+                            <div class="story_text">
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Usually, I can code non-stop for 10 hours. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Urgently, I can code non-stop for 5 days. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Do not be serious about working overtime. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never play social media or games during work time.<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never leave incomplete work and retire. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- From my experience never had a bug that I could not solve. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never say I cannot do it in my work life. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never mind working from the office or home.<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Never request an increased salary. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Rarely request annual leave until HR notify me. (Just 1-2 days per year) <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Like to learn new technology of programming. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- I do not know everything, but I believe I can learn and do. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Every company told me to find a girlfriend. My girl is your working. <br/>
+                            </div>
+                        <h3><b><span class="now_rap">Disadvantage</span></b></h3>
+                            <div class="story_text">
+                                &nbsp;&nbsp;&nbsp;&nbsp;- Probably late 1 day per week. (Solve by sleep at company.) <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- I am not a talkative person. <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- I do not prefer unit test, <b>but I can do it.</b> (More code, more test. Change code, change test.) <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<b>- A little bit listen and speak English. (Attempting to improve)</b> <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<b>- I am not good at grammar in English. (Attempting to improve)</b> <br/>
+                            </div>
+                        <h3><b><span class="now_rap">Education</span></b></h3>
+                            <div class="story_text">
+                                <div class="story_text_detail" style="padding-right: 30px;">
+                                    <span class="now_rap"><b>May 2011 - Apr 2015</b></span>&nbsp;(4 Years)<br/>
+                                    <b>Degree: </b>Bachelor Degree Of <span class="now_rap">Information Technology (IT)</span><br/>
+                                    <b>School: </b>Panyapiwat Institute <span class="now_rap">Of Management</span><br/>
+                                    <span class="now_rap"><b>GPA : </b>3.67</span>
+                                    <hr/>
+                                </div>
+                                
+                                <div class="story_text_detail" style="padding-right: 30px;">
+                                    <span class="now_rap"><b>May 2008 - Apr 2011</b></span>&nbsp;(3 Years)<br/>
+                                    <b>Degree: </b>Senior High School of Art <span class="now_rap">and Math</span><br/>
+                                    <b>School: </b><span class="now_rap">Trimit Wittayalai School</span>
+                                    <hr/>
+                                </div>
+                                
+                                <div class="story_text_detail">
+                                    <span class="now_rap"><b>May 2005 - Apr 2008</b></span>&nbsp;(3 Years)<br/>
+                                    <b>Degree: </b>Junior High School<br/>
+                                    <b>School: </b><span class="now_rap">Benchamarachuthit Chanthaburi  School</span>
+                                </div>
+                            </div>
+                        <h3><b><span class="now_rap">Certificate</span></b></h3>
+                            <div class="story_text">
+                                <div class="story_text_detail">
+                                    <b>Hour of code</b><br/>
+                                    <img class="img_past" src="../old/img/hourcode.jpg" />
+                                </div>
+                                <div class="story_text_detail">
+                                    <b>ITPE</b> <br/>
+                                    <img class="img_past" src="../old/img/itpe.jpg" /><br/>
+                                </div>
+                            </div>                        
+                        <h3><b><span class="now_rap">Quote From Experience</span></b></h3>
+                            <div class="story_text">
+                                &nbsp;&nbsp;&nbsp;&nbsp;Runaway from a problem is not good because sometimes you think it is the proper way to solve it, but it is not a good way for yourself.
+                            </div>
+                        <h3><b><span class="now_rap">Salary</span></b></h3>
+                            <div class="story_text">
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="now_rap"><b>Expected:</b> More than before.</span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="now_rap"><b>Latest:</b> 39000 THB. <br/></span>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="rowly ban_skill">
+                    <br/>
+                    <h3><b><span class="now_rap">Programmer Exp.</span></b></h2>
+                        <span>
+                            <span class="now_rap">Self Assessment.</span>
+                        </span>
+                        <br/><br/>
+                        <div class="desktop_left_50">
+                            <div id="graph_frontend"></div>
+                        </div>
+                        <div class="desktop_right_50">
+                            <div id="graph_backend"></div>
+                        </div>
+                        <div class="desktop_left_50">
+                            <div id="graph_db"></div>
+                        </div>
+                        <div class="desktop_right_50">
+                            <div id="graph_other_skill"></div>
+                        </div>
+                </div>
+                <div><br/><br/><hr /><br/><br/></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
