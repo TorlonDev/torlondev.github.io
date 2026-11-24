@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tolly Easy Trade – Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d0f; --panel:#141417; --line:#2a2a30;
+  --wheat:#f4dfb6; --wheat-dim:#b9a47b; --mist:#9b9ba5;
+  --up:#7fd1a0; --down:#e58f80; --field:#1b1b20;
+  --font:"Bricolage Grotesque","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--ink);color:var(--wheat);display:grid;grid-template-columns:1.1fr 1fr;min-height:100vh}
+
+/* Brand side */
+.brand{position:relative;display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,6vw,96px);background:
+  radial-gradient(900px 500px at 15% 0%,rgba(244,223,182,.09),transparent 60%),var(--ink);overflow:hidden}
+.brand h1{font-size:clamp(44px,6.2vw,92px);line-height:.98;font-weight:800;letter-spacing:-.02em;color:var(--wheat)}
+.rule{display:block;height:2px;width:min(240px,50%);margin:28px 0 20px;background:var(--wheat);transform-origin:left;animation:draw .9s .2s cubic-bezier(.2,.7,.2,1) both}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tag{font-size:clamp(16px,1.5vw,20px);color:var(--mist);max-width:30ch;line-height:1.5}
+
+.movers{margin-top:clamp(36px,7vh,80px);max-width:440px;border-top:1px solid var(--line)}
+.movers li{list-style:none;display:grid;grid-template-columns:1fr 90px 72px;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px}
+.movers b{font-weight:600;color:var(--wheat)}
+.movers span.sym{color:var(--mist);margin-left:8px;font-weight:400}
+.movers svg{width:90px;height:26px}
+.movers polyline{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pct{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.up{color:var(--up)} .down{color:var(--down)}
+.up polyline{stroke:var(--up)} .down polyline{stroke:var(--down)}
+.note{margin-top:10px;font-size:12px;color:#6f6f79}
+
+/* Login side */
+.login{display:flex;align-items:center;justify-content:center;padding:32px;background:var(--panel);border-left:1px solid var(--line)}
+.card{width:100%;max-width:380px}
+.card h2{font-size:30px;font-weight:600;letter-spacing:-.01em}
+.card p.sub{margin:8px 0 32px;color:var(--mist);font-size:15px}
+label{display:block;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--wheat)}
+.field{margin-bottom:22px}
+.input{position:relative}
+input{width:100%;height:52px;padding:0 16px;font:inherit;font-size:16px;color:var(--wheat);background:var(--field);border:1px solid var(--line);border-radius:10px;outline:none;transition:border-color .15s,box-shadow .15s}
+input::placeholder{color:#5d5d67}
+input:hover{border-color:#3b3b43}
+input:focus-visible{border-color:var(--wheat);box-shadow:0 0 0 3px rgba(244,223,182,.18)}
+.input input[type=password],.input input.pw{padding-right:64px}
+.toggle{position:absolute;right:6px;top:6px;height:40px;padding:0 12px;font:inherit;font-size:13px;font-weight:600;color:var(--wheat-dim);background:none;border:0;border-radius:8px;cursor:pointer}
+.toggle:hover{color:var(--wheat)}
+.toggle:focus-visible{outline:2px solid var(--wheat);outline-offset:1px}
+.btn{width:100%;height:54px;margin-top:8px;font:inherit;font-size:17px;font-weight:700;color:#1a1408;background:var(--wheat);border:0;border-radius:10px;cursor:pointer;transition:background .15s,transform .1s}
+.btn:hover{background:#fff0d0}
+.btn:active{transform:scale(.985)}
+.btn:focus-visible{outline:3px solid rgba(244,223,182,.45);outline-offset:3px}
+.msg{min-height:20px;margin-top:16px;font-size:14px;color:var(--down)}
+
+@media (max-width:860px){
+  body{grid-template-columns:1fr}
+  .brand{padding:48px 28px 36px}
+  .movers{display:none}
+  .login{border-left:0;border-top:1px solid var(--line);align-items:flex-start;padding:36px 28px 56px}
+}
+@media (prefers-reduced-motion:reduce){.rule{animation:none}}
+</style>
+</head>
+<body>
+
+<section class="brand" aria-label="Tolly Easy Trade">
+  <h1>Tolly<br>Easy Trade</h1>
+  <span class="rule" aria-hidden="true"></span>
+  <p class="tag">Find the coins that are moving. Every day.</p>
+
+  <ul class="movers" aria-label="Sample of today's movers">
+    <li class="up"><div><b>A</b><span class="sym">CoinA</span></div><svg viewBox="0 0 90 26" aria-hidden="true"><polyline points="2,22 16,19 30,21 44,12 58,14 72,6 88,3"/></svg><span class="pct">+12.4%</span></li>
+    <li class="up"><div><b>B</b><span class="sym">CoinB</span></div><svg viewBox="0 0 90 26" aria-hidden="true"><polyline points="2,20 16,22 30,15 44,16 58,9 72,11 88,5"/></svg><span class="pct">+8.1%</span></li>
+    <li class="down"><div><b>C</b><span class="sym">CoinC</span></div><svg viewBox="0 0 90 26" aria-hidden="true"><polyline points="2,5 16,8 30,6 44,15 58,13 72,20 88,23"/></svg><span class="pct">−6.7%</span></li>
+  </ul>
+</section>
+
+<main class="login">
+  <form class="card" id="form" novalidate>
+    <h2>Welcome back</h2>
+    <p class="sub">Log in to see today's movers.</p>
+
+    <div class="field">
+      <label for="user">User</label>
+      <input id="user" name="user" type="text" autocomplete="username" placeholder="Enter your username" required>
+    </div>
+
+    <div class="field">
+      <label for="pw">Password</label>
+      <div class="input">
+        <input id="pw" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+        <button type="button" class="toggle" id="toggle" aria-label="Show password" aria-pressed="false">Show</button>
+      </div>
+    </div>
+
+    <button class="btn" type="submit">Login</button>
+    <p class="msg" id="msg" role="alert"></p>
+  </form>
+</main>
+
+<script>
+  const pw = document.getElementById('pw'), t = document.getElementById('toggle'), msg = document.getElementById('msg');
+  t.addEventListener('click', () => {
+    const show = pw.type === 'password';
+    pw.type = show ? 'text' : 'password';
+    t.textContent = show ? 'Hide' : 'Show';
+    t.setAttribute('aria-pressed', show);
+    t.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+  });
+  document.getElementById('form').addEventListener('submit', e => {
+    e.preventDefault(); // design only – connect to your login API here
+    const u = document.getElementById('user').value.trim();
+    msg.textContent = (!u || !pw.value) ? 'Enter both your username and password.' : '';
+  });
+</script>
+</body>
+</html>
