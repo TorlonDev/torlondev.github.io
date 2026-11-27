@@ -365,6 +365,23 @@
             dataTable1 = $('#table_percent_change_1D').DataTable({
                 "pageLength": 15,
                 order: [[col_sort, 'desc']],
+                layout: {
+                    topStart: {
+                        buttons: [
+
+                            {
+                                extend: 'csv',
+
+                                text: 'Export Raw Data as .CSV',
+                                exportOptions: {
+                                    columns: [0, 3, 4]
+                                },
+                                title: `${new Date().getFullYear() + '-' + currentMonth + '-' + currentDate + ' ' + new Date().toLocaleTimeString("th-TH").replaceAll(':', '-')}${counting_oldday_csv ? ` - ${counting_oldday_csv_str}D` : ''}${current_oldday_filename_csv ? ` - ${current_oldday_filename_csv}` : ''}`
+                            },
+
+                        ]
+                    }
+                }
             })
 
             dataTable1.on('order.dt search.dt', function () {
