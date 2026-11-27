@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daily Raw Data</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: #101114;
+      color: #f2f2f2;
+    }
+
+    body {
+      box-sizing: border-box;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+    }
+
+    p {
+      margin: 0 0 24px;
+      color: #a7a9b0;
+    }
+
+    button {
+      margin: 0 0 20px;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 6px;
+      background: #a7d98b;
+      color: #101114;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #d1f4b9;
+    }
+
+    button:focus-visible {
+      outline: 2px solid #d1f4b9;
+      outline-offset: 3px;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid #303239;
+    }
+
+    li {
+      border-bottom: 1px solid #303239;
+    }
+
+    a {
+      display: block;
+      padding: 14px 4px;
+      color: #a7d98b;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #d1f4b9;
+      text-decoration: underline;
+    }
+
+    a:focus-visible {
+      outline: 2px solid #a7d98b;
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Daily Raw Data</h1>
+    <p>Select a CSV file to download (This is Trial version in full version it can support history of volume, max leverage, etc. and more than 2 weeks)</p>
+    <button id="download-all" type="button">Download All</button>
+    <ul id="csv-files">
+      <li><a href="./2026-11-26%2019-51-13.csv" download>2026-11-26 19-51-13.csv</a></li>
+      <li><a href="./2026-11-25%2006-51-07.csv" download>2026-11-25 06-51-07.csv</a></li>
+      <li><a href="./2026-11-24%2009-08-56.csv" download>2026-11-24 09-08-56.csv</a></li>
+      <li><a href="./2026-11-23%2011-50-42.csv" download>2026-11-23 11-50-42.csv</a></li>
+      <li><a href="./2026-11-22%2019-06-48.csv" download>2026-11-22 19-06-48.csv</a></li>
+      <li><a href="./2026-11-21%2010-26-43.csv" download>2026-11-21 10-26-43.csv</a></li>
+      <li><a href="./2026-11-20%2007-40-38.csv" download>2026-11-20 07-40-38.csv</a></li>
+      <li><a href="./2026-11-19%2012-06-59.csv" download>2026-11-19 12-06-59.csv</a></li>
+      <li><a href="./2026-11-18%2010-52-52.csv" download>2026-11-18 10-52-52.csv</a></li>
+      <li><a href="./2026-11-17%2010-47-46.csv" download>2026-11-17 10-47-46.csv</a></li>
+      <li><a href="./2026-11-16%2010-45-19.csv" download>2026-11-16 10-45-19.csv</a></li>
+      <li><a href="./2026-11-15%2009-38-25.csv" download>2026-11-15 09-38-25.csv</a></li>
+      <li><a href="./2026-11-14%2010-20-23.csv" download>2026-11-14 10-20-23.csv</a></li>
+      <li><a href="./2026-11-13%2008-01-25.csv" download>2026-11-13 08-01-25.csv</a></li>
+    </ul>
+  </main>
+  <script>
+    document.getElementById("download-all").addEventListener("click", function () {
+      document.querySelectorAll("#csv-files a[download]").forEach(function (link) {
+        link.click();
+      });
+    });
+  </script>
+</body>
+</html>

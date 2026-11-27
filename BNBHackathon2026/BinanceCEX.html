@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Binance CEX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css">
+    <style>
+        body,
+        select {
+            font-size: 15px;
+            background-color: black !important;
+            color: wheat !important;
+        }
+
+        .header_text_area_dark {
+            display: inline-block;
+            width: 45%;
+        }
+
+        .textarea_dark {
+            width: 45%;
+            font-size: 13px;
+            background-color: black;
+            color: wheat;
+            font-weight: bold;
+        }
+
+        th,
+        td {
+            border: 1px solid;
+            color: wheat;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .buttons-csv {
+            background-color: green !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            color: black;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+        }
+
+        #table_percent_change_1D_wrapper {
+            padding: 20px !important;
+        }
+
+        .find-coin-report-history {
+            display: grid;
+            gap: 18px;
+            width: 96%;
+            max-width: 1180px;
+            margin: 0 auto 24px;
+        }
+
+        .find-coin-report {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 28px 32px;
+            border: 1px solid #3b352b;
+            border-radius: 20px;
+            background: #171719;
+            color: #f3f4f6;
+            text-align: left;
+        }
+
+        .find-coin-report-column {
+            min-width: 0;
+        }
+
+        .find-coin-report-section + .find-coin-report-section {
+            margin-top: 52px;
+        }
+
+        .find-coin-report-heading {
+            margin: 0 0 12px;
+            font-size: clamp(18px, 2.4vw, 25px);
+            line-height: 1.25;
+        }
+
+        .find-coin-report-heading.gainer {
+            color: #5fd29a;
+        }
+
+        .find-coin-report-heading.loser {
+            color: #ff6b6b;
+        }
+
+        .find-coin-report-items {
+            display: grid;
+            gap: 8px;
+            font-size: clamp(15px, 1.8vw, 20px);
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .find-coin-report-empty {
+            color: #9a9aa0;
+        }
+
+        @media (max-width: 700px) {
+            .find-coin-report {
+                gap: 24px;
+                padding: 22px 20px;
+            }
+
+            .find-coin-report-section + .find-coin-report-section {
+                margin-top: 28px;
+            }
+        }
+
+        [class='paginate_button current'] {
+            background-color: gray !important;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.1.6/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+        integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <center>
+        <h1>TOLLY EASY TRADE - Binance CEX</h1>
+        Binance API Key : <input id="binance_api_key" type="text" style="width: 40%;" value="" /><br /><br />
+        Binance Secret Key (Demo Purpose) : <input id="binance_api_secret_key" type="password" style="width: 40%;"
+            value="" /><br /><br />
+        Available Balance: <span id="available_balance">-</span>&nbsp;USDT&nbsp;<button
+            onclick="checkAvailableBalanceAndExistPosition(() => { checkExchangeInfo(() => {checkPercentMarket(() => { refreshTable()})}) })">Check
+            Balance</button><br /><br />
+        Atlas Oracle API Key : <input id="atlas_api_key" type="password" style="width: 40%;" value="" /><br /><br />
+        <button onclick="checkAtlasConsensus(() => { refreshTable() })">Check Consensus on Atlas</button>
+        <br /><br />
+
+        <div
+            style="width: 100%; max-width: 760px; box-sizing: border-box; display: grid; gap: 14px; padding: 16px; background: #14181d; color: #e8e4d9; border: 1px solid #272d35; border-radius: 8px; font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', 'Noto Sans Thai', sans-serif; color-scheme: dark;">
+
+            <div>
+                <h2 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #e3bd6a;">Trade Setting</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: center;">
+                    <label style="display: flex; align-items: center; gap: 6px;">
+                        <span style="color: #8d939c;">Default leverage</span>
+                        <input id="auto_leverage" type="number" min="1" value="50"
+                            style="width: 56px; padding: 6px 8px; background: #0d0f12; color: #e8e4d9; border: 1px solid #272d35; border-radius: 6px; font: inherit;" />
+                        <span style="color: #8d939c; font-size: 12px;">×</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 6px;">
+                        <span style="color: #8d939c;">Coin size</span>
+                        <input id="coin_size" type="number" min="0" value="10"
+                            style="width: 64px; padding: 6px 8px; background: #0d0f12; color: #e8e4d9; border: 1px solid #272d35; border-radius: 6px; font: inherit;" />
+                        <span style="color: #8d939c; font-size: 12px;">USDT</span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid #272d35; padding-top: 14px;">
+                <h2 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #e3bd6a;">Find Coins Setting</h2>
+
+                <label
+                    style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px; justify-content: center;">
+                    <span style="color: #8d939c;">Top / bottom interest rank</span>
+                    <input id="top_bottom_interest_count_rank" type="number" min="1" value="100"
+                        style="width: 64px; padding: 6px 8px; background: #0d0f12; color: #e8e4d9; border: 1px solid #272d35; border-radius: 6px; font: inherit;" />
+                    <input id="top_bottom_space_skip_analysis" type="number" style="width: 40px; display: none;"
+                        value="0" />
+                </label>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <label
+                        style="flex: 1 1 280px; min-width: 0; box-sizing: border-box; display: grid; gap: 6px; padding: 9px 12px; background: #0d0f12; border: 1px dashed #272d35; border-radius: 6px;">
+                        <span><b style="font-weight: 500;">Step 1 : Generate reports from Raw Data.</b> <span
+                                style="color: #8d939c;"></span>(.csv)</span>
+                        <input type="file" id="csvFile" accept=".csv" multiple
+                            style="max-width: 100%; font: inherit; font-size: 12px;" />
+                    </label>
+                    <label
+                        style="flex: 1 1 280px; min-width: 0; box-sizing: border-box; display: grid; gap: 6px; padding: 9px 12px; background: #0d0f12; border: 1px dashed #272d35; border-radius: 6px;">
+                        <span><b style="font-weight: 500;">Step 2 : Choose report files from Step 1.</b> <span
+                                style="color: #8d939c;"></span>(.csv)</span>
+                        <input type="file" id="csvMultipleFiles" accept=".csv" multiple
+                            style="max-width: 100%; font: inherit; font-size: 12px;" />
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        <table id="table_percent_change_1D" style="font-size: 14px; width: 90%;" class="table">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid wheat;"></th>
+                    <th style="width: 30px !important; border: 1px solid wheat;">Date</th>
+                    <th style="width: 30px !important; border: 1px solid wheat;">Max Lev (x)</th>
+                    <th style="width: 30px !important; border: 1px solid wheat;">Coin</th>
+                    <th style="width: 26px !important; border: 1px solid wheat;">1Day %</th>
+
+                    <th style="border: 1px solid wheat;">Action</th>
+                    <th style="border: 1px solid wheat;">Old Day</th>
+                    <th style="border: 1px solid wheat;">Change</th>
+                    <th style="border: 1px solid wheat;">Old Day %</th>
+                    <th style="border: 1px solid wheat; background-color: #8a3ffc;">Atlas Consensus Score</th>
+                    <th style="border: 1px solid wheat; background-color: #8a3ffc;">Atlas Consensus Status</th>
+
+                </tr>
+            </thead>
+            <tbody id="tbody_percent_change_24h">
+            </tbody>
+        </table>
+
+        <div class="header_text_area_dark">
+            <h1 style="color: green;">Gainer</h1>
+        </div>
+        <div class="header_text_area_dark">
+            <h1 style="color: red;">Loser</h1>
+        </div>
+        <textarea id="txt_area_log_gainer_1" rows="19" class="textarea_dark"></textarea>
+        <textarea id="txt_area_log_gainer_2" rows="19" class="textarea_dark"></textarea>
+        <br />
+        <h2>Find Coin Report</h2>
+        <div id="find_coin_reports" class="find-coin-report-history" aria-live="polite"></div>
+
+        <br /><br /><br /><br /><br />
+        <hr /><br /><br /><br /><br /><br />
+
+    </center>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <div id="modalContent" class="modal-content" onclick="closeModal()"></div>
+    </div>
+
+    <script id="util" type="text/javascript">
+
+        function openModal(txt = 'Loading...') {
+            $("#modalContent").html(`<h2>${txt}</h2>`)
+            $("#modal").show()
+        }
+
+        function closeModal() {
+            $("#modal").hide()
+        }
+
+        function formatUnixDate(ms) {
+            const date = new Date(ms);
+            const yyyy = date.getFullYear();
+            const MM = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const hh = String(date.getHours()).padStart(2, '0');
+            const mm = String(date.getMinutes()).padStart(2, '0');
+            return `${yyyy}-${MM}-${dd} ${hh}:${mm}`;
+        }
+
+        function formatLargeNumber(value, decimals = 0) {
+            const num = Number(value)
+
+            if (isNaN(num)) return value
+
+            const absNum = Math.abs(num)
+
+            const units = [
+                { value: 1e12, suffix: 'T' },
+                { value: 1e9, suffix: 'B' },
+                { value: 1e6, suffix: 'M' },
+                { value: 1e3, suffix: 'K' },
+            ]
+
+            for (const unit of units) {
+                if (absNum >= unit.value) {
+                    return (
+                        (num / unit.value)
+                            .toFixed(decimals)
+                            .replace(/\.0+$/, '')
+                    ) + unit.suffix
+                }
+            }
+
+            return num.toFixed(decimals).replace(/\.0+$/, '')
+        }
+
+        let counting_oldday_csv = 0
+        let current_oldday_filename_csv = ''
+
+    </script>
+
+    <script type="text/javascript">
+        const binance_api_url = "https://fapi.binance.com"
+        function binanceSignatureSign(qs) {
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (new URL(settings.url, window.location.href).origin === binance_api_url) {
+                        xhr.setRequestHeader("X-MBX-APIKEY", $('#binance_api_key').val())
+                    }
+                },
+                contentType: "application/json; charset=utf-8",
+            })
+
+            const signature = CryptoJS.HmacSHA256(qs, $('#binance_api_secret_key').val())
+
+            return signature
+        }
+
+        const arr_no_trade = [
+            "BTCDOMUSDT",
+            "BTCUSDT",
+            "ETHUSDT",
+        ]
+
+        let timePageFirstLoad = (new Date()).getTime()
+        let isAlreadyCheckedBalance = false
+        let isAlreadyCheckedMaxLeverage = false
+        let positionListSymbolKey = {}
+
+        let isAutoReportCSV7AM = false
+
+        let dataTable1 = $('#table_percent_change_1D').DataTable({ "pageLength": 15, order: [[1, 'desc']], })
+
+        let txt_area_log_gainer_1 = ''
+        let txt_area_log_gainer_2 = ''
+
+        let isAlreadyScrapGainer = false
+
+        let atlasCoinIDObj = {}
+        let atlasCoinIdLookupPending = new Set()
+
+        function reInitailDataTable(col_sort = 1) {
+
+            const currentMonth = (new Date().getMonth() + 1) < 10 ? `0${(new Date().getMonth() + 1)}` : `${(new Date().getMonth() + 1)}`
+            const currentDate = (new Date().getDate()) < 10 ? `0${(new Date().getDate())}` : `${(new Date().getDate())}`
+
+            let counting_oldday_csv_str = counting_oldday_csv < 10 ? `0${counting_oldday_csv}` : `${counting_oldday_csv}`
+
+            dataTable1 = $('#table_percent_change_1D').DataTable({
+                "pageLength": 15,
+                order: [[col_sort, 'desc']],
+            })
+
+            dataTable1.on('order.dt search.dt', function () {
+
+                let currentOrder = dataTable1.order();
+
+                if (currentOrder[0]) {
+                    let sortedColumnIndex = currentOrder[0][0]
+
+                    if (sortedColumnIndex !== 4) {
+                        return
+                    }
+                }
+
+                let i = 1;
+
+                dataTable1
+                    .cells(null, 0, { search: 'applied', order: 'applied' })
+
+                    .every(function () {
+                        this.data(i)
+                        i += 1;
+                    });
+
+                let j = 1;
+
+                dataTable1
+                    .rows()
+                    .every(function () {
+                        let rowData = this.data();
+                        rowData[2] = +(`${rowData[2]}`)
+
+                        rowData[4] = +(`${rowData[4]}`.replace(' %', ''))
+                        rowData[6] = +rowData[6]
+                        rowData[7] = rowData[6] === 0 ? 0 : rowData[6] - j
+                        this.data(rowData);
+                        j += 1
+                    });
+
+            }).draw();
+
+            if (!isAlreadyScrapGainer && isAlreadyCheckedMaxLeverage) {
+                txt_area_log_gainer_1 = ''
+                txt_area_log_gainer_2 = ''
+
+                let arr_tb_sort = dataTable1.rows().data().toArray()
+                let last_index_tb = arr_tb_sort.length - 1
+
+                for (let i = 0; i < 15; i++) {
+                    let coin_usdt = arr_tb_sort[i][3]
+                    let coin_usdt_percent = arr_tb_sort[i][4]
+                    let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
+                    let volume = formatLargeNumber(positionListSymbolKey[coin_usdt].volume || 0)
+
+                    txt_area_log_gainer_1 += `${i + 1}. ${coin_usdt.replace('USDT', '')} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} | Volume - ${volume} \n`
+
+                }
+
+                for (let j = last_index_tb; j > last_index_tb - 15; j--) {
+                    let coin_usdt = arr_tb_sort[j][3]
+                    let coin_usdt_percent = arr_tb_sort[j][4]
+                    let coin_usdt_max_leverage = positionListSymbolKey[coin_usdt].maxLeverage || 0
+                    let volume = formatLargeNumber(positionListSymbolKey[coin_usdt].volume || 0)
+
+                    txt_area_log_gainer_2 += `${last_index_tb - j + 1}. ${coin_usdt.replace('USDT', '')} | ${coin_usdt_percent} Lev ${coin_usdt_max_leverage} | Volume - ${volume} \n`
+                }
+
+                isAlreadyScrapGainer = true
+                $('#txt_area_log_gainer_1').val("GAINERS\n\n" + txt_area_log_gainer_1)
+                $('#txt_area_log_gainer_2').val("LOSER\n\n" + txt_area_log_gainer_2)
+            }
+        }
+
+        function checkExchangeInfo(cb = () => { }) {
+            openModal('Get Exchange Info')
+
+            $.ajax({
+                type: 'GET',
+                url: `${binance_api_url}/fapi/v1/exchangeInfo`,
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    const { symbols = [] } = result
+
+                    symbols.forEach(({ symbol, quantityPrecision = 0, status = "SETTLING", filters, onboardDate }) => {
+                        if (status === "TRADING") {
+                            if (!(symbol in positionListSymbolKey)) {
+                                positionListSymbolKey[symbol] = {
+                                    existLong: false,
+                                    existShort: false,
+                                    onboardDate,
+                                    csv_oldday_order: 0,
+                                    csv_oldday_percent: 0,
+                                    maxLeverage: 0,
+
+                                    atlasCoinID: undefined,
+                                    atlasConsensusScore: undefined,
+                                    atlasConsensusStatus: undefined,
+                                }
+                            }
+
+                            let { tickSize = undefined } = filters[0]
+
+                            if (!tickSize) {
+                                alert("Cannot find tickSize of " + sym)
+                                return;
+                            }
+
+                            pricePrecision = 1
+
+                            if (tickSize === "1" || !tickSize.includes('.')) {
+                                pricePrecision = 0
+                            } else {
+                                const strAfterPoint = tickSize.split('.')[1]
+
+                                for (let i = 0; i < strAfterPoint.length; i++) {
+                                    if (strAfterPoint[i] !== '0') {
+                                        break
+                                    }
+                                    pricePrecision += 1
+                                }
+                            }
+
+                            positionListSymbolKey[symbol] = {
+                                ...positionListSymbolKey[symbol],
+                                quantityPrecision,
+                                tickSize,
+
+                                pricePrecision,
+
+                            }
+                        }
+                    })
+
+                    closeModal()
+                    cb()
+                },
+                error: function (err) {
+                    alert("error - cannot connect binance api - exchangeInfo")
+                    console.log("error - cannot connect binance api - exchangeInfo")
+                    console.log(err)
+                    closeModal()
+                }
+            });
+        }
+
+        function checkAtlasConsensus(cb = () => { }) {
+            const atlasApiKey = $('#atlas_api_key').val().trim()
+            if (!atlasApiKey) {
+                alert("Enter Atlas Oracle API Key to look up Consensus")
+                return
+            }
+
+            const storedAtlasCoinIDs = localStorage.getItem('atlasCoinIDObj')
+            const hasStoredAtlasCoinIDs = storedAtlasCoinIDs !== null && storedAtlasCoinIDs !== ''
+            atlasCoinIDObj = hasStoredAtlasCoinIDs ? JSON.parse(storedAtlasCoinIDs) : {}
+
+            const symbols = Object.keys(positionListSymbolKey)
+            if (symbols.length === 0) {
+                alert("Exchange info is not loaded yet")
+                return
+            }
+
+            openModal('Checking Atlas Consensus...')
+
+            const arr_atlasId = []
+            const atlasRequests = []
+
+            symbols.forEach((symbol) => {
+                const symbolPrefix = symbol.replace('USDT', '').toUpperCase()
+                let cachedAtlasId = atlasCoinIDObj[symbolPrefix]
+
+                if (cachedAtlasId) {
+                    if (cachedAtlasId == 852) {
+                        cachedAtlasId = 632
+                    }
+
+                    positionListSymbolKey[symbol].atlasCoinID = cachedAtlasId
+                    arr_atlasId.push(`${cachedAtlasId}`)
+                    return
+                }
+
+                if (hasStoredAtlasCoinIDs || atlasCoinIdLookupPending.has(symbolPrefix)) {
+                    return
+                }
+
+                atlasCoinIdLookupPending.add(symbolPrefix)
+                atlasRequests.push($.ajax({
+                    url: "https://atlas-oracle-proxy.tron-natthakorn.workers.dev/api/search",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        type: 1,
+                        keyword: symbolPrefix,
+                        modeType: 0,
+                        page: 1,
+                        size: 100
+                    }),
+                    dataType: "json",
+                    success: function (res) {
+                        const coinData = res && res.data && Array.isArray(res.data.list)
+                            ? res.data.list.find(({ symbol: atlasSymbol }) => atlasSymbol === symbolPrefix)
+                            : undefined
+
+                        if (coinData) {
+                            positionListSymbolKey[symbol].atlasCoinID = coinData.id
+                            positionListSymbolKey[symbol].atlasConsensusScore = coinData.consensusScore
+                            positionListSymbolKey[symbol].atlasConsensusStatus = coinData.consensusStatus
+                            atlasCoinIDObj[symbolPrefix] = coinData.id
+                            localStorage.setItem('atlasCoinIDObj', JSON.stringify(atlasCoinIDObj))
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Atlas ID search failed:", status, error, xhr.responseText)
+                    },
+                    complete: function () {
+                        atlasCoinIdLookupPending.delete(symbolPrefix)
+                    }
+                }))
+            })
+
+            if (arr_atlasId.length > 0) {
+                for (let i = 0; i < arr_atlasId.length; i += 10) {
+                    const feedIds = arr_atlasId.slice(i, i + 10)
+                    atlasRequests.push($.ajax({
+                        url: `https://atlas-oracle-proxy.tron-natthakorn.workers.dev/api/price/latest`,
+                        type: "POST",
+                        headers: { "X-API-KEY": atlasApiKey },
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            feedIds,
+                            sign: true,
+                        }),
+                        dataType: "json",
+                        success: function (res) {
+                            if (res && res.data && Array.isArray(res.data.consensusScores)) {
+                                res.data.consensusScores.forEach(({ feedId, consensusScore, consensusStatus }) => {
+                                    for (const symbol in positionListSymbolKey) {
+                                        if (positionListSymbolKey[symbol].atlasCoinID == feedId) {
+                                            positionListSymbolKey[symbol].atlasConsensusScore = consensusScore
+                                            positionListSymbolKey[symbol].atlasConsensusStatus = consensusStatus
+                                            atlasCoinIDObj[symbol.replace('USDT', '').toUpperCase()] = feedId
+                                        }
+                                    }
+                                })
+                            }
+
+                            localStorage.setItem('atlasCoinIDObj', JSON.stringify(atlasCoinIDObj))
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Atlas consensus request failed:", status, error, xhr.responseText)
+                        }
+                    }))
+                }
+            }
+
+            if (atlasRequests.length > 0) {
+                $.when.apply($, atlasRequests).always(() => {
+
+                    closeModal()
+                    cb()
+                })
+            } else {
+                closeModal()
+                cb()
+            }
+        }
+
+        function checkPercentMarket(cb = () => { }) {
+            openModal('Loading Percent Change')
+
+            $.ajax({
+                type: 'GET',
+                url: `${binance_api_url}/fapi/v1/ticker/24hr`,
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+
+                    if (Array.isArray(result)) {
+                        result.forEach(({ symbol, priceChangePercent, lastPrice, volume }) => {
+                            if (symbol in positionListSymbolKey) {
+                                positionListSymbolKey[symbol] = {
+                                    ...positionListSymbolKey[symbol],
+                                    lastPrice,
+                                    priceChangePercent,
+                                    volume,
+                                }
+                            }
+                        })
+                        closeModal()
+                        cb()
+                    }
+                },
+                error: function (err) {
+                    alert("error - cannot connect binance api - ticker 24hr")
+                    console.log("error - cannot connect binance api - ticker 24hr")
+                    console.log(err)
+                }
+            })
+        }
+
+        function checkAvailableBalanceAndExistPosition(cb = () => { }) {
+            const endPoint = `/fapi/v2/account?`
+            const ts = Date.now()
+            const qs = `recvWindow=10000&timestamp=${ts}`
+
+            openModal('Checking Balance...')
+            $.ajax({
+                type: 'GET',
+                url: `${binance_api_url}${endPoint}${qs}&signature=${binanceSignatureSign(qs)}`,
+                success: function (result) {
+                    const { availableBalance = undefined, positions = [], } = result
+
+                    if (availableBalance === undefined) {
+                        alert("Fail to get Available Balance")
+                        $('#available_balance').html('-')
+                        return;
+                    }
+
+                    $('#available_balance').html(`<span style="color:${availableBalance > 0 ? 'lime' : 'red'};">${+availableBalance}</span>`)
+                    isAlreadyCheckedBalance = true
+
+                    for (let i = 0; i < positions.length; i++) {
+                        const {
+                            symbol = "USDT", positionSide = "LONG",
+                            isolated = false, leverage = "20",
+                            entryPrice = "0.0", positionAmt = "0.0", unrealizedProfit = "0.00000000",
+                        } = positions[i]
+
+                        if (!(symbol in positionListSymbolKey)) {
+                            continue
+                        }
+
+                        positionListSymbolKey[symbol] = {
+                            ...positionListSymbolKey[symbol],
+                            marginType: isolated ? 'ISOLATED' : 'CROSS',
+                            leverage
+                        }
+
+                        if (positionSide === "LONG" && entryPrice != 0) {
+                            positionListSymbolKey[symbol].existLong = true
+                            positionListSymbolKey[symbol].positionAmtLong = positionAmt
+                            positionListSymbolKey[symbol].unrealizedProfitLong = unrealizedProfit
+                        }
+
+                        if (positionSide === "SHORT" && entryPrice != 0) {
+                            positionListSymbolKey[symbol].existShort = true
+                            positionListSymbolKey[symbol].positionAmtShort = positionAmt
+                            positionListSymbolKey[symbol].unrealizedProfitShort = unrealizedProfit
+                        }
+                    }
+
+                    const endPointCheckMaxLeverage = `/fapi/v1/leverageBracket?`
+                    const ts2 = Date.now()
+                    const qs2 = `recvWindow=10000&timestamp=${ts2}`
+
+                    openModal('Checking Max Leverage...')
+                    $.ajax({
+                        type: 'GET',
+                        url: `${binance_api_url}${endPointCheckMaxLeverage}${qs2}&signature=${binanceSignatureSign(qs2)}`,
+                        success: function (result) {
+
+                            for (let i = 0; i < result.length; i++) {
+                                if (result[i].symbol in positionListSymbolKey) {
+                                    positionListSymbolKey[result[i].symbol].maxLeverage = result[i].brackets[0].initialLeverage
+
+                                }
+                            }
+
+                            isAlreadyCheckedMaxLeverage = true
+
+                            closeModal()
+                        },
+                        error: function (err) {
+                            console.log("Error get Max Leverage (Leverage Bracket)")
+                            console.log(err)
+
+                            if ('msg' in err.responseJSON) {
+                                alert(err.responseJSON.msg)
+                            } else {
+                                alert("Error get Max Leverage (Leverage Bracket)")
+                            }
+
+                            openModal('Error get Max Leverage (Leverage Bracket)')
+                        }
+                    });
+
+                    cb()
+                },
+                error: function (err) {
+                    console.log("Error get Available Balance")
+                    console.log(err)
+
+                    if ('msg' in err.responseJSON) {
+                        alert(err.responseJSON.msg)
+                    } else {
+                        alert("Error get Available Balance")
+                    }
+
+                    closeModal()
+                }
+            });
+        }
+
+        function closeOrderAndPosition(symbol, cb = () => { }) {
+            openModal(symbol + ": Closing Order")
+
+            const endpoint = "/fapi/v1/allOpenOrders?"
+            const ts = Date.now()
+            const qs = `symbol=${encodeURIComponent(symbol)}&recvWindow=10000&timestamp=${ts}`
+
+            $.ajax({
+                type: 'DELETE',
+                url: `${binance_api_url}${endpoint}${qs}&signature=${binanceSignatureSign(qs)}`,
+                success: function () {
+
+                    const endpointAlgo = "/fapi/v1/algoOpenOrders?"
+                    const qs2 = `symbol=${encodeURIComponent(symbol)}&timestamp=${ts}`
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: `${binance_api_url}${endpointAlgo}${qs2}&signature=${binanceSignatureSign(qs2)}`,
+                        success: function () {
+                            openModal(symbol + ": Closed All Order Success")
+
+                            const { positionAmtLong, positionAmtShort } = positionListSymbolKey[symbol]
+
+                            const batchClosePosition = [
+                                {
+                                    "symbol": symbol,
+                                    "side": "SELL",
+                                    "positionSide": "LONG",
+                                    "type": "MARKET",
+                                    "quantity": `${positionAmtLong}`.replaceAll('-', ''),
+                                },
+                                {
+                                    "symbol": symbol,
+                                    "side": "BUY",
+                                    "positionSide": "SHORT",
+                                    "type": "MARKET",
+                                    "quantity": `${positionAmtShort}`.replaceAll('-', ''),
+                                }
+                            ]
+
+                            const encodeClosePosition = encodeURIComponent(JSON.stringify(batchClosePosition))
+
+                            const endpoint2 = "/fapi/v1/batchOrders?"
+                            const ts6 = Date.now()
+                            const qs6 = `batchOrders=${encodeClosePosition}&recvWindow=10000&timestamp=${ts6}`
+
+                            openModal(symbol + ": Closing Position")
+                            $.ajax({
+                                type: 'POST',
+                                url: `${binance_api_url}${endpoint2}${qs6}&signature=${binanceSignatureSign(qs6)}`,
+                                success: function () {
+                                    openModal(symbol + ": Closed Position Success")
+
+                                    positionListSymbolKey[symbol].existLong = false
+                                    positionListSymbolKey[symbol].existShort = false
+                                    positionListSymbolKey[symbol].positionAmtLong = "0.0"
+                                    positionListSymbolKey[symbol].positionAmtShort = "0.0"
+
+                                    $(`#close_order_${symbol}`).css('display', 'none')
+
+                                    closeModal()
+                                    cb()
+                                },
+                                error: function (err) {
+                                    console.log(err)
+
+                                    if ('msg' in err.responseJSON) {
+                                        alert(symbol + ": " + err.responseJSON.msg)
+                                    } else {
+                                        alert("Error Close Position " + symbol)
+                                    }
+                                }
+                            });
+
+                        },
+                        error: function (err) {
+                            if ('msg' in err.responseJSON) {
+                                alert(symbol + ": " + err.responseJSON.msg)
+                            } else {
+                                alert("Error Close All Algo Order " + symbol)
+                            }
+                        }
+                    })
+                },
+                error: function (err) {
+                    console.log(err)
+
+                    if ('msg' in err.responseJSON) {
+                        alert(symbol + ": " + err.responseJSON.msg)
+                    } else {
+                        alert("Error Close All Basic Order " + symbol)
+                    }
+                }
+            });
+        }
+
+        function setMarginType(symbol, marginType = 'ISOLATED', cb = () => { }) {
+            openModal(symbol + ": " + 'Changing Margin Type to ' + marginType)
+
+            const endPoint1 = '/fapi/v1/marginType?'
+            const ts1 = Date.now()
+            const qs1 = `symbol=${encodeURIComponent(symbol)}&marginType=${marginType}&timestamp=${ts1}`
+
+            $.ajax({
+                type: 'POST',
+                url: `${binance_api_url}${endPoint1}${qs1}&signature=${binanceSignatureSign(qs1)}`,
+                success: function () {
+                    positionListSymbolKey[symbol].marginType = marginType
+                    closeModal()
+                    cb()
+                },
+                error: function (err) {
+
+                    if ('msg' in err.responseJSON) {
+                        openModal(symbol + ": " + err.responseJSON.msg)
+                        positionListSymbolKey[symbol].marginType = marginType
+                        closeModal()
+                        cb()
+                    } else {
+                        console.log("Error Changing Margin Type for " + symbol)
+                        console.log(err)
+                        alert("Error Changing Margin Type for " + symbol)
+                    }
+                }
+            })
+        }
+
+        function setLeverage(symbol, leverage = '50', cb = () => { }) {
+
+            if (+leverage <= 0) {
+                alert("Leverage <= 0: " + leverage)
+                return
+            }
+
+            openModal(symbol + ": " + 'Adjust Leverage ... ' + leverage + 'x')
+
+            const endPoint2 = '/fapi/v1/leverage?'
+            const ts2 = Date.now()
+            const qs2 = `symbol=${encodeURIComponent(symbol)}&leverage=${leverage}&timestamp=${ts2}`
+
+            $.ajax({
+                type: 'POST',
+                url: `${binance_api_url}${endPoint2}${qs2}&signature=${binanceSignatureSign(qs2)}`,
+                success: function () {
+                    positionListSymbolKey[symbol].leverage = leverage
+                    closeModal()
+                    cb()
+                },
+                error: function (err) {
+
+                    if ('msg' in err.responseJSON) {
+
+                        if (`${err.responseJSON.msg}`.includes('is not valid')) {
+
+                            setLeverage(symbol, `${positionListSymbolKey[symbol].maxLeverage || `${(+leverage - 10)}`}`, cb)
+                            return
+                        }
+
+                        openModal(symbol + ": " + err.responseJSON.msg)
+                    } else {
+                        console.log("Error Adjust Leverage for " + symbol)
+                        console.log(err)
+                        alert("Error Adjust Leverage for " + symbol)
+                    }
+                }
+            });
+
+        }
+
+        function trade(symbol) {
+            closeOrderAndPosition(symbol, () => {
+                setMarginType(symbol, 'CROSSED', () => {
+                    setLeverage(symbol, $('#auto_leverage').val(), () => {
+                        checkPercentMarket(() => {
+
+                            openModal(symbol + ": Trading Start")
+
+                            const sizeUsdt = +($(`#coin_size`).val())
+                            const { quantityPrecision, lastPrice } = positionListSymbolKey[symbol]
+
+                            let quantity = sizeUsdt / lastPrice
+
+                            if (quantityPrecision > 0) {
+                                quantity = parseFloat(quantity).toFixed(quantityPrecision)
+                            } else if (quantityPrecision == 0) {
+                                quantity = parseInt(quantity)
+                            }
+
+                            positionListSymbolKey[symbol].positionAmtLong = quantity
+                            positionListSymbolKey[symbol].positionAmtShort = quantity
+
+                            const batchOpenPosition = [
+                                {
+                                    "symbol": symbol,
+                                    "side": "BUY",
+                                    "positionSide": "LONG",
+                                    "type": "MARKET",
+                                    "quantity": `${quantity}`
+                                },
+
+                            ]
+
+                            const encodeOpenPosition = encodeURIComponent(JSON.stringify(batchOpenPosition))
+                            const endpoint3 = "/fapi/v1/batchOrders?"
+                            const ts3 = Date.now()
+                            const qs3 = `batchOrders=${encodeOpenPosition}&recvWindow=10000&timestamp=${ts3}`
+
+                            $.ajax({
+                                type: 'POST',
+                                url: `${binance_api_url}${endpoint3}${qs3}&signature=${binanceSignatureSign(qs3)}`,
+                                success: function (result) {
+
+                                    let isRealSuccessOpenPosition = true
+
+                                    if (Array.isArray(result)) {
+                                        for (let i = 0; i < result.length; i++) {
+                                            const { msg = undefined, code = undefined, updateTime = undefined } = result[i]
+
+                                            if (msg) {
+                                                closeOrderAndPosition(symbol, () => { openModal(symbol + " fail open position: " + msg) })
+                                                isRealSuccessOpenPosition = false
+                                                break
+                                            }
+
+                                            if (code && isRealSuccessOpenPosition) {
+                                                closeOrderAndPosition(symbol, () => { openModal(symbol + " fail open position with code: " + code) })
+                                                isRealSuccessOpenPosition = false
+                                                break
+                                            }
+
+                                            if (!updateTime) {
+                                                closeOrderAndPosition(symbol, () => { openModal(symbol + " fail open position no updateTime Response") })
+                                                isRealSuccessOpenPosition = false
+                                                break
+                                            }
+                                        }
+
+                                        if (isRealSuccessOpenPosition) {
+                                            closeModal()
+                                        }
+                                    }
+                                },
+                                error: function (err) {
+                                    closeOrderAndPosition(symbol, () => {
+                                        if ('msg' in err.responseJSON) {
+                                            alert(symbol + ": " + err.responseJSON.msg)
+                                        } else {
+                                            alert("Error Trading Open Order " + symbol)
+                                        }
+                                    })
+                                }
+                            })
+
+                        })
+                    })
+                })
+            })
+        }
+
+        function refreshTable() {
+
+            dataTable1.destroy()
+            $('#tbody_percent_change_24h').html('')
+
+            for (const symbol in positionListSymbolKey) {
+                const { priceChangePercent, onboardDate, pricePrecision,
+                    existLong, existShort,
+                    csv_oldday_order, csv_oldday_percent, maxLeverage, atlasConsensusScore, atlasConsensusStatus
+                } = positionListSymbolKey[symbol]
+
+                const dateTime = formatUnixDate(onboardDate)
+                const isNewCoin = onboardDate > timePageFirstLoad
+
+                if (pricePrecision === undefined || !symbol.endsWith('USDT') || arr_no_trade.indexOf(symbol) !== -1) {
+                    continue
+                }
+
+                const isExistPosition = (existLong || existShort) && isAlreadyCheckedBalance
+
+                let fixAtlasScore = atlasConsensusScore ? parseFloat(atlasConsensusScore).toFixed(2) : '-'
+
+                $('#tbody_percent_change_24h').append(`
+                    <tr ${isNewCoin ? 'style="background-color: purple;"' : ''}>
+                        <td></td>
+                        <td style="width: 30px !important;" class="dt-type-date">${dateTime}</td>
+
+                        <td class="dt-type-numeric" style="width: 30px !important; background-color: ${maxLeverage >= 75 ? '#4caf50 !important; color: black;' : maxLeverage >= 50 ? '#ffeb3b !important; color: black;' : maxLeverage > 0 ? '#f44336 !important; color: black;' : 'transparent'}">${maxLeverage || '0'}</td>
+                        <td style="width: 30px !important;">${symbol}</td>
+                        <td style="width: 28px !important;" class="dt-type-numeric">${parseFloat(priceChangePercent).toFixed(1)} %</td>
+                        <td>
+                            ${isExistPosition ? '.' : ''}
+                            <button style="display: ${isExistPosition ? 'block' : 'none'};" id="close_order_${symbol}" onclick="closeOrderAndPosition('${symbol}')">Close</button>
+                            ${isExistPosition ? '&nbsp;' : ''}
+                            <button style="display: ${isAlreadyCheckedBalance ? 'block' : 'none'};" id="btn_trade_${symbol}" onclick="trade('${symbol}')">Trade</button>
+                        </td>
+                        <td class="dt-type-numeric">${csv_oldday_order}</td>
+                        <td class="dt-type-numeric"></td>
+                        <td class="dt-type-numeric">${csv_oldday_percent}</td>
+                        <td class="dt-type-numeric">${fixAtlasScore}</td>
+                        <td style="background-color: ${atlasConsensusStatus === 'HEALTHY' ? '#4caf50 !important; color: black;' : atlasConsensusStatus === 'DEGRADED' ? '#f44336  !important; color: black;' : 'transparent'} !important;" class="dt-type-numeric"><b>${atlasConsensusStatus || '-'}</td>
+                    </tr>
+                `)
+            }
+
+            reInitailDataTable(4)
+        }
+
+        checkExchangeInfo(() => {
+            checkPercentMarket(() => {
+                refreshTable()
+            })
+        })
+
+        setInterval(() => {
+            const now = new Date()
+            const currentHour = now.getHours()
+            const currentMinute = now.getMinutes()
+            const currentSecond = now.getSeconds()
+
+            if ((currentHour == 6) && currentMinute == 51 && currentSecond <= 3) {
+                isAutoReportCSV7AM = false
+                window.location.reload()
+            }
+
+            if (isAutoReportCSV7AM === false && (currentHour == 6) && currentMinute == 52 && currentSecond <= 3) {
+                isAutoReportCSV7AM = true
+                $('.buttons-csv').click()
+                $('.buttons-pdf').click()
+            }
+
+        }, 400)
+
+    </script>
+
+    <script id="csv" type="text/javascript">
+        const message = "I remove this Task after BNB Hackathon 2026. Because this is lead to my Secret Algorithm of my project. (It have values use for generate Compare Report) If you want to invest or buy full code please contact me at my email: tor.onlyalone@gmail.com. (If I get good reward of BNB Hackathon, i will back to open this feature, too.)";
+        ['csvFile', 'csvMultipleFiles'].forEach(id =>
+            document.getElementById(id).addEventListener('change', () => alert(message))
+        );
+    </script>
+</body>
+
+</html>
